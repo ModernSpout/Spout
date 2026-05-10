@@ -146,7 +146,7 @@
  fill {
      project("paper")
      versionFamily(paperweight.minecraftVersion.map { it.split(".", "-").takeWhile { part -> part.toIntOrNull() != null }.take(2).joinToString(".") })
-@@ -331,3 +_,55 @@
+@@ -331,3 +_,44 @@
          }
      }
  }
@@ -160,43 +160,32 @@
 +).map { "${it.first}: ${it.second}" }
 +
 +if (extendedManifestLines.isNotEmpty()) {
-+    val taskName = "createBundlerJar"
-+    tasks.named(taskName) {
++    tasks.named<io.papermc.paperweight.tasks.CreateBundlerJar>("createBundlerJar") {
++        var resultPath = outputZip.get().asFile.toPath()
 +        doLast {
 +
-+            project.logger.lifecycle("Adding extended manifest elements to result of taskName...")
++            val tempUnpackDir = findOutputDir(resultPath)
 +
-+            // val jarName = listOfNotNull(
-+            //     "spout",
-+            //     jar.first,
-+            //     project.version,
-+            //     jar.second,
-+            // ).joinToString("-") + ".jar"
++            try {
++                unzip(resultPath, tempUnpackDir)
 +
-+            // val jarFile = layout.buildDirectory.file("libs/$jarName").get().asFile.toPath()
-+            //
-+            // val tempUnpackDir = findOutputDir(jarFile)
-+            //
-+            // try {
-+            //     unzip(jarFile, tempUnpackDir)
-+            //
-+            //     val manifestFile = tempUnpackDir.resolve("META-INF/MANIFEST.MF")
-+            //     val lines = ArrayList(manifestFile.readLines())
-+            //     val extendedManifestLinesToAdd = extendedManifestLines.filter { it -> it !in lines }
-+            //     if (extendedManifestLinesToAdd.isNotEmpty()) {
-+            //         val mainClassLineIndex = lines.indexOfFirst { line -> line.startsWith("Main-Class:") }
-+            //         if (mainClassLineIndex != -1) {
-+            //             lines.addAll(mainClassLineIndex + 1, extendedManifestLinesToAdd)
-+            //             manifestFile.writeLines(lines)
-+            //
-+            //             ensureDeleted(jarFile)
-+            //             zip(tempUnpackDir, jarFile)
-+            //         }
-+            //     }
-+            // } finally {
-+            //     @OptIn(kotlin.io.path.ExperimentalPathApi::class)
-+            //     tempUnpackDir.deleteRecursively()
-+            // }
++                val manifestFile = tempUnpackDir.resolve("META-INF/MANIFEST.MF")
++                val lines = ArrayList(manifestFile.readLines())
++                val extendedManifestLinesToAdd = extendedManifestLines.filter { it !in lines }
++                if (extendedManifestLinesToAdd.isNotEmpty()) {
++                    val mainClassLineIndex = lines.indexOfFirst { line -> line.startsWith("Main-Class:") }
++                    if (mainClassLineIndex != -1) {
++                        lines.addAll(mainClassLineIndex + 1, extendedManifestLinesToAdd)
++                        manifestFile.writeLines(lines)
++
++                        ensureDeleted(resultPath)
++                        zip(tempUnpackDir, resultPath)
++                    }
++                }
++            } finally {
++                @OptIn(kotlin.io.path.ExperimentalPathApi::class)
++                tempUnpackDir.deleteRecursively()
++            }
 +
 +        }
 +    }
