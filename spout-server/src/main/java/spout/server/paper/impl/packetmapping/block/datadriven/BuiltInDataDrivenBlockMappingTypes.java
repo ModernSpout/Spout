@@ -289,6 +289,8 @@ public final class BuiltInDataDrivenBlockMappingTypes {
 
     public static final DataDrivenBlockMappingType ROTATED_PILLAR = new MultiStateBuiltInDataDrivenBlockMappingType<FromToBlockTypeRequestBuilderImpl>("rotated_pillar", AutomaticBlockMappingsImpl::rotatedPillar);
 
+    public static final DataDrivenBlockMappingType SAPLING = new MultiStateBuiltInDataDrivenBlockMappingType<FromToBlockTypeRequestBuilderImpl>("sapling", AutomaticBlockMappingsImpl::sapling);
+
     public static final DataDrivenBlockMappingType SLAB = new BuiltInDataDrivenBlockMappingType("slab") {
 
         @Override

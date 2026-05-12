@@ -270,6 +270,17 @@ public interface AutomaticBlockMappings {
     <B extends FromBlockTypeRequestBuilder & ToBlockTypeRequestBuilder> void rotatedPillar(Consumer<? extends B> builderConsumer);
 
     /**
+     * Attempts to find a proxy state for every possible state of a sapling.
+     *
+     * <p>
+     * By default:
+     * <ul>
+     *     <li>{@link ToBlockTypeRequestBuilder#fallback()} is {@link BlockType#OAK_SAPLING}.</li>
+     * </ul>
+     */
+    <B extends FromBlockTypeRequestBuilder & ToBlockTypeRequestBuilder> void sapling(Consumer<? extends B> builderConsumer);
+
+    /**
      * Attempts to find a proxy state for every possible state of a slab.
      *
      * <p>

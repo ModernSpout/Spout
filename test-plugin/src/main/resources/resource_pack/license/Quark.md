@@ -1,4 +1,5 @@
 The following files (referenced relative to the parent folder of the folder this file is in) are/were part of [Quark](https://quarkmod.net/), which is/was maintained by [Violet Moon](https://violetmoon.org/):
+* `assets/quark/textures/block/ancient_sapling.png`
 * `assets/quark/textures/block/azalea_door_bottom.png`
 * `assets/quark/textures/block/azalea_door_top.png`
 * `assets/quark/textures/block/azalea_ladder.png`

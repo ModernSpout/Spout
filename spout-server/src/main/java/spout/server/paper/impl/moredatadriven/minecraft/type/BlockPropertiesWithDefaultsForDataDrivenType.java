@@ -66,12 +66,46 @@ public final class BlockPropertiesWithDefaultsForDataDrivenType {
                 properties.noOcclusion();
                 properties.forceSolidOff();
             });
+            addInitializer("leaves", properties -> {
+                properties.mapColor(MapColor.PLANT);
+                properties.sound(SoundType.GRASS);
+                properties.strength(0.2f);
+                properties.randomTicks();
+                properties.noOcclusion();
+                properties.ignitedByLava();
+                properties.pushReaction(PushReaction.DESTROY);
+                properties.isValidSpawn(Blocks::ocelotOrParrot); // TODO document on wiki (currently not possible to define in data-driven JSON)
+                properties.isRedstoneConductor(Blocks::never);
+                properties.isSuffocating(Blocks::never);
+                properties.isViewBlocking(Blocks::never);
+            });
+            addInitializer("mangrove_leaves", properties -> {
+                getInitializer("leaves").accept(properties);
+            });
+            addInitializer("mangrove_propagule", properties -> {
+                getInitializer("leaves").accept(properties);
+                properties.offsetType(BlockBehaviour.OffsetType.XZ);
+            });
             addInitializer("pressure_plate", properties -> {
                 getInitializer("base_pressure_plate").accept(properties);
+            });
+            addInitializer("sapling", properties -> {
+                properties.mapColor(MapColor.PLANT);
+                properties.noCollision();
+                properties.sound(SoundType.GRASS);
+                properties.instabreak();
+                properties.randomTicks();
+                properties.pushReaction(PushReaction.DESTROY);
+            });
+            addInitializer("tinted_particle_leaves", properties -> {
+                getInitializer("leaves").accept(properties);
             });
             addInitializer("trapdoor", properties -> {
                 properties.noOcclusion();
                 properties.isValidSpawn(Blocks::never);
+            });
+            addInitializer("untinted_particle_leaves", properties -> {
+                getInitializer("leaves").accept(properties);
             });
             addInitializer("weathering_copper_door", properties -> {
                 getInitializer("door").accept(properties);
@@ -116,9 +150,8 @@ public final class BlockPropertiesWithDefaultsForDataDrivenType {
      * @return A new {@link BlockBehaviour.Properties} instance,
      * potentially with data-driven block type defaults applied.
      */
-    public static BlockBehaviour.Properties create() {
+    public static BlockBehaviour.Properties create(@Nullable Identifier type) {
         BlockBehaviour.Properties properties = BlockBehaviour.Properties.of();
-        @Nullable Identifier type = decodingForType.get();
         if (type != null) {
             @Nullable Consumer<BlockBehaviour.Properties> initializer = getInitializer(type);
             if (initializer != null) {
@@ -126,6 +159,14 @@ public final class BlockPropertiesWithDefaultsForDataDrivenType {
             }
         }
         return properties;
+    }
+
+    /**
+     * @return A new {@link BlockBehaviour.Properties} instance,
+     * potentially with data-driven block type defaults applied.
+     */
+    public static BlockBehaviour.Properties create() {
+        return create(decodingForType.get());
     }
 
 }

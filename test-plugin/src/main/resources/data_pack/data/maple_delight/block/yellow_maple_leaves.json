@@ -5,19 +5,6 @@
     "type": "minecraft:tinted_leaves",
     "color": 4294492531
   },
-  "properties": {
-    "map_color": "minecraft:plant",
-    "sound_type": "minecraft:grass",
-    "explosion_resistance": 0.2,
-    "destroy_time": 0.2,
-    "is_randomly_ticking": true,
-    "can_occlude": false,
-    "ignited_by_lava": true,
-    "push_reaction": "minecraft:destroy",
-    "is_redstone_conductor": "minecraft:never",
-    "is_suffocating": "minecraft:never",
-    "is_view_blocking": "minecraft:never"
-  },
   "mappings": [
     {
       "type": "leaves",

@@ -106,6 +106,15 @@
          return false;
      }
  
+@@ -7061,7 +_,7 @@
+         return true;
+     }
+ 
+-    private static Boolean ocelotOrParrot(final BlockState state, final BlockGetter blockGetter, final BlockPos blockPos, final EntityType<?> entityType) {
++    public static Boolean ocelotOrParrot(final BlockState state, final BlockGetter blockGetter, final BlockPos blockPos, final EntityType<?> entityType) { // Spout - More data-driven - Minecraft registries - Types - Properties serialization - Defaults for types - Make public
+         return entityType == EntityType.OCELOT || entityType == EntityType.PARROT;
+     }
+ 
 @@ -7070,7 +_,7 @@
              id,
              p -> new BedBlock(color, p),

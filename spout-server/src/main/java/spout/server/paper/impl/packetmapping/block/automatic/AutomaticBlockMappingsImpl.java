@@ -162,6 +162,11 @@ public final class AutomaticBlockMappingsImpl implements AutomaticBlockMappings 
     }
 
     @Override
+    public <B extends FromBlockTypeRequestBuilder & ToBlockTypeRequestBuilder> void sapling(Consumer<? extends B> builderConsumer) {
+        this.simpleBlockType(BlockType.OAK_SAPLING, SaplingRequestProcessor::new, builderConsumer);
+    }
+
+    @Override
     public <B extends SlabRequestBuilder> void slab(Consumer<? extends B> builderConsumer) {
         SlabRequestBuilderImpl builder = new SlabRequestBuilderImpl();
         builder.fallback(BlockType.STONE_SLAB);

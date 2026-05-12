@@ -46,7 +46,7 @@
 -    protected static <B extends Block> RecordCodecBuilder<B, BlockBehaviour.Properties> propertiesCodec() {
 -        return BlockBehaviour.Properties.CODEC.fieldOf("properties").forGetter(BlockBehaviour::properties);
 +    public static <B extends Block> RecordCodecBuilder<B, BlockBehaviour.Properties> propertiesCodec() { // Spout - More data-driven - Minecraft registries - Types - Make properties codec public
-+        return spout.common.util.mojang.codec.CodecUtil.optionalFieldOf(BlockBehaviour.Properties.CODEC,"properties", BlockBehaviour.Properties::new).forGetter(BlockBehaviour::properties); // Spout - More data-driven - Minecraft registries - Types - Adapt existing block type registry - Make properties optional in block codec
++        return spout.common.util.mojang.codec.CodecUtil.optionalFieldOf(BlockBehaviour.Properties.CODEC,"properties", spout.server.paper.impl.moredatadriven.minecraft.type.BlockPropertiesWithDefaultsForDataDrivenType::create).forGetter(BlockBehaviour::properties); // Spout - More data-driven - Minecraft registries - Types - Adapt existing block type registry - Make properties optional in block codec
      }
  
      public static <B extends Block> MapCodec<B> simpleCodec(final Function<BlockBehaviour.Properties, B> constructor) {
