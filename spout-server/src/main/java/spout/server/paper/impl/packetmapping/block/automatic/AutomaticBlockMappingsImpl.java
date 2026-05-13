@@ -189,4 +189,9 @@ public final class AutomaticBlockMappingsImpl implements AutomaticBlockMappings 
         this.simpleBlockType(BlockType.OAK_TRAPDOOR, TrapdoorRequestProcessor::new, builderConsumer);
     }
 
+    @Override
+    public <B extends FromBlockTypeRequestBuilder & ToBlockTypeRequestBuilder> void wall(Consumer<? extends B> builderConsumer) {
+        this.simpleBlockType(BlockType.COBBLESTONE_WALL, StandardBlockTypeRequestProcessor::new, builderConsumer);
+    }
+
 }

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:wall",
+  "properties": {
+    "map_color": "minecraft:quartz",
+    "explosion_resistance": 6.0,
+    "destroy_time": 1.5,
+    "requires_correct_tool_for_drops": true,
+    "instrument": "minecraft:basedrum"
+  },
+  "mappings": [
+    {
+      "type": "wall",
+      "fallback": "minecraft:diorite_wall"
+    }
+  ]
+}

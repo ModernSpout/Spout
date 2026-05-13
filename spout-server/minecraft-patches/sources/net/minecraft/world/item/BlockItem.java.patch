@@ -13,3 +13,14 @@
      public BlockItem(final Block block, final Item.Properties properties) {
          super(properties);
          this.block = block;
+@@ -223,6 +_,10 @@
+ 
+     public void registerBlocks(final Map<Block, Item> map, final Item item) {
+         map.put(this.getBlock(), item);
++        if (!this.getBlock().keyInBlockRegistry.equals(item.keyInItemRegistry)) {
++            System.out.println("Registered block -> item: " + this.getBlock().keyInBlockRegistry + " -> " + item.keyInItemRegistry);
++            spout.server.paper.impl.packetmapping.item.ItemMappingsImpl.get().addEventInitializer(event -> System.out.println("New itemstack: " + new ItemStack(this.getBlock())));
++        }
+     }
+ 
+     @Override

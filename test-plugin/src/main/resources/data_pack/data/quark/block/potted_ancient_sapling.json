@@ -1,6 +1,6 @@
 {
   "type": "minecraft:flower_pot",
-  "potted": "quark:ancient_sapling",
+  "potted": "minecraft:potatoes",
   "mappings": [
     {
       "type": "flower_pot",

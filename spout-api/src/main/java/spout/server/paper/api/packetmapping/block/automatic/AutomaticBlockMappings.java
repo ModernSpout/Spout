@@ -324,4 +324,15 @@ public interface AutomaticBlockMappings {
      */
     <B extends FromBlockTypeRequestBuilder & ToBlockTypeRequestBuilder> void trapdoor(Consumer<? extends B> builderConsumer);
 
+    /**
+     * Attempts to find a proxy state for every possible state of a wall.
+     *
+     * <p>
+     * By default:
+     * <ul>
+     *     <li>{@link ToBlockTypeRequestBuilder#fallback()} is {@link BlockType#COBBLESTONE_WALL}.</li>
+     * </ul>
+     */
+    <B extends FromBlockTypeRequestBuilder & ToBlockTypeRequestBuilder> void wall(Consumer<? extends B> builderConsumer);
+
 }

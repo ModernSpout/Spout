@@ -313,11 +313,13 @@ public final class BuiltInDataDrivenBlockMappingTypes {
 
     public static final DataDrivenBlockMappingType TRAPDOOR = new MultiStateBuiltInDataDrivenBlockMappingType<FromToBlockTypeRequestBuilderImpl>("trapdoor", AutomaticBlockMappingsImpl::trapdoor);
 
+    public static final DataDrivenBlockMappingType WALL = new MultiStateBuiltInDataDrivenBlockMappingType<FromToBlockTypeRequestBuilderImpl>("wall", AutomaticBlockMappingsImpl::wall);
+
     private static boolean bootstrapped = false;
 
     static void bootstrapIfNecessary() {
         if (!bootstrapped) {
-            List.of(TRAPDOOR);
+            List.of(WALL);
             bootstrapped = true;
         }
     }

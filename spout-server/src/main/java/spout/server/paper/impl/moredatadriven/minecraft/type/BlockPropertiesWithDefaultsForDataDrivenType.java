@@ -112,6 +112,9 @@ public final class BlockPropertiesWithDefaultsForDataDrivenType {
             addInitializer("untinted_particle_leaves", properties -> {
                 getInitializer("leaves").accept(properties);
             });
+            addInitializer("wall", properties -> {
+                properties.forceSolidOn();
+            });
             addInitializer("weathering_copper_door", properties -> {
                 getInitializer("door").accept(properties);
                 properties.mapColor(MapColor.COLOR_ORANGE);
