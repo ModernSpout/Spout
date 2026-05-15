@@ -1,0 +1,42 @@
+{
+  "required": true,
+  "package": "spout.client.fabric.moredatadriven.minecraft.type.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "BlockBehaviourPropertiesAccessor",
+    "BlockItemCodecMixin",
+    "BlocksStatePredicatesAccessor",
+    "EggItemCodecMixin",
+    "FeatureFlagRegistryAccessor",
+    "ItemCodecMixin",
+    "ItemKeepPropertiesMixin",
+    "ItemPropertiesAccessor",
+    "ReplaceBlockBehaviourPropertiesCodecMixin",
+    "LazyBaseStateStairBlockAccessor",
+    "LazyCandleBlockCandleCakeBlockAccessor",
+    "LazyConcreteConcretePowderBlockAccessor",
+    "LazyDeadBlockCoralBlockAccessor",
+    "LazyDeadBlockCoralFanBlockAccessor",
+    "LazyDeadBlockCoralPlantBlockAccessor",
+    "LazyDeadBlockCoralWallFanBlockAccessor",
+    "LazyHostBlockInfestedBlockAccessor",
+    "LazyPlantChorusFlowerBlockAccessor",
+    "LazyPottedFlowerPotBlockAccessor",
+    "LazyReplaceCodecBrushableBlockMixin",
+    "LazyReplaceCodecChorusFlowerBlockMixin",
+    "LazyReplaceCodecConcretePowderBlockMixin",
+    "LazyReplaceCodecCoralBlockMixin",
+    "LazyReplaceCodecCoralFanBlockMixin",
+    "LazyReplaceCodecCoralPlantBlockMixin",
+    "LazyReplaceCodecCoralWallFanBlockMixin",
+    "LazyReplaceCodecFlowerPotBlockMixin",
+    "LazyReplaceCodecInfestedBlockMixin",
+    "LazyReplaceCodecInfestedRotatedPillarBlockMixin",
+    "LazyReplaceCodecStairBlockMixin",
+    "LazyReplaceCodecWeatheringCopperStairBlockMixin",
+    "LazyTurnsIntoBrushableBlockAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

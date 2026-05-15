@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "spout.client.fabric.ui.toast.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "IgnoreResourcePackDownloadProgressMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,36 @@
+name: build-fabric-client
+on: [ push, pull_request ]
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        java: [ 25 ]
+      fail-fast: true
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v6
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v5
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: 'temurin'
+      - name: Validate Gradle wrapper
+        uses: gradle/actions/wrapper-validation@v4
+        continue-on-error: true
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+      - name: Build
+        run: ./gradlew :spoutcraft-fabric:build
+      - name: Install AdvanceCOMP (for advzip)
+        run: sudo apt-get update && sudo apt-get install -y advancecomp
+      - name: Compress
+        run: ./gradlew :spoutcraft-fabric:recompressJar
+      - name: Upload JAR
+        uses: actions/upload-artifact@v7
+        with:
+          name: Spoutcraft JAR
+          path: |
+            spoutcraft-fabric/build/libs/spoutcraft-*.jar
+            !spoutcraft-fabric/build/libs/spoutcraft-*-sources.jar
+          archive: false

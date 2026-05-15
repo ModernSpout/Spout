@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "spout.client.fabric.clientview.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "AllowSpoutServerPacksMixin",
+    "ClientCommonPacketListenerImplAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

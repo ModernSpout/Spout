@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "spout.common.builtincontent.block.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "InsertIntoBlockTypesMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

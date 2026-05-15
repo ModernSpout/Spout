@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "spout.client.fabric.moredatadriven.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "BlockEntityTypeDataDrivenValidBlocksMixin",
+    "DataComponentInitializersAccessor",
+    "HolderSetNamedAccessor",
+    "MappedRegistryAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

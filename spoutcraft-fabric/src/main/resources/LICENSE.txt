@@ -1,13 +1,24 @@
-Below is a complemented GNU General Public License, version 3 (GPL-3.0),
-which applies only to any included copyrightable works that are
-specifically and explicitly released under it.
+The entirety of this copyrightable work is licensed under a complemented
+GNU General Public License, version 3,
+which is included below under
+"COMPLEMENTED GNU GENERAL PUBLIC LICENSE FOR SPOUT",
+with the exception of non-code binaries, including but not limited to images,
+contained therein. No license is given for such non-code binaries:
+all rights reserved.
+
+------------------------------------------------------------------------------
+
+           COMPLEMENTED GNU GENERAL PUBLIC LICENSE FOR SPOUT
 
 "Martijn Muijsers" refers to the natural person that authored
 the original version of the Program,
 and at the time held the GitHub username MartijnMuijsers.
 
-Additional terms under section 7
-of the GNU General Public License, version 3:
+This license is an extension of the
+GNU General Public License, version 3 (GPL-3.0),
+with additional terms as defined in GPL-3.0 section 7.
+
+These additional terms are:
 a) Under subsection 7b, you must preserve all author attributions in
    all licensed material, unless you are the natural person that
    originally added the attribution, or the attribution is towards you
