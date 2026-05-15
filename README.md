@@ -18,24 +18,24 @@
 <table>
   <tr>
     <td>
-      <a href="design/fire.png"><img src="design/fire_small.png"></a>
+      <a href="spout/design/fire.png"><img src="spout/design/fire_small.png"></a>
     </td>
     <td>
-      <a href="design/orange.png"><img src="design/orange_small.png"></a>
+      <a href="spout/design/orange.png"><img src="spout/design/orange_small.png"></a>
     </td>
     <td>
-      <a href="design/stone.png"><img src="design/stone_small.png"></a>
+      <a href="spout/design/stone.png"><img src="spout/design/stone_small.png"></a>
     </td>
   </tr>
   <tr>
     <td>
-      <a href="design/lantern.png"><img src="design/lantern_small.png"></a>
+      <a href="spout/design/lantern.png"><img src="spout/design/lantern_small.png"></a>
     </td>
     <td>
-      <a href="design/bookshelves.png"><img src="design/bookshelves_small.png"></a>
+      <a href="spout/design/bookshelves.png"><img src="spout/design/bookshelves_small.png"></a>
     </td>
     <td>
-      <a href="design/concrete.png"><img src="design/concrete_small.png"></a>
+      <a href="spout/design/concrete.png"><img src="spout/design/concrete_small.png"></a>
     </td>
   </tr>
 </table>

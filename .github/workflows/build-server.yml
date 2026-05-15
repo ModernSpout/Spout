@@ -33,11 +33,11 @@ jobs:
         run: |
           git config --global user.email "no-reply@github.com"
           git config --global user.name "Github Actions"
-          ./gradlew applyAllPatches --stacktrace
+          ./gradlew :spout-paper:applyAllPatches --stacktrace
       - name: Build JAR
-        run: ./gradlew createPaperclipJar --stacktrace
+        run: ./gradlew :spout-paper:spout-server:createPaperclipJar --stacktrace
       - name: Rename and move JAR
-        run: mv spout-server/build/libs/spout-paperclip-*.jar spout-$(basename spout-server/build/libs/spout-paperclip-*.jar | sed -E 's/^spout-paperclip-(.*)\.jar$/\1/').jar
+        run: mv spout-paper/spout-server/build/libs/spout-paperclip-*.jar spout-$(basename spout-paper/spout-server/build/libs/spout-paperclip-*.jar | sed -E 's/^spout-paperclip-(.*)\.jar$/\1/').jar
       - name: Upload JAR
         uses: actions/upload-artifact@v7
         with:

@@ -35,27 +35,3 @@ ij_java_method_parameters_new_line_after_left_paren = true
 ij_java_method_parameters_right_paren_on_new_line = true
 ij_java_use_fq_class_names = false
 ij_java_class_names_in_javadoc = 1
-
-[spout-server/src/minecraft/java/**/*.java]
-ij_java_use_fq_class_names = true
-
-[paper-*/src/*/java/**/*.java]
-ij_java_use_fq_class_names = true
-
-[spout-server/src/*/resources/data/**/*.json]
-indent_size = 2
-
-[spout-server/src/*/resources/default_resource_pack_contents/**/*.json]
-indent_size = 2
-
-[spout-server/src/*/resources/default_resource_pack_contents/**/*.mcmeta]
-indent_size = 2
-
-[test-plugin/src/main/resources/*pack*/**/*.json]
-indent_size = 2
-
-[test-plugin/src/main/resources/*pack*/**/*.mcmeta]
-indent_size = 2
-
-[paper-api/src/generated/java/**/*.java]
-ij_java_imports_layout = $*, |, *

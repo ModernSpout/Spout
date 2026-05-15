@@ -1,0 +1,11 @@
+/run/
+
+/spout-server/build.gradle.kts
+/spout-server/src/minecraft
+/spout-server/map-color-cache.dat
+/spout-server/logs
+/paper-server
+/spout-api/build.gradle.kts
+/paper-api
+*.jar
+test-plugin.settings.gradle.kts

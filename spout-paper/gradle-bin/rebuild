@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Rebuilds all patches (in IntelliJ, right-click -> Run 'rebuild')
+
+cd ../..
+./gradlew :spout-paper:rebuildPaperApiFeaturePatches # includes rebuildPaperApiFilePatches
+./gradlew :spout-paper:rebuildPaperSingleFilePatches
+./gradlew :spout-paper:spout-server:rebuildMinecraftFeaturePatches # includes :spout-server:rebuildMinecraftFilePatches, which includes :spout-server:rebuildMinecraftResourcePatches and :spout-server:rebuildMinecraftSourcePatches
+./gradlew :spout-paper:spout-server:rebuildPaperServerFeaturePatches # includes :spout-server:rebuildPaperServerFilePatches
+cd spout-paper/gradle-bin
