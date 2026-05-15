@@ -11,7 +11,7 @@
   </h3>
 
 [![Discord](https://img.shields.io/discord/1091830813240348732?color=5865F2&label=discord&style=for-the-badge)](https://discord.gg/EduvcVmKS7)
-[![Download latest version](https://img.shields.io/badge/Latest_version-26.1.2-4fa31a?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/26.1.2-R1.5/spout-26.1.2-R1.5.jar)
+![Latest version](https://img.shields.io/badge/Latest_version-26.1.2-4fa31a?style=for-the-badge)
 
 </div>
 
@@ -59,32 +59,18 @@ Please let us know on [Discord](https://discord.gg/EduvcVmKS7) if you are intere
 
 ## Downloads
 
-[![Download latest version](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/26.1.2-R1.5/spout-26.1.2-R1.5.jar)
+[![Download from GitHub](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/1.8/spout-26.1.2-R1.8.jar)
 
 ## Installation
 
 The `.jar` file is a drop-in replacement for the Paper JAR, and you can run it the same:
 
 ```sh
-java -jar spout-26.1.2-R1.5.jar
+java -jar spout-26.1.2-R1.8.jar
 ```
 
-<div align="center">
-  <table>
-    <tr>
-      <td valign="center">
-        <h1>🔨</h1>
-      </td>
-      <td valign="center">
-        Spout provides some non-trivial features.
-        <br>
-        It has been tested, but please report any issues you encounter.
-        <br>
-        Keep backups, and always proceed with care.
-      </td>
-    </tr>
-  </table>
-</div>
+Please report any issues you encounter.
+As always, backup your server regularly.
 
 ## Adding custom blocks and items
 
@@ -93,8 +79,8 @@ New blocks and items can be added by Paper plugins that support Spout.
 ### Spout plugin showcase
 
 * [Quark](https://github.com/ModernSpout/Quark-plugin)
-* [Chinese paper lamps](https://github.com/ModernSpout/ChinesePaperLamps-plugin)
-* [Snowy stone bricks](https://github.com/ModernSpout/SnowyStoneBricks-plugin)
+* [Chinese paper lamps](https://hangar.papermc.io/Spout/ChinesePaperLamps)
+* [Snowy stone bricks](https://hangar.papermc.io/Spout/SnowyStoneBricks)
 
 ### Creating a Spout plugin
 
@@ -134,9 +120,9 @@ All custom content is automatically removed the moment you leave a server.
 
 ## Downloads
 
-[![Download latest version](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spoutcraft/releases/download/1.1.1/spoutcraft-1.1.1.jar)
-[![Modrinth](https://img.shields.io/badge/⬇-modrinth-2c9448?style=for-the-badge)](https://modrinth.com/mod/spout-client)
-[![CurseForge](https://img.shields.io/badge/⬇-curseforge-ba5c3d?style=for-the-badge)](https://www.curseforge.com/minecraft/mc-mods/spout)
+[![Download from GitHub](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/1.8/spoutcraft-1.8.0.jar)
+[![Download from Modrinth](https://img.shields.io/badge/⬇-modrinth-2c9448?style=for-the-badge)](https://modrinth.com/mod/spout-client)
+[![Download from CurseForge](https://img.shields.io/badge/⬇-curseforge-ba5c3d?style=for-the-badge)](https://www.curseforge.com/minecraft/mc-mods/spout)
 
 ## Installation
 
@@ -144,20 +130,8 @@ Place the `.jar` file into the `mods` folder.
 
 Requires [Fabric API](https://modrinth.com/mod/fabric-api).
 
-<div align="center">
-  <table>
-    <tr>
-      <td valign="center">
-        <h1>🔨</h1>
-      </td>
-      <td valign="center">
-        Spoutcraft has been tested, but compatibility with other mods has not been explored fully.
-        <br>
-        Please report if you encounter any issues.
-      </td>
-    </tr>
-  </table>
-</div>
+Compatibility with other mods has not been explored fully.\
+Please report if you encounter any issues.
 
 <!--
 ## Next
@@ -186,4 +160,4 @@ Additionally, this project builds on top of the work of the contributors to
 [Fabric](https://fabricmc.net/) and [Sponge](https://spongepowered.org/).
 
 Also, thanks go out to [Alvinn8](https://github.com/Alvinn8/) and [SoSeDiK](https://github.com/SoSeDiK)
-for their significant contributions to this project.
+for their contributions to this project.
