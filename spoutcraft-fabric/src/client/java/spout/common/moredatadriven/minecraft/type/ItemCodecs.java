@@ -18,7 +18,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import spout.client.fabric.moredatadriven.minecraft.type.mixin.ItemPropertiesAccessor;
-import spout.common.util.mojang.codec.CodecUtil;
 
 /**
  * Holder for {@link Item} codecs.

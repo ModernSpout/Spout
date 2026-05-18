@@ -42,7 +42,6 @@ import spout.client.fabric.moredatadriven.minecraft.type.NoteBlockInstrumentProx
 import spout.client.fabric.moredatadriven.minecraft.type.PushReactionProxy;
 import spout.client.fabric.moredatadriven.minecraft.type.SoundTypeProxy;
 import spout.client.fabric.moredatadriven.minecraft.type.mixin.BlockBehaviourPropertiesAccessor;
-import spout.common.util.mojang.codec.EnumViaIdentifierCodec;
 import spout.common.util.mojang.codec.ProxyCodec;
 import java.util.function.BiFunction;
 import java.util.function.Function;
