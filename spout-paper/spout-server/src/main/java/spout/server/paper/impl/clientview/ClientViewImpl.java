@@ -31,4 +31,12 @@ public abstract class ClientViewImpl implements NMSClientView {
      */
     public abstract @Nullable ItemMappingReverser getItemMappingReverser();
 
+    public static ClientView getSimulatedForAwarenessLevel(AwarenessLevel awarenessLevel) {
+        return switch (awarenessLevel) {
+            case VANILLA -> SimulatedClientViewImpl.VANILLA_INSTANCE;
+            case RESOURCE_PACK -> SimulatedClientViewImpl.RESOURCE_PACK_INSTANCE;
+            case CLIENT_MOD -> SimulatedClientViewImpl.CLIENT_MOD_INSTANCE;
+        };
+    }
+
 }

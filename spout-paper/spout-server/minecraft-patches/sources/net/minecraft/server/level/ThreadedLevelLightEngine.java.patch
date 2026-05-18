@@ -1,0 +1,20 @@
+--- a/net/minecraft/server/level/ThreadedLevelLightEngine.java
++++ b/net/minecraft/server/level/ThreadedLevelLightEngine.java
+@@ -185,10 +_,16 @@
+ 
+     @Override
+     public void checkBlock(final BlockPos pos) {
++        // Spout start - Block mapping - Update block light for custom blocks
++        this.checkBlock(pos, false);
++    }
++
++    public void checkBlock(final BlockPos pos, boolean requiresExtraLightSending) {
++        // Spout end - Block mapping - Update block light for custom blocks
+         // Paper start - rewrite chunk system
+         final BlockPos posCopy = pos.immutable();
+         this.queueTaskForSection(posCopy.getX() >> 4, posCopy.getY() >> 4, posCopy.getZ() >> 4, () -> {
+-            return ThreadedLevelLightEngine.this.starlight$getLightEngine().blockChange(posCopy);
++            return ThreadedLevelLightEngine.this.starlight$getLightEngine().blockChange(posCopy, requiresExtraLightSending); // Spout - Block mapping - Update block light for custom blocks
+         });
+         // Paper end - rewrite chunk system
+     }

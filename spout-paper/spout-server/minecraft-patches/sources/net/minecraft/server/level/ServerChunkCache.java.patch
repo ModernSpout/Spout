@@ -1,0 +1,14 @@
+--- a/net/minecraft/server/level/ServerChunkCache.java
++++ b/net/minecraft/server/level/ServerChunkCache.java
+@@ -671,9 +_,10 @@
+ 
+     @Override
+     public void onLightUpdate(final LightLayer layer, final SectionPos pos) {
++        boolean requiresExtraLightSending = spout.server.paper.impl.packetmapping.block.light.CurrentTaskRequiresExtraLightSending.get(); // Spout - Block mapping - Update block light for custom blocks
+         this.mainThreadProcessor.execute(() -> {
+             ChunkHolder chunk = this.getVisibleChunkIfPresent(pos.chunk().pack());
+-            if (chunk != null && chunk.sectionLightChanged(layer, pos.y())) {
++            if (chunk != null && chunk.sectionLightChanged(layer, pos.y(), requiresExtraLightSending)) { // Spout - Block mapping - Update block light for custom blocks
+                 this.chunkHoldersToBroadcast.add(chunk);
+             }
+         });

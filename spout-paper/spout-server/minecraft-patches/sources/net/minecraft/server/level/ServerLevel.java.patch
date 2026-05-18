@@ -9,3 +9,14 @@
          this.weatherData = savedDataStorage.computeIfAbsent(WeatherData.TYPE);
          this.weatherData.setLevel(this);
          this.typeKey = typeKey;
+@@ -1841,6 +_,10 @@
+         if (this.isUpdatingNavigations) {
+             String message = "recursive call to sendBlockUpdated";
+             Util.logAndPauseIfInIde("recursive call to sendBlockUpdated", new IllegalStateException("recursive call to sendBlockUpdated"));
++        }
++
++        if (old.getLightEmission() != current.getLightEmission()) {
++
+         }
+ 
+         this.getChunkSource().blockChanged(pos);

@@ -1,0 +1,81 @@
+--- a/ca/spottedleaf/moonrise/patches/starlight/light/StarLightInterface.java
++++ b/ca/spottedleaf/moonrise/patches/starlight/light/StarLightInterface.java
+@@ -415,11 +_,17 @@
+     }
+ 
+     public LightQueue.ChunkTasks blockChange(final BlockPos pos) {
++        // Spout start - Block mapping - Update block light for custom blocks
++        return this.blockChange(pos, false);
++    }
++
++    public LightQueue.ChunkTasks blockChange(final BlockPos pos, boolean requiresExtraLightSending) {
++        // Spout end - Block mapping - Update block light for custom blocks
+         if (this.world == null || pos.getY() < WorldUtil.getMinBlockY(this.world) || pos.getY() > WorldUtil.getMaxBlockY(this.world)) { // empty world
+             return null;
+         }
+ 
+-        return this.lightQueue.queueBlockChange(pos);
++        return this.lightQueue.queueBlockChange(pos, requiresExtraLightSending); // Spout - Block mapping - Update block light for custom blocks
+     }
+ 
+     public LightQueue.ChunkTasks sectionChange(final SectionPos pos, final boolean newEmptyValue) {
+@@ -545,7 +_,13 @@
+ 
+         public abstract boolean isEmpty();
+ 
+-        public abstract ChunkTasks queueBlockChange(final BlockPos pos);
++        // Spout start - Block mapping - Update block light for custom blocks
++        public ChunkTasks queueBlockChange(final BlockPos pos) {
++            return this.queueBlockChange(pos, false);
++        }
++
++        public abstract ChunkTasks queueBlockChange(final BlockPos pos, boolean requiresExtraLightSending);
++        // Spout end - Block mapping - Update block light for custom blocks
+ 
+         public abstract ChunkTasks queueSectionChange(final SectionPos pos, final boolean newEmptyValue);
+ 
+@@ -683,7 +_,7 @@
+         }
+ 
+         @Override
+-        public synchronized ClientChunkTasks queueBlockChange(final BlockPos pos) {
++        public synchronized ClientChunkTasks queueBlockChange(final BlockPos pos, boolean requiresExtraLightSending) { // Spout - Block mapping - Update block light for custom blocks
+             final ClientChunkTasks tasks = this.getOrCreate(CoordinateUtils.getChunkKey(pos));
+             tasks.addChangedPosition(pos);
+             return tasks;
+@@ -787,7 +_,8 @@
+         }
+ 
+         @Override
+-        public ServerChunkTasks queueBlockChange(final BlockPos pos) {
++        public ServerChunkTasks queueBlockChange(final BlockPos pos, boolean requiresExtraLightSending) { // Spout - Block mapping - Update block light for custom blocks
++
+             final ServerChunkTasks ret = this.chunkTasks.compute(CoordinateUtils.getChunkKey(pos), (final long keyInMap, ServerChunkTasks valueInMap) -> {
+                 if (valueInMap == null) {
+                     valueInMap = new ServerChunkTasks(
+@@ -798,6 +_,7 @@
+                 return valueInMap;
+             });
+ 
++            ret.requiresExtraLightSending = requiresExtraLightSending; // Spout - Block mapping - Update block light for custom blocks
+             ret.schedule();
+ 
+             return ret;
+@@ -882,6 +_,7 @@
+ 
+             private final AtomicBoolean ticketAdded = new AtomicBoolean();
+             private final PrioritisedExecutor.PrioritisedTask task;
++            public boolean requiresExtraLightSending; // Spout - Block mapping - Update block light for custom blocks
+ 
+             public ServerChunkTasks(final long chunkCoordinate, final StarLightInterface lightEngine,
+                                     final ServerLightQueue queue) {
+@@ -929,7 +_,9 @@
+             public void run() {
+                 ((ServerLightQueue)this.queue).chunkTasks.remove(this.chunkCoordinate, this);
+ 
++                if (this.requiresExtraLightSending) spout.server.paper.impl.packetmapping.block.light.CurrentTaskRequiresExtraLightSending.set(); // Spout - Block mapping - Update block light for custom blocks
+                 this.runTasks();
++                if (this.requiresExtraLightSending) spout.server.paper.impl.packetmapping.block.light.CurrentTaskRequiresExtraLightSending.clear(); // Spout - Block mapping - Update block light for custom blocks
+             }
+         }
+     }

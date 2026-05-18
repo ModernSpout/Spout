@@ -33,10 +33,6 @@ public final class BlockRequestProcessUtils {
         if (from.liquid() != proxyCandidate.liquid()) {
             return false;
         }
-        // Check light
-        if (from.getLightEmission() != proxyCandidate.getLightEmission()) {
-            return false;
-        }
         // Cannot use instabreak proxy for non-instabreak from
         if (proxyCandidate.destroySpeed == 0 && from.destroySpeed != 0) {
             return false;
@@ -81,10 +77,13 @@ public final class BlockRequestProcessUtils {
         if (validityCompare != 0) {
             return validityCompare;
         }
-        // Commonality
-        int commonalityCompare = COMMONALITY_COMPARATOR.compare(proxyCandidate1, proxyCandidate2);
-        if (commonalityCompare != 0) {
-            return commonalityCompare;
+        // Light emission
+        int lightEmissionCompare = Integer.compare( // Lower is better
+            Math.abs(from.getLightEmission() - proxyCandidate1.getLightEmission()),
+            Math.abs(from.getLightEmission() - proxyCandidate2.getLightEmission())
+        );
+        if (lightEmissionCompare != 0) {
+            return lightEmissionCompare;
         }
         // Don't choose a double slab unless we really have to
         int doubleSlabCompare = DOUBLE_SLAB_COMPARATOR.compare(proxyCandidate1, proxyCandidate2);
@@ -135,6 +134,11 @@ public final class BlockRequestProcessUtils {
         );
         if (instrumentCompare != 0) {
             return instrumentCompare;
+        }
+        // Commonality
+        int commonalityCompare = COMMONALITY_COMPARATOR.compare(proxyCandidate1, proxyCandidate2);
+        if (commonalityCompare != 0) {
+            return commonalityCompare;
         }
         // No difference
         return 0;

@@ -1,17 +1,16 @@
 pluginManagement {
-	repositories {
-		maven {
-			name = "Fabric"
-			url = uri("https://maven.fabricmc.net/")
-		}
-		mavenCentral()
-		gradlePluginPortal()
-        mavenLocal()
-	}
+    repositories {
+        maven {
+            name = "Fabric"
+            url = uri("https://maven.fabricmc.net/")
+        }
+        mavenCentral()
+        gradlePluginPortal()
+    }
 
-	plugins {
+    plugins {
         id("net.fabricmc.fabric-loom") version providers.gradleProperty("loom_version")
-	}
+    }
 }
 
-rootProject.name = "spoutcraft-fabric"
+rootProject.name = "spoutcraft"

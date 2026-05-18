@@ -1,6 +1,9 @@
 {
   "type": "minecraft:sapling",
   "tree": "azalea",
+  "properties": {
+    "light_emission": 12
+  },
   "mappings": [
     {
       "type": "sapling",

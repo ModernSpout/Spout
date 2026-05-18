@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/chunk/LevelChunk.java
++++ b/net/minecraft/world/level/chunk/LevelChunk.java
+@@ -395,7 +_,7 @@
+                     profiler.push("updateSkyLightSources");
+                     // Paper - rewrite chunk system
+                     profiler.popPush("queueCheckLight");
+-                    this.level.getChunkSource().getLightEngine().checkBlock(pos);
++                    this.level.getChunkSource().getLightEngine().checkBlock(pos, spout.server.paper.impl.packetmapping.block.light.CheckCustomLightChanges.requiresExtraLightPacketSending(oldState, state)); // Spout - Block mapping - Update block light for custom blocks
+                     profiler.pop();
+                 }
+ 

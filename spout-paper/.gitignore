@@ -1,4 +1,4 @@
-/run/
+/run*/
 
 /spout-server/build.gradle.kts
 /spout-server/src/minecraft

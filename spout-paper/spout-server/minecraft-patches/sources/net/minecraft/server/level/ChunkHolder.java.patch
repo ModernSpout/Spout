@@ -1,0 +1,76 @@
+--- a/net/minecraft/server/level/ChunkHolder.java
++++ b/net/minecraft/server/level/ChunkHolder.java
+@@ -37,6 +_,7 @@
+     private boolean hasChangedSections;
+     private final @Nullable ShortSet[] changedBlocksPerSection;
+     private final BitSet blockChangedLightSectionFilter = new BitSet();
++    private final BitSet nonClientModBlockChangedLightSectionFilter = new BitSet(); // Spout - Block mapping - Update block light for custom blocks
+     private final BitSet skyChangedLightSectionFilter = new BitSet();
+     private final LevelLightEngine lightEngine;
+     // Paper - rewrite chunk system
+@@ -240,7 +_,7 @@
+         }
+     }
+ 
+-    public boolean sectionLightChanged(final LightLayer layer, final int chunkY) {
++    public boolean sectionLightChanged(final LightLayer layer, final int chunkY, boolean requiresExtraLightSending) { // Spout - Block mapping - Update block light for custom blocks
+         ChunkAccess chunk = this.getChunkIfPresent(ChunkStatus.INITIALIZE_LIGHT);
+         if (chunk == null) {
+             return false;
+@@ -257,6 +_,9 @@
+                     int index = chunkY - minLightSection;
+                     if (!filter.get(index)) {
+                         filter.set(index);
++                        if (layer == LightLayer.BLOCK && requiresExtraLightSending) {
++                            this.nonClientModBlockChangedLightSectionFilter.set(index);
++                        }
+                         return true;
+                     } else {
+                         return false;
+@@ -269,12 +_,13 @@
+     }
+ 
+     public boolean hasChangesToBroadcast() {
+-        return this.hasChangedSections || !this.skyChangedLightSectionFilter.isEmpty() || !this.blockChangedLightSectionFilter.isEmpty();
++        return this.hasChangedSections || !this.skyChangedLightSectionFilter.isEmpty() || !this.blockChangedLightSectionFilter.isEmpty() || !this.nonClientModBlockChangedLightSectionFilter.isEmpty();
+     }
+ 
+     public void broadcastChanges(final LevelChunk chunk) {
+         if (this.hasChangesToBroadcast()) {
+             Level level = chunk.getLevel();
++            List<ServerPlayer> alreadySentLightUpdatePlayers = null; // Spout - Block mapping - Update block light for custom blocks
+             if (!this.skyChangedLightSectionFilter.isEmpty() || !this.blockChangedLightSectionFilter.isEmpty()) {
+                 List<ServerPlayer> borderPlayers = this.moonrise$getPlayers(true); // Paper - rewrite chunk system
+                 if (!borderPlayers.isEmpty()) {
+@@ -282,11 +_,31 @@
+                         chunk.getPos(), this.lightEngine, this.skyChangedLightSectionFilter, this.blockChangedLightSectionFilter
+                     );
+                     this.broadcast(borderPlayers, lightPacket);
++                    alreadySentLightUpdatePlayers = borderPlayers; // Spout - Block mapping - Update block light for custom blocks
+                 }
+ 
+                 this.skyChangedLightSectionFilter.clear();
+                 this.blockChangedLightSectionFilter.clear();
+             }
++
++            // Spout start - Block mapping - Update block light for custom blocks
++            if (!this.nonClientModBlockChangedLightSectionFilter.isEmpty()) {
++                List<ServerPlayer> players = this.moonrise$getPlayers(false);
++                if (alreadySentLightUpdatePlayers != null) {
++                    players.removeAll(alreadySentLightUpdatePlayers);
++                }
++                if (!players.isEmpty()) {
++                    players.removeIf(player -> player.getClientViewOrFallback().understandsAllServerSideBlocks());
++                    if (!players.isEmpty()) {
++                        ClientboundLightUpdatePacket lightPacket = new ClientboundLightUpdatePacket(
++                            chunk.getPos(), this.lightEngine, this.skyChangedLightSectionFilter, this.nonClientModBlockChangedLightSectionFilter
++                        );
++                        this.broadcast(players, lightPacket);
++                    }
++                }
++                this.nonClientModBlockChangedLightSectionFilter.clear();
++            }
++            // Spout end - Block mapping - Update block light for custom blocks
+ 
+             if (this.hasChangedSections) {
+                 List<ServerPlayer> players = this.moonrise$getPlayers(false); // Paper - rewrite chunk system
