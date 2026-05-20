@@ -12,8 +12,8 @@ import spout.common.moredatadriven.minecraft.common.dependent.DependentDataDrive
 import spout.common.moredatadriven.minecraft.BuiltInSpoutMoreDataDrivenRegistries;
 import spout.common.moredatadriven.minecraft.itemtype.SpoutItemType;
 import spout.common.util.mojang.codec.MapInputAndOps;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -95,7 +95,7 @@ public class SpoutDataDrivenItem implements DependentDataDrivenResource {
     }
 
     @Override
-    public Collection<Identifier> getRequiredResources() {
+    public List<Identifier> getRequiredResources() {
         return Collections.emptyList();
     }
 

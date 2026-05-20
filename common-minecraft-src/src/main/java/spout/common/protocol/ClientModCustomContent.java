@@ -54,8 +54,6 @@ public final class ClientModCustomContent {
     }
 
     public List<Block> getParsedBlocks() {
-        System.out.println("Parsing blocks:");
-        this.blocks.forEach(System.out::println);
         if (this.parsedBlocks == null) {
             this.parsedBlocks = this.blocks.stream().map(ClientModCustomContent::parseBlock).toList();
         }
@@ -63,13 +61,11 @@ public final class ClientModCustomContent {
     }
 
     public List<Item> getParsedItems() {
-        System.out.println("Parsing items:");
-        this.items.forEach(System.out::println);
         if (this.parsedItems == null) {
-            this.parsedItems = SortDependentDataDrivenResources.sortedKeyedResources(Registries.ITEM, this.items.stream())
+            this.parsedItems = this.items.stream()
                 .map(item -> {
-                    item.second().initializeItemFromInput(true);
-                    return item.second().getItem();
+                    item.value().initializeItemFromInput(true);
+                    return item.value().getItem();
                 }).toList();
         }
         return this.parsedItems;
@@ -86,11 +82,6 @@ public final class ClientModCustomContent {
         content.items.addAll(
             items.stream().map(item -> KeyedValue.of(item.builtInRegistryHolder().key().identifier(), new SpoutDataDrivenItem(item))).toList()
         );
-        System.out.println("Created filled content with:");
-        System.out.println("Blocks:");
-        content.blocks.forEach(System.out::println);
-        System.out.println("Items:");
-        content.items.forEach(System.out::println);
         return content;
     }
 

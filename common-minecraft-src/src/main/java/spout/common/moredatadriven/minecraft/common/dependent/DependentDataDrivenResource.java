@@ -1,7 +1,7 @@
 package spout.common.moredatadriven.minecraft.common.dependent;
 
 import net.minecraft.resources.Identifier;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * A data-driven resource that may be dependent on data-driven resources
@@ -9,6 +9,6 @@ import java.util.Collection;
  */
 public interface DependentDataDrivenResource {
 
-    Collection<Identifier> getRequiredResources();
+    List<Identifier> getRequiredResources();
 
 }

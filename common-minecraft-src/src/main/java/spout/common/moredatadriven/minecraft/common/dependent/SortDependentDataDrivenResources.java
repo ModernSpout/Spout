@@ -8,9 +8,9 @@ import org.jspecify.annotations.Nullable;
 import spout.common.util.minecraft.resources.KeyedValue;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -55,8 +55,8 @@ public final class SortDependentDataDrivenResources {
 
     public static <K, T extends DependentDataDrivenResource> Stream<Pair<ResourceKey<K>, T>> sorted(Stream<Pair<ResourceKey<K>, T>> resources) {
         // Create the nodes
-        Map<Identifier, DAGNode<K, T>> nodesByIdentifier = resources
-            .collect(Collectors.toMap(entry -> entry.left().identifier(), entry -> new DAGNode<>(entry.left(), entry.right())));
+        Map<Identifier, DAGNode<K, T>> nodesByIdentifier = new LinkedHashMap<>();
+        resources.forEach(pair -> nodesByIdentifier.put(pair.left().identifier(), new DAGNode<>(pair.left(), pair.right())));
         // Link the nodes
         nodesByIdentifier.values().forEach(node -> {
             Collection<Identifier> requiredResources = node.resource.getRequiredResources();
