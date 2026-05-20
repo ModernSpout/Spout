@@ -7,7 +7,7 @@ import spout.client.fabric.clientview.ClientModState;
 import spout.client.fabric.clientview.SpoutProtocol;
 import spout.client.fabric.moredatadriven.TemporaryRegistryModifiers;
 import spout.client.fabric.moredatadriven.minecraft.type.WithItemProperties;
-import spout.common.moredatadriven.minecraft.item.SpoutDataDrivenItem;
+import spout.common.moredatadriven.minecraft.item.SpoutNonBuiltInItem;
 import spout.common.protocol.ClientModCustomContent;
 import spout.common.protocol.ClientModCustomContentPacketPayload;
 import spout.common.util.minecraft.resources.KeyedValue;
@@ -36,7 +36,7 @@ public final class ClientModCustomContentReceiving {
         for (ClientModCustomContentPacketPayload.Element element : payload.elements) {
             switch (element.type) {
                 case BLOCK -> receivedContent.getBlocks().add(KeyedValue.of(element.getIdentifier(), element.getContentAsJsonElement()));
-                case ITEM -> receivedContent.getItems().add(KeyedValue.of(element.getIdentifier(), SpoutDataDrivenItem.CODEC.decoder().decode(JsonOps.INSTANCE, element.getContentAsJsonElement()).getOrThrow().getFirst()));
+                case ITEM -> receivedContent.getItems().add(KeyedValue.of(element.getIdentifier(), SpoutNonBuiltInItem.CODEC.decoder().decode(JsonOps.INSTANCE, element.getContentAsJsonElement()).getOrThrow().getFirst()));
                 case END -> {
                     // Add the received content
                     TemporaryRegistryModifiers.prepareToAddCustomContent();

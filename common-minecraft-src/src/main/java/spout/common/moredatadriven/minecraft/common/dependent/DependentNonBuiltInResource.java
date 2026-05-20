@@ -4,10 +4,10 @@ import net.minecraft.resources.Identifier;
 import java.util.List;
 
 /**
- * A data-driven resource that may be dependent on data-driven resources
+ * A non-built-in resource that may be dependent on other resources
  * of the same type, thereby imposing a required loading order.
  */
-public interface DependentDataDrivenResource {
+public interface DependentNonBuiltInResource {
 
     List<Identifier> getRequiredResources();
 

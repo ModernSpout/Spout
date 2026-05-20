@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.ListCodec;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.RegistryDataLoader;
@@ -13,7 +12,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.BlockTypes;
 import spout.common.moredatadriven.minecraft.common.dependent.SortDependentDataDrivenResources;
-import spout.common.moredatadriven.minecraft.item.SpoutDataDrivenItem;
+import spout.common.moredatadriven.minecraft.item.SpoutNonBuiltInItem;
 import spout.server.paper.impl.moredatadriven.datapack.CopyResourcesFromDataPackRegistryToInternalRegistry;
 import spout.server.paper.impl.moredatadriven.datapack.SpoutDataPackRegistries;
 import spout.server.paper.impl.packetmapping.item.datadriven.UnappliedDataDrivenItemMapping;
@@ -43,12 +42,12 @@ public final class DataPackRegistriesToLoadBeforeDelayedRegistryFreeze {
         ),
         new Instance<>(
             SpoutDataPackRegistries.ITEM_FROM_DATA_PACK,
-            SpoutDataDrivenItem.CODEC,
+            SpoutNonBuiltInItem.CODEC,
             registry -> {
                 CopyResourcesFromDataPackRegistryToInternalRegistry.copy(
                     SortDependentDataDrivenResources.sortedRegistry(registry).map(pair -> {
-                        pair.right().initializeItemFromInput(false);
-                        Item item = pair.right().getItem();
+                        pair.right().initializeValueFromInput(false);
+                        Item item = pair.right().getValue();
                         Object mappingsInput = pair.right().getInput().input().get("mappings");
                         if (mappingsInput != null) {
                             DataResult<com.mojang.datafixers.util.Pair<List<UnappliedDataDrivenItemMapping>, ?>> mappings = UnappliedDataDrivenItemMapping.LIST_CODEC.decode((DynamicOps) pair.right().getInput().ops(), mappingsInput);

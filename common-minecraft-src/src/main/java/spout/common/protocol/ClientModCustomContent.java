@@ -2,13 +2,11 @@ package spout.common.protocol;
 
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BlockTypes;
 import org.jspecify.annotations.Nullable;
-import spout.common.moredatadriven.minecraft.common.dependent.SortDependentDataDrivenResources;
-import spout.common.moredatadriven.minecraft.item.SpoutDataDrivenItem;
+import spout.common.moredatadriven.minecraft.item.SpoutNonBuiltInItem;
 import spout.common.util.minecraft.resources.KeyedValue;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +24,7 @@ public final class ClientModCustomContent {
     /**
      * The items.
      */
-    private final List<KeyedValue<SpoutDataDrivenItem>> items;
+    private final List<KeyedValue<SpoutNonBuiltInItem>> items;
 
     /**
      * The parsed blocks,
@@ -49,7 +47,7 @@ public final class ClientModCustomContent {
         return this.blocks;
     }
 
-    public List<KeyedValue<SpoutDataDrivenItem>> getItems() {
+    public List<KeyedValue<SpoutNonBuiltInItem>> getItems() {
         return this.items;
     }
 
@@ -64,8 +62,8 @@ public final class ClientModCustomContent {
         if (this.parsedItems == null) {
             this.parsedItems = this.items.stream()
                 .map(item -> {
-                    item.value().initializeItemFromInput(true);
-                    return item.value().getItem();
+                    item.value().initializeValueFromInput(true);
+                    return item.value().getValue();
                 }).toList();
         }
         return this.parsedItems;
@@ -80,7 +78,7 @@ public final class ClientModCustomContent {
             blocks.stream().map(block -> KeyedValue.of(block.builtInRegistryHolder().key().identifier(), BlockTypes.CODEC.codec().encodeStart(JsonOps.INSTANCE, block).getOrThrow())).toList()
         );
         content.items.addAll(
-            items.stream().map(item -> KeyedValue.of(item.builtInRegistryHolder().key().identifier(), new SpoutDataDrivenItem(item))).toList()
+            items.stream().map(item -> KeyedValue.of(item.builtInRegistryHolder().key().identifier(), new SpoutNonBuiltInItem(item))).toList()
         );
         return content;
     }

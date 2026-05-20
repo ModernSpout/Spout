@@ -7,14 +7,13 @@ import net.minecraft.resources.ResourceKey;
 import org.jspecify.annotations.Nullable;
 import spout.common.util.minecraft.resources.KeyedValue;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
 /**
- * A utility class for sorting {@link DependentDataDrivenResource}
+ * A utility class for sorting {@link DependentNonBuiltInResource}
  * into an order that is valid.
  */
 public final class SortDependentDataDrivenResources {
@@ -41,32 +40,33 @@ public final class SortDependentDataDrivenResources {
 
     }
 
-    public static <T extends DependentDataDrivenResource> Stream<Pair<ResourceKey<T>, T>> sortedRegistry(Registry<T> registry) {
+    public static <T extends DependentNonBuiltInResource> Stream<Pair<ResourceKey<T>, T>> sortedRegistry(Registry<T> registry) {
         return sorted(registry.entrySet().stream().map(entry -> Pair.of(entry.getKey(), entry.getValue())));
     }
 
-    public static <K, T extends DependentDataDrivenResource> Stream<Pair<ResourceKey<K>, T>> sortedKeyedResources(Registry<K> registry, Stream<KeyedValue<T>> resources) {
+    public static <K, T extends DependentNonBuiltInResource> Stream<Pair<ResourceKey<K>, T>> sortedKeyedResources(Registry<K> registry, Stream<KeyedValue<T>> resources) {
         return sortedKeyedResources(registry.key(), resources);
     }
 
-    public static <K, T extends DependentDataDrivenResource> Stream<Pair<ResourceKey<K>, T>> sortedKeyedResources(ResourceKey<? extends Registry<K>> registryKey, Stream<KeyedValue<T>> resources) {
+    public static <K, T extends DependentNonBuiltInResource> Stream<Pair<ResourceKey<K>, T>> sortedKeyedResources(ResourceKey<? extends Registry<K>> registryKey, Stream<KeyedValue<T>> resources) {
         return sorted(resources.map(value -> Pair.of(ResourceKey.create(registryKey, value.identifier()), value.value())));
     }
 
-    public static <K, T extends DependentDataDrivenResource> Stream<Pair<ResourceKey<K>, T>> sorted(Stream<Pair<ResourceKey<K>, T>> resources) {
+    public static <K, T extends DependentNonBuiltInResource> Stream<Pair<ResourceKey<K>, T>> sorted(Stream<Pair<ResourceKey<K>, T>> resources) {
         // Create the nodes
         Map<Identifier, DAGNode<K, T>> nodesByIdentifier = new LinkedHashMap<>();
         resources.forEach(pair -> nodesByIdentifier.put(pair.left().identifier(), new DAGNode<>(pair.left(), pair.right())));
         // Link the nodes
         nodesByIdentifier.values().forEach(node -> {
-            Collection<Identifier> requiredResources = node.resource.getRequiredResources();
-            node.requiredLeft = requiredResources.size();
-            for (Identifier requiredResource : requiredResources) {
+            for (Identifier requiredResource : node.resource.getRequiredResources()) {
                 DAGNode<K, T> requiredResourceNode = nodesByIdentifier.get(requiredResource);
-                if (requiredResourceNode.dependents == null) {
-                    requiredResourceNode.dependents = new ArrayList<>(1);
+                if (requiredResourceNode != null) {
+                    if (requiredResourceNode.dependents == null) {
+                        requiredResourceNode.dependents = new ArrayList<>(1);
+                    }
+                    requiredResourceNode.dependents.add(node);
+                    node.requiredLeft++;
                 }
-                requiredResourceNode.dependents.add(node);
             }
         });
         // List the nodes in a valid order

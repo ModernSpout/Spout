@@ -7,7 +7,7 @@ import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import org.jspecify.annotations.Nullable;
-import spout.common.moredatadriven.minecraft.item.SpoutDataDrivenItem;
+import spout.common.moredatadriven.minecraft.item.SpoutNonBuiltInItem;
 import spout.common.protocol.ClientModCustomContent;
 import spout.common.protocol.ClientModCustomContentPacketPayload;
 import spout.server.paper.api.clientview.ClientView;
@@ -93,7 +93,7 @@ public final class ClientModCustomContentSending {
 
         }
         customContent.getBlocks().forEach(value -> FillPayloadsHelper.addElement(new ClientModCustomContentPacketPayload.Element(ClientModCustomContentPacketPayload.Element.Type.BLOCK, value.identifier(), value.value())));
-        customContent.getItems().forEach(value -> FillPayloadsHelper.addElement(new ClientModCustomContentPacketPayload.Element(ClientModCustomContentPacketPayload.Element.Type.ITEM, value.identifier(), SpoutDataDrivenItem.CODEC.encoder().encodeStart(JsonOps.INSTANCE, value.value()).getOrThrow())));
+        customContent.getItems().forEach(value -> FillPayloadsHelper.addElement(new ClientModCustomContentPacketPayload.Element(ClientModCustomContentPacketPayload.Element.Type.ITEM, value.identifier(), SpoutNonBuiltInItem.CODEC.encoder().encodeStart(JsonOps.INSTANCE, value.value()).getOrThrow())));
         FillPayloadsHelper.addElement(ClientModCustomContentPacketPayload.Element.END);
         FillPayloadsHelper.finishCurrentPayload();
 

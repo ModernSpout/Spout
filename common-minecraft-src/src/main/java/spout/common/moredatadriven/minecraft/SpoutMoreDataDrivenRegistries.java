@@ -16,9 +16,9 @@ public final class SpoutMoreDataDrivenRegistries {
         throw new UnsupportedOperationException();
     }
 
-    // /**
-    //  * Key for {@link BuiltInSpoutMoreDataDrivenRegistries#BLOCK_TYPE}.
-    //  */
+    /**
+     * Key for {@link BuiltInSpoutMoreDataDrivenRegistries#BLOCK_TYPE}.
+     */
     // public static final ResourceKey<Registry<SpoutBlockType>> BLOCK_TYPE = createRegistryKey(spout.common.branding.SpoutNamespace.SPOUT + ":block_type");
 
     /**
