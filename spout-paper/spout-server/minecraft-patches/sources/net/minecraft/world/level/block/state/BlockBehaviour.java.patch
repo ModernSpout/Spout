@@ -172,7 +172,7 @@
  
      @FunctionalInterface
      public interface PostProcess {
-@@ -1110,47 +_,50 @@
+@@ -1110,47 +_,48 @@
      }
  
      public static class Properties {
@@ -190,20 +190,19 @@
 -        private float jumpFactor = 1.0F;
 -        private @Nullable ResourceKey<Block> id;
 +        public static final Codec<BlockBehaviour.Properties> CODEC = spout.common.moredatadriven.minecraft.block.BlockPropertiesCodec.CODEC; // Spout - More data-driven - Minecraft registries - Block - Add missing properties codec implementation
-+        // Spout start - More data-driven - Minecraft registries - Types - Properties serialization - Make properties fields public
-+        public spout.common.moredatadriven.minecraft.type.BlockStateFunction<MapColor> mapColor = new spout.common.moredatadriven.minecraft.type.BlockStateFunction.Single<>(MapColor.NONE);
-+        public boolean hasCollision = true;
-+        public SoundType soundType = SoundType.STONE;
-+        public spout.common.moredatadriven.minecraft.type.BlockStateFunction<Integer> lightEmission = new spout.common.moredatadriven.minecraft.type.BlockStateFunction.Single<>(0);
++        public spout.common.moredatadriven.minecraft.type.BlockStateFunction<MapColor> mapColor = new spout.common.moredatadriven.minecraft.type.BlockStateFunction.Single<>(MapColor.NONE); // Spout - Common class tweakers - Make accessible // Spout start - More data-driven - Minecraft registries - Block - Use serializable subtypes
++        public boolean hasCollision = true; // Spout - Common class tweakers - Make accessible
++        public SoundType soundType = SoundType.STONE; // Spout - Common class tweakers - Make accessible
++        public spout.common.moredatadriven.minecraft.type.BlockStateFunction<Integer> lightEmission = new spout.common.moredatadriven.minecraft.type.BlockStateFunction.Single<>(0); // Spout - Common class tweakers - Make accessible // Spout start - More data-driven - Minecraft registries - Block - Use serializable subtypes
 +        public boolean wasExplosionResistanceSet = false; // Spout - More data-driven - Data pack - Copy loaded blocks and items to their internal registries - Replace block arguments by references - Replace stairs explosion resistance implementation
-+        public float explosionResistance;
-+        public float destroyTime;
-+        public boolean requiresCorrectToolForDrops;
-+        public boolean isRandomlyTicking;
-+        public float friction = 0.6F;
-+        public float speedFactor = 1.0F;
-+        public float jumpFactor = 1.0F;
-+        public @Nullable ResourceKey<Block> id;
++        public float explosionResistance; // Spout - Common class tweakers - Make accessible
++        public float destroyTime; // Spout - Common class tweakers - Make accessible
++        public boolean requiresCorrectToolForDrops; // Spout - Common class tweakers - Make accessible
++        public boolean isRandomlyTicking; // Spout - Common class tweakers - Make accessible
++        public float friction = 0.6F; // Spout - Common class tweakers - Make accessible
++        public float speedFactor = 1.0F; // Spout - Common class tweakers - Make accessible
++        public float jumpFactor = 1.0F; // Spout - Common class tweakers - Make accessible
++        public @Nullable ResourceKey<Block> id; // Spout - Common class tweakers - Make accessible
          private DependantName<Block, Optional<ResourceKey<LootTable>>> drops = id -> Optional.of(
              ResourceKey.create(Registries.LOOT_TABLE, id.identifier().withPrefix("blocks/"))
          );
@@ -220,18 +219,18 @@
 -        private boolean spawnTerrainParticles = true;
 -        private NoteBlockInstrument instrument = NoteBlockInstrument.HARP;
 -        private boolean replaceable;
-+        public boolean canOcclude = true;
-+        public boolean isAir;
-+        public boolean ignitedByLava;
++        public boolean canOcclude = true; // Spout - Common class tweakers - Make accessible
++        public boolean isAir; // Spout - Common class tweakers - Make accessible
++        public boolean ignitedByLava; // Spout - Common class tweakers - Make accessible
 +        @Deprecated
-+        public boolean liquid;
++        public boolean liquid; // Spout - Common class tweakers - Make accessible
 +        @Deprecated
-+        public boolean forceSolidOff;
-+        public boolean forceSolidOn;
-+        public PushReaction pushReaction = PushReaction.NORMAL;
-+        public boolean spawnTerrainParticles = true;
-+        public NoteBlockInstrument instrument = NoteBlockInstrument.HARP;
-+        public boolean replaceable;
++        public boolean forceSolidOff; // Spout - Common class tweakers - Make accessible
++        public boolean forceSolidOn; // Spout - Common class tweakers - Make accessible
++        public PushReaction pushReaction = PushReaction.NORMAL; // Spout - Common class tweakers - Make accessible
++        public boolean spawnTerrainParticles = true; // Spout - Common class tweakers - Make accessible
++        public NoteBlockInstrument instrument = NoteBlockInstrument.HARP; // Spout - Common class tweakers - Make accessible
++        public boolean replaceable; // Spout - Common class tweakers - Make accessible
          private BlockBehaviour.StateArgumentPredicate<EntityType<?>> isValidSpawn = (state, level, pos, entityType) -> state.isFaceSturdy(
                  level, pos, Direction.UP
              )
@@ -244,15 +243,14 @@
 -        private boolean dynamicShape;
 -        private FeatureFlagSet requiredFeatures = FeatureFlags.VANILLA_SET;
 -        private BlockBehaviour.@Nullable OffsetFunction offsetFunction;
-+        public spout.common.moredatadriven.minecraft.common.subtypes.KnownStatePredicate isRedstoneConductor = spout.common.moredatadriven.minecraft.common.subtypes.KnownStatePredicate.IS_COLLISION_SHAPE_FULL_BLOCK;
-+        public spout.common.moredatadriven.minecraft.common.subtypes.KnownStatePredicate isSuffocating = spout.common.moredatadriven.minecraft.common.subtypes.KnownStatePredicate.BLOCKS_MOTION_AND_IS_COLLISION_SHAPE_FULL_BLOCK;
-+        public spout.common.moredatadriven.minecraft.common.subtypes.KnownStatePredicate isViewBlocking = this.isSuffocating;
-+        public BlockBehaviour.PostProcess postProcess = (state, level, pos) -> null;
-+        public spout.common.moredatadriven.minecraft.common.subtypes.KnownStatePredicate emissiveRendering = spout.common.moredatadriven.minecraft.common.subtypes.KnownStatePredicate.NEVER;
-+        public boolean dynamicShape;
-+        public FeatureFlagSet requiredFeatures = FeatureFlags.VANILLA_SET;
-+        public BlockBehaviour.@Nullable OffsetType offsetFunction;
-+        // Spout end - More data-driven - Minecraft registries - Types - Properties serialization - Make properties fields public
++        public spout.common.moredatadriven.minecraft.common.subtypes.KnownStatePredicate isRedstoneConductor = spout.common.moredatadriven.minecraft.common.subtypes.KnownStatePredicate.IS_COLLISION_SHAPE_FULL_BLOCK; // Spout - Common class tweakers - Make accessible // Spout start - More data-driven - Minecraft registries - Block - Use serializable subtypes
++        public spout.common.moredatadriven.minecraft.common.subtypes.KnownStatePredicate isSuffocating = spout.common.moredatadriven.minecraft.common.subtypes.KnownStatePredicate.BLOCKS_MOTION_AND_IS_COLLISION_SHAPE_FULL_BLOCK; // Spout - Common class tweakers - Make accessible // Spout start - More data-driven - Minecraft registries - Block - Use serializable subtypes
++        public spout.common.moredatadriven.minecraft.common.subtypes.KnownStatePredicate isViewBlocking = this.isSuffocating; // Spout - Common class tweakers - Make accessible // Spout start - More data-driven - Minecraft registries - Block - Use serializable subtypes
++        public BlockBehaviour.PostProcess postProcess = (state, level, pos) -> null; // Spout - Common class tweakers - Make accessible
++        public spout.common.moredatadriven.minecraft.common.subtypes.KnownStatePredicate emissiveRendering = spout.common.moredatadriven.minecraft.common.subtypes.KnownStatePredicate.NEVER; // Spout - Common class tweakers - Make accessible // Spout start - More data-driven - Minecraft registries - Block - Use serializable subtypes
++        public boolean dynamicShape; // Spout - Common class tweakers - Make accessible
++        public FeatureFlagSet requiredFeatures = FeatureFlags.VANILLA_SET; // Spout - Common class tweakers - Make accessible
++        public BlockBehaviour.@Nullable OffsetType offsetFunction; // Spout - Common class tweakers - Make accessible
  
          private Properties() {
          }

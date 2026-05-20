@@ -89,4 +89,9 @@ public class SpoutDataDrivenItem implements DependentDataDrivenResource {
         return Collections.emptyList();
     }
 
+    @Override
+    public String toString() {
+        return this.type + ": " + (this.item != null ? "item = " + this.item : "input = " + this.input);
+    }
+
 }

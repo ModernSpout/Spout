@@ -25,7 +25,7 @@ public final class TemporaryBlockRegistryModifier extends TemporaryRegistryModif
             // Apply lazy values
             ApplyLazyBlockValues.apply(resources.stream().map(Pair::right));
             // Update alternatively valid block entities
-            BlockEntityAlternativeValidation.update(resources.stream().map(Pair::right));
+            BlockEntityAlternativeValidation.update();
         }
     }
 

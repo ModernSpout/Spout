@@ -7,7 +7,6 @@ import spout.client.fabric.clientview.ClientModState;
 import spout.client.fabric.clientview.SpoutProtocol;
 import spout.client.fabric.moredatadriven.TemporaryRegistryModifiers;
 import spout.client.fabric.moredatadriven.minecraft.type.WithItemProperties;
-import spout.client.fabric.moredatadriven.minecraft.type.mixin.BlockBehaviourPropertiesAccessor;
 import spout.common.moredatadriven.minecraft.item.SpoutDataDrivenItem;
 import spout.common.protocol.ClientModCustomContent;
 import spout.common.protocol.ClientModCustomContentPacketPayload;
@@ -42,7 +41,7 @@ public final class ClientModCustomContentReceiving {
                     // Add the received content
                     TemporaryRegistryModifiers.prepareToAddCustomContent();
                     TemporaryRegistryModifiers.addCustomContent(
-                        () -> receivedContent.getParsedBlocks().stream().map(block -> Pair.of(((BlockBehaviourPropertiesAccessor) block.properties()).getId(), block)).toList(),
+                        () -> receivedContent.getParsedBlocks().stream().map(block -> Pair.of(block.properties().id, block)).toList(),
                         () -> receivedContent.getParsedItems().stream().map(item -> Pair.of((((WithItemProperties) item).getItemProperties()).id, item)).toList()
                     );
                     SpoutProtocol.changeState(ClientModState.RECEIVED_CUSTOM_CONTENT, ClientModState.ADDED_CUSTOM_CONTENT);

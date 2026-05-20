@@ -35,7 +35,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import spout.client.fabric.moredatadriven.minecraft.type.mixin.BlockBehaviourPropertiesAccessor;
 import spout.common.moredatadriven.minecraft.common.subtypes.KnownStatePredicate;
 import spout.common.moredatadriven.minecraft.common.subtypes.SubtypeCodecs;
 import java.util.function.BiFunction;
@@ -58,14 +57,13 @@ public final class BlockCodecs {
         public <T> DataResult<Pair<BlockBehaviour.Properties, T>> decode(DynamicOps<T> ops, T input) {
             return ops.getMap(input).flatMap(mapLike -> {
                 BlockBehaviour.Properties properties = BlockBehaviour.Properties.of();
-                BlockBehaviourPropertiesAccessor accessor = (BlockBehaviourPropertiesAccessor) properties;
                 T mapColorInput = mapLike.get("map_color");
                 if (mapColorInput != null) {
                     DataResult<BlockStateFunction<MapColor>> mapColor = SubtypeCodecs.MAP_COLOR_FUNCTION_CODEC.decode(ops, mapColorInput).map(Pair::getFirst);
                     if (mapColor.isError()) {
                         return mapColor.map($ -> null);
                     }
-                    accessor.setMapColor(mapColor.getOrThrow());
+                    properties.mapColor = mapColor.getOrThrow();
                 }
                 T hasCollisionInput = mapLike.get("has_collision");
                 if (hasCollisionInput != null) {
@@ -73,7 +71,7 @@ public final class BlockCodecs {
                     if (hasCollision.isError()) {
                         return hasCollision.map($ -> null);
                     }
-                    accessor.setHasCollision(hasCollision.getOrThrow());
+                    properties.hasCollision = hasCollision.getOrThrow();
                 }
                 T soundTypeInput = mapLike.get("sound_type");
                 if (soundTypeInput != null) {
@@ -81,7 +79,7 @@ public final class BlockCodecs {
                     if (soundType.isError()) {
                         return soundType.map($ -> null);
                     }
-                    accessor.setSoundType(soundType.getOrThrow());
+                    properties.soundType = soundType.getOrThrow();
                 }
                 T lightEmissionInput = mapLike.get("light_emission");
                 if (lightEmissionInput != null) {
@@ -90,7 +88,7 @@ public final class BlockCodecs {
                         return lightEmission.map($ -> null);
                     }
                     BlockStateFunction<Integer> lightEmissionFunction = lightEmission.getOrThrow();
-                    accessor.setLightEmission(lightEmissionFunction::apply);
+                    properties.lightEmission = lightEmissionFunction::apply;
                 }
                 T explosionResistanceInput = mapLike.get("explosion_resistance");
                 if (explosionResistanceInput != null) {
@@ -98,7 +96,7 @@ public final class BlockCodecs {
                     if (explosionResistance.isError()) {
                         return explosionResistance.map($ -> null);
                     }
-                    accessor.setExplosionResistance(explosionResistance.getOrThrow().floatValue());
+                    properties.explosionResistance = explosionResistance.getOrThrow().floatValue();
                 }
                 T destroyTimeInput = mapLike.get("destroy_time");
                 if (destroyTimeInput != null) {
@@ -106,7 +104,7 @@ public final class BlockCodecs {
                     if (destroyTime.isError()) {
                         return destroyTime.map($ -> null);
                     }
-                    accessor.setDestroyTime(destroyTime.getOrThrow().floatValue());
+                    properties.destroyTime = destroyTime.getOrThrow().floatValue();
                 }
                 T requiresCorrectToolForDropsInput = mapLike.get("requires_correct_tool_for_drops");
                 if (requiresCorrectToolForDropsInput != null) {
@@ -114,7 +112,7 @@ public final class BlockCodecs {
                     if (requiresCorrectToolForDrops.isError()) {
                         return requiresCorrectToolForDrops.map($ -> null);
                     }
-                    accessor.setRequiresCorrectToolForDrops(requiresCorrectToolForDrops.getOrThrow());
+                    properties.requiresCorrectToolForDrops = requiresCorrectToolForDrops.getOrThrow();
                 }
                 T isRandomlyTickingInput = mapLike.get("is_randomly_ticking");
                 if (isRandomlyTickingInput != null) {
@@ -122,7 +120,7 @@ public final class BlockCodecs {
                     if (isRandomlyTicking.isError()) {
                         return isRandomlyTicking.map($ -> null);
                     }
-                    accessor.setIsRandomlyTicking(isRandomlyTicking.getOrThrow());
+                    properties.isRandomlyTicking = isRandomlyTicking.getOrThrow();
                 }
                 T frictionInput = mapLike.get("friction");
                 if (frictionInput != null) {
@@ -130,7 +128,7 @@ public final class BlockCodecs {
                     if (friction.isError()) {
                         return friction.map($ -> null);
                     }
-                    accessor.setFriction(friction.getOrThrow().floatValue());
+                    properties.friction = friction.getOrThrow().floatValue();
                 }
                 T speedFactorInput = mapLike.get("speed_factor");
                 if (speedFactorInput != null) {
@@ -138,7 +136,7 @@ public final class BlockCodecs {
                     if (speedFactor.isError()) {
                         return speedFactor.map($ -> null);
                     }
-                    accessor.setSpeedFactor(speedFactor.getOrThrow().floatValue());
+                    properties.speedFactor = speedFactor.getOrThrow().floatValue();
                 }
                 T jumpFactorInput = mapLike.get("jump_factor");
                 if (jumpFactorInput != null) {
@@ -146,7 +144,7 @@ public final class BlockCodecs {
                     if (jumpFactor.isError()) {
                         return jumpFactor.map($ -> null);
                     }
-                    accessor.setJumpFactor(jumpFactor.getOrThrow().floatValue());
+                    properties.jumpFactor = jumpFactor.getOrThrow().floatValue();
                 }
                 T idInput = mapLike.get("id");
                 if (idInput != null) {
@@ -154,7 +152,7 @@ public final class BlockCodecs {
                     if (id.isError()) {
                         return id.map($ -> null);
                     }
-                    accessor.setId(ResourceKey.create(BuiltInRegistries.BLOCK.key(), id.getOrThrow()));
+                    properties.id = ResourceKey.create(BuiltInRegistries.BLOCK.key(), id.getOrThrow());
                 }
                 T canOccludeInput = mapLike.get("can_occlude");
                 if (canOccludeInput != null) {
@@ -162,7 +160,7 @@ public final class BlockCodecs {
                     if (canOcclude.isError()) {
                         return canOcclude.map($ -> null);
                     }
-                    accessor.setCanOcclude(canOcclude.getOrThrow());
+                    properties.canOcclude = canOcclude.getOrThrow();
                 }
                 T isAirInput = mapLike.get("is_air");
                 if (isAirInput != null) {
@@ -170,7 +168,7 @@ public final class BlockCodecs {
                     if (isAir.isError()) {
                         return isAir.map($ -> null);
                     }
-                    accessor.setIsAir(isAir.getOrThrow());
+                    properties.isAir = isAir.getOrThrow();
                 }
                 T ignitedByLavaInput = mapLike.get("ignited_by_lava");
                 if (ignitedByLavaInput != null) {
@@ -178,7 +176,7 @@ public final class BlockCodecs {
                     if (ignitedByLava.isError()) {
                         return ignitedByLava.map($ -> null);
                     }
-                    accessor.setIgnitedByLava(ignitedByLava.getOrThrow());
+                    properties.ignitedByLava = ignitedByLava.getOrThrow();
                 }
                 T liquidInput = mapLike.get("liquid");
                 if (liquidInput != null) {
@@ -186,7 +184,7 @@ public final class BlockCodecs {
                     if (liquid.isError()) {
                         return liquid.map($ -> null);
                     }
-                    accessor.setLiquid(liquid.getOrThrow());
+                    properties.liquid = liquid.getOrThrow();
                 }
                 T forceSolidOffInput = mapLike.get("force_solid_off");
                 if (forceSolidOffInput != null) {
@@ -194,7 +192,7 @@ public final class BlockCodecs {
                     if (forceSolidOff.isError()) {
                         return forceSolidOff.map($ -> null);
                     }
-                    accessor.setForceSolidOff(forceSolidOff.getOrThrow());
+                    properties.forceSolidOff = forceSolidOff.getOrThrow();
                 }
                 T forceSolidOnInput = mapLike.get("force_solid_on");
                 if (forceSolidOnInput != null) {
@@ -202,7 +200,7 @@ public final class BlockCodecs {
                     if (forceSolidOn.isError()) {
                         return forceSolidOn.map($ -> null);
                     }
-                    accessor.setForceSolidOn(forceSolidOn.getOrThrow());
+                    properties.forceSolidOn = forceSolidOn.getOrThrow();
                 }
                 T pushReactionInput = mapLike.get("push_reaction");
                 if (pushReactionInput != null) {
@@ -210,7 +208,7 @@ public final class BlockCodecs {
                     if (pushReaction.isError()) {
                         return pushReaction.map($ -> null);
                     }
-                    accessor.setPushReaction(pushReaction.getOrThrow());
+                    properties.pushReaction = pushReaction.getOrThrow();
                 }
                 T spawnTerrainParticlesInput = mapLike.get("spawn_terrain_particles");
                 if (spawnTerrainParticlesInput != null) {
@@ -218,7 +216,7 @@ public final class BlockCodecs {
                     if (spawnTerrainParticles.isError()) {
                         return spawnTerrainParticles.map($ -> null);
                     }
-                    accessor.setSpawnTerrainParticles(spawnTerrainParticles.getOrThrow());
+                    properties.spawnTerrainParticles = spawnTerrainParticles.getOrThrow();
                 }
                 T instrumentInput = mapLike.get("instrument");
                 if (instrumentInput != null) {
@@ -226,7 +224,7 @@ public final class BlockCodecs {
                     if (instrument.isError()) {
                         return instrument.map($ -> null);
                     }
-                    accessor.setInstrument(instrument.getOrThrow());
+                    properties.instrument = instrument.getOrThrow();
                 }
                 T replaceableInput = mapLike.get("replaceable");
                 if (replaceableInput != null) {
@@ -234,7 +232,7 @@ public final class BlockCodecs {
                     if (replaceable.isError()) {
                         return replaceable.map($ -> null);
                     }
-                    accessor.setReplaceable(replaceable.getOrThrow());
+                    properties.replaceable = replaceable.getOrThrow();
                 }
                 T isRedstoneConductorInput = mapLike.get("is_redstone_conductor");
                 if (isRedstoneConductorInput != null) {
@@ -242,7 +240,7 @@ public final class BlockCodecs {
                     if (isRedstoneConductor.isError()) {
                         return isRedstoneConductor.map($ -> null);
                     }
-                    accessor.setIsRedstoneConductor(isRedstoneConductor.getOrThrow());
+                    properties.isRedstoneConductor = isRedstoneConductor.getOrThrow();
                 }
                 T isSuffocatingInput = mapLike.get("is_suffocating");
                 if (isSuffocatingInput != null) {
@@ -250,7 +248,7 @@ public final class BlockCodecs {
                     if (isSuffocating.isError()) {
                         return isSuffocating.map($ -> null);
                     }
-                    accessor.setIsSuffocating(isSuffocating.getOrThrow());
+                    properties.isSuffocating = isSuffocating.getOrThrow();
                 }
                 T isViewBlockingInput = mapLike.get("is_view_blocking");
                 if (isViewBlockingInput != null) {
@@ -258,7 +256,7 @@ public final class BlockCodecs {
                     if (isViewBlocking.isError()) {
                         return isViewBlocking.map($ -> null);
                     }
-                    accessor.setIsViewBlocking(isViewBlocking.getOrThrow());
+                    properties.isViewBlocking = isViewBlocking.getOrThrow();
                 }
                 T postProcessInput = mapLike.get("post_process");
                 if (postProcessInput != null) {
@@ -266,7 +264,7 @@ public final class BlockCodecs {
                     if (postProcess.isError()) {
                         return postProcess.map($ -> null);
                     }
-                    accessor.setPostProcess(postProcess.getOrThrow());
+                    properties.postProcess = postProcess.getOrThrow();
                 }
                 T emissiveRenderingInput = mapLike.get("emissive_rendering");
                 if (emissiveRenderingInput != null) {
@@ -274,7 +272,7 @@ public final class BlockCodecs {
                     if (emissiveRendering.isError()) {
                         return emissiveRendering.map($ -> null);
                     }
-                    accessor.setEmissiveRendering(emissiveRendering.getOrThrow());
+                    properties.emissiveRendering = emissiveRendering.getOrThrow();
                 }
                 T dynamicShapeInput = mapLike.get("dynamic_shape");
                 if (dynamicShapeInput != null) {
@@ -282,7 +280,7 @@ public final class BlockCodecs {
                     if (dynamicShape.isError()) {
                         return dynamicShape.map($ -> null);
                     }
-                    accessor.setDynamicShape(dynamicShape.getOrThrow());
+                    properties.dynamicShape = dynamicShape.getOrThrow();
                 }
                 T requiredFeaturesInput = mapLike.get("required_features");
                 if (requiredFeaturesInput != null) {
@@ -290,7 +288,7 @@ public final class BlockCodecs {
                     if (requiredFeatures.isError()) {
                         return requiredFeatures.map($ -> null);
                     }
-                    accessor.setRequiredFeatures(requiredFeatures.getOrThrow());
+                    properties.requiredFeatures = requiredFeatures.getOrThrow();
                 }
                 T offsetFunctionInput = mapLike.get("offset_function");
                 if (offsetFunctionInput != null) {

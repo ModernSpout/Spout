@@ -3,8 +3,6 @@
   "package": "spout.client.fabric.moredatadriven.minecraft.type.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "BlockBehaviourPropertiesAccessor",
-    "FeatureFlagRegistryNamesAccessorFeatureFlagRegistryMixin",
     "ItemKeepPropertiesMixin",
     "ReplaceBlockBehaviourPropertiesCodecMixin",
     "LazyBaseStateStairBlockAccessor",
