@@ -1,0 +1,11 @@
+--- a/src/main/java/org/bukkit/Registry.java
++++ b/src/main/java/org/bukkit/Registry.java
+@@ -608,7 +_,7 @@
+                 }
+             }
+ 
+-            this.map = builder.build();
++            this.map = type.equals(Material.class) ? new java.util.LinkedHashMap<>(builder.build()) : builder.build(); // Spout - Material injection - Implementation part - Update registry - Make mutable
+             this.type = type;
+         }
+ 

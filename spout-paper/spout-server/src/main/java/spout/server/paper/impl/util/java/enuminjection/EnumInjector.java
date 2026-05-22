@@ -27,7 +27,7 @@ public abstract class EnumInjector<E extends Enum<E>> {
 
     protected final Class<E> clazz;
 
-    private final List<StagedInjection<E>> stagedInjections = new ArrayList<>();
+    protected final List<StagedInjection<E>> stagedInjections = new ArrayList<>();
 
     public EnumInjector(Class<E> clazz) throws Exception {
         this.ordinalField = ReflectionUtil.getDeclaredField(Enum.class, "ordinal");
@@ -59,8 +59,10 @@ public abstract class EnumInjector<E extends Enum<E>> {
 
     /**
      * Overridable submethod for {@link #commit}.
+     *
+     * @return The new values.
      */
-    protected void processStagedInjections() throws Exception {
+    protected E[] processStagedInjections() throws Exception {
 
         // Get the original values and prepare the new values array
         E[] originalValues = this.clazz.getEnumConstants();
@@ -90,6 +92,8 @@ public abstract class EnumInjector<E extends Enum<E>> {
         this.enumConstantsField.set(this.clazz, null);
         this.enumConstantDirectoryField.set(this.clazz, null);
 
+        return newValues;
+
     }
 
     /**
@@ -106,8 +110,10 @@ public abstract class EnumInjector<E extends Enum<E>> {
         this.stagedInjections.clear();
     }
 
-    private record StagedInjection<T extends Enum<T>>(String enumName,
-                                                      @Nullable ConsumerThrowsException<T, Exception> onAllocate) {
+    private record StagedInjection<T extends Enum<T>>(
+        String enumName,
+        @Nullable ConsumerThrowsException<T, Exception> onAllocate
+    ) {
     }
 
 }

@@ -4,6 +4,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.block.BlockType;
 import org.bukkit.craftbukkit.block.CraftBlockType;
 import org.bukkit.craftbukkit.inventory.CraftItemType;
@@ -84,4 +85,19 @@ public class MaterialEnumInjector extends EnumInjector<Material> {
         });
     }
 
+    @Override
+    protected Material[] processStagedInjections() throws Exception {
+
+        Material[] newValues = super.processStagedInjections();
+
+        // Update the Registry.Material contents (based on the SimpleRegistry constructor)
+        Map<NamespacedKey, Material> map = (Map<NamespacedKey, Material>) ReflectionUtil.getDeclaredFieldValue(Registry.SimpleRegistry.class, "map", Registry.MATERIAL);
+        for (int i = newValues.length - this.stagedInjections.size(); i < newValues.length; i++) {
+            Material entry = newValues[i];
+            map.put(entry.getKey(), entry);
+        }
+
+        return newValues;
+
+    }
 }

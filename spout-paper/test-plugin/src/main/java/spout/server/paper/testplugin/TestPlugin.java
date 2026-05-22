@@ -9,7 +9,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Arrays;
-import java.util.logging.Logger;
 
 @SuppressWarnings("unused")
 public final class TestPlugin extends JavaPlugin implements Listener {
