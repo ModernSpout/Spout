@@ -11,7 +11,7 @@
   </h3>
 
 [![Discord](https://img.shields.io/discord/1091830813240348732?color=5865F2&label=discord&style=for-the-badge)](https://discord.gg/EduvcVmKS7)
-[![Latest version](https://img.shields.io/badge/Latest_version-26.1.2-4fa31a?style=for-the-badge)](#Downloads)
+[![Latest version](https://img.shields.io/badge/Latest_version-26.1.2-4fa31a?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases)
 
 </div>
 

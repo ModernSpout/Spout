@@ -20,8 +20,10 @@ import org.jspecify.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.OptionalInt;
+import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
@@ -280,11 +282,11 @@ public final class ResourcePackBlockStateClaimsImpl implements ResourcePackBlock
             this.visualDuplicateListeners = new IntConsumer[registrySize];
             this.visualDuplicateGroupVanillaClaimCount = new Int2IntArrayMap();
             this.visualDuplicateGroupNonVanillaClaimCount = new Int2IntArrayMap();
-            // Claim stone, so that it can be used as a fallback of last resort
-            {
-                int fallback = Blocks.STONE.defaultBlockState().indexInVanillaOnlyBlockStateRegistry;
-                this.claimed[fallback] = true;
-                VisualDuplicatesImpl.@Nullable VisualDuplicateGroupImpl group = VisualDuplicatesImpl.get().getVisualDuplicates(fallback);
+            // Claim some block states using their vanilla look
+            for (BlockState state : getBlockStatesToClaimUsingVanillaLookByDefault()) {
+                int id = state.indexInVanillaOnlyBlockStateRegistry;
+                this.claimed[id] = true;
+                VisualDuplicatesImpl.@Nullable VisualDuplicateGroupImpl group = VisualDuplicatesImpl.get().getVisualDuplicates(id);
                 if (group != null) {
                     this.visualDuplicateGroupVanillaClaimCount.put(group.getId(), 1);
                 }
@@ -628,7 +630,7 @@ public final class ResourcePackBlockStateClaimsImpl implements ResourcePackBlock
                 }
 
                 // We will be successful, make the claim definite
-                storeSuccessfulClaim();
+                this.storeSuccessfulClaim();
 
                 // Run the result consumer
                 if (this.request.resultConsumer != null)
@@ -638,6 +640,34 @@ public final class ResourcePackBlockStateClaimsImpl implements ResourcePackBlock
 
         }
 
+    }
+
+    /**
+     * @return Block states that we always claim using their vanilla look.
+     * This includes {@link Blocks#STONE}, because it is used as a fallback of last resort,
+     * and some other block states that may have generally more undesirable visual duplicates,
+     * such as oak planks (being sometimes replaced by a double petrified oak slab, which is very undesirable
+     * since it gives the very common oak planks block a different destroy speed and tool),
+     * or because they are so common that we'd prefer to avoid having to map them to something else
+     * in every packet.
+     */
+    // Claim some block states using their vanilla look, because they have duplicates but we rea
+    private static Iterable<BlockState> getBlockStatesToClaimUsingVanillaLookByDefault() {
+        Set<BlockState> result = new HashSet<>();
+        Stream.of(
+            Blocks.STONE, // Fallback of last resort
+            Blocks.CHISELED_STONE_BRICKS,
+            Blocks.COBBLESTONE,
+            Blocks.CRACKED_STONE_BRICKS,
+            Blocks.DEEPSLATE,
+            Blocks.MOSSY_STONE_BRICKS,
+            Blocks.OAK_PLANKS,
+            Blocks.STONE_BRICKS
+        ).map(block -> block.getStateDefinition().getPossibleStates()).forEach(result::addAll);
+        Stream.of(
+            Blocks.OAK_SLAB
+        ).flatMap(block -> block.getStateDefinition().getPossibleStates().stream()).filter(state -> !(state.getValue(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.SLAB_TYPE) == SlabType.DOUBLE)).forEach(result::add);
+        return result;
     }
 
 }

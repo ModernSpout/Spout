@@ -126,26 +126,33 @@ public abstract class RequestProcessor<R extends ProxyStatesRequestBuilderImpl> 
         for (int proxyCandidateStateIndex = 0; proxyCandidateStateIndex < proxyCandidateStateIndicesInRegistry.length; proxyCandidateStateIndex++) {
             proxyCandidateStateIndicesInRegistry[proxyCandidateStateIndex] = proxyCandidateStates[proxyCandidateStateIndex].indexInVanillaOnlyBlockStateRegistry;
         }
+        boolean consumeVisualDuplicates = !isFallback && createProxyToVisualDuplicateMappings;
+        int[][] claimedStates = consumeVisualDuplicates ? new int[1][] : null; // Filled by result consumer to then by used by visual duplicate consumer
         // Attempt the claim
         ResourcePackBlockStateClaimsImpl.get().claim(
             proxyCandidateStateIndicesInRegistry,
             priority,
-            resultConsumer,
-            !isFallback && createProxyToVisualDuplicateMappings ? visualDuplicateStateIndicesInRegistry -> {
+            consumeVisualDuplicates ? result -> {
+                claimedStates[0] = result;
+                if (resultConsumer != null) {
+                    resultConsumer.accept(result);
+                }
+            } : resultConsumer,
+            consumeVisualDuplicates ? visualDuplicateStateIndicesInRegistry -> {
                 // For resource pack clients, map the claimed proxy states to their visual duplicate
                 for (int i = 0; i < visualDuplicateStateIndicesInRegistry.length; i++) {
                     BlockState visualDuplicateState = VanillaOnlyBlockStateRegistry.get().byId(visualDuplicateStateIndicesInRegistry[i]);
-                    BlockState proxyState = proxyCandidateStates[i];
+                    BlockState claimedState = VanillaOnlyBlockStateRegistry.get().byId(claimedStates[0][i]);
                     // Block
                     event.registerNMS(
                         ClientView.AwarenessLevel.RESOURCE_PACK,
-                        proxyState,
+                        claimedState,
                         visualDuplicateState
                     );
                     // Item
                     if (createItemMappings) {
                         createItemMappingForBlockStateMapping(
-                            proxyState,
+                            claimedState,
                             visualDuplicateState,
                             null,
                             null,
