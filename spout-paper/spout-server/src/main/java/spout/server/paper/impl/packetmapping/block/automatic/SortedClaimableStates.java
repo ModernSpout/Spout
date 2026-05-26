@@ -150,6 +150,49 @@ public interface SortedClaimableStates {
 
     }
 
+    class Literal implements SortedClaimableStates {
+
+        private final BlockState[][] states;
+
+        private Literal(BlockState[][] states) {
+            this.states = states;
+        }
+
+        @Override
+        public int claims() {
+            return this.states.length;
+        }
+
+        @Override
+        public BlockState[] get(int claimIndex) {
+            return this.states[claimIndex];
+        }
+
+    }
+
+    class Concat implements SortedClaimableStates {
+
+        private final SortedClaimableStates first;
+        private final SortedClaimableStates second;
+
+        private Concat(SortedClaimableStates first, SortedClaimableStates second) {
+            this.first = first;
+            this.second = second;
+        }
+
+        @Override
+        public int claims() {
+            return this.first.claims() + this.second.claims();
+        }
+
+        @Override
+        public BlockState[] get(int claimIndex) {
+            int firstClaims = this.first.claims();
+            return claimIndex < firstClaims ? this.first.get(claimIndex) : this.second.get(claimIndex - firstClaims);
+        }
+
+    }
+
     SortedClaimableStates EMPTY = new SortedClaimableStates() {
 
         @Override
@@ -176,6 +219,14 @@ public interface SortedClaimableStates {
             return EMPTY;
         }
         return new Singletons(from, candidates);
+    }
+
+    static SortedClaimableStates literal(BlockState[][] candidates) {
+        return new Literal(candidates);
+    }
+
+    static SortedClaimableStates concat(SortedClaimableStates first, SortedClaimableStates second) {
+        return new Concat(first, second);
     }
 
 }

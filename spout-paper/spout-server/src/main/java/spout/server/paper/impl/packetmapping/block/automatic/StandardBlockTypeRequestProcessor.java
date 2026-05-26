@@ -30,7 +30,9 @@ public abstract class StandardBlockTypeRequestProcessor extends FilledArrayResul
     }
 
     protected FillPromise getFallbackFillPromise() {
-        return this.attemptToClaimStatesFillPromiseForAllStatesAtOnceForBlock(BlockDynamicClaimableStates.forFallback(this::getFallbackBlocks, () -> this.request.fallback)::get, this.getReferenceBlock(),true);
+        DynamicClaimableStates defaultDynamicClaimableStates = BlockDynamicClaimableStates.forFallback(this::getFallbackBlocks);
+        DynamicClaimableStates preferredDynamicClaimableStates = BlockDynamicClaimableStates.forFallback(() -> List.of(this.request.fallback));
+        return this.attemptToClaimStatesFillPromiseForAllStatesAtOnceForBlock(state -> SortedClaimableStates.concat(preferredDynamicClaimableStates.get(state), defaultDynamicClaimableStates.get(state)), this.getReferenceBlock(),true);
     }
 
     public static BiFunction<FromToBlockTypeRequestBuilderImpl, BlockMappingsComposeEventImpl, StandardBlockTypeRequestProcessor> withFallbackBlocks(Block... fallbackBlocks) {

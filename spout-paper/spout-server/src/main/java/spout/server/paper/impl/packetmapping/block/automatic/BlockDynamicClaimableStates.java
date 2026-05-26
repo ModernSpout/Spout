@@ -1,9 +1,7 @@
 package spout.server.paper.impl.packetmapping.block.automatic;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.function.Supplier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,20 +39,12 @@ public class BlockDynamicClaimableStates implements DynamicClaimableStates {
     private @Nullable Supplier<Collection<Block>> initialBlocksSupplier;
 
     /**
-     * A supplier of the preferred block,
-     * or null if there is no preferred block,
-     * or null if dereferenced.
-     */
-    private @Nullable Supplier<Block> preferredBlockSupplier;
-
-    /**
      * Whether these states are fallback states.
      */
     private final boolean isFallback;
 
-    private BlockDynamicClaimableStates(Supplier<Collection<Block>> initialBlocksSupplier, Supplier<Block> preferredBlockSupplier, boolean isFallback) {
+    private BlockDynamicClaimableStates(Supplier<Collection<Block>> initialBlocksSupplier, boolean isFallback) {
         this.initialBlocksSupplier = initialBlocksSupplier;
-        this.preferredBlockSupplier = preferredBlockSupplier;
         this.isFallback = isFallback;
     }
 
@@ -63,11 +53,7 @@ public class BlockDynamicClaimableStates implements DynamicClaimableStates {
         if (this.values == null) {
             Collection<Block> initialBlocks = this.initialBlocksSupplier.get();
             this.initialBlocksSupplier = null;
-            this.values = new LinkedHashSet<>(initialBlocks.size() + (this.preferredBlockSupplier != null ? 1 : 0));
-            if (this.preferredBlockSupplier != null) {
-                this.values.add(this.preferredBlockSupplier.get());
-                this.preferredBlockSupplier = null;
-            }
+            this.values = new LinkedHashSet<>(initialBlocks.size());
             initialBlocks.stream()
                 .filter(block -> block.getStateDefinition().getPossibleStates().stream().noneMatch(state -> this.isFallback ? ResourcePackBlockStateClaimsImpl.get().isClaimedNonVanilla(state) : ResourcePackBlockStateClaimsImpl.get().isClaimed(state)))
                 .sorted(VisualDuplicatesImpl.VisualDuplicateGroupImpl.BLOCK_COMPARATOR)
@@ -80,11 +66,11 @@ public class BlockDynamicClaimableStates implements DynamicClaimableStates {
     }
 
     public static BlockDynamicClaimableStates forProxy(Supplier<Collection<Block>> initialBlocksSupplier) {
-        return new BlockDynamicClaimableStates(initialBlocksSupplier, null, false);
+        return new BlockDynamicClaimableStates(initialBlocksSupplier, false);
     }
 
-    public static BlockDynamicClaimableStates forFallback(Supplier<Collection<Block>> initialBlocksSupplier, Supplier<Block> preferredBlockSupplier) {
-        return new BlockDynamicClaimableStates(initialBlocksSupplier, preferredBlockSupplier, true);
+    public static BlockDynamicClaimableStates forFallback(Supplier<Collection<Block>> initialBlocksSupplier) {
+        return new BlockDynamicClaimableStates(initialBlocksSupplier, true);
     }
 
 }

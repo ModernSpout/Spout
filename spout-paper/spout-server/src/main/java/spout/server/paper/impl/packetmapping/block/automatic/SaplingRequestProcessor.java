@@ -42,6 +42,6 @@ public class SaplingRequestProcessor extends StandardBlockTypeRequestProcessor {
         .toList()
     );
 
-    public static final List<Block> SAFE_FALLBACK_BLOCKS = Stream.concat(Stream.of(Blocks.OAK_SAPLING), StreamSupport.stream(VanillaOnlyBlockRegistry.get().spliterator(), false).filter(block -> block instanceof SaplingBlock)).distinct().toList();
+    public static final List<Block> SAFE_FALLBACK_BLOCKS = Stream.concat(Stream.of(Blocks.OAK_SAPLING), StreamSupport.stream(VanillaOnlyBlockRegistry.get().spliterator(), false).filter(block -> block.getClass().equals(SaplingBlock.class))).distinct().toList();
 
 }

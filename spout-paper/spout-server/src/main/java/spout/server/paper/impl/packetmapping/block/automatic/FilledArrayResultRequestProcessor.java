@@ -171,8 +171,8 @@ public abstract class FilledArrayResultRequestProcessor<R extends ProxyStatesReq
 
         @Override
         public void run() {
-            // First, check if all targets are already filled
             if (this.claimIndex == 0) {
+                // Check if all targets are already filled
                 boolean allFilled = true;
                 if (this.resultIndicesToClaimFor != null) {
                     for (int resultIndexToClaimFor : this.resultIndicesToClaimFor) {
@@ -200,11 +200,16 @@ public abstract class FilledArrayResultRequestProcessor<R extends ProxyStatesReq
                 BlockState claimableStatesReference = FilledArrayResultRequestProcessor.this.result.fromStates()[claimableStatesReferenceFromStatesIndex];
                 this.claimableStates = this.claimableStatesFunction.apply(claimableStatesReference);
                 this.claimableStatesFunction = null;
+                // Check if there are no possible claims
+                if (this.claimableStates.claims() == 0) {
+                    this.setDone();
+                    return;
+                }
                 // Compute the priority
                 BlockData[] blockStatesToClaimFor = this.resultIndicesToClaimFor != null ? Arrays.stream(this.resultIndicesToClaimFor).mapToObj(index -> FilledArrayResultRequestProcessor.this.result.fromStates()[index].asBlockData()).toArray(BlockData[]::new) : Arrays.stream(FilledArrayResultRequestProcessor.this.result.fromStates()).map(BlockState::asBlockData).toArray(BlockData[]::new);
                 this.priority = ClaimRequestPriority.forBlockStates(blockStatesToClaimFor);
             }
-            FilledArrayResultRequestProcessor.this.attemptClaimOfProxyOrFallbackStates(claimableStates.get(this.claimIndex), this.priority, claimedStates -> {
+            FilledArrayResultRequestProcessor.this.attemptClaimOfProxyOrFallbackStates(this.claimableStates.get(this.claimIndex), this.priority, claimedStates -> {
                 if (claimedStates != null) {
                     for (int claimedStateIndex = 0; claimedStateIndex < claimedStates.length; claimedStateIndex++) {
                         int[] resultIndicesIndices = this.claimedToResultIndicesIndex != null ? this.claimedToResultIndicesIndex.get(claimedStateIndex) : new int[]{claimedStateIndex};
@@ -324,7 +329,11 @@ public abstract class FilledArrayResultRequestProcessor<R extends ProxyStatesReq
     }
 
     protected static <R extends FromToBlockTypeRequestBuilderImpl, Re extends FilledArrayResultRequestProcessor.Result> FillPromiseGetter<R, Re> claimFallbackStatesForAllStatesAtOnceByBlock(List<Block> fallbackBlocks, Block referenceBlock) {
-        return processor -> processor.attemptToClaimStatesFillPromiseForAllStatesAtOnceForBlock(BlockDynamicClaimableStates.forFallback(() -> fallbackBlocks, () -> processor.request.fallback)::get, referenceBlock,true);
+        DynamicClaimableStates defaultDynamicClaimableStates = BlockDynamicClaimableStates.forFallback(() -> fallbackBlocks);
+        return processor -> {
+            DynamicClaimableStates preferredDynamicClaimableStates = BlockDynamicClaimableStates.forFallback(() -> List.of(processor.request.fallback));
+            return processor.attemptToClaimStatesFillPromiseForAllStatesAtOnceForBlock(state -> SortedClaimableStates.concat(preferredDynamicClaimableStates.get(state), defaultDynamicClaimableStates.get(state)), referenceBlock,true);
+        };
     }
 
     protected static <R extends FromToBlockTypeRequestBuilderImpl, Re extends FilledArrayResultRequestProcessor.Result> FillPromiseGetter<R, Re> claimFallbackStatesForAllStatesAtOnceByBlock(List<Block> fallbackBlocks) {
@@ -332,7 +341,11 @@ public abstract class FilledArrayResultRequestProcessor<R extends ProxyStatesReq
     }
 
     protected static <R extends FromToBlockStateRequestBuilderImpl, Re extends FilledArrayResultRequestProcessor.Result> FillPromiseGetter<R, Re> claimFallbackStatesForAllStatesAtOnceByBlockState(List<BlockState> fallbackStates) {
-        return processor -> processor.attemptToClaimStatesFillPromiseForAllStatesAtOnce(SingletonBlockStateDynamicClaimableStates.forFallback(() -> fallbackStates, () -> processor.request.fallback)::get,true);
+        DynamicClaimableStates defaultDynamicClaimableStates = SingletonBlockStateDynamicClaimableStates.forFallback(() -> fallbackStates);
+        return processor -> {
+            DynamicClaimableStates preferredDynamicClaimableStates = SingletonBlockStateDynamicClaimableStates.forFallback(() -> List.of(processor.request.fallback));
+            return processor.attemptToClaimStatesFillPromiseForAllStatesAtOnce(state -> SortedClaimableStates.concat(preferredDynamicClaimableStates.get(state), defaultDynamicClaimableStates.get(state)),true);
+        };
     }
 
     public class BlockFallbackFillPromise extends FillPromise {

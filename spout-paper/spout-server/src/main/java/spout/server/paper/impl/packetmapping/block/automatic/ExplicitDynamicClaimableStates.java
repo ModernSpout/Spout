@@ -50,20 +50,12 @@ public class ExplicitDynamicClaimableStates implements DynamicClaimableStates {
     private @Nullable Supplier<Collection<BlockState[]>> initialBlockStatesSupplier;
 
     /**
-     * A supplier of the preferred states,
-     * or null if there is no preferred states,
-     * or null if dereferenced.
-     */
-    private @Nullable Supplier<BlockState[]> preferredBlockStatesSupplier;
-
-    /**
      * Whether these states are fallback states.
      */
     private final boolean isFallback;
 
-    public ExplicitDynamicClaimableStates(Supplier<Collection<BlockState[]>> initialBlockStatesSupplier, Supplier<BlockState[]> preferredBlockStatesSupplier, boolean isFallback) {
+    public ExplicitDynamicClaimableStates(Supplier<Collection<BlockState[]>> initialBlockStatesSupplier, boolean isFallback) {
         this.initialBlockStatesSupplier = initialBlockStatesSupplier;
-        this.preferredBlockStatesSupplier = preferredBlockStatesSupplier;
         this.isFallback = isFallback;
     }
 
@@ -73,10 +65,6 @@ public class ExplicitDynamicClaimableStates implements DynamicClaimableStates {
             Collection<BlockState[]> initialBlockStates = this.initialBlockStatesSupplier.get();
             this.initialBlockStatesSupplier = null;
             this.values = new LinkedList<>();
-            if (this.preferredBlockStatesSupplier != null) {
-                this.values.add(this.preferredBlockStatesSupplier.get());
-                this.preferredBlockStatesSupplier = null;
-            }
             initialBlockStates.stream()
                 .filter(states -> Arrays.stream(states).noneMatch(state -> this.isFallback ? ResourcePackBlockStateClaimsImpl.get().isClaimedNonVanilla(state) : ResourcePackBlockStateClaimsImpl.get().isClaimed(state)))
                 .sorted(Comparator.comparing(states -> states[0], VisualDuplicatesImpl.VisualDuplicateGroupImpl.STATE_COMPARATOR))
@@ -116,11 +104,11 @@ public class ExplicitDynamicClaimableStates implements DynamicClaimableStates {
     }
 
     public static ExplicitDynamicClaimableStates forProxy(Supplier<Collection<BlockState[]>> initialBlockStatesSupplier) {
-        return new ExplicitDynamicClaimableStates(initialBlockStatesSupplier, null, false);
+        return new ExplicitDynamicClaimableStates(initialBlockStatesSupplier, false);
     }
 
-    public static ExplicitDynamicClaimableStates forFallback(Supplier<Collection<BlockState[]>> initialBlockStatesSupplier, Supplier<BlockState[]> preferredBlockStatesSupplier) {
-        return new ExplicitDynamicClaimableStates(initialBlockStatesSupplier, preferredBlockStatesSupplier, true);
+    public static ExplicitDynamicClaimableStates forFallback(Supplier<Collection<BlockState[]>> initialBlockStatesSupplier) {
+        return new ExplicitDynamicClaimableStates(initialBlockStatesSupplier, true);
     }
 
 }

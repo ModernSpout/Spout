@@ -135,8 +135,9 @@ For example,  mods with custom statistics, shulker box tooltips, minimaps, dynam
 all support the custom blocks and items.
 
 <details>
-    <summary>Expand list of tested mods</summary>
-    🟢 <b>Compatible</b>
+    <summary>Expand the list of tested mods</summary>
+    <br>
+    ✅ <b>Compatible</b>
     <ul>
         <li><a href="https://modrinth.com/mod/3dskinlayers">3D Skin Layers</a></li>
         <li><a href="https://modrinth.com/mod/ambientsounds">AmbientSounds</a></li>
@@ -161,6 +162,7 @@ all support the custom blocks and items.
         <li><a href="https://modrinth.com/mod/creativecore">CreativeCore</a></li>
         <li><a href="https://modrinth.com/mod/cubes-without-borders">Cubes Without Borders</a></li>
         <li><a href="https://modrinth.com/mod/debugify">Debugify</a></li>
+        <li><a href="https://modrinth.com/mod/distanthorizons">Distant Horizons</a></li>
         <li><a href="https://modrinth.com/mod/dynamic-fps">Dynamic FPS</a></li>
         <li><a href="https://modrinth.com/mod/enchantment-descriptions">Enchantment Descriptions</a></li>
         <li><a href="https://modrinth.com/mod/entity-model-features">[EMF] Entity Model Features</a></li>
