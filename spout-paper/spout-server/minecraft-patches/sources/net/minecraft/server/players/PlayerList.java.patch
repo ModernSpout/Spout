@@ -1,5 +1,17 @@
 --- a/net/minecraft/server/players/PlayerList.java
 +++ b/net/minecraft/server/players/PlayerList.java
+@@ -235,6 +_,11 @@
+         // CraftBukkit start
+         org.bukkit.craftbukkit.entity.CraftPlayer bukkitPlayer = player.getBukkitEntity();
+ 
++        // Spout start - Item mapping - Just Enough Items support - Send packets
++        spout.server.paper.impl.packetmapping.item.justenoughitemsmod.JustEnoughItemsFabricPacketSender.get().send(player);
++        spout.server.paper.impl.packetmapping.item.justenoughitemsmod.JustEnoughItemsNeoforgePacketSender.get().send(player);
++        // Spout end - Item mapping - Just Enough Items support - Send packets
++
+         // Ensure that player inventory is populated with its viewer
+         player.containerMenu.transferTo(player.containerMenu, bukkitPlayer);
+ 
 @@ -330,7 +_,7 @@
                  .getOrThrow(net.minecraft.world.level.biome.Biomes.PLAINS);
              player.connection.send(new net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket(
