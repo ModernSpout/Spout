@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "spout.client.fabric.moredatadriven.minecraft.registry.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "MapIdsByteBufCodecsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

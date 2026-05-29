@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -119,8 +120,8 @@ public final class BlockStateStringConversion {
             for (Property<?> property : blockState.getProperties()) {
                 String parsedPropertyValue = parsedProperties.get(property.getName());
                 if (parsedPropertyValue != null) {
-                    Object propertyValue = property.getValue(parsedPropertyValue);
-                    blockState.setValue((Property) property, (Comparable) propertyValue);
+                    Optional<?> propertyValue = property.getValue(parsedPropertyValue);
+                    blockState = blockState.setValue((Property) property, (Comparable) propertyValue.get());
                 }
             }
         }

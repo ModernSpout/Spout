@@ -12,6 +12,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.Identifier;
 import spout.client.fabric.clientview.mixin.ClientCommonPacketListenerImplAccessor;
 import spout.client.fabric.moredatadriven.TemporaryRegistryModifiers;
+import spout.client.fabric.moredatadriven.minecraft.block.BlockStateRegistryIdMappings;
+import spout.client.fabric.moredatadriven.minecraft.registry.RegistryIdMappings;
 import spout.client.fabric.ui.loadingoverlay.SwitchOverlayStyle;
 import spout.common.branding.SpoutNamespace;
 import spout.common.moredatadriven.clientmodprotocol.ClientModCustomContentReceiving;
@@ -27,8 +29,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public final class SpoutProtocol {
 
     private static final Identifier CLIENT_MOD_DETECTION_PACKET_ID = Identifier.fromNamespaceAndPath(SpoutNamespace.SPOUT, "detect_client_mod");
-    private static final int MIN_PROTOCOL_VERSION = 4;
-    private static final int MAX_PROTOCOL_VERSION = 4;
+    private static final int MIN_PROTOCOL_VERSION = 5;
+    private static final int MAX_PROTOCOL_VERSION = 5;
 
     private static final AtomicReference<ClientModState> state = new AtomicReference<>(ClientModState.IDLE);
 
@@ -110,6 +112,8 @@ public final class SpoutProtocol {
         while (true) {
             if (SpoutProtocol.getState() == ClientModState.ADDED_CUSTOM_CONTENT) {
                 TemporaryRegistryModifiers.removeCustomContent();
+                RegistryIdMappings.clear();
+                BlockStateRegistryIdMappings.clear();
                 SpoutProtocol.changeState(ClientModState.ADDED_CUSTOM_CONTENT, ClientModState.REMOVED_CUSTOM_CONTENT);
                 break;
             }

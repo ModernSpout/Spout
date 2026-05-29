@@ -1,14 +1,10 @@
 package spout.common.moredatadriven.clientmodprotocol;
 
-import com.mojang.serialization.JsonOps;
 import net.minecraft.network.Connection;
-import net.minecraft.network.VarInt;
 import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import org.jspecify.annotations.Nullable;
-import spout.common.moredatadriven.minecraft.block.SpoutNonBuiltInBlock;
-import spout.common.moredatadriven.minecraft.item.SpoutNonBuiltInItem;
 import spout.common.protocol.ClientModCustomContent;
 import spout.common.protocol.ClientModCustomContentPacketPayload;
 import spout.server.paper.api.clientview.ClientView;
@@ -73,8 +69,12 @@ public final class ClientModCustomContentSending {
             static List<ClientModCustomContentPacketPayload.Element> nextPayloadElements = new ArrayList<>();
             static int nextPayloadSize = 0;
 
+            static void addElement(ClientModCustomContentPacketPayload.Element.Contents contents) {
+                addElement(new ClientModCustomContentPacketPayload.Element(contents));
+            }
+
             static void addElement(ClientModCustomContentPacketPayload.Element element) {
-                int elementSize = 1 + (element.content == null ? 0 : VarInt.getByteSize(element.content.length) + element.content.length);
+                int elementSize = 1 + element.sizeInBytes();
                 if (nextPayloadSize + elementSize <= MAX_PAYLOAD_SIZE || nextPayloadSize == 0) {
                     nextPayloadElements.add(element);
                     nextPayloadSize += elementSize;
@@ -93,9 +93,11 @@ public final class ClientModCustomContentSending {
             }
 
         }
-        customContent.getBlocks().forEach(value -> FillPayloadsHelper.addElement(new ClientModCustomContentPacketPayload.Element(ClientModCustomContentPacketPayload.Element.Type.BLOCK, value.identifier(), SpoutNonBuiltInBlock.CODEC.encodeStart(JsonOps.INSTANCE, value.value()).getOrThrow())));
-        customContent.getItems().forEach(value -> FillPayloadsHelper.addElement(new ClientModCustomContentPacketPayload.Element(ClientModCustomContentPacketPayload.Element.Type.ITEM, value.identifier(), SpoutNonBuiltInItem.CODEC.encoder().encodeStart(JsonOps.INSTANCE, value.value()).getOrThrow())));
-        FillPayloadsHelper.addElement(ClientModCustomContentPacketPayload.Element.END);
+        customContent.getBlocks().forEach(value -> FillPayloadsHelper.addElement(new ClientModCustomContentPacketPayload.Element.BlockContents(value)));
+        customContent.getItems().forEach(value -> FillPayloadsHelper.addElement(new ClientModCustomContentPacketPayload.Element.ItemContents(value)));
+        customContent.getRegistryEntryIdLists().forEach(value -> FillPayloadsHelper.addElement(new ClientModCustomContentPacketPayload.Element.RegistryEntryIdListContents(value)));
+        customContent.getBlockStateRegistryEntryIdLists().forEach(value -> FillPayloadsHelper.addElement(new ClientModCustomContentPacketPayload.Element.BlockStateRegistryEntryIdListContents(value)));
+        FillPayloadsHelper.addElement(ClientModCustomContentPacketPayload.Element.EndContents.INSTANCE);
         FillPayloadsHelper.finishCurrentPayload();
 
         // Fill the packets array

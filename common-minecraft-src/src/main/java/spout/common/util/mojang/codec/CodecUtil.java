@@ -6,6 +6,10 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.MapLike;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -69,6 +73,13 @@ public final class CodecUtil {
         return Codec.optionalField(name, codec, false).xmap(
             o -> o.orElseGet(defaultValueSupplier),
             a -> Objects.equals(a, defaultValueSupplier.get()) ? Optional.empty() : Optional.of(a)
+        );
+    }
+
+    public static <A> StreamCodec<FriendlyByteBuf, A> streamViaNBT(Codec<A> codec) {
+        return StreamCodec.of(
+            (buf, value) -> buf.writeNbt(codec.encodeStart(NbtOps.INSTANCE, value).getOrThrow()),
+            buf -> codec.parse(NbtOps.INSTANCE, buf.readNbt()).getOrThrow()
         );
     }
 

@@ -5,14 +5,14 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.MapLike;
-import net.minecraft.resources.Identifier;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.block.Block;
 import spout.common.moredatadriven.minecraft.BuiltInSpoutMoreDataDrivenRegistries;
 import spout.common.moredatadriven.minecraft.blocktype.SpoutBlockType;
 import spout.common.moredatadriven.minecraft.common.nonbuiltin.SpoutNonBuiltInResource;
+import spout.common.util.mojang.codec.CodecUtil;
 import spout.common.util.mojang.codec.MapInputAndOps;
-import java.util.List;
 
 /**
  * A {@link SpoutNonBuiltInResource} for {@link Block}.
@@ -40,6 +40,11 @@ public class SpoutNonBuiltInBlock extends SpoutNonBuiltInResource<Block, SpoutBl
         }
 
     };
+
+    /**
+     * A stream codec for {@link SpoutNonBuiltInBlock}s.
+     */
+    public static final StreamCodec<FriendlyByteBuf, SpoutNonBuiltInBlock> STREAM_CODEC = CodecUtil.streamViaNBT(CODEC);
 
     public SpoutNonBuiltInBlock(SpoutBlockType type, MapInputAndOps<?> input) {
         super(type, input);

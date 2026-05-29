@@ -53,6 +53,10 @@
       "environment": "client"
     },
     {
+      "config": "spoutcraft.spout.client.fabric.moredatadriven.minecraft.registry.mixins.json",
+      "environment": "client"
+    },
+    {
       "config": "spoutcraft.spout.client.fabric.moredatadriven.minecraft.type.mixins.json",
       "environment": "client"
     },

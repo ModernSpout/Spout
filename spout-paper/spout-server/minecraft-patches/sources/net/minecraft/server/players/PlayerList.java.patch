@@ -1,5 +1,14 @@
 --- a/net/minecraft/server/players/PlayerList.java
 +++ b/net/minecraft/server/players/PlayerList.java
+@@ -235,7 +_,7 @@
+         // CraftBukkit start
+         org.bukkit.craftbukkit.entity.CraftPlayer bukkitPlayer = player.getBukkitEntity();
+ 
+-        // Ensure that player inventory is populated with its viewer
++        // Ensure that player inventory is populated with its vjiewer
+         player.containerMenu.transferTo(player.containerMenu, bukkitPlayer);
+ 
+         org.bukkit.event.player.PlayerJoinEvent playerJoinEvent = new org.bukkit.event.player.PlayerJoinEvent(bukkitPlayer, io.papermc.paper.adventure.PaperAdventure.asAdventure(component)); // Paper - Adventure
 @@ -330,7 +_,7 @@
                  .getOrThrow(net.minecraft.world.level.biome.Biomes.PLAINS);
              player.connection.send(new net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket(

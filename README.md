@@ -236,28 +236,53 @@ all support the custom blocks and items.
         <li><a href="https://modrinth.com/mod/polymer">Polymer</a></li>
         <li><a href="https://modrinth.com/mod/presence-footsteps">Presence Footsteps</a></li>
         <li><a href="https://modrinth.com/mod/puzzles-lib">Puzzles Lib</a></li>
+        <li><a href="https://modrinth.com/mod/raised">Raised</a></li>
         <li><a href="https://modrinth.com/mod/reeses-sodium-options">Reese's Sodium Options</a></li>
+        <!--<li><a href="https://modrinth.com/mod/rrv">Reliable Recipe Viewer</a></li>-->
         <li><a href="https://modrinth.com/mod/rrls">Remove Reloading Screen</a></li>
         <li><a href="https://modrinth.com/mod/resourceful-config">Resourceful Config</a></li>
         <li><a href="https://modrinth.com/mod/resourceful-lib">Resourceful Lib</a></li>
+        <li><a href="https://modrinth.com/mod/scalablelux">ScalableLux</a></li>
+        <li><a href="https://modrinth.com/mod/screencopy">Screencopy</a></li>
+        <li><a href="https://modrinth.com/mod/screenshot-compression">Screenshot Compression</a></li>
+        <li><a href="https://modrinth.com/mod/scribble">Scribble</a></li>
         <li><a href="https://modrinth.com/mod/shulkerboxtooltip">Shulker Box Tooltip</a></li>
+        <li><a href="https://modrinth.com/mod/simple-image-renderer">Simple Image Renderer</a></li>
         <li><a href="https://modrinth.com/plugin/simple-voice-chat">Simple Voice Chat</a></li>
+        <li><a href="https://modrinth.com/mod/smooth-scroll">Smooth Scrolling</a></li>
+        <li><a href="https://modrinth.com/mod/smooth-skies">Smooth Skies</a></li>
         <li><a href="https://modrinth.com/mod/sodium">Sodium</a></li>
+        <li><a href="https://modrinth.com/mod/sodium-core-shader-support">Sodium Core Shader Support</a></li>
         <li><a href="https://modrinth.com/mod/sodium-extra">Sodium Extra</a></li>
+        <li><a href="https://modrinth.com/mod/sodium-shadowy-path-blocks">Sodium Shadowy Path Blocks</a></li>
+        <li><a href="https://modrinth.com/mod/sound-controller">Sound Controller</a></li>
         <li><a href="https://modrinth.com/mod/sound-physics-remastered">Sound Physics Remastered</a></li>
+        <li><a href="https://modrinth.com/mod/stew-detective">Stew Detective</a></li>
         <li><a href="https://modrinth.com/mod/structure-layout-optimizer">Structure Layout Optimizer</a></li>
+        <li><a href="https://modrinth.com/mod/symbol-chat">Symbol Chat</a></li>
         <li><a href="https://modrinth.com/mod/tcdcommons">TCDCommons API</a></li>
         <li><a href="https://modrinth.com/mod/terrablender">TerraBlender</a></li>
         <li><a href="https://modrinth.com/mod/placeholder-api">Text Placeholder API</a></li>
+        <li><a href="https://modrinth.com/mod/tightfire">Tightfire</a></li>
+        <li><a href="https://modrinth.com/mod/tool-switcher">Tool Switcher</a></li>
+        <li><a href="https://modrinth.com/mod/tweakeroo">Tweakeroo</a></li>
+        <li><a href="https://modrinth.com/mod/tweakermore">TweakerMore</a></li>
         <li><a href="https://modrinth.com/datapack/veinminer">VeinMiner</a></li>
         <li><a href="https://modrinth.com/mod/veinminer-client">VeinMiner Hotkey</a></li>
         <li><a href="https://modrinth.com/mod/vmp-fabric">Very Many Players (Fabric)</a></li>
         <li><a href="https://modrinth.com/mod/visuality">Visuality</a></li>
         <li><a href="https://modrinth.com/mod/voxy">Voxy</a></li>
+        <li><a href="https://modrinth.com/mod/whoami">Who am I?</a></li>
+        <li><a href="https://modrinth.com/plugin/worldedit">WorldEdit</a></li>
         <li><a href="https://modrinth.com/mod/xaeros-minimap">Xaero's Minimap</a></li>
         <li><a href="https://modrinth.com/mod/xaeros-world-map">Xaero's World Map</a></li>
         <li><a href="https://modrinth.com/mod/yacl">YetAnotherConfigLib (YACL)</a></li>
         <li><a href="https://modrinth.com/mod/zoomify">Zoomify (Zoom)</a></li>
+    </ul>
+    ❌ <b>Incompatible</b>
+    <ul>
+        <li><a href="https://modrinth.com/mod/rrv">Reliable Recipe Viewer</a></li>
+        <li>Any mod that adds blocks or items</li>
     </ul>
 </details>
 
