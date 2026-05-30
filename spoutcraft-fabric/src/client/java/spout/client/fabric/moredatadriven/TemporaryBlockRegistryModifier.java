@@ -5,7 +5,7 @@ import net.minecraft.core.DefaultedMappedRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
-import spout.common.moredatadriven.minecraft.BlockEntityAlternativeValidation;
+import spout.common.moredatadriven.minecraft.blockentity.BlockEntityAlternativeValidation;
 import java.util.List;
 import java.util.function.Supplier;
 

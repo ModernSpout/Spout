@@ -59,14 +59,14 @@ Please let us know on [Discord](https://discord.gg/EduvcVmKS7) if you are intere
 
 ## Downloads
 
-[![Download from GitHub](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/1.13/spout-26.1.2-R1.13.jar)
+[![Download from GitHub](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/1.14/spout-26.1.2-R1.14.jar)
 
 ## Installation
 
 The `.jar` file is a drop-in replacement for the Paper JAR, and you can run it the same:
 
 ```sh
-java -jar spout-26.1.2-R1.13.jar
+java -jar spout-26.1.2-R1.14.jar
 ```
 
 Please report any issues you encounter.
@@ -120,7 +120,7 @@ All custom content is automatically removed the moment you leave a server.
 
 ## Downloads
 
-[![Download from GitHub](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/1.13/spoutcraft-1.13.0.jar)
+[![Download from GitHub](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/1.14/spoutcraft-1.14.0.jar)
 [![Download from Modrinth](https://img.shields.io/badge/⬇-modrinth-2c9448?style=for-the-badge)](https://modrinth.com/mod/spout-client)
 [![Download from CurseForge](https://img.shields.io/badge/⬇-curseforge-ba5c3d?style=for-the-badge)](https://www.curseforge.com/minecraft/mc-mods/spout)
 
@@ -220,6 +220,7 @@ all support the custom blocks and items.
         <li><a href="https://modrinth.com/mod/mixintrace-reborn">MixinTrace Reborn</a></li>
         <li><a href="https://modrinth.com/mod/modmenu">Mod Menu</a></li>
         <li><a href="https://modrinth.com/mod/morechathistory">More Chat History</a></li>
+        <li><a href="https://modrinth.com/mod/more-chest-variants-lieonlion">More Chest Variants (MCV)</a></li>
         <li><a href="https://modrinth.com/mod/moreculling">More Culling</a></li>
         <li><a href="https://modrinth.com/mod/mouse-tweaks">Mouse Tweaks</a></li>
         <li><a href="https://modrinth.com/mod/nbt-autocomplete">NBT Autocomplete</a></li>
@@ -238,7 +239,7 @@ all support the custom blocks and items.
         <li><a href="https://modrinth.com/mod/puzzles-lib">Puzzles Lib</a></li>
         <li><a href="https://modrinth.com/mod/raised">Raised</a></li>
         <li><a href="https://modrinth.com/mod/reeses-sodium-options">Reese's Sodium Options</a></li>
-        <!--<li><a href="https://modrinth.com/mod/rrv">Reliable Recipe Viewer</a></li>-->
+        <li><a href="https://modrinth.com/mod/rrv">Reliable Recipe Viewer</a></li>
         <li><a href="https://modrinth.com/mod/rrls">Remove Reloading Screen</a></li>
         <li><a href="https://modrinth.com/mod/resourceful-config">Resourceful Config</a></li>
         <li><a href="https://modrinth.com/mod/resourceful-lib">Resourceful Lib</a></li>
@@ -278,11 +279,6 @@ all support the custom blocks and items.
         <li><a href="https://modrinth.com/mod/xaeros-world-map">Xaero's World Map</a></li>
         <li><a href="https://modrinth.com/mod/yacl">YetAnotherConfigLib (YACL)</a></li>
         <li><a href="https://modrinth.com/mod/zoomify">Zoomify (Zoom)</a></li>
-    </ul>
-    ❌ <b>Incompatible</b>
-    <ul>
-        <li><a href="https://modrinth.com/mod/rrv">Reliable Recipe Viewer</a></li>
-        <li>Any mod that adds blocks or items</li>
     </ul>
 </details>
 

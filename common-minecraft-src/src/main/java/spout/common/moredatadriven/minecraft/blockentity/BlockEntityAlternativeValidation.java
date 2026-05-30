@@ -1,4 +1,4 @@
-package spout.common.moredatadriven.minecraft;
+package spout.common.moredatadriven.minecraft.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;

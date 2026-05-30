@@ -12,7 +12,7 @@
 +        if (!this.addedAlternativeValidBlocks) {
 +            this.addedAlternativeValidBlocks = true;
 +            this.validBlocks = new java.util.HashSet<>(this.validBlocks);
-+            this.validBlocks.addAll(spout.common.moredatadriven.minecraft.BlockEntityAlternativeValidation.getAlternativelyValidBlocks(this));
++            this.validBlocks.addAll(spout.common.moredatadriven.minecraft.blockentity.BlockEntityAlternativeValidation.getAlternativelyValidBlocks(this));
 +        }
 +        return this.validBlocks;
 +    }
@@ -37,7 +37,7 @@
      }
  
      public boolean isValid(final BlockState state) {
-+        if (spout.common.moredatadriven.minecraft.BlockEntityAlternativeValidation.isAlternativelyValid(this, state)) return true; // Spout - More data-driven - Minecraft registries - Block entities - Also allow data-driven valid blocks
++        if (spout.common.moredatadriven.minecraft.blockentity.BlockEntityAlternativeValidation.isAlternativelyValid(this, state)) return true; // Spout - More data-driven - Minecraft registries - Block entities - Also allow data-driven valid blocks
          return this.validBlocks.contains(state.getBlock());
      }
  
