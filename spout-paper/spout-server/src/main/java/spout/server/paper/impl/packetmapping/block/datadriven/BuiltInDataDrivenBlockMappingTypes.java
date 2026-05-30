@@ -18,7 +18,7 @@ import spout.server.paper.api.packetmapping.block.automatic.FromBlockTypeRequest
 import spout.server.paper.api.packetmapping.block.automatic.ProxyStatesRequestBuilder;
 import spout.server.paper.api.packetmapping.block.automatic.ToBlockStateRequestBuilder;
 import spout.server.paper.api.packetmapping.block.automatic.ToBlockTypeRequestBuilder;
-import spout.common.branding.SpoutNamespace;
+import spout.branding.SpoutNamespace;
 import spout.server.paper.impl.clientview.ClientViewImpl;
 import spout.server.paper.impl.moredatadriven.minecraft.BlockRegistry;
 import spout.server.paper.impl.packetmapping.block.BlockMappingsComposeEventImpl;

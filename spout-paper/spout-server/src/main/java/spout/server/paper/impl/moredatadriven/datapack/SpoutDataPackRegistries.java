@@ -4,7 +4,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import spout.common.branding.SpoutNamespace;
+import spout.branding.SpoutNamespace;
 import spout.common.moredatadriven.minecraft.block.SpoutNonBuiltInBlock;
 import spout.common.moredatadriven.minecraft.item.SpoutNonBuiltInItem;
 

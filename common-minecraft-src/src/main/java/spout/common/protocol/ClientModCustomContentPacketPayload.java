@@ -7,7 +7,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.Nullable;
-import spout.common.branding.SpoutNamespace;
+import spout.branding.SpoutNamespace;
 import spout.common.moredatadriven.minecraft.block.BlockStateRegistryEntryIdList;
 import spout.common.moredatadriven.minecraft.block.SpoutNonBuiltInBlock;
 import spout.common.moredatadriven.minecraft.item.SpoutNonBuiltInItem;

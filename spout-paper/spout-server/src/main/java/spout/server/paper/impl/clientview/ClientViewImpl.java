@@ -3,7 +3,7 @@ package spout.server.paper.impl.clientview;
 import com.mojang.serialization.Codec;
 import spout.server.paper.api.clientview.ClientView;
 import spout.server.paper.api.clientview.nms.NMSClientView;
-import spout.common.branding.SpoutNamespace;
+import spout.branding.SpoutNamespace;
 import spout.server.paper.impl.packetmapping.item.reverse.ItemMappingReverser;
 import spout.common.util.mojang.codec.EnumViaIdentifierCodec;
 import org.jspecify.annotations.Nullable;

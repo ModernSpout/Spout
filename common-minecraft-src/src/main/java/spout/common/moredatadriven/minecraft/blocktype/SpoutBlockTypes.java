@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
-import spout.common.branding.SpoutNamespace;
+import spout.branding.SpoutNamespace;
 import spout.common.builtincontent.block.HalfTransparentSlabBlock;
 import spout.common.builtincontent.block.HalfTransparentStairBlock;
 import spout.common.builtincontent.block.QuadBlock;

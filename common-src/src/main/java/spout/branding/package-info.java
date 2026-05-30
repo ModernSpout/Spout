@@ -6,6 +6,6 @@
  * </p>
  */
 @NullMarked
-package spout.common.branding;
+package spout.branding;
 
 import org.jspecify.annotations.NullMarked;

@@ -1,4 +1,4 @@
-package spout.common.branding;
+package spout.branding;
 
 /**
  * Holds the {@link #SPOUT} namespace.

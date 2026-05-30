@@ -3,7 +3,7 @@ package spout.server.paper.impl.packetmapping.item.datadriven;
 import java.util.HashMap;
 import java.util.Map;
 import net.minecraft.resources.Identifier;
-import spout.common.branding.SpoutNamespace;
+import spout.branding.SpoutNamespace;
 import org.jspecify.annotations.Nullable;
 
 /**

@@ -34,6 +34,8 @@ loom {
 sourceSets.main {
     java.srcDir("../common-src/src/main/java")
     java.srcDir("../common-minecraft-src/src/main/java")
+    java.srcDir("../common-fabric-src/src/main/java")
+    java.srcDir("../common-server-minecraft-src/src/main/java")
 }
 
 dependencies {

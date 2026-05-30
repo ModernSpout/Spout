@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import org.bukkit.Registry;
 import org.bukkit.inventory.ItemType;
-import spout.common.branding.SpoutNamespace;
+import spout.branding.SpoutNamespace;
 import spout.server.paper.api.clientview.ClientView;
 import spout.server.paper.api.packetmapping.item.ItemMappingFunctionContext;
 import spout.server.paper.api.packetmapping.item.ItemMappings;

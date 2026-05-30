@@ -7,7 +7,7 @@ import com.mojang.serialization.MapLike;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import spout.server.paper.api.clientview.ClientView;
-import spout.common.branding.SpoutNamespace;
+import spout.branding.SpoutNamespace;
 import spout.server.paper.impl.clientview.ClientViewImpl;
 import spout.server.paper.impl.moredatadriven.minecraft.ItemRegistry;
 import spout.server.paper.impl.packetmapping.block.datadriven.DataDrivenBlockMappingType;

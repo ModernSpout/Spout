@@ -1,7 +1,7 @@
 package spout.server.paper.impl.packetmapping.block.datadriven;
 
 import net.minecraft.resources.Identifier;
-import spout.common.branding.SpoutNamespace;
+import spout.branding.SpoutNamespace;
 import org.jspecify.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;

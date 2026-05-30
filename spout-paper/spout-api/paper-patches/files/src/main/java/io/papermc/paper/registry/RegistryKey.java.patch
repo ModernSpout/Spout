@@ -8,11 +8,11 @@
 +    /**
 +     * Built-in registry for Spout block type types.
 +     */
-+    RegistryKey<spout.server.paper.api.moredatadriven.paper.registry.type.BlockTypeType> BLOCK_TYPE_TYPE = create(spout.common.branding.SpoutNamespace.SPOUT + ":block_type"); // Has to match the corresponding entry in SpoutMoreDataDrivenRegistries
++    RegistryKey<spout.server.paper.api.moredatadriven.paper.registry.type.BlockTypeType> BLOCK_TYPE_TYPE = create(spout.branding.SpoutNamespace.SPOUT + ":block_type"); // Has to match the corresponding entry in SpoutMoreDataDrivenRegistries
 +    /**
 +     * Built-in registry for Spout item type types.
 +     */
-+    RegistryKey<spout.server.paper.api.moredatadriven.paper.registry.type.ItemTypeType> ITEM_TYPE_TYPE = create(spout.common.branding.SpoutNamespace.SPOUT + ":item_type"); // Has to match the corresponding entry in SpoutMoreDataDrivenRegistries
++    RegistryKey<spout.server.paper.api.moredatadriven.paper.registry.type.ItemTypeType> ITEM_TYPE_TYPE = create(spout.branding.SpoutNamespace.SPOUT + ":item_type"); // Has to match the corresponding entry in SpoutMoreDataDrivenRegistries
 +    // Spout end - More data-driven - Paper registry API - Types - API part - Define registry keys
      /**
       * Built-in registry for block types.

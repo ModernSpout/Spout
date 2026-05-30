@@ -15,7 +15,7 @@ import spout.client.fabric.moredatadriven.TemporaryRegistryModifiers;
 import spout.client.fabric.moredatadriven.minecraft.block.BlockStateRegistryIdMappings;
 import spout.client.fabric.moredatadriven.minecraft.registry.RegistryIdMappings;
 import spout.client.fabric.ui.loadingoverlay.SwitchOverlayStyle;
-import spout.common.branding.SpoutNamespace;
+import spout.branding.SpoutNamespace;
 import spout.common.moredatadriven.clientmodprotocol.ClientModCustomContentReceiving;
 import spout.common.protocol.ClientModCustomContentPacketPayload;
 import java.util.Set;

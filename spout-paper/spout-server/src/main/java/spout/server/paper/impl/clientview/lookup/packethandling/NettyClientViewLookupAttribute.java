@@ -2,7 +2,7 @@ package spout.server.paper.impl.clientview.lookup.packethandling;
 
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
-import spout.common.branding.SpoutNamespace;
+import spout.branding.SpoutNamespace;
 import spout.server.paper.impl.clientview.lookup.ClientViewLookup;
 import java.lang.ref.WeakReference;
 
