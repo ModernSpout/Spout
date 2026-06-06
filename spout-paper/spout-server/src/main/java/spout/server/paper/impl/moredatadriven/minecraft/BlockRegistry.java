@@ -87,9 +87,4 @@ public final class BlockRegistry extends DefaultedMappedRegistry<Block> {
         return value == null ? -1 : value.indexInBlockRegistry;
     }
 
-    @Override
-    public boolean isFreezingDelayed() {
-        return true;
-    }
-
 }

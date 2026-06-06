@@ -1,16 +1,10 @@
 --- a/src/main/java/io/papermc/paper/registry/PaperRegistryListenerManager.java
 +++ b/src/main/java/io/papermc/paper/registry/PaperRegistryListenerManager.java
-@@ -157,6 +_,13 @@
+@@ -157,6 +_,7 @@
      }
  
      public <M, T extends Keyed, B extends PaperRegistryBuilder<M, T>> void runFreezeListeners(final ResourceKey<? extends Registry<M>> resourceKey, final Conversions conversions) {
-+        // Spout start - More data-driven - Data pack - Delayed frozen registries - Delay freezing registries
-+        Registry<?> registry = BuiltInRegistries.REGISTRY.getValue(resourceKey.identifier());
-+        if (registry != null && !spout.server.paper.impl.moredatadriven.datapack.delayedfrozenregistries.DelayedRegistryFreezing.isFreezingAllowed(registry)) {
-+            spout.server.paper.impl.moredatadriven.datapack.delayedfrozenregistries.DelayedRegistryFreezing.runFreezeListenersLater(resourceKey, conversions);
-+            return;
-+        }
-+        // Spout end - More data-driven - Data pack - Delayed frozen registries - Delay freezing registries
++        if (!spout.gamecontent.datadriven.common.delayedfrozenregistries.DelayedRegistryFreezing.canFreeze(resourceKey)) return; // Spout - Game content - Data-driven - Delayed frozen registries - Delay freezing registries
          final RegistryEntry<M, T> entry = PaperRegistries.getEntry(resourceKey);
          if (entry == null || !entry.meta().modificationApiSupport().canAdd() || !this.composeEventType.hasHandlers(entry.apiKey())) {
              return;

@@ -67,9 +67,4 @@ public final class ItemRegistry extends DefaultedMappedRegistry<Item> {
         return value == null ? -1 : value.indexInItemRegistry;
     }
 
-    @Override
-    public boolean isFreezingDelayed() {
-        return true;
-    }
-
 }

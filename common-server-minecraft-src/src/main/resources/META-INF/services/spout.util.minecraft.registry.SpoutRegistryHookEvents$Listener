@@ -1,2 +1,2 @@
-spout.gamecontent.datadriven.block.CopyDataPackRegistryToActualRegistry
-spout.gamecontent.datadriven.item.CopyDataPackRegistryToActualRegistry
+spout.gamecontent.datadriven.block.CopyDataPackRegistryToActualRegistryListener
+spout.gamecontent.datadriven.item.CopyDataPackRegistryToActualRegistryListener

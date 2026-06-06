@@ -1,4 +1,4 @@
-package spout.server.paper.impl.moredatadriven.datapack.delayedfrozenregistries;
+package spout.gamecontent.datadriven.common.delayedfrozenregistries;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;

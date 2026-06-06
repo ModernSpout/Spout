@@ -6,14 +6,14 @@
                      CloseableResourceManager resources = packsAndResourceManager.getSecond();
 +                    // Spout start - More data-driven - Data pack - Delayed frozen registries - Load some registries before
 +                    CompletableFuture<?> lastInstanceCompletableFuture = CompletableFuture.completedFuture(null);
-+                    for (spout.server.paper.impl.moredatadriven.datapack.delayedfrozenregistries.DataPackRegistriesToLoadBeforeDelayedRegistryFreeze.Instance<?> instance : spout.server.paper.impl.moredatadriven.datapack.delayedfrozenregistries.DataPackRegistriesToLoadBeforeDelayedRegistryFreeze.REGISTRIES) {
++                    for (spout.gamecontent.datadriven.common.delayedfrozenregistries.DataPackRegistriesToLoadBeforeDelayedRegistryFreeze.Instance<?> instance : spout.gamecontent.datadriven.common.delayedfrozenregistries.DataPackRegistriesToLoadBeforeDelayedRegistryFreeze.REGISTRIES) {
 +                        lastInstanceCompletableFuture = lastInstanceCompletableFuture.thenComposeAsync(_ ->
 +                            RegistryDataLoader.load(resources, java.util.Collections.emptyList(), List.of(instance.registryData()), mainThreadExecutor)
 +                        ).thenAcceptAsync(access -> instance.postLoadAction().accept((Registry) access.lookupOrThrow(instance.registryData().key())));
 +                    }
 +                    return lastInstanceCompletableFuture.thenComposeAsync(_ -> {
 +                    // Spout end - More data-driven - Data pack - Delayed frozen registries - Load some registries before
-+                    spout.server.paper.impl.moredatadriven.datapack.delayedfrozenregistries.DelayedRegistryFreezing.freezeDelayedRegistries(); // Spout - More data-driven - Data pack - Delayed frozen registries - Freeze delayed registries
++                    spout.gamecontent.datadriven.common.delayedfrozenregistries.DelayedRegistryFreezing.freezeDelayedRegistries(); // Spout - More data-driven - Data pack - Delayed frozen registries - Freeze delayed registries
 +                    spout.server.paper.impl.logging.CustomContentLogging.logCustomContent(); // Spout - Logging - Log custom content
                      LayeredRegistryAccess<RegistryLayer> initialLayers = RegistryLayer.createRegistryAccess();
                      List<Registry.PendingTags<?>> staticLayerTags = TagLoader.loadTagsForExistingRegistries(

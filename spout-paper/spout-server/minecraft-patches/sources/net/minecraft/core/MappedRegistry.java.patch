@@ -39,8 +39,8 @@
      @Override
      public Registry<T> freeze() {
 +        // Spout start - More data-driven - Data pack - Delayed frozen registries - Delay freezing registries
-+        if (!spout.server.paper.impl.moredatadriven.datapack.delayedfrozenregistries.DelayedRegistryFreezing.isFreezingAllowed(this)) {
-+            spout.server.paper.impl.moredatadriven.datapack.delayedfrozenregistries.DelayedRegistryFreezing.freezeLater(this);
++        if (!spout.gamecontent.datadriven.common.delayedfrozenregistries.DelayedRegistryFreezing.isFreezingAllowed(this)) {
++            spout.gamecontent.datadriven.common.delayedfrozenregistries.DelayedRegistryFreezing.freezeLater(this);
 +            return this;
 +        }
 +        // Spout end - More data-driven - Data pack - Delayed frozen registries - Delay freezing registries

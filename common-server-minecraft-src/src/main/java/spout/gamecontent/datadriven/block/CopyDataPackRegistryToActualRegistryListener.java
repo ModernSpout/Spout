@@ -16,7 +16,7 @@ import spout.server.paper.impl.packetmapping.block.datadriven.UnappliedDataDrive
 import spout.util.minecraft.registry.SpoutRegistryHookEvents;
 import java.util.List;
 
-public class CopyDataPackRegistryToActualRegistry implements SpoutRegistryHookEvents.Listener<SpoutNonBuiltInBlock> {
+public class CopyDataPackRegistryToActualRegistryListener implements SpoutRegistryHookEvents.Listener<SpoutNonBuiltInBlock> {
 
     @Override
     public Iterable<Pair<ResourceKey<Registry<SpoutNonBuiltInBlock>>, SpoutRegistryHookEvents.EventType>> getRegistryHookEventsToListenFor() {
