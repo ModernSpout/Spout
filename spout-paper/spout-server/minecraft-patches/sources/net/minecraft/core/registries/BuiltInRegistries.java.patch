@@ -48,7 +48,7 @@
          bootStrap(() -> {});
      }
      public static void bootStrap(Runnable runnable) {
-+        spout.gamecontent.datadriven.BuiltInSpoutMoreDataDrivenRegistries.bootstrap(); // Spout - More data-driven - Minecraft registries - Include Spout registries
++        spout.gamecontent.datadriven.common.registry.bootstrap.SpoutBuiltInDataDrivenRegistryBootstrap.bootstrap(); // Spout - More data-driven - Minecraft registries - Include Spout registries
          // Paper end
          REGISTRY.freeze(); // Paper - freeze main registry early
          createContents();

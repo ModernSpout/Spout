@@ -7,12 +7,10 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.EggItem;
 import net.minecraft.world.item.Item;
-import spout.gamecontent.datadriven.BuiltInSpoutMoreDataDrivenRegistries;
-import spout.gamecontent.datadriven.SpoutMoreDataDrivenRegistries;
 import spout.gamecontent.datadriven.item.ItemCodecs;
 
 /**
- * Built-in values for the {@link SpoutMoreDataDrivenRegistries#ITEM_TYPE} registry.
+ * Built-in values for the {@link BuiltInItemTypeRegistry#ITEM_TYPE} registry.
  */
 public class SpoutItemTypes {
 
@@ -35,7 +33,7 @@ public class SpoutItemTypes {
     }
 
     private static SpoutItemType register(Identifier id, SpoutItemType itemType) {
-        return Registry.register(BuiltInSpoutMoreDataDrivenRegistries.ITEM_TYPE, id, itemType);
+        return Registry.register(BuiltInItemTypeRegistry.ITEM_TYPE, id, itemType);
     }
 
     public static SpoutItemType bootstrap(Registry<SpoutItemType> registry) {

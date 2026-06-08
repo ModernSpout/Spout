@@ -9,20 +9,18 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import org.jspecify.annotations.Nullable;
-import spout.gamecontent.datadriven.BuiltInSpoutMoreDataDrivenRegistries;
-import spout.gamecontent.datadriven.SpoutMoreDataDrivenRegistries;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
 /**
- * The class for {@link BuiltInSpoutMoreDataDrivenRegistries#BLOCK_TYPE}.
+ * The class for {@link BuiltInBlockTypeRegistry#BLOCK_TYPE}.
  */
 public final class SpoutBlockTypeRegistry extends MappedRegistry<SpoutBlockType> {
 
     private final Map<MapCodec<? extends Block>, SpoutBlockType> byCodec = new IdentityHashMap<>();
 
     public SpoutBlockTypeRegistry() {
-        super(SpoutMoreDataDrivenRegistries.BLOCK_TYPE, Lifecycle.stable());
+        super(BuiltInBlockTypeRegistryKey.BLOCK_TYPE, Lifecycle.stable());
     }
 
     @Override
@@ -43,7 +41,7 @@ public final class SpoutBlockTypeRegistry extends MappedRegistry<SpoutBlockType>
 
     public void registerMinecraftRegistryMirror(ResourceKey<?> key, MapCodec<?> value, RegistrationInfo registrationInfo) {
         Identifier identifier = key.identifier();
-        this.register(ResourceKey.create(BuiltInSpoutMoreDataDrivenRegistries.BLOCK_TYPE.key(), identifier), new CodecSpoutBlockType(identifier, (MapCodec) value), registrationInfo, false);
+        this.register(ResourceKey.create(BuiltInBlockTypeRegistryKey.BLOCK_TYPE, identifier), new CodecSpoutBlockType(identifier, (MapCodec) value), registrationInfo, false);
     }
 
     /**

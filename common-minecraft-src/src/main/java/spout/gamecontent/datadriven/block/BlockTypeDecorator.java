@@ -1,7 +1,7 @@
 package spout.gamecontent.datadriven.block;
 
 import net.minecraft.world.level.block.Block;
-import spout.gamecontent.datadriven.BuiltInSpoutMoreDataDrivenRegistries;
+import spout.gamecontent.datadriven.blocktype.BuiltInBlockTypeRegistry;
 import spout.gamecontent.datadriven.blocktype.SpoutBlockType;
 import java.util.Objects;
 
@@ -11,7 +11,7 @@ import java.util.Objects;
 public interface BlockTypeDecorator {
 
     default SpoutBlockType spout$getBlockType() {
-        return Objects.requireNonNull(BuiltInSpoutMoreDataDrivenRegistries.BLOCK_TYPE.byBlockCodec(((BlockCodecAccessor) this).spout$codec()));
+        return Objects.requireNonNull(BuiltInBlockTypeRegistry.BLOCK_TYPE.byBlockCodec(((BlockCodecAccessor) this).spout$codec()));
     }
 
 }

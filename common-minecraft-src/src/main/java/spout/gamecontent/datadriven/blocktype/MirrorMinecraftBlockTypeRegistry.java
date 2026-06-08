@@ -6,11 +6,10 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import spout.gamecontent.datadriven.BuiltInSpoutMoreDataDrivenRegistries;
 
 /**
  * A utility class that provides functionality to keep
- * the values of {@link BuiltInSpoutMoreDataDrivenRegistries#BLOCK_TYPE}
+ * the values of {@link BuiltInBlockTypeRegistry#BLOCK_TYPE}
  * and {@link BuiltInRegistries#BLOCK_TYPE} synchronized.
  */
 public final class MirrorMinecraftBlockTypeRegistry {
@@ -23,7 +22,7 @@ public final class MirrorMinecraftBlockTypeRegistry {
 
     public static void mirrorFromMinecraftToSpoutIfNecessary(Registry<?> registry, ResourceKey<?> key, Object value, RegistrationInfo registrationInfo) {
         if (value instanceof MapCodec<?> mapCodec && registry.key().equals(Registries.BLOCK_TYPE) && !currentlyMirroringFromSpoutToMinecraft.get()) {
-            BuiltInSpoutMoreDataDrivenRegistries.BLOCK_TYPE.registerMinecraftRegistryMirror(key, mapCodec, registrationInfo);
+            BuiltInBlockTypeRegistry.BLOCK_TYPE.registerMinecraftRegistryMirror(key, mapCodec, registrationInfo);
         }
     }
 

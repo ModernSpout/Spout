@@ -11,11 +11,9 @@ import spout.gamecontent.builtin.block.QuadBlock;
 import spout.gamecontent.builtin.block.TransparentSlabBlock;
 import spout.gamecontent.builtin.block.TransparentStairBlock;
 import spout.gamecontent.builtin.block.VerticalSlabBlock;
-import spout.gamecontent.datadriven.BuiltInSpoutMoreDataDrivenRegistries;
-import spout.gamecontent.datadriven.SpoutMoreDataDrivenRegistries;
 
 /**
- * Built-in values for the {@link SpoutMoreDataDrivenRegistries#BLOCK_TYPE} registry.
+ * Built-in values for the {@link BuiltInBlockTypeRegistry#BLOCK_TYPE} registry.
  */
 public final class SpoutBlockTypes {
 
@@ -39,7 +37,7 @@ public final class SpoutBlockTypes {
     }
 
     private static SpoutBlockType register(Identifier id, SpoutBlockType blockType) {
-        return Registry.register(BuiltInSpoutMoreDataDrivenRegistries.BLOCK_TYPE, id, blockType);
+        return Registry.register(BuiltInBlockTypeRegistry.BLOCK_TYPE, id, blockType);
     }
 
     public static SpoutBlockType bootstrap(Registry<SpoutBlockType> registry) {

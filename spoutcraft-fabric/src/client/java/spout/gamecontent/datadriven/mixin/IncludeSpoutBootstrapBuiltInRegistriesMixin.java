@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import spout.gamecontent.datadriven.BuiltInSpoutMoreDataDrivenRegistries;
+import spout.gamecontent.datadriven.common.registry.bootstrap.SpoutBuiltInDataDrivenRegistryBootstrap;
 
 /**
  * Extends {@link BuiltInRegistries#bootStrap()}
@@ -15,11 +15,11 @@ import spout.gamecontent.datadriven.BuiltInSpoutMoreDataDrivenRegistries;
 public abstract class IncludeSpoutBootstrapBuiltInRegistriesMixin {
 
     @Inject(
-        method = "bootStrap",
+        method = "createContents",
         at = @At("HEAD")
     )
     private static void onCreateContents(CallbackInfo ci) {
-        BuiltInSpoutMoreDataDrivenRegistries.bootstrap();
+        SpoutBuiltInDataDrivenRegistryBootstrap.bootstrap();
     }
 
 }

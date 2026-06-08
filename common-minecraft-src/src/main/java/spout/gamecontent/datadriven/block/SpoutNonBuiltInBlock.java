@@ -8,7 +8,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.block.Block;
-import spout.gamecontent.datadriven.BuiltInSpoutMoreDataDrivenRegistries;
+import spout.gamecontent.datadriven.blocktype.BuiltInBlockTypeRegistry;
 import spout.gamecontent.datadriven.blocktype.SpoutBlockType;
 import spout.gamecontent.datadriven.common.nonbuiltin.SpoutNonBuiltInResource;
 import spout.util.mojang.codec.CodecUtil;
@@ -19,7 +19,7 @@ import spout.util.mojang.codec.MapInputAndOps;
  */
 public class SpoutNonBuiltInBlock extends SpoutNonBuiltInResource<Block, SpoutBlockType> {
 
-    private static final MapCodec<SpoutNonBuiltInBlock> CODEC_WITHOUT_CONTEXT = codec(BuiltInSpoutMoreDataDrivenRegistries.BLOCK_TYPE);
+    private static final MapCodec<SpoutNonBuiltInBlock> CODEC_WITHOUT_CONTEXT = codec(BuiltInBlockTypeRegistry.BLOCK_TYPE);
 
     /**
      * A codec for {@link SpoutNonBuiltInBlock}s.
