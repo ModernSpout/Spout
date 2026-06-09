@@ -3,7 +3,7 @@ package spout.server.paper.api.moredatadriven.paper.registry.nms;
 import net.minecraft.resources.Identifier;
 import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.util.CraftNamespacedKey;
-import spout.server.paper.api.moredatadriven.paper.registry.KeyAwareRegistryEntry;
+import spout.gamecontent.datadriven.common.keyaware.KeyAwareRegistryEntry;
 
 /**
  * Extension of {@link KeyAwareRegistryEntry} for Minecraft internals.

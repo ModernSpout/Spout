@@ -35,7 +35,7 @@ import org.bukkit.craftbukkit.CraftSoundGroup;
 import org.bukkit.craftbukkit.block.CraftBlockType;
 import org.bukkit.craftbukkit.block.data.CraftBlockData;
 import org.bukkit.craftbukkit.util.CraftNamespacedKey;
-import spout.server.paper.api.moredatadriven.paper.registry.BlockTypeRegistryEntry;
+import spout.gamecontent.datadriven.block.BlockTypeRegistryEntry;
 import spout.server.paper.api.moredatadriven.paper.registry.nms.BlockTypeRegistryEntryBuilderNMS;
 import org.jspecify.annotations.Nullable;
 import java.util.Arrays;

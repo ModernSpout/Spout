@@ -1,5 +1,13 @@
 --- a/src/main/java/org/bukkit/Material.java
 +++ b/src/main/java/org/bukkit/Material.java
+@@ -90,7 +_,6 @@
+ import org.bukkit.block.data.type.MossyCarpet;
+ import org.bukkit.block.data.type.NoteBlock;
+ import org.bukkit.block.data.type.Observer;
+-import org.bukkit.block.data.type.PinkPetals;
+ import org.bukkit.block.data.type.Piston;
+ import org.bukkit.block.data.type.PistonHead;
+ import org.bukkit.block.data.type.PitcherCrop;
 @@ -3080,16 +_,7 @@
      @Nullable
      public static Material matchMaterial(@NotNull final String name, boolean legacyName) {
@@ -14,7 +22,7 @@
 -
 -        filtered = filtered.replaceAll("\\s+", "_").replaceAll("\\W", "");
 -        return getMaterial(filtered, legacyName);
-+        return spout.server.paper.impl.bukkit.enuminjection.material.match.MaterialByKeyLookup.get().lookup(name, legacyName); // Spout - Material injection - Flexible matchMaterial
++        return spout.gamecontent.datadriven.material.enuminjection.match.MaterialByKeyLookup.get().lookup(name, legacyName); // Spout - Material injection - Flexible matchMaterial
      }
  
      static {

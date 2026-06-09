@@ -10,15 +10,22 @@
  idea {
      module {
          generatedSourceDirs.add(generatedDir.toFile())
-@@ -101,6 +_,19 @@
+@@ -101,6 +_,26 @@
      main {
          java {
              srcDir(generatedDir)
++            // Spout start - Project setup - Set project directory references
 +            srcDir(file("../paper-api/src/main/java"))
-+            srcDir(file("../../common-src/src/main/java")) // Spout - Project setup - Set project directory references
++            srcDir(file("../../common-src/src/main/java"))
++            srcDir(file("src/impl/java"))
++            // Spout end - Project setup - Set project directory references
 +        }
 +        resources {
++            // Spout start - Project setup - Set project directory references
 +            srcDir(file("../paper-api/src/main/resources"))
++            srcDir(file("../../common-src/src/main/resources"))
++            srcDir(file("src/impl/resources"))
++            // Spout end - Project setup - Set project directory references
 +        }
 +    }
 +    test {

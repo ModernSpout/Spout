@@ -2,7 +2,7 @@ package spout.server.paper.impl.bukkit.enuminjection;
 
 import java.util.Locale;
 import org.bukkit.NamespacedKey;
-import spout.server.paper.api.bukkit.enuminjection.BukkitEnumNamePickFunctionHandle;
+import spout.gamecontent.datadriven.common.enuminjection.BukkitEnumNamePickFunctionHandle;
 import spout.server.paper.impl.util.java.enuminjection.EnumInjector;
 import spout.server.paper.impl.util.mappingpipeline.SingleStepMappingPipeline;
 

@@ -1,9 +1,7 @@
 package spout.server.paper.api.packetmapping.block;
 
-import spout.server.paper.api.util.composable.Composable;
+import spout.util.composable.Composable;
 import spout.server.paper.impl.util.service.SpoutServices;
-
-import java.util.ServiceLoader;
 
 /**
  * A service for the block mappings that Spout applies.

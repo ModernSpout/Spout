@@ -9,7 +9,7 @@ import org.bukkit.Axis;
 import org.bukkit.craftbukkit.block.data.CraftBlockData;
 import spout.gamecontent.builtin.block.VerticalSlabBlock;
 import spout.gamecontent.builtin.block.VerticalSlabType;
-import spout.server.paper.api.builtincontent.block.api.VerticalSlab;
+import spout.gamecontent.builtin.block.VerticalSlab;
 import java.util.Set;
 
 public class CraftVerticalSlab extends CraftBlockData implements VerticalSlab {

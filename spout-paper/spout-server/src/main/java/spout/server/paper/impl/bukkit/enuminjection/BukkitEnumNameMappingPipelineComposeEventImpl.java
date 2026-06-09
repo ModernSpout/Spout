@@ -1,8 +1,8 @@
 package spout.server.paper.impl.bukkit.enuminjection;
 
 import io.papermc.paper.plugin.lifecycle.event.PaperLifecycleEvent;
-import spout.server.paper.api.bukkit.enuminjection.BukkitEnumNamePickFunctionHandle;
-import spout.server.paper.api.bukkit.enuminjection.BukkitEnumNamesComposeEvent;
+import spout.gamecontent.datadriven.common.enuminjection.BukkitEnumNamePickFunctionHandle;
+import spout.gamecontent.datadriven.common.enuminjection.BukkitEnumNamesComposeEvent;
 import org.jspecify.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;

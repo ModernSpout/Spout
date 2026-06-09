@@ -3,6 +3,7 @@ package spout.server.paper.impl.bukkit.enuminjection.material.match;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import spout.gamecontent.datadriven.material.enuminjection.match.MaterialByKeyLookup;
 import spout.server.paper.impl.bukkit.enuminjection.KeyedSourceBukkitEnumSynchronizer;
 import org.jspecify.annotations.Nullable;
 import java.util.HashMap;

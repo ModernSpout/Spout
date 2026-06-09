@@ -2,9 +2,9 @@ package spout.server.paper.impl.util.composable;
 
 import io.papermc.paper.plugin.lifecycle.event.PaperLifecycleEvent;
 import it.unimi.dsi.fastutil.Pair;
-import spout.server.paper.api.util.composable.BuilderComposeEvent;
-import spout.server.paper.api.util.composable.ChangeRegisteredComposeEvent;
-import spout.server.paper.api.util.composable.GetRegisteredComposeEvent;
+import spout.util.composable.BuilderComposeEvent;
+import spout.util.composable.ChangeRegisteredComposeEvent;
+import spout.util.composable.GetRegisteredComposeEvent;
 import org.jspecify.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;

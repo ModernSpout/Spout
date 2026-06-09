@@ -9,9 +9,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import spout.server.paper.api.packetmapping.AwarenessLevelMappingBuilder;
 import spout.server.paper.api.packetmapping.block.BlockMappingBuilder;
 import spout.server.paper.api.packetmapping.block.BlockMappingFunctionContext;
-import spout.server.paper.api.util.composable.FromBuilder;
-import spout.server.paper.api.util.composable.FunctionBuilder;
-import spout.server.paper.api.util.composable.ToBuilder;
+import spout.util.composable.FromBuilder;
+import spout.util.composable.FunctionBuilder;
+import spout.util.composable.ToBuilder;
 
 /**
  * An alternative to {@link BlockMappingBuilder} that uses Minecraft internals.

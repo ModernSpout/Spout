@@ -5,9 +5,9 @@ import net.minecraft.world.item.Item;
 import spout.clientview.model.ClientView;
 import spout.server.paper.api.packetmapping.AwarenessLevelMappingBuilder;
 import spout.server.paper.api.packetmapping.item.ItemMappingBuilder;
-import spout.server.paper.api.util.composable.FromBuilder;
-import spout.server.paper.api.util.composable.FunctionBuilder;
-import spout.server.paper.api.util.composable.ToBuilder;
+import spout.util.composable.FromBuilder;
+import spout.util.composable.FunctionBuilder;
+import spout.util.composable.ToBuilder;
 import spout.server.paper.impl.moredatadriven.minecraft.ItemRegistry;
 import org.jspecify.annotations.Nullable;
 

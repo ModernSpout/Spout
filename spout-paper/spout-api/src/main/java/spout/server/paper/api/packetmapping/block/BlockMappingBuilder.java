@@ -7,9 +7,9 @@ import java.util.function.Consumer;
 import org.bukkit.block.BlockType;
 import org.bukkit.block.data.BlockData;
 import spout.server.paper.api.packetmapping.AwarenessLevelMappingBuilder;
-import spout.server.paper.api.util.composable.FromBuilder;
-import spout.server.paper.api.util.composable.FunctionBuilder;
-import spout.server.paper.api.util.composable.ToBuilder;
+import spout.util.composable.FromBuilder;
+import spout.util.composable.FunctionBuilder;
+import spout.util.composable.ToBuilder;
 
 /**
  * A builder to define a block mapping.

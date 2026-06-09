@@ -3,7 +3,7 @@ package spout.server.paper.api.resourcepack.construct;
 import io.papermc.paper.plugin.bootstrap.BootstrapContext;
 import io.papermc.paper.plugin.lifecycle.event.handler.configuration.PrioritizedLifecycleEventHandlerConfiguration;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEventType;
-import spout.server.paper.api.util.composable.Composable;
+import spout.util.composable.Composable;
 import spout.server.paper.impl.util.service.SpoutServices;
 
 /**

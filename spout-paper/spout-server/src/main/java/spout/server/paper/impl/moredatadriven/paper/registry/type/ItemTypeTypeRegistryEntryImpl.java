@@ -3,8 +3,8 @@ package spout.server.paper.impl.moredatadriven.paper.registry.type;
 import io.papermc.paper.registry.PaperRegistryBuilder;
 import io.papermc.paper.registry.data.util.Conversions;
 import spout.gamecontent.datadriven.itemtype.SpoutItemType;
-import spout.server.paper.api.moredatadriven.paper.registry.type.ItemTypeType;
-import spout.server.paper.api.moredatadriven.paper.registry.type.ItemTypeTypeRegistryEntry;
+import spout.gamecontent.datadriven.itemtype.ItemTypeType;
+import spout.gamecontent.datadriven.itemtype.ItemTypeTypeRegistryEntry;
 import spout.server.paper.api.moredatadriven.paper.registry.type.nms.ItemTypeTypeRegistryEntryNMS;
 import org.jspecify.annotations.Nullable;
 

@@ -1,10 +1,10 @@
 package spout.server.paper.api.packetmapping.component;
 
 import it.unimi.dsi.fastutil.Pair;
-import spout.api.clientview.ClientView;
-import spout.server.paper.api.util.composable.BuilderComposeEvent;
-import spout.server.paper.api.util.composable.ChangeRegisteredComposeEvent;
-import spout.server.paper.api.util.composable.GetRegisteredComposeEvent;
+import spout.clientview.model.ClientView;
+import spout.util.composable.BuilderComposeEvent;
+import spout.util.composable.ChangeRegisteredComposeEvent;
+import spout.util.composable.GetRegisteredComposeEvent;
 import java.util.List;
 import java.util.function.Consumer;
 

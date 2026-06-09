@@ -3,7 +3,7 @@ package spout.api.clientview.model;
 import net.minecraft.network.Connection;
 import net.minecraft.server.level.ServerPlayer;
 import org.jspecify.annotations.Nullable;
-import spout.api.clientview.ClientView;
+import spout.clientview.model.ClientView;
 
 /**
  * An extension of the {@link ClientView} interface that adds methods to get Minecraft internals.

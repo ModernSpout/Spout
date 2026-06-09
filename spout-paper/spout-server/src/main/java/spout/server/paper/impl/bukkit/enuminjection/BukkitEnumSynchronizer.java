@@ -2,8 +2,8 @@ package spout.server.paper.impl.bukkit.enuminjection;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.server.dedicated.DedicatedServer;
-import spout.server.paper.api.bukkit.enuminjection.BukkitEnumNamePickFunctionHandle;
-import spout.server.paper.api.bukkit.enuminjection.BukkitEnumNames;
+import spout.gamecontent.datadriven.common.enuminjection.BukkitEnumNamePickFunctionHandle;
+import spout.gamecontent.datadriven.common.enuminjection.BukkitEnumNames;
 import spout.server.paper.impl.util.java.enuminjection.EnumInjector;
 import spout.server.paper.impl.util.mappingpipeline.SingleStepMappingPipeline;
 import org.jspecify.annotations.Nullable;

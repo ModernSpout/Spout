@@ -1,6 +1,6 @@
 package spout.server.paper.impl.util.service;
 
-import spout.server.paper.api.bukkit.enuminjection.material.MaterialEnumNames;
+import spout.gamecontent.datadriven.material.enuminjection.MaterialEnumNames;
 import spout.server.paper.api.packetmapping.block.BlockMappings;
 import spout.server.paper.api.packetmapping.block.claim.ResourcePackBlockStateClaims;
 import spout.server.paper.api.packetmapping.block.claim.VisualDuplicates;
@@ -10,7 +10,7 @@ import spout.server.paper.api.packetmapping.item.ItemMappingUtilities;
 import spout.server.paper.api.packetmapping.item.ItemMappings;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstruction;
 import spout.server.paper.api.resourcepack.plugin.discover.PluginResourcePackDiscovery;
-import spout.server.paper.impl.bukkit.enuminjection.material.match.MaterialByKeyLookup;
+import spout.gamecontent.datadriven.material.enuminjection.match.MaterialByKeyLookup;
 import java.util.ServiceLoader;
 
 /**

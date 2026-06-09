@@ -14,7 +14,7 @@ import java.util.List;
  * Every instance of {@link ClientView} is also an instance of {@link ClientViewImpl}.
  * </p>
  */
-public abstract class ClientViewImpl implements ClientView {
+public abstract class ClientViewImpl implements ClientViewNonAPI {
 
     public static final Codec<AwarenessLevel> AWARENESS_LEVEL_CODEC = new EnumViaIdentifierCodec<>(ClientView.AwarenessLevel.class, SpoutNamespace.SPOUT);
     public static final Codec<List<AwarenessLevel>> AWARENESS_LEVEL_LIST_CODEC = Codec.list(AWARENESS_LEVEL_CODEC);

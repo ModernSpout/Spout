@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.bukkit.craftbukkit.block.data.CraftBlockData;
 import spout.gamecontent.builtin.block.QuadBlock;
-import spout.server.paper.api.builtincontent.block.api.Quad;
+import spout.gamecontent.builtin.block.Quad;
 
 public class CraftQuad extends CraftBlockData implements Quad {
 

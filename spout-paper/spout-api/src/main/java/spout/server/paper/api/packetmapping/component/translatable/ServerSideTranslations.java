@@ -1,6 +1,6 @@
 package spout.server.paper.api.packetmapping.component.translatable;
 
-import spout.server.paper.api.util.composable.Composable;
+import spout.util.composable.Composable;
 import org.jspecify.annotations.Nullable;
 import spout.server.paper.impl.util.service.SpoutServices;
 

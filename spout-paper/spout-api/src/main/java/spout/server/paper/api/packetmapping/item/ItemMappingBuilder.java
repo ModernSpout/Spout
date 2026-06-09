@@ -3,11 +3,11 @@ package spout.server.paper.api.packetmapping.item;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
 import org.bukkit.inventory.ItemType;
-import spout.api.clientview.ClientView;
+import spout.clientview.model.ClientView;
 import spout.server.paper.api.packetmapping.AwarenessLevelMappingBuilder;
-import spout.server.paper.api.util.composable.FromBuilder;
-import spout.server.paper.api.util.composable.FunctionBuilder;
-import spout.server.paper.api.util.composable.ToBuilder;
+import spout.util.composable.FromBuilder;
+import spout.util.composable.FunctionBuilder;
+import spout.util.composable.ToBuilder;
 import org.jspecify.annotations.Nullable;
 
 /**

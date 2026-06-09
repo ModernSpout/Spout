@@ -1,7 +1,7 @@
 package spout.server.paper.api.resourcepack.construct;
 
 import io.papermc.paper.plugin.lifecycle.event.LifecycleEvent;
-import spout.api.clientview.ClientView;
+import spout.clientview.model.ClientView;
 
 /**
  * Called when the Spout server resource pack has been constructed.

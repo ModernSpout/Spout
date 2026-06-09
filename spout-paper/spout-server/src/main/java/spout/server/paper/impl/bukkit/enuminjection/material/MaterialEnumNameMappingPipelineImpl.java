@@ -4,7 +4,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.BlockType;
 import org.bukkit.inventory.ItemType;
-import spout.server.paper.api.bukkit.enuminjection.material.MaterialEnumNames;
+import spout.gamecontent.datadriven.material.enuminjection.MaterialEnumNames;
 import spout.server.paper.impl.bukkit.enuminjection.BukkitEnumNameMappingPipelineImpl;
 import org.jspecify.annotations.Nullable;
 

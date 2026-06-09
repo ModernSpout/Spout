@@ -1,6 +1,6 @@
 package spout.server.paper.api.packetmapping;
 
-import spout.api.clientview.ClientView;
+import spout.clientview.model.ClientView;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;

@@ -9,12 +9,12 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.BlockType;
 import org.bukkit.inventory.ItemType;
-import spout.server.paper.api.bukkit.enuminjection.BukkitEnumNamesComposeEvent;
-import spout.server.paper.api.bukkit.enuminjection.material.MaterialEnumNames;
-import spout.server.paper.api.moredatadriven.paper.registry.BlockTypeRegistryEntry;
-import spout.server.paper.api.moredatadriven.paper.registry.ItemTypeRegistryEntry;
-import spout.server.paper.api.moredatadriven.paper.registry.type.BlockTypeTypeRegistryEntry;
-import spout.server.paper.api.moredatadriven.paper.registry.type.ItemTypeTypeRegistryEntry;
+import spout.gamecontent.datadriven.common.enuminjection.BukkitEnumNamesComposeEvent;
+import spout.gamecontent.datadriven.material.enuminjection.MaterialEnumNames;
+import spout.gamecontent.datadriven.block.BlockTypeRegistryEntry;
+import spout.gamecontent.datadriven.item.ItemTypeRegistryEntry;
+import spout.gamecontent.datadriven.blocktype.BlockTypeTypeRegistryEntry;
+import spout.gamecontent.datadriven.itemtype.ItemTypeTypeRegistryEntry;
 import spout.server.paper.api.packetmapping.block.BlockMappings;
 import spout.server.paper.api.packetmapping.block.BlockMappingsComposeEvent;
 import spout.server.paper.api.packetmapping.component.ComponentMappings;
@@ -28,7 +28,7 @@ import spout.server.paper.api.resourcepack.construct.ResourcePackConstructFinish
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstruction;
 import spout.server.paper.api.resourcepack.plugin.discover.PluginResourcePackDiscoverEvent;
 import spout.server.paper.api.resourcepack.plugin.discover.PluginResourcePackDiscovery;
-import spout.server.paper.api.util.composable.ComposableEventType;
+import spout.util.composable.ComposableEventType;
 import org.jspecify.annotations.Nullable;
 
 /**

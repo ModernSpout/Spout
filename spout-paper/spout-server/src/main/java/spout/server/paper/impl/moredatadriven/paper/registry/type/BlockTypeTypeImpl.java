@@ -4,7 +4,7 @@ import io.papermc.paper.registry.HolderableBase;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import spout.gamecontent.datadriven.blocktype.SpoutBlockType;
-import spout.server.paper.api.moredatadriven.paper.registry.type.BlockTypeType;
+import spout.gamecontent.datadriven.blocktype.BlockTypeType;
 import spout.server.paper.api.moredatadriven.paper.registry.type.nms.BlockTypeTypeNMS;
 
 /**
