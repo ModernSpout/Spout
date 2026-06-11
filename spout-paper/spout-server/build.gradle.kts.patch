@@ -79,7 +79,20 @@
      implementation("ca.spottedleaf:concurrentutil:0.0.10")
      implementation("org.jline:jline-terminal-ffm:3.27.1") // use ffm on java 22+
      implementation("org.jline:jline-terminal-jni:3.27.1") // fall back to jni on java 21
-@@ -164,21 +_,24 @@
+@@ -159,26 +_,37 @@
+     implementation("me.lucko:spark-paper:1.10.152")
+ }
+ 
++// Spout start - Project setup - Explicitly include specific files that appear multiple times in sources
++tasks.processResources {
++    filesMatching("META-INF/services/spout.gamecontent.datadriven.common.registry.bootstrap.SpoutBuiltInDataDrivenRegistryBootstrap\$Provider") {
++        duplicatesStrategy = DuplicatesStrategy.INCLUDE
++    }
++}
++// Spout end - Project setup - Explicitly include specific files that appear multiple times in sources
++
+ tasks.jar {
+     manifest {
          val git = Git(rootProject.layout.projectDirectory.path)
          val mcVersion = rootProject.providers.gradleProperty("mcVersion").get()
          val build = System.getenv("BUILD_NUMBER") ?: null

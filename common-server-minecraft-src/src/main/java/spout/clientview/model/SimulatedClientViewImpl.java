@@ -2,7 +2,7 @@ package spout.clientview.model;
 
 import net.minecraft.network.Connection;
 import org.jspecify.annotations.Nullable;
-import spout.server.paper.impl.packetmapping.item.reverse.ItemMappingReverser;
+import spout.clientview.model.awarenesslevel.AwarenessLevel;import spout.server.paper.impl.packetmapping.item.reverse.ItemMappingReverser;
 
 /**
  * A fake {@link ClientView} that is used to simulate mappings

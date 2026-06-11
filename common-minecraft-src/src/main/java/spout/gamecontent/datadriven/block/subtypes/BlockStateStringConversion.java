@@ -1,5 +1,6 @@
 package spout.gamecontent.datadriven.block.subtypes;
 
+import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -130,5 +131,10 @@ public final class BlockStateStringConversion {
         return blockState;
 
     }
+
+    public static final Codec<BlockState> CODEC = Codec.STRING.xmap(
+        BlockStateStringConversion::blockStateFromString,
+        BlockStateStringConversion::blockStateToString
+    );
 
 }

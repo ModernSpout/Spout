@@ -1,0 +1,5 @@
+# From common-minecraft-src
+spout.gamecontent.datadriven.blocktype.BuiltInBlockTypeRegistry
+spout.gamecontent.datadriven.itemtype.BuiltInItemTypeRegistry
+
+spout.clientview.model.awarenesslevel.BuiltInAwarenessLevelRegistry

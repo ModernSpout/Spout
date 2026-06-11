@@ -1,0 +1,13 @@
+--- a/net/minecraft/resources/RegistryDataLoader.java
++++ b/net/minecraft/resources/RegistryDataLoader.java
+@@ -126,6 +_,10 @@
+         new RegistryDataLoader.RegistryData<>(Registries.TIMELINE, Timeline.DIRECT_CODEC, Timeline::validateRegistry),
+         new RegistryDataLoader.RegistryData<>(Registries.VILLAGER_TRADE, VillagerTrade.CODEC),
+         new RegistryDataLoader.RegistryData<>(Registries.TRADE_SET, TradeSet.CODEC)
++        // Spout start - Load additional registries
++        ,
++        new RegistryDataLoader.RegistryData<>(spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistry.BLOCK_STATE_MAPPING, spout.clientview.packetmapping.blockstate.registry.BlockStateMapping.CODEC)
++        // Spout end - Load additional registries
+     );
+     public static final List<RegistryDataLoader.RegistryData<?>> DIMENSION_REGISTRIES = List.of(
+         new RegistryDataLoader.RegistryData<>(Registries.LEVEL_STEM, LevelStem.CODEC)

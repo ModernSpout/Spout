@@ -1,7 +1,7 @@
 package spout.clientview.model;
 
 import net.minecraft.network.Connection;
-import spout.server.paper.impl.packetmapping.item.reverse.ItemMappingReverser;
+import spout.clientview.model.awarenesslevel.AwarenessLevel;import spout.server.paper.impl.packetmapping.item.reverse.ItemMappingReverser;
 import org.jspecify.annotations.Nullable;
 
 /**
