@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceKey;
 import spout.gamecontent.datadriven.item.SpoutNonBuiltInItem;
 import spout.server.paper.impl.moredatadriven.datapack.SpoutDataPackRegistries;
 
-public class LoadDataPackRegistryAction implements spout.gamecontent.datadriven.common.registry.delayedfrozen.LoadDataPackRegistryAction<SpoutNonBuiltInItem> {
+public final class LoadDataPackRegistryAction implements spout.gamecontent.datadriven.common.registry.delayedfrozen.LoadDataPackRegistryAction<SpoutNonBuiltInItem> {
 
     @Override
     public int getBeforeDelayedRegistryFreezingActionPriority() {

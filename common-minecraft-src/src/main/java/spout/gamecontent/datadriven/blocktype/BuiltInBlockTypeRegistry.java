@@ -11,7 +11,20 @@ import spout.gamecontent.datadriven.common.registry.bootstrap.SpoutBuiltInDataDr
  * Analogous to {@link BuiltInRegistries}.
  * </p>
  */
-public final class BuiltInBlockTypeRegistry implements SpoutBuiltInDataDrivenRegistryBootstrap.Provider {
+public final class BuiltInBlockTypeRegistry {
+
+    private BuiltInBlockTypeRegistry() {
+        throw new UnsupportedOperationException();
+    }
+
+    public static final class BootstrapProvider implements SpoutBuiltInDataDrivenRegistryBootstrap.Provider {
+
+        @Override
+        public Registry<?> provideDataDrivenRegistry() {
+            return BLOCK_TYPE;
+        }
+
+    }
 
     /**
      * A registry for block types.
@@ -22,10 +35,5 @@ public final class BuiltInBlockTypeRegistry implements SpoutBuiltInDataDrivenReg
      * </p>
      */
     public static final SpoutBlockTypeRegistry BLOCK_TYPE = BuiltInRegistries.internalRegister(BuiltInBlockTypeRegistryKey.BLOCK_TYPE, new SpoutBlockTypeRegistry(), SpoutBlockTypes::bootstrap);
-
-    @Override
-    public Registry<?> provideDataDrivenRegistry() {
-        return BLOCK_TYPE;
-    }
 
 }

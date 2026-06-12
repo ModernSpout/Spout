@@ -6,7 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import spout.gamecontent.datadriven.common.registry.delayedfrozen.DelayedRegistryFreezing;
 
-public class ItemRegistryDelayedFreezingProvider implements DelayedRegistryFreezing.Provider {
+public final class ItemRegistryDelayedFreezingProvider implements DelayedRegistryFreezing.Provider {
 
     @Override
     public Iterable<ResourceKey<? extends Registry<?>>> getDelayedFrozenRegistries() {

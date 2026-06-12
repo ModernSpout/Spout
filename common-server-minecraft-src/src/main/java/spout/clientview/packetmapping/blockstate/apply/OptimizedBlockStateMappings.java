@@ -9,10 +9,8 @@ import net.minecraft.world.level.block.Block;import net.minecraft.world.level.bl
 import org.jspecify.annotations.Nullable;
 import spout.clientview.model.awarenesslevel.AwarenessLevel;
 import spout.clientview.model.awarenesslevel.AwarenessLevels;
-import spout.clientview.model.awarenesslevel.BuiltInAwarenessLevelRegistry;
 import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
 import spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistry;
-import spout.gamecontent.datadriven.block.subtypes.BlockStateStringConversion;
 import spout.util.mapping.handle.DirectMappingStep;
 import spout.util.mapping.handle.MappingStep;
 import spout.util.minecraft.registry.SpoutRegistryHookEvents;
@@ -26,7 +24,25 @@ import java.util.Map;
  * Holds all block state mappings
  * in an optimized data structure.
  */
-public final class OptimizedBlockStateMappings implements SpoutRegistryHookEvents.Listener<BlockStateMapping> {
+public final class OptimizedBlockStateMappings {
+
+    private OptimizedBlockStateMappings() {
+        throw new UnsupportedOperationException();
+    }
+
+    public static final class RegistryFreezeListener implements SpoutRegistryHookEvents.Listener<BlockStateMapping> {
+
+        @Override
+        public Iterable<Pair<ResourceKey<Registry<BlockStateMapping>>, SpoutRegistryHookEvents.EventType>> getRegistryHookEventsToListenFor() {
+            return List.of(Pair.of(BlockStateMappingRegistry.BLOCK_STATE_MAPPING, SpoutRegistryHookEvents.EventType.POST_FREEZE));
+        }
+
+        @Override
+        public void onRegistryHookEvent(SpoutRegistryHookEvents.EventType type, WritableRegistry<BlockStateMapping> registry) {
+            build(registry);
+        }
+
+    }
 
     /**
      * The registered mappings that must be performed in chains:
@@ -137,16 +153,6 @@ public final class OptimizedBlockStateMappings implements SpoutRegistryHookEvent
             }
         }
 
-    }
-
-    @Override
-    public Iterable<Pair<ResourceKey<Registry<BlockStateMapping>>, SpoutRegistryHookEvents.EventType>> getRegistryHookEventsToListenFor() {
-        return List.of(Pair.of(BlockStateMappingRegistry.BLOCK_STATE_MAPPING, SpoutRegistryHookEvents.EventType.POST_FREEZE));
-    }
-
-    @Override
-    public void onRegistryHookEvent(SpoutRegistryHookEvents.EventType type, WritableRegistry<BlockStateMapping> registry) {
-        build(registry);
     }
 
 }

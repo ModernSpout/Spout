@@ -11,16 +11,24 @@ import spout.gamecontent.datadriven.common.registry.bootstrap.SpoutBuiltInDataDr
  * Analogous to {@link BuiltInRegistries}.
  * </p>
  */
-public final class BuiltInItemTypeRegistry implements SpoutBuiltInDataDrivenRegistryBootstrap.Provider {
+public final class BuiltInItemTypeRegistry {
+
+    private BuiltInItemTypeRegistry() {
+        throw new UnsupportedOperationException();
+    }
+
+    public static final class BootstrapProvider implements SpoutBuiltInDataDrivenRegistryBootstrap.Provider {
+
+        @Override
+        public Registry<?> provideDataDrivenRegistry() {
+            return ITEM_TYPE;
+        }
+
+    }
 
     /**
      * A registry for item types.
      */
     public static final Registry<SpoutItemType> ITEM_TYPE = BuiltInRegistries.registerSimple(BuiltInItemTypeRegistryKey.ITEM_TYPE, SpoutItemTypes::bootstrap);
-
-    @Override
-    public Registry<?> provideDataDrivenRegistry() {
-        return ITEM_TYPE;
-    }
 
 }

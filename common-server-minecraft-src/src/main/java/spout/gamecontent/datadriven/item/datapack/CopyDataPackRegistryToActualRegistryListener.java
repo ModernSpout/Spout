@@ -16,7 +16,7 @@ import spout.server.paper.impl.moredatadriven.datapack.SpoutDataPackRegistries;
 import spout.server.paper.impl.packetmapping.item.datadriven.UnappliedDataDrivenItemMapping;
 import spout.util.minecraft.registry.SpoutRegistryHookEvents;
 
-public class CopyDataPackRegistryToActualRegistryListener implements SpoutRegistryHookEvents.Listener<SpoutNonBuiltInItem> {
+public final class CopyDataPackRegistryToActualRegistryListener implements SpoutRegistryHookEvents.Listener<SpoutNonBuiltInItem> {
 
     @Override
     public Iterable<Pair<ResourceKey<Registry<SpoutNonBuiltInItem>>, SpoutRegistryHookEvents.EventType>> getRegistryHookEventsToListenFor() {

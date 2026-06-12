@@ -1,5 +1,5 @@
 # From common-minecraft-src
-spout.gamecontent.datadriven.blocktype.BuiltInBlockTypeRegistry
-spout.gamecontent.datadriven.itemtype.BuiltInItemTypeRegistry
+spout.gamecontent.datadriven.blocktype.BuiltInBlockTypeRegistry$BootstrapProvider
+spout.gamecontent.datadriven.itemtype.BuiltInItemTypeRegistry$BootstrapProvider
 
-spout.clientview.model.awarenesslevel.BuiltInAwarenessLevelRegistry
+spout.clientview.model.awarenesslevel.BuiltInAwarenessLevelRegistry$BootstrapProvider
