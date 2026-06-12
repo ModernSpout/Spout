@@ -1,16 +1,21 @@
 package spout.clientview.packetmapping.blockstate.apply;
 
+import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.ints.IntIntPair;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.Registry;
+import net.minecraft.core.WritableRegistry;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.block.Block;import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
 import spout.clientview.model.awarenesslevel.AwarenessLevel;
 import spout.clientview.model.awarenesslevel.AwarenessLevels;
+import spout.clientview.model.awarenesslevel.BuiltInAwarenessLevelRegistry;
 import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
 import spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistry;
-import spout.server.paper.impl.moredatadriven.minecraft.BlockStateRegistry;
+import spout.gamecontent.datadriven.block.subtypes.BlockStateStringConversion;
 import spout.util.mapping.handle.DirectMappingStep;
 import spout.util.mapping.handle.MappingStep;
+import spout.util.minecraft.registry.SpoutRegistryHookEvents;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,11 +26,7 @@ import java.util.Map;
  * Holds all block state mappings
  * in an optimized data structure.
  */
-public final class OptimizedBlockStateMappings {
-
-    private OptimizedBlockStateMappings() {
-        throw new UnsupportedOperationException();
-    }
+public final class OptimizedBlockStateMappings implements SpoutRegistryHookEvents.Listener<BlockStateMapping> {
 
     /**
      * The registered mappings that must be performed in chains:
@@ -38,7 +39,7 @@ public final class OptimizedBlockStateMappings {
      * The lowest-level array may be null, but will never be empty.
      * </p>
      */
-    private static final MappingStep<BlockStateMappingHandle>[][][] chains = new MappingStep[AwarenessLevels.getAll().length][][];
+    private static MappingStep<BlockStateMappingHandle>[][][] chains;
 
     /**
      * The registered mappings that can be applied directly:
@@ -52,13 +53,13 @@ public final class OptimizedBlockStateMappings {
      * The lowest-level value may be null.
      * </p>
      */
-    private static final @Nullable BlockState[][] direct = new BlockState[chains.length][];
+    private static @Nullable BlockState[][] direct;
 
     /**
      * The same as {@link #direct}, but contains the {@link BlockState#indexInBlockStateRegistry},
      * or -1 if the value in {@link #direct} would be null.
      */
-    private static final int[][] directAsIndicesInRegistry = new int[chains.length][];
+    private static int[][] directAsIndicesInRegistry;
 
     public static @Nullable BlockState getDirect(int awarenessLevelId, int stateIndexInRegistry) {
         return direct[awarenessLevelId][stateIndexInRegistry];
@@ -75,10 +76,14 @@ public final class OptimizedBlockStateMappings {
     /**
      * Fills this class from the mappings in the corresponding registry.
      */
-    public static void build() {
+    public static void build(Registry<BlockStateMapping> registry) {
 
-        // Initialize the steps
-        int registrySize = BlockStateRegistry.get().size();
+        // Initialize the arrays
+        int awarenessLevelSize = AwarenessLevels.getAll().length;
+        chains = new MappingStep[awarenessLevelSize][][];
+        direct = new BlockState[awarenessLevelSize][];
+        directAsIndicesInRegistry = new int[awarenessLevelSize][];
+        int registrySize = Block.BLOCK_STATE_REGISTRY.size();
         for (int i = 0; i < chains.length; i++) {
             chains[i] = new MappingStep[registrySize][];
             direct[i] = new BlockState[registrySize];
@@ -89,7 +94,7 @@ public final class OptimizedBlockStateMappings {
         // Invert the mappings from id -> lists of steps to list of steps -> ids, so that we only have one reference per unique list
         Map<List<MappingStep<BlockStateMappingHandle>>, List<IntIntPair>> invertedChainMappings = new HashMap<>();
         Map<IntIntPair, List<BlockStateMapping>> registered = new HashMap<>();
-        MinecraftServer.getServer().registryAccess().lookupOrThrow(BlockStateMappingRegistry.BLOCK_STATE_MAPPING).stream()
+        registry.stream()
             .forEach(mapping -> {
                 for (AwarenessLevel awarenessLevel : mapping.awarenessLevels()) {
                     for (BlockState fromState : mapping.targets()) {
@@ -132,6 +137,16 @@ public final class OptimizedBlockStateMappings {
             }
         }
 
+    }
+
+    @Override
+    public Iterable<Pair<ResourceKey<Registry<BlockStateMapping>>, SpoutRegistryHookEvents.EventType>> getRegistryHookEventsToListenFor() {
+        return List.of(Pair.of(BlockStateMappingRegistry.BLOCK_STATE_MAPPING, SpoutRegistryHookEvents.EventType.POST_FREEZE));
+    }
+
+    @Override
+    public void onRegistryHookEvent(SpoutRegistryHookEvents.EventType type, WritableRegistry<BlockStateMapping> registry) {
+        build(registry);
     }
 
 }

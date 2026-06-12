@@ -55,4 +55,14 @@ public class AwarenessLevel {
         return this.id;
     }
 
+    @Override
+    public int hashCode() {
+        return this.id;
+    }
+
+    @Override
+    public String toString() {
+        return "AwarenessLevel{" + BuiltInAwarenessLevelRegistry.AWARENESS_LEVEL.wrapAsHolder(this).getRegisteredName() + "}";
+    }
+
 }

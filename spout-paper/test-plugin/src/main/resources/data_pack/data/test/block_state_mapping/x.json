@@ -1,0 +1,14 @@
+{
+  "awareness_levels": [
+    "spout:resource_pack",
+    "client_mod"
+  ],
+  "targets": [
+    "minecraft:oak_planks",
+    "stone_bricks",
+    "quark:diorite_brick_slab[waterlogged=true]"
+  ],
+  "operation": {
+    "to": "minecraft:nether_portal[axis=z]"
+  }
+}

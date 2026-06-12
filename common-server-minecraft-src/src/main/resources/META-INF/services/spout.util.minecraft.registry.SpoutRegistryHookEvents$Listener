@@ -1,2 +1,3 @@
+spout.clientview.packetmapping.blockstate.apply.OptimizedBlockStateMappings
 spout.gamecontent.datadriven.block.datapack.CopyDataPackRegistryToActualRegistryListener
 spout.gamecontent.datadriven.item.datapack.CopyDataPackRegistryToActualRegistryListener
