@@ -3,7 +3,6 @@ package spout.clientview.packetmapping.blockstate.macro;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
 import spout.util.minecraft.registry.RegistryKeyUtil;
 
 /**

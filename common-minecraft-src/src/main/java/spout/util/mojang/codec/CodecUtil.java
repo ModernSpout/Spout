@@ -9,7 +9,7 @@ import com.mojang.serialization.MapLike;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.codec.StreamCodec;import org.jetbrains.annotations.UnknownNullability;import org.jspecify.annotations.NullMarked;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -69,7 +69,7 @@ public final class CodecUtil {
      *
      * @see Codec#optionalFieldOf(String, Object)
      */
-    public static <A> MapCodec<A> optionalFieldOf(Codec<A> codec, String name, Supplier<? extends A> defaultValueSupplier) {
+    public static <A> MapCodec<@UnknownNullability A> optionalFieldOf(Codec<A> codec, String name, Supplier<? extends @UnknownNullability A> defaultValueSupplier) {
         return Codec.optionalField(name, codec, false).xmap(
             o -> o.orElseGet(defaultValueSupplier),
             a -> Objects.equals(a, defaultValueSupplier.get()) ? Optional.empty() : Optional.of(a)

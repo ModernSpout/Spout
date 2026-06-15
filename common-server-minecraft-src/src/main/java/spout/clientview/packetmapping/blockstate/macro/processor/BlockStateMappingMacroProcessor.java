@@ -36,13 +36,13 @@ import java.util.function.Function;
  * Each processor instance is for one {@link BlockStateMappingMacro} instance.
  * </p>
  */
-public abstract class MacroProcessor<M extends BlockStateMappingMacro> {
+public abstract class BlockStateMappingMacroProcessor<M extends BlockStateMappingMacro> {
 
     protected final M macro;
     protected final Registry<BlockStateMappingMacro> sourceRegistry;
     protected final Registry<BlockStateMapping> targetRegistry;
 
-    protected MacroProcessor(M macro, Registry<BlockStateMappingMacro> sourceRegistry, Registry<BlockStateMapping> targetRegistry) {
+    protected BlockStateMappingMacroProcessor(M macro, Registry<BlockStateMappingMacro> sourceRegistry, Registry<BlockStateMapping> targetRegistry) {
         this.sourceRegistry = sourceRegistry;
         this.macro = macro;
         this.targetRegistry = targetRegistry;
