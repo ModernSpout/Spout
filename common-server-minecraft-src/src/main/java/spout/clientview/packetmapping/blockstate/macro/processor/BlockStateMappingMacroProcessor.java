@@ -8,7 +8,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jspecify.annotations.Nullable;
 import spout.api.clientview.model.ClientView;
 import spout.api.clientview.packetmapping.blockstate.resourcepackclaims.ClaimRequestPriority;
@@ -23,9 +22,11 @@ import spout.server.paper.impl.moredatadriven.minecraft.VanillaOnlyBlockStateReg
 import spout.server.paper.impl.packetmapping.block.automatic.FromToItemRequestBuilderImpl;
 import spout.server.paper.impl.packetmapping.item.ItemMappingsImpl;
 import spout.util.mapping.handle.DirectMappingStep;
+import spout.util.minecraft.blockstate.HoneyLevelUtil;
 import spout.util.minecraft.blockstate.visualduplicates.BlocksWithVisuallyDifferentBlockstates;
+import spout.util.minecraft.resources.IdentifierUtil;
 import java.util.List;
-import java.util.Objects;
+import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -42,10 +43,19 @@ public abstract class BlockStateMappingMacroProcessor<M extends BlockStateMappin
     protected final Registry<BlockStateMappingMacro> sourceRegistry;
     protected final Registry<BlockStateMapping> targetRegistry;
 
+    private @Nullable Identifier macroKey;
+
     protected BlockStateMappingMacroProcessor(M macro, Registry<BlockStateMappingMacro> sourceRegistry, Registry<BlockStateMapping> targetRegistry) {
         this.sourceRegistry = sourceRegistry;
         this.macro = macro;
         this.targetRegistry = targetRegistry;
+    }
+
+    public Identifier getMacroKey() {
+        if (this.macroKey == null) {
+            this.macroKey = this.sourceRegistry.getKey(this.macro);
+        }
+        return this.macroKey;
     }
 
     public abstract void process();
@@ -60,7 +70,7 @@ public abstract class BlockStateMappingMacroProcessor<M extends BlockStateMappin
             this.targetRegistry,
             proxyCandidateStates,
             priority,
-            this.sourceRegistry.getKey(this.macro),
+            this.getMacroKey(),
             this.macro.createProxyToVisualDuplicateMappings,
             this.macro.createItemMappings,
             resultConsumer,
@@ -72,7 +82,7 @@ public abstract class BlockStateMappingMacroProcessor<M extends BlockStateMappin
      * Attempts to {@linkplain ResourcePackBlockStateClaims#claim claim} block states for use as
      * proxy states for some given states.
      *
-     * @param registry                             The {@linkplain BlockStateMappingRegistry#BLOCK_STATE_MAPPING target registry}.
+     * @param targetRegistry                             The {@linkplain BlockStateMappingRegistry#BLOCK_STATE_MAPPING target registry}.
      * @param proxyCandidateStates                 The candidate proxy states, which must be distinct.
      * @param priority                             A pre-computed {@link ClaimRequestPriority}.
      * @param createProxyToVisualDuplicateMappings If this is true and the claim is successful,
@@ -89,7 +99,7 @@ public abstract class BlockStateMappingMacroProcessor<M extends BlockStateMappin
      *                                             rather than proxy states.
      */
     public static void attemptClaimOfProxyOrFallbackStates(
-        Registry<BlockStateMapping> registry,
+        Registry<BlockStateMapping> targetRegistry,
         BlockState[] proxyCandidateStates,
         ClaimRequestPriority priority,
         Identifier macroKey,
@@ -117,13 +127,14 @@ public abstract class BlockStateMappingMacroProcessor<M extends BlockStateMappin
             } : resultConsumer,
             consumeVisualDuplicates ? visualDuplicateStateIndicesInRegistry -> {
                 // For resource pack clients, map the claimed proxy states to their visual duplicate
+                String randomStringForInvocation = generateRandomStringForMappingIdentifiers();
                 for (int i = 0; i < visualDuplicateStateIndicesInRegistry.length; i++) {
                     BlockState visualDuplicateState = VanillaOnlyBlockStateRegistry.get().byId(visualDuplicateStateIndicesInRegistry[i]);
                     BlockState claimedState = VanillaOnlyBlockStateRegistry.get().byId(claimedStates[0][i]);
                     // Block
                     Registry.register(
-                        registry,
-                        Identifier.fromNamespaceAndPath(macroKey.getNamespace(), macroKey.getPath() + "_macro_vd_" + (i + 1)),
+                        targetRegistry,
+                        IdentifierUtil.addPathSuffix(macroKey, "_macro_vd_" + randomStringForInvocation + "_" + (i + 1)),
                         new BlockStateMapping(
                             List.of(AwarenessLevels.RESOURCE_PACK),
                             List.of(claimedState),
@@ -186,7 +197,7 @@ public abstract class BlockStateMappingMacroProcessor<M extends BlockStateMappin
                 // Changing the block state component will not help this mapping, and only potentially mess other mappings up
                 toBlockItemStateProperties = null;
                 toItem = targetItem;
-            } else if (!haveSameHoneyLevel(targetState, fromState)) {
+            } else if (!HoneyLevelUtil.haveSameHoneyLevel(targetState, fromState)) {
                 // Setting the block state component would show an undesired honey level meter, so we use barrier instead
                 toBlockItemStateProperties = null;
                 toItem = Items.BARRIER;
@@ -216,10 +227,8 @@ public abstract class BlockStateMappingMacroProcessor<M extends BlockStateMappin
         });
     }
 
-    public static boolean haveSameHoneyLevel(@Nullable BlockState state1, @Nullable BlockState state2) {
-        @Nullable Integer level1 = (state1 != null && state1.hasProperty(BlockStateProperties.LEVEL_HONEY)) ? state1.getValue(BlockStateProperties.LEVEL_HONEY) : null;
-        @Nullable Integer level2 = (state2 != null && state2.hasProperty(BlockStateProperties.LEVEL_HONEY)) ? state2.getValue(BlockStateProperties.LEVEL_HONEY) : null;
-        return Objects.equals(level1, level2);
+    public static String generateRandomStringForMappingIdentifiers() {
+        return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
 }

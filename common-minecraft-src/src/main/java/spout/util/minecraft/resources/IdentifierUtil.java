@@ -64,4 +64,11 @@ public final class IdentifierUtil {
         return ExtraCodecs.overrideLifecycle(referenceCodec, (e) -> registry.registrationInfo(e.key()).map(RegistrationInfo::lifecycle).orElse(Lifecycle.experimental()));
     }
 
+    /**
+     * @return The given {@link Identifier} with the given suffix added to the key's {@link Identifier#getPath()}.
+     */
+    public static Identifier addPathSuffix(Identifier identifier, String suffix) {
+        return Identifier.fromNamespaceAndPath(identifier.getNamespace(), identifier.getPath() + suffix);
+    }
+
 }

@@ -10,6 +10,8 @@ import com.mojang.datafixers.util.Function9;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
 import spout.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType;
 import spout.util.mojang.codec.CodecUtil;
@@ -188,6 +190,14 @@ public class BlockStateMappingMacro {
         this.createVanillaMappings = createVanillaMappings;
         this.createResourcePackBlockstatesEntries = createResourcePackBlockstatesEntries;
         this.resultConsumers = resultConsumers;
+    }
+
+    public @Nullable Function<BlockState, @Nullable Item> getFromItemFunction() {
+        return null;
+    }
+
+    public @Nullable Function<BlockState, @Nullable Item> getToItemFunction() {
+        return null;
     }
 
     public void validateArguments() {

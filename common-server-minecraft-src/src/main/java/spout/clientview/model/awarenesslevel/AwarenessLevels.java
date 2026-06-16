@@ -6,7 +6,7 @@ import org.jspecify.annotations.Nullable;
 import spout.branding.SpoutNamespace;
 
 /**
- * Holds the existing {@link AwarenessLevel} values.
+ * Holds the built-in {@link AwarenessLevel} values.
  */
 public final class AwarenessLevels {
 
