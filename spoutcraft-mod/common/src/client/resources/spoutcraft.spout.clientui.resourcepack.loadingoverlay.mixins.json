@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "spout.clientui.resourcepack.loadingoverlay.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "ChangePositionsOfSpoutLogoLoadingOverlayMixin",
+    "LoadingOverlayLogoLocationAccessor",
+    "ReplaceColorsAndSizesOverlayMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

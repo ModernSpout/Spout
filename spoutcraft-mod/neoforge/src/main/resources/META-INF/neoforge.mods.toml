@@ -1,0 +1,62 @@
+modLoader = "javafml"
+loaderVersion = "[5,)"
+license = "See the included LICENSE.txt"
+issueTrackerURL = "https://github.com/ModernSpout/Spout/issues"
+
+[[mods]]
+modId = "spoutcraft_mod"
+version = "${version}"
+displayName = "Spoutcraft"
+logoFile = "assets/spout/icon.png"
+description = "Automatically downloads and installs modded content when joining Spout servers"
+authors = "Martijn Muijsers, Spoutcraft authors and contributors"
+
+[[dependencies."spoutcraft_mod"]]
+modId = "neoforge"
+type = "required"
+versionRange = "[26.1.2,)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies."spoutcraft_mod"]]
+modId = "minecraft"
+type = "required"
+versionRange = "[26.1.2,26.2)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[mixins]]
+config = "spoutcraft.spout.clientui.resourcepack.loadingoverlay.mixins.json"
+
+[[mixins]]
+config = "spoutcraft.spout.clientui.resourcepack.toast.mixins.json"
+
+[[mixins]]
+config = "spoutcraft.spout.clientview.clientmod.protocol.mixins.json"
+
+[[mixins]]
+config = "spoutcraft.spout.clientview.clientmod.registryidmapping.mixins.json"
+
+[[mixins]]
+config = "spoutcraft.spout.gamecontent.datadriven.block.mixins.json"
+
+[[mixins]]
+config = "spoutcraft.spout.gamecontent.datadriven.block.subtypes.mixins.json"
+
+[[mixins]]
+config = "spoutcraft.spout.gamecontent.datadriven.blockentity.mixins.json"
+
+[[mixins]]
+config = "spoutcraft.spout.gamecontent.datadriven.blocktype.mixins.json"
+
+[[mixins]]
+config = "spoutcraft.spout.gamecontent.datadriven.common.registry.codec.mixins.json"
+
+[[mixins]]
+config = "spoutcraft.spout.gamecontent.datadriven.common.registry.temporarymodification.mixins.json"
+
+[[mixins]]
+config = "spoutcraft.spout.gamecontent.datadriven.item.mixins.json"
+
+[[mixins]]
+config = "spoutcraft.spout.gamecontent.datadriven.mixins.json"
