@@ -4,4 +4,4 @@
 
 cd ../..
 ./gradlew -PpublishDevBundle publishDevBundlePublicationToMavenLocal
-cd gradle-bin
+cd spout-paper/gradle-bin

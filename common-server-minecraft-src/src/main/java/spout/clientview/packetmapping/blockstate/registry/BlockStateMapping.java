@@ -5,9 +5,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.level.block.state.BlockState;
 import spout.clientview.model.awarenesslevel.AwarenessLevel;
 import spout.clientview.model.awarenesslevel.BuiltInAwarenessLevelRegistry;
-import spout.clientview.packetmapping.blockstate.apply.BlockStateMappingHandle;
-import spout.util.mapping.handle.DirectMappingStep;
-import spout.util.mapping.handle.MappingStep;
+import spout.clientview.packetmapping.blockstate.apply.BlockStateMappingStep;
+import spout.clientview.packetmapping.blockstate.apply.DirectBlockStateMappingStep;
 import spout.util.minecraft.blockstate.BlockStateStringConversion;
 import spout.util.minecraft.resources.IdentifierUtil;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
 /**
  * An element of {@link BlockStateMappingRegistry#BLOCK_STATE_MAPPING}.
  */
-public record BlockStateMapping(List<AwarenessLevel> awarenessLevels, List<BlockState> targets, MappingStep<BlockStateMappingHandle> operation) {
+public record BlockStateMapping(List<AwarenessLevel> awarenessLevels, List<BlockState> targets, BlockStateMappingStep operation) {
 
     public static final Codec<BlockStateMapping> CODEC = RecordCodecBuilder.create(
         instance -> instance.group(
@@ -24,7 +23,7 @@ public record BlockStateMapping(List<AwarenessLevel> awarenessLevels, List<Block
                 .listOf().fieldOf("awareness_levels").forGetter(BlockStateMapping::awarenessLevels),
             BlockStateStringConversion.CODEC
                 .listOf().fieldOf("targets").forGetter(BlockStateMapping::targets),
-            DirectMappingStep.<BlockState, BlockStateMappingHandle>codec(BlockStateStringConversion.CODEC).fieldOf("operation").forGetter(mapping -> (DirectMappingStep<BlockState, BlockStateMappingHandle>) mapping.operation)
+            DirectBlockStateMappingStep.codec(BlockStateStringConversion.CODEC).fieldOf("operation").forGetter(mapping -> (DirectBlockStateMappingStep) mapping.operation)
         ).apply(instance, BlockStateMapping::new)
     );
 

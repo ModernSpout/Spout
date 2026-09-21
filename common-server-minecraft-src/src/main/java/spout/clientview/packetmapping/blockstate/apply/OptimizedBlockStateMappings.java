@@ -11,7 +11,6 @@ import spout.clientview.model.awarenesslevel.AwarenessLevel;
 import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
 import spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistry;
-import spout.util.mapping.handle.DirectMappingStep;
 import spout.util.mapping.handle.MappingStep;
 import spout.util.minecraft.registry.SpoutRegistryHookEvents;
 import java.util.ArrayList;
@@ -55,7 +54,7 @@ public final class OptimizedBlockStateMappings {
      * The lowest-level array may be null, but will never be empty.
      * </p>
      */
-    private static MappingStep<BlockStateMappingHandle>[][][] chains;
+    private static BlockStateMappingStep[][][] chains;
 
     /**
      * The registered mappings that can be applied directly:
@@ -85,7 +84,7 @@ public final class OptimizedBlockStateMappings {
         return directAsIndicesInRegistry[awarenessLevelId][stateIndexInRegistry];
     }
 
-    public static MappingStep<BlockStateMappingHandle> @Nullable [] getChain(int awarenessLevelId, int stateIndexInRegistry) {
+    public static BlockStateMappingStep @Nullable [] getChain(int awarenessLevelId, int stateIndexInRegistry) {
         return chains[awarenessLevelId][stateIndexInRegistry];
     }
 
@@ -96,19 +95,19 @@ public final class OptimizedBlockStateMappings {
 
         // Initialize the arrays
         int awarenessLevelSize = AwarenessLevels.getAll().length;
-        chains = new MappingStep[awarenessLevelSize][][];
+        chains = new BlockStateMappingStep[awarenessLevelSize][][];
         direct = new BlockState[awarenessLevelSize][];
         directAsIndicesInRegistry = new int[awarenessLevelSize][];
         int registrySize = Block.BLOCK_STATE_REGISTRY.size();
         for (int i = 0; i < chains.length; i++) {
-            chains[i] = new MappingStep[registrySize][];
+            chains[i] = new BlockStateMappingStep[registrySize][];
             direct[i] = new BlockState[registrySize];
             directAsIndicesInRegistry[i] = new int[registrySize];
             Arrays.fill(directAsIndicesInRegistry[i], -1);
         }
 
         // Invert the mappings from id -> lists of steps to list of steps -> ids, so that we only have one reference per unique list
-        Map<List<MappingStep<BlockStateMappingHandle>>, List<IntIntPair>> invertedChainMappings = new HashMap<>();
+        Map<List<BlockStateMappingStep>, List<IntIntPair>> invertedChainMappings = new HashMap<>();
         Map<IntIntPair, List<BlockStateMapping>> registered = new HashMap<>();
         registry.stream()
             .forEach(mapping -> {
@@ -130,9 +129,9 @@ public final class OptimizedBlockStateMappings {
             if (containsFunction) {
                 // If there is a function step, add the list of steps as a chain
                 // But first we can simplify it a bit by keeping only the last simple step in any contiguous subsequence of simple mappings
-                List<MappingStep<BlockStateMappingHandle>> optimizedMappings = new ArrayList<>(mappings.size());
+                List<BlockStateMappingStep> optimizedMappings = new ArrayList<>(mappings.size());
                 for (int i = 0; i < mappings.size(); i++) {
-                    MappingStep<BlockStateMappingHandle> mapping = mappings.get(i).operation();
+                    BlockStateMappingStep mapping = mappings.get(i).operation();
                     if (i == mappings.size() - 1 || !mapping.isDirect() || !mappings.get(i + 1).operation().isDirect()) {
                         optimizedMappings.add(mapping);
                     }
@@ -140,16 +139,16 @@ public final class OptimizedBlockStateMappings {
                 invertedChainMappings.computeIfAbsent(optimizedMappings, $ -> new ArrayList<>()).add(key);
             } else {
                 // If there is no complex mapping, add this to the direct mappings
-                BlockState to = ((DirectMappingStep<BlockState, BlockStateMappingHandle>) mappings.get(mappings.size() - 1).operation()).to();
+                BlockState to = ((DirectBlockStateMappingStep) mappings.get(mappings.size() - 1).operation()).to();
                 direct[key.firstInt()][key.secondInt()] = to;
                 directAsIndicesInRegistry[key.firstInt()][key.secondInt()] = to.indexInBlockStateRegistry;
             }
         });
 
         // Invert back
-        for (Map.Entry<List<MappingStep<BlockStateMappingHandle>>, List<IntIntPair>> entry : invertedChainMappings.entrySet()) {
+        for (Map.Entry<List<BlockStateMappingStep>, List<IntIntPair>> entry : invertedChainMappings.entrySet()) {
             for (IntIntPair target : entry.getValue()) {
-                chains[target.firstInt()][target.secondInt()] = entry.getKey().toArray(MappingStep[]::new);
+                chains[target.firstInt()][target.secondInt()] = entry.getKey().toArray(BlockStateMappingStep[]::new);
             }
         }
 
