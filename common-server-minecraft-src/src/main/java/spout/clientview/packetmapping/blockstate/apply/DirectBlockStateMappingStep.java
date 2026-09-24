@@ -9,7 +9,7 @@ import spout.util.mapping.handle.DirectMappingStep;
  * A {@link BlockStateMappingStep} that always maps to a specific value.
  *
  * <p>
- * This is an extension of {@link DirectMappingStep}.
+ * This is a conceptual extension of {@link DirectMappingStep}.
  * </p>
  */
 public record DirectBlockStateMappingStep(BlockState to) implements BlockStateMappingStep {

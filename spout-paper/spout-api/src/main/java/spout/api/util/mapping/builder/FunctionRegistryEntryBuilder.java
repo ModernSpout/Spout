@@ -37,6 +37,10 @@ public interface FunctionRegistryEntryBuilder<T> extends FunctionRegistryEntry<T
      * Making sure the code is thread-safe is your own responsibility.
      * </p>
      *
+     * <p>
+     * The supplied function must work for every instance of {@link T}.
+     * </p>
+     *
      * @param function The function to apply.
      */
     void setToFunction(Consumer<T> function);

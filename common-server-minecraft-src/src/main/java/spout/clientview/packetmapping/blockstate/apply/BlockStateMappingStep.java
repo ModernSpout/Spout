@@ -6,24 +6,10 @@ import spout.util.mapping.handle.MappingStep;
  * A step that can be applied to a {@link BlockStateMappingHandle} as a single operation.
  *
  * <p>
- *     This is an extension of {@link MappingStep}.
+ * This is an extension of {@link MappingStep}.
  * </p>
  */
-public interface BlockStateMappingStep {
-
-    /**
-     * Applies this mapping.
-     *
-     * @param handle The handle being mapped.
-     */
-    void apply(BlockStateMappingHandle handle);
-
-    /**
-     * @return Whether this step always maps to the same specific value.
-     */
-    default boolean isDirect() {
-        return false;
-    }
+public sealed interface BlockStateMappingStep extends MappingStep<BlockStateMappingHandle> permits DirectBlockStateMappingStep, FunctionBlockStateMappingStep {
 
     /**
      * @return Whether this step depends on the coordinates of the block state being mapped.

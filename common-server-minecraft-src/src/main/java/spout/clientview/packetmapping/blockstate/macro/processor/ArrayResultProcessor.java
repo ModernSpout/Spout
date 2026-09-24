@@ -18,6 +18,7 @@ import org.bukkit.block.data.BlockData;
 import org.jspecify.annotations.Nullable;
 import spout.api.clientview.model.ClientView;
 import spout.clientview.model.awarenesslevel.AwarenessLevels;
+import spout.clientview.packetmapping.blockstate.apply.DirectBlockStateMappingStep;
 import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.clientview.packetmapping.blockstate.macro.UsedStates;
 import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
@@ -309,7 +310,7 @@ public abstract class ArrayResultProcessor<M extends BlockStateMappingMacro, Re 
                     new BlockStateMapping(
                         List.of(AwarenessLevels.RESOURCE_PACK),
                         List.of(fromState),
-                        new DirectMappingStep<>(resourcePackToState)
+                        new DirectBlockStateMappingStep(resourcePackToState)
                     )
                 );
                 // Resource pack entry
@@ -356,7 +357,7 @@ public abstract class ArrayResultProcessor<M extends BlockStateMappingMacro, Re 
                     new BlockStateMapping(
                         List.of(AwarenessLevels.VANILLA),
                         List.of(fromState),
-                        new DirectMappingStep<>(vanillaToState)
+                        new DirectBlockStateMappingStep(vanillaToState)
                     )
                 );
                 // Item

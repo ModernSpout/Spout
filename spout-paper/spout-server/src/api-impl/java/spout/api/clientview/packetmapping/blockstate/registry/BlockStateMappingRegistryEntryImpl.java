@@ -3,10 +3,17 @@ package spout.api.clientview.packetmapping.blockstate.registry;
 import io.papermc.paper.registry.PaperRegistryBuilder;
 import io.papermc.paper.registry.data.util.Conversions;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.craftbukkit.block.data.CraftBlockData;
 import org.jspecify.annotations.Nullable;
 import spout.api.clientview.model.ClientView;
+import spout.api.clientview.model.CraftAwarenessLevel;
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandle;
+import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandleImpl;
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandleNMS;
+import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandleNMSImpl;
+import spout.clientview.packetmapping.blockstate.apply.BlockStateMappingStep;
+import spout.clientview.packetmapping.blockstate.apply.DirectBlockStateMappingStep;
+import spout.clientview.packetmapping.blockstate.apply.FunctionBlockStateMappingStep;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -116,11 +123,31 @@ public class BlockStateMappingRegistryEntryImpl implements BlockStateMappingRegi
 
         @Override
         public spout.clientview.packetmapping.blockstate.registry.BlockStateMapping build() {
+            BlockStateMappingStep operation;
+            if (this.toFunction != null) {
+                operation = new FunctionBlockStateMappingStep(bukkitFunctionToInternalFunction(this.toFunction), this.toFunctionRequiresCoordinates);
+            } else if (this.toFunctionNMS != null) {
+                operation = new FunctionBlockStateMappingStep(nmsFunctionToInternalFunction(this.toFunctionNMS), this.toFunctionRequiresCoordinates);
+            } else if (this.to != null) {
+                operation = new DirectBlockStateMappingStep(((CraftBlockData) this.to).getState());
+            } else {
+                throw new IllegalStateException("No to given");
+            }
             return new spout.clientview.packetmapping.blockstate.registry.BlockStateMapping(
-
+                this.awarenessLevels.stream().map(CraftAwarenessLevel::fromBukkit).toList(),
+                this.from.stream().map(state -> ((CraftBlockData) state).getState()).toList(),
+                operation
             );
         }
 
+    }
+
+    private static Consumer<spout.clientview.packetmapping.blockstate.apply.BlockStateMappingHandle> bukkitFunctionToInternalFunction(Consumer<BlockStateMappingHandle> function) {
+        return handle -> function.accept(new BlockStateMappingHandleImpl(handle));
+    }
+
+    private static Consumer<spout.clientview.packetmapping.blockstate.apply.BlockStateMappingHandle> nmsFunctionToInternalFunction(Consumer<BlockStateMappingHandleNMS> function) {
+        return handle -> function.accept(new BlockStateMappingHandleNMSImpl(handle));
     }
 
 }

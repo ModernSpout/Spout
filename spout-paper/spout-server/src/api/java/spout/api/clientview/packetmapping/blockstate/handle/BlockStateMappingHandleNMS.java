@@ -1,6 +1,6 @@
 package spout.api.clientview.packetmapping.blockstate.handle;
 
-import org.bukkit.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import spout.api.util.mapping.handle.WithContextMappingHandle;
 import spout.api.util.mapping.handle.WithOriginalMappingHandle;
 

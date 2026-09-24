@@ -13,6 +13,7 @@ import spout.api.clientview.model.ClientView;
 import spout.api.clientview.packetmapping.blockstate.resourcepackclaims.ClaimRequestPriority;
 import spout.clientview.model.awarenesslevel.AwarenessLevel;
 import spout.clientview.model.awarenesslevel.AwarenessLevels;
+import spout.clientview.packetmapping.blockstate.apply.DirectBlockStateMappingStep;
 import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
 import spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistry;
@@ -138,7 +139,7 @@ public abstract class BlockStateMappingMacroProcessor<M extends BlockStateMappin
                         new BlockStateMapping(
                             List.of(AwarenessLevels.RESOURCE_PACK),
                             List.of(claimedState),
-                            new DirectMappingStep<>(visualDuplicateState)
+                            new DirectBlockStateMappingStep(visualDuplicateState)
                         )
                     );
                     // Item

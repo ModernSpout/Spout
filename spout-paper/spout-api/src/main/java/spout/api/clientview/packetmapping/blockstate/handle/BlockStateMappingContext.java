@@ -1,14 +1,12 @@
 package spout.api.clientview.packetmapping.blockstate.handle;
 
-import spout.server.paper.api.packetmapping.WithClientViewMappingFunctionContext;
+import spout.api.clientview.packetmapping.common.context.WithClientViewMappingContext;
 import spout.server.paper.api.packetmapping.block.BlockMappingBuilder;
-import spout.server.paper.api.packetmapping.block.BlockMappingHandle;
-import spout.server.paper.api.util.mapping.MappingFunctionContext;
 
 /**
  * A context to include in {@link BlockStateMappingHandle}s.
  */
-public interface BlockStateMappingContext extends WithClientViewMappingFunctionContext {
+public interface BlockStateMappingContext extends WithClientViewMappingContext {
 
     /**
      * @return Whether the block state on which this mapping is being applied

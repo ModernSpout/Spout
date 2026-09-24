@@ -4,7 +4,7 @@ import java.util.List;
 import spout.api.clientview.model.ClientView;
 
 /**
- * A mappin that targets one or more particular {@link ClientView.AwarenessLevel}s.
+ * A mapping that targets one or more particular {@link ClientView.AwarenessLevel}s.
  */
 public interface AwarenessLevelsMapping {
 

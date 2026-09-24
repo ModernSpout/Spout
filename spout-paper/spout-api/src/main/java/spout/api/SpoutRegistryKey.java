@@ -19,5 +19,4 @@ public final class SpoutRegistryKey {
      */
     public static final RegistryKey<BlockStateMapping> BLOCK_STATE_MAPPING = RegistryKeyImpl.create(SpoutNamespace.SPOUT + ":block_state_mapping");
 
-
 }
