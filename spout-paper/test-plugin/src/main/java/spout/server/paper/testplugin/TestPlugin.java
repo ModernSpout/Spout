@@ -21,8 +21,12 @@ public final class TestPlugin extends JavaPlugin implements Listener {
         this.getServer().getPluginManager().registerEvents(this, this);
 
         // Some debug printing
+        this.getLogger().info("All block state mapping macro types:");
+        SpoutRegistry.BLOCK_STATE_MAPPING_MACRO_TYPE.keyStream().forEach(key -> this.getLogger().info("* " + key));
+        this.getLogger().info("All block state mapping macros:");
+        SpoutRegistry.BLOCK_STATE_MAPPING_MACRO.keyStream().forEach(key -> this.getLogger().info("* " + key));
         this.getLogger().info("All block state mappings:");
-        SpoutRegistry.BLOCK_STATE_MAPPING.keyStream().forEach(key -> this.getLogger().info("*" + key));
+        SpoutRegistry.BLOCK_STATE_MAPPING.keyStream().forEach(key -> this.getLogger().info("* " + key));
     }
 
     /**

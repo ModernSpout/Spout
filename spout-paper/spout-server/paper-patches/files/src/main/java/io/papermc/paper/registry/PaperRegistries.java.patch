@@ -17,13 +17,15 @@
              start(Registries.VILLAGER_PROFESSION, RegistryKey.VILLAGER_PROFESSION).craft(Villager.Profession.class, CraftVillager.CraftProfession::new).build(),
              start(Registries.VILLAGER_TYPE, RegistryKey.VILLAGER_TYPE).craft(Villager.Type.class, CraftVillager.CraftType::new).build(),
              start(Registries.MAP_DECORATION_TYPE, RegistryKey.MAP_DECORATION_TYPE).craft(MapCursor.Type.class, CraftMapCursor.CraftType::new).build(),
-@@ -156,6 +_,11 @@
+@@ -156,6 +_,13 @@
              start(Registries.POTION, RegistryKey.POTION).apiOnly(PaperSimpleRegistry::potion),
              start(Registries.MEMORY_MODULE_TYPE, RegistryKey.MEMORY_MODULE_TYPE).apiOnly(() -> org.bukkit.Registry.MEMORY_MODULE_TYPE)
              // End generate - RegistryDefinitions
 +
 +            // Spout start - Define additional registries
 +            ,
++            start(spout.clientview.packetmapping.blockstate.macro.type.BuiltInBlockStateMappingMacroTypeRegistryKey.BLOCK_STATE_MAPPING_MACRO_TYPE, spout.api.SpoutRegistryKey.BLOCK_STATE_MAPPING_MACRO_TYPE).craft(spout.api.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType.class, spout.api.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroTypeImpl::new).build(),
++            start(spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacroRegistry.BLOCK_STATE_MAPPING_MACRO, spout.api.SpoutRegistryKey.BLOCK_STATE_MAPPING_MACRO).craft(spout.api.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro.class, spout.api.clientview.packetmapping.blockstate.macro.BlockStateMappingMacroImpl::new).writable(spout.api.clientview.packetmapping.blockstate.macro.BlockStateMappingMacroRegistryEntryImpl.Builder::new).delayed(),
 +            start(spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistry.BLOCK_STATE_MAPPING, spout.api.SpoutRegistryKey.BLOCK_STATE_MAPPING).craft(spout.api.clientview.packetmapping.blockstate.registry.BlockStateMapping.class, spout.api.clientview.packetmapping.blockstate.registry.BlockStateMappingImpl::create).writable(spout.api.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryEntryImpl.Builder::new).delayed()
 +            // Spout end - Define additional registries
          );
