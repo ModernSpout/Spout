@@ -1,5 +1,6 @@
 package spout.api.clientview.packetmapping.blockstate.registry;
 
+import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.state.BlockState;
 import org.bukkit.block.data.BlockData;
 import spout.clientview.packetmapping.blockstate.apply.DirectBlockStateMappingStep;
@@ -10,8 +11,8 @@ import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
  */
 public final class DirectBlockStateMappingImpl extends BlockStateMappingImpl implements DirectBlockStateMappingNMS {
 
-    DirectBlockStateMappingImpl(final BlockStateMapping handle) {
-        super(handle);
+    DirectBlockStateMappingImpl(final Holder<BlockStateMapping> holder) {
+        super(holder);
     }
 
     @Override
@@ -21,7 +22,7 @@ public final class DirectBlockStateMappingImpl extends BlockStateMappingImpl imp
 
     @Override
     public BlockState getToNMS() {
-        return ((DirectBlockStateMappingStep) this.handle.operation()).to();
+        return ((DirectBlockStateMappingStep) this.getHolder().value().operation()).to();
     }
 
 }

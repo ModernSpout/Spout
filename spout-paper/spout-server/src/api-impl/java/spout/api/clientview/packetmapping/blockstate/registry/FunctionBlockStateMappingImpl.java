@@ -1,5 +1,6 @@
 package spout.api.clientview.packetmapping.blockstate.registry;
 
+import net.minecraft.core.Holder;
 import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
 
 /**
@@ -7,8 +8,8 @@ import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
  */
 public final class FunctionBlockStateMappingImpl extends BlockStateMappingImpl implements FunctionBlockStateMappingNMS {
 
-    FunctionBlockStateMappingImpl(BlockStateMapping handle) {
-        super(handle);
+    FunctionBlockStateMappingImpl(Holder<BlockStateMapping> holder) {
+        super(holder);
     }
 
     // @Override
@@ -18,7 +19,7 @@ public final class FunctionBlockStateMappingImpl extends BlockStateMappingImpl i
 
     @Override
     public boolean requiresCoordinates() {
-        return this.handle.operation().requiresCoordinates();
+        return this.holder.value().operation().requiresCoordinates();
     }
 
     // @Override

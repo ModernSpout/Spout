@@ -2,6 +2,7 @@ package spout.api.clientview.packetmapping.blockstate.registry;
 
 import io.papermc.paper.registry.PaperRegistryBuilder;
 import io.papermc.paper.registry.data.util.Conversions;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.craftbukkit.block.data.CraftBlockData;
 import org.jspecify.annotations.Nullable;
@@ -35,12 +36,12 @@ public class BlockStateMappingRegistryEntryImpl implements BlockStateMappingRegi
 
     public BlockStateMappingRegistryEntryImpl(
         final Conversions ignoredConversions,
-        final BlockStateMapping internal
+        final spout.clientview.packetmapping.blockstate.registry.BlockStateMapping internal
     ) {
         if (internal == null) return;
 
-        this.awarenessLevels = new ArrayList<>(internal.getAwarenessLevels());
-        this.from = new ArrayList<>(internal.getFrom());
+        this.awarenessLevels = new ArrayList<>(internal.awarenessLevels().stream().map(CraftAwarenessLevel::toBukkit).toList());
+        this.from = new ArrayList<>(internal.targets().stream().map(BlockBehaviour.BlockStateBase::asBlockData).toList());
     }
 
     @Override
@@ -116,7 +117,7 @@ public class BlockStateMappingRegistryEntryImpl implements BlockStateMappingRegi
 
         public Builder(
             final Conversions conversions,
-            final BlockStateMapping internal
+            final spout.clientview.packetmapping.blockstate.registry.BlockStateMapping internal
         ) {
             super(conversions, internal);
         }

@@ -17,3 +17,15 @@
              start(Registries.VILLAGER_PROFESSION, RegistryKey.VILLAGER_PROFESSION).craft(Villager.Profession.class, CraftVillager.CraftProfession::new).build(),
              start(Registries.VILLAGER_TYPE, RegistryKey.VILLAGER_TYPE).craft(Villager.Type.class, CraftVillager.CraftType::new).build(),
              start(Registries.MAP_DECORATION_TYPE, RegistryKey.MAP_DECORATION_TYPE).craft(MapCursor.Type.class, CraftMapCursor.CraftType::new).build(),
+@@ -156,6 +_,11 @@
+             start(Registries.POTION, RegistryKey.POTION).apiOnly(PaperSimpleRegistry::potion),
+             start(Registries.MEMORY_MODULE_TYPE, RegistryKey.MEMORY_MODULE_TYPE).apiOnly(() -> org.bukkit.Registry.MEMORY_MODULE_TYPE)
+             // End generate - RegistryDefinitions
++
++            // Spout start - Define additional registries
++            ,
++            start(spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistry.BLOCK_STATE_MAPPING, spout.api.SpoutRegistryKey.BLOCK_STATE_MAPPING).craft(spout.api.clientview.packetmapping.blockstate.registry.BlockStateMapping.class, spout.api.clientview.packetmapping.blockstate.registry.BlockStateMappingImpl::create).writable(spout.api.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryEntryImpl.Builder::new).delayed()
++            // Spout end - Define additional registries
+         );
+         final Map<RegistryKey<?>, RegistryEntry<?, ?>> byRegistryKey = new IdentityHashMap<>(REGISTRY_ENTRIES.size());
+         final Map<ResourceKey<?>, RegistryEntry<?, ?>> byResourceKey = new IdentityHashMap<>(REGISTRY_ENTRIES.size());

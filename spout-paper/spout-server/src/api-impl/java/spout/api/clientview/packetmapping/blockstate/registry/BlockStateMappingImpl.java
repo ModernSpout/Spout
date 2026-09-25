@@ -1,5 +1,8 @@
 package spout.api.clientview.packetmapping.blockstate.registry;
 
+import io.papermc.paper.registry.HolderableBase;
+import net.minecraft.core.Holder;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.bukkit.block.data.BlockData;
@@ -11,31 +14,29 @@ import java.util.List;
 /**
  * The implementation for {@link BlockStateMapping} and {@link BlockStateMappingNMS}.
  */
-public sealed abstract class BlockStateMappingImpl implements BlockStateMappingNMS permits DirectBlockStateMappingImpl, FunctionBlockStateMappingImpl {
+public sealed abstract class BlockStateMappingImpl extends HolderableBase<spout.clientview.packetmapping.blockstate.registry.BlockStateMapping> implements BlockStateMappingNMS permits DirectBlockStateMappingImpl, FunctionBlockStateMappingImpl {
 
-    protected final spout.clientview.packetmapping.blockstate.registry.BlockStateMapping handle;
-
-    protected BlockStateMappingImpl(spout.clientview.packetmapping.blockstate.registry.BlockStateMapping handle) {
-        this.handle = handle;
+    protected BlockStateMappingImpl(Holder<spout.clientview.packetmapping.blockstate.registry.BlockStateMapping> holder) {
+        super(holder);
     }
 
     @Override
     public List<? extends ClientView.AwarenessLevel> getAwarenessLevels() {
-        return this.handle.awarenessLevels().stream().map(CraftAwarenessLevel::toBukkit).toList();
+        return this.getHolder().value().awarenessLevels().stream().map(CraftAwarenessLevel::toBukkit).toList();
     }
 
     @Override
     public List<? extends BlockData> getFrom() {
-        return this.handle.targets().stream().map(BlockBehaviour.BlockStateBase::asBlockData).toList();
+        return this.getHolder().value().targets().stream().map(BlockBehaviour.BlockStateBase::asBlockData).toList();
     }
 
     @Override
     public List<BlockState> getFromNMS() {
-        return Collections.unmodifiableList(this.handle.targets());
+        return Collections.unmodifiableList(this.getHolder().value().targets());
     }
 
-    public BlockStateMappingImpl create(spout.clientview.packetmapping.blockstate.registry.BlockStateMapping handle) {
-        return handle.operation().isDirect() ? new DirectBlockStateMappingImpl(handle) : new FunctionBlockStateMappingImpl(handle);
+    public static BlockStateMappingImpl create(Holder<spout.clientview.packetmapping.blockstate.registry.BlockStateMapping> holder) {
+        return holder.value().operation().isDirect() ? new DirectBlockStateMappingImpl(holder) : new FunctionBlockStateMappingImpl(holder);
     }
 
 }

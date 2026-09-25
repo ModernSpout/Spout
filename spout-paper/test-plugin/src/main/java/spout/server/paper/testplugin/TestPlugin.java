@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import spout.api.SpoutRegistry;
 import java.util.Arrays;
 
 @SuppressWarnings("unused")
@@ -18,6 +19,10 @@ public final class TestPlugin extends JavaPlugin implements Listener {
         if (!CheckSpout.checkSpout()) return; // Don't do anything else if the server doesn't support Spout
         // Register as a listener
         this.getServer().getPluginManager().registerEvents(this, this);
+
+        // Some debug printing
+        this.getLogger().info("All block state mappings:");
+        SpoutRegistry.BLOCK_STATE_MAPPING.keyStream().forEach(key -> this.getLogger().info("*" + key));
     }
 
     /**
