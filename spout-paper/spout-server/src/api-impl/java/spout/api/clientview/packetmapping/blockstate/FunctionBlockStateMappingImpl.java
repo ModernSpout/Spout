@@ -1,7 +1,7 @@
-package spout.api.clientview.packetmapping.blockstate.registry;
+package spout.api.clientview.packetmapping.blockstate;
 
 import net.minecraft.core.Holder;
-import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
+import spout.clientview.packetmapping.blockstate.BlockStateMapping;
 
 /**
  * The implementation for {@link FunctionBlockStateMapping} and {@link FunctionBlockStateMappingNMS}.

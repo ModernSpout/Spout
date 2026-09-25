@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.RedstoneSide;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import spout.clientview.model.awarenesslevel.AwarenessLevels;
-import spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistry;
+import spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryKey;
 import spout.api.clientview.packetmapping.blockstate.resourcepackclaims.ClaimRequestPriority;
 import spout.api.clientview.packetmapping.blockstate.resourcepackclaims.ClaimRequestPriorityComparator;
 import spout.server.paper.impl.moredatadriven.minecraft.VanillaOnlyBlockStateRegistry;
@@ -53,7 +53,7 @@ import java.util.stream.Stream;
  *
  * <p>
  * Successful claims should normally be followed up by registering the claimed states
- * with the {@link BlockStateMappingRegistry#BLOCK_STATE_MAPPING} registry.
+ * with the {@link BlockStateMappingRegistryKey#BLOCK_STATE_MAPPING} registry.
  * </p>
  *
  * <p>

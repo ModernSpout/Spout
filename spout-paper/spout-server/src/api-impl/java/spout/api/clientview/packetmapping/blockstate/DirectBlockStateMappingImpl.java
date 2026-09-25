@@ -1,10 +1,10 @@
-package spout.api.clientview.packetmapping.blockstate.registry;
+package spout.api.clientview.packetmapping.blockstate;
 
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.state.BlockState;
 import org.bukkit.block.data.BlockData;
 import spout.clientview.packetmapping.blockstate.apply.DirectBlockStateMappingStep;
-import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
+import spout.clientview.packetmapping.blockstate.BlockStateMapping;
 
 /**
  * The implementation for {@link DirectBlockStateMapping} and {@link DirectBlockStateMappingNMS}.

@@ -21,13 +21,12 @@ import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.clientview.packetmapping.blockstate.apply.DirectBlockStateMappingStep;
 import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.clientview.packetmapping.blockstate.macro.UsedStates;
-import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
+import spout.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.server.paper.api.resourcepack.construct.BlockstatesResourcePackPath;
 import spout.server.paper.api.resourcepack.content.Blockstates;
 import spout.server.paper.impl.packetmapping.block.automatic.FromToBlockStatesRequestBuilder;
 import spout.server.paper.impl.resourcepack.construct.ResourcePackConstructionImpl;
 import spout.server.paper.impl.resourcepack.plugin.discover.PluginResourcePackDiscoveryImpl;
-import spout.util.mapping.handle.DirectMappingStep;
 import spout.util.minecraft.blockstate.BlockStateUtil;
 import spout.util.minecraft.resources.IdentifierUtil;
 

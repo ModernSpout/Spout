@@ -1,8 +1,9 @@
-package spout.clientview.packetmapping.blockstate.macro;
+package spout.clientview.packetmapping.blockstate.macro.registry;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.util.minecraft.registry.RegistryKeyUtil;
 
 /**
@@ -12,9 +13,9 @@ import spout.util.minecraft.registry.RegistryKeyUtil;
  * Analogous to {@link Registries}.
  * </p>
  */
-public final class BlockStateMappingMacroRegistry {
+public final class BlockStateMappingMacroRegistryKey {
 
-    private BlockStateMappingMacroRegistry() {
+    private BlockStateMappingMacroRegistryKey() {
         throw new UnsupportedOperationException();
     }
 

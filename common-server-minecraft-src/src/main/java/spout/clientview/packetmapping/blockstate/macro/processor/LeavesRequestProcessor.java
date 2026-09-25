@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.clientview.packetmapping.blockstate.macro.LeavesMacro;
 import spout.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroTypes;
-import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
+import spout.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.server.paper.impl.moredatadriven.minecraft.VanillaOnlyBlockRegistry;
 
 /**

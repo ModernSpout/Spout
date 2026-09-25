@@ -1,7 +1,8 @@
-package spout.api.clientview.packetmapping.blockstate.macro;
+package spout.api.clientview.packetmapping.blockstate.macro.registry;
 
 import io.papermc.paper.registry.PaperRegistryBuilder;
 import io.papermc.paper.registry.data.util.Conversions;
+import spout.api.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 
 /**
  * The implementation for {@link BlockStateMappingMacroRegistryEntry}.

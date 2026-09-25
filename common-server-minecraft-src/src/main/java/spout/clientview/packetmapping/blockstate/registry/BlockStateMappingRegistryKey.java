@@ -3,6 +3,7 @@ package spout.clientview.packetmapping.blockstate.registry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import spout.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.util.minecraft.registry.RegistryKeyUtil;
 
 /**
@@ -12,9 +13,9 @@ import spout.util.minecraft.registry.RegistryKeyUtil;
  * Analogous to {@link Registries}.
  * </p>
  */
-public final class BlockStateMappingRegistry {
+public final class BlockStateMappingRegistryKey {
 
-    private BlockStateMappingRegistry() {
+    private BlockStateMappingRegistryKey() {
         throw new UnsupportedOperationException();
     }
 

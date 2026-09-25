@@ -8,6 +8,7 @@ import org.bukkit.craftbukkit.block.data.CraftBlockData;
 import org.jspecify.annotations.Nullable;
 import spout.api.clientview.model.ClientView;
 import spout.api.clientview.model.CraftAwarenessLevel;
+import spout.api.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandle;
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandleImpl;
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandleNMS;
@@ -36,7 +37,7 @@ public class BlockStateMappingRegistryEntryImpl implements BlockStateMappingRegi
 
     public BlockStateMappingRegistryEntryImpl(
         final Conversions ignoredConversions,
-        final spout.clientview.packetmapping.blockstate.registry.BlockStateMapping internal
+        final spout.clientview.packetmapping.blockstate.BlockStateMapping internal
     ) {
         if (internal == null) return;
 
@@ -113,17 +114,17 @@ public class BlockStateMappingRegistryEntryImpl implements BlockStateMappingRegi
      * and {@link BlockStateMappingRegistryEntryNMS.Builder}.
      */
     public static final class Builder extends BlockStateMappingRegistryEntryImpl implements BlockStateMappingRegistryEntryNMS.Builder,
-        PaperRegistryBuilder<spout.clientview.packetmapping.blockstate.registry.BlockStateMapping, BlockStateMapping> {
+        PaperRegistryBuilder<spout.clientview.packetmapping.blockstate.BlockStateMapping, BlockStateMapping> {
 
         public Builder(
             final Conversions conversions,
-            final spout.clientview.packetmapping.blockstate.registry.BlockStateMapping internal
+            final spout.clientview.packetmapping.blockstate.BlockStateMapping internal
         ) {
             super(conversions, internal);
         }
 
         @Override
-        public spout.clientview.packetmapping.blockstate.registry.BlockStateMapping build() {
+        public spout.clientview.packetmapping.blockstate.BlockStateMapping build() {
             BlockStateMappingStep operation;
             if (this.toFunction != null) {
                 operation = new FunctionBlockStateMappingStep(bukkitFunctionToInternalFunction(this.toFunction), this.toFunctionRequiresCoordinates);
@@ -134,7 +135,7 @@ public class BlockStateMappingRegistryEntryImpl implements BlockStateMappingRegi
             } else {
                 throw new IllegalStateException("No to given");
             }
-            return new spout.clientview.packetmapping.blockstate.registry.BlockStateMapping(
+            return new spout.clientview.packetmapping.blockstate.BlockStateMapping(
                 this.awarenessLevels.stream().map(CraftAwarenessLevel::fromBukkit).toList(),
                 this.from.stream().map(state -> ((CraftBlockData) state).getState()).toList(),
                 operation

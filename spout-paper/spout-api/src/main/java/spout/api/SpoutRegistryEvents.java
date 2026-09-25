@@ -3,7 +3,7 @@ package spout.api;
 import io.papermc.paper.registry.event.RegistryEventProvider;
 import io.papermc.paper.registry.event.RegistryEventProviderImpl;
 import io.papermc.paper.registry.event.RegistryEvents;
-import spout.api.clientview.packetmapping.blockstate.registry.BlockStateMapping;
+import spout.api.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.api.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryEntry;
 
 /**

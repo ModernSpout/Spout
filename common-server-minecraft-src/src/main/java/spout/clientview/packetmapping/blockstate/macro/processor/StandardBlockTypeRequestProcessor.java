@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.Block;
 import org.apache.commons.lang3.function.TriFunction;
 import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.clientview.packetmapping.blockstate.macro.FromToBlockMacro;
-import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
+import spout.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.server.paper.impl.moredatadriven.minecraft.VanillaOnlyBlockRegistry;
 import spout.clientview.packetmapping.blockstate.macro.processor.claimablestates.BlockDynamicClaimableStates;
 import spout.clientview.packetmapping.blockstate.macro.processor.claimablestates.DynamicClaimableStates;

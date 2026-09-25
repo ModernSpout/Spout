@@ -27,6 +27,7 @@ import spout.clientview.packetmapping.blockstate.macro.processor.SlabRequestProc
 import spout.clientview.packetmapping.blockstate.macro.processor.StairsRequestProcessor;
 import spout.clientview.packetmapping.blockstate.macro.processor.StandardBlockTypeRequestProcessor;
 import spout.clientview.packetmapping.blockstate.macro.processor.TrapdoorRequestProcessor;
+import spout.clientview.packetmapping.blockstate.macro.type.registry.BuiltInBlockStateMappingMacroTypeRegistry;
 
 /**
  * Holds the built-in {@link BlockStateMappingMacroType} values.

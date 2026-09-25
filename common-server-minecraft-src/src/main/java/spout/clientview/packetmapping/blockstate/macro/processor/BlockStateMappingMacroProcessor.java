@@ -15,14 +15,13 @@ import spout.clientview.model.awarenesslevel.AwarenessLevel;
 import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.clientview.packetmapping.blockstate.apply.DirectBlockStateMappingStep;
 import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
-import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
-import spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistry;
+import spout.clientview.packetmapping.blockstate.BlockStateMapping;
+import spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryKey;
 import spout.clientview.packetmapping.blockstate.resourcepackclaims.ResourcePackBlockStateClaims;
 import spout.server.paper.api.packetmapping.item.nms.ItemMappingUtilitiesNMS;
 import spout.server.paper.impl.moredatadriven.minecraft.VanillaOnlyBlockStateRegistry;
 import spout.server.paper.impl.packetmapping.block.automatic.FromToItemRequestBuilderImpl;
 import spout.server.paper.impl.packetmapping.item.ItemMappingsImpl;
-import spout.util.mapping.handle.DirectMappingStep;
 import spout.util.minecraft.blockstate.HoneyLevelUtil;
 import spout.util.minecraft.blockstate.visualduplicates.BlocksWithVisuallyDifferentBlockstates;
 import spout.util.minecraft.resources.IdentifierUtil;
@@ -83,7 +82,7 @@ public abstract class BlockStateMappingMacroProcessor<M extends BlockStateMappin
      * Attempts to {@linkplain ResourcePackBlockStateClaims#claim claim} block states for use as
      * proxy states for some given states.
      *
-     * @param targetRegistry                             The {@linkplain BlockStateMappingRegistry#BLOCK_STATE_MAPPING target registry}.
+     * @param targetRegistry                             The {@linkplain BlockStateMappingRegistryKey#BLOCK_STATE_MAPPING target registry}.
      * @param proxyCandidateStates                 The candidate proxy states, which must be distinct.
      * @param priority                             A pre-computed {@link ClaimRequestPriority}.
      * @param createProxyToVisualDuplicateMappings If this is true and the claim is successful,

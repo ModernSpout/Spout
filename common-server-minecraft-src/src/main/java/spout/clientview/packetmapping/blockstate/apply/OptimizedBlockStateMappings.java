@@ -9,8 +9,8 @@ import net.minecraft.world.level.block.Block;import net.minecraft.world.level.bl
 import org.jspecify.annotations.Nullable;
 import spout.clientview.model.awarenesslevel.AwarenessLevel;
 import spout.clientview.model.awarenesslevel.AwarenessLevels;
-import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
-import spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistry;
+import spout.clientview.packetmapping.blockstate.BlockStateMapping;
+import spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryKey;
 import spout.util.mapping.handle.MappingStep;
 import spout.util.minecraft.registry.SpoutRegistryHookEvents;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public final class OptimizedBlockStateMappings {
 
         @Override
         public Iterable<Pair<ResourceKey<Registry<BlockStateMapping>>, SpoutRegistryHookEvents.EventType>> getRegistryHookEventsToListenFor() {
-            return List.of(Pair.of(BlockStateMappingRegistry.BLOCK_STATE_MAPPING, SpoutRegistryHookEvents.EventType.POST_FREEZE));
+            return List.of(Pair.of(BlockStateMappingRegistryKey.BLOCK_STATE_MAPPING, SpoutRegistryHookEvents.EventType.POST_FREEZE));
         }
 
         @Override

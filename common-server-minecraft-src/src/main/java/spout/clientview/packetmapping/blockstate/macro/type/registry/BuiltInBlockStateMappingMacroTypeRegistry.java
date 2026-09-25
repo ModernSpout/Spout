@@ -1,7 +1,9 @@
-package spout.clientview.packetmapping.blockstate.macro.type;
+package spout.clientview.packetmapping.blockstate.macro.type.registry;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import spout.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType;
+import spout.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroTypes;
 import spout.gamecontent.datadriven.common.registry.bootstrap.SpoutBuiltInDataDrivenRegistryBootstrap;
 
 /**

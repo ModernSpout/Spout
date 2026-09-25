@@ -4,6 +4,7 @@ import io.papermc.paper.registry.RegistryBuilder;
 import org.bukkit.block.BlockType;
 import org.bukkit.block.data.BlockData;
 import org.jetbrains.annotations.ApiStatus;
+import spout.api.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingContext;
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandle;
 import spout.api.clientview.packetmapping.common.builder.AwarenessLevelsMappingRegistryEntry;

@@ -2,13 +2,11 @@ package spout.api;
 
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
-import io.papermc.paper.registry.RegistryKeyImpl;
 import org.bukkit.Keyed;
 import org.bukkit.Registry;
 import spout.api.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.api.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType;
-import spout.api.clientview.packetmapping.blockstate.registry.BlockStateMapping;
-import spout.branding.SpoutNamespace;
+import spout.api.clientview.packetmapping.blockstate.BlockStateMapping;
 
 /**
  * Analogous to {@link Registry}.

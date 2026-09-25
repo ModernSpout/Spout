@@ -1,4 +1,4 @@
-package spout.api.clientview.packetmapping.blockstate.registry;
+package spout.api.clientview.packetmapping.blockstate;
 
 public interface FunctionBlockStateMappingNMS extends BlockStateMappingNMS, FunctionBlockStateMapping {
 

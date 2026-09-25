@@ -4,7 +4,8 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.clientview.packetmapping.blockstate.macro.processor.BlockStateMappingMacroProcessor;
-import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
+import spout.clientview.packetmapping.blockstate.macro.type.registry.BuiltInBlockStateMappingMacroTypeRegistry;
+import spout.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.util.minecraft.resources.IdentifierUtil;
 
 /**

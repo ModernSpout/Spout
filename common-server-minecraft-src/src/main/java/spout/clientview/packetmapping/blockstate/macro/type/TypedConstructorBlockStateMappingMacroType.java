@@ -7,7 +7,7 @@ import org.apache.commons.lang3.function.TriFunction;
 import org.jspecify.annotations.Nullable;
 import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.clientview.packetmapping.blockstate.macro.processor.BlockStateMappingMacroProcessor;
-import spout.clientview.packetmapping.blockstate.registry.BlockStateMapping;
+import spout.clientview.packetmapping.blockstate.BlockStateMapping;
 
 /**
  * A type of {@link BlockStateMappingMacro}.

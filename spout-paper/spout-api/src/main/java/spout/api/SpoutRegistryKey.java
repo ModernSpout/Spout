@@ -4,7 +4,7 @@ import io.papermc.paper.registry.RegistryKey;
 import io.papermc.paper.registry.RegistryKeyImpl;
 import spout.api.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.api.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType;
-import spout.api.clientview.packetmapping.blockstate.registry.BlockStateMapping;
+import spout.api.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.branding.SpoutNamespace;
 
 /**

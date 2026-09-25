@@ -1,7 +1,7 @@
-package spout.api.clientview.packetmapping.blockstate.registry;
+package spout.api.clientview.packetmapping.blockstate;
 
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.state.BlockState;
+
 import java.util.List;
 
 /**

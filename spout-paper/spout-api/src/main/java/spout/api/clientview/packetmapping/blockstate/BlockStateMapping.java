@@ -1,4 +1,4 @@
-package spout.api.clientview.packetmapping.blockstate.registry;
+package spout.api.clientview.packetmapping.blockstate;
 
 import org.bukkit.Keyed;
 import org.bukkit.block.data.BlockData;

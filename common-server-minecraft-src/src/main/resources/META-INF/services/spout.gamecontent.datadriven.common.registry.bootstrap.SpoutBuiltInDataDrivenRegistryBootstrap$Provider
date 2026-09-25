@@ -3,4 +3,4 @@ spout.gamecontent.datadriven.blocktype.BuiltInBlockTypeRegistry$BootstrapProvide
 spout.gamecontent.datadriven.itemtype.BuiltInItemTypeRegistry$BootstrapProvider
 
 spout.clientview.model.awarenesslevel.BuiltInAwarenessLevelRegistry$BootstrapProvider
-spout.clientview.packetmapping.blockstate.macro.type.BuiltInBlockStateMappingMacroTypeRegistry$BootstrapProvider
+spout.clientview.packetmapping.blockstate.macro.type.registry.BuiltInBlockStateMappingMacroTypeRegistry$BootstrapProvider
