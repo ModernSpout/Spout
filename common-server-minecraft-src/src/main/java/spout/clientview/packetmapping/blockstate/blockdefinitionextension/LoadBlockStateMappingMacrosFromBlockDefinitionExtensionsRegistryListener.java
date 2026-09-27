@@ -9,7 +9,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.clientview.packetmapping.blockstate.macro.registry.BlockStateMappingMacroRegistryKey;
-import spout.server.paper.impl.packetmapping.block.datadriven.UnappliedDataDrivenBlockMapping;
 import spout.util.minecraft.registry.SpoutRegistryHookEvents;
 
 public final class LoadBlockStateMappingMacrosFromBlockDefinitionExtensionsRegistryListener implements SpoutRegistryHookEvents.Listener<BlockStateMappingMacro> {

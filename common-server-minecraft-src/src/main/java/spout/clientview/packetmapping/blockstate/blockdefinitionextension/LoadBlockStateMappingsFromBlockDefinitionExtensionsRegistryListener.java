@@ -7,7 +7,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import spout.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryKey;
-import spout.server.paper.impl.packetmapping.block.datadriven.UnappliedDataDrivenBlockMapping;
 import spout.util.minecraft.registry.SpoutRegistryHookEvents;
 import java.util.List;
 import java.util.Map;

@@ -16,11 +16,11 @@ import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.clientview.packetmapping.blockstate.apply.DirectBlockStateMappingStep;
 import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.clientview.packetmapping.blockstate.BlockStateMapping;
+import spout.clientview.packetmapping.blockstate.macro.FromToItemMacro;
 import spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryKey;
 import spout.clientview.packetmapping.blockstate.resourcepackclaims.ResourcePackBlockStateClaims;
 import spout.server.paper.api.packetmapping.item.nms.ItemMappingUtilitiesNMS;
 import spout.gamecontent.datadriven.block.VanillaOnlyBlockStateRegistry;
-import spout.server.paper.impl.packetmapping.block.automatic.FromToItemRequestBuilderImpl;
 import spout.server.paper.impl.packetmapping.item.ItemMappingsImpl;
 import spout.util.minecraft.blockstate.HoneyLevelUtil;
 import spout.util.minecraft.blockstate.visualduplicates.BlocksWithVisuallyDifferentBlockstates;
@@ -171,7 +171,7 @@ public abstract class BlockStateMappingMacroProcessor<M extends BlockStateMappin
             fromItem = fromItemFunction.apply(fromState);
         } else {
             if (fromState == fromState.getBlock().defaultBlockState()) {
-                fromItem = FromToItemRequestBuilderImpl.inferItem(fromState.getBlock());
+                fromItem = FromToItemMacro.inferItem(fromState.getBlock());
             } else {
                 fromItem = null;
             }
@@ -184,7 +184,7 @@ public abstract class BlockStateMappingMacroProcessor<M extends BlockStateMappin
         if (targetItemFunction != null) {
             targetItem = targetItemFunction.apply(targetState);
         } else {
-            targetItem = FromToItemRequestBuilderImpl.inferItem(targetState.getBlock());
+            targetItem = FromToItemMacro.inferItem(targetState.getBlock());
         }
         if (targetItem == null) {
             return;

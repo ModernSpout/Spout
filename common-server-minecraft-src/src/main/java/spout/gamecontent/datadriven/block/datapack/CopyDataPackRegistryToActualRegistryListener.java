@@ -13,7 +13,7 @@ import spout.gamecontent.datadriven.block.ContextAwareBlockPropertiesDecoding;
 import spout.gamecontent.datadriven.block.SpoutNonBuiltInBlock;
 import spout.server.paper.impl.moredatadriven.datapack.CopyResourcesFromDataPackRegistryToInternalRegistry;
 import spout.server.paper.impl.moredatadriven.datapack.SpoutDataPackRegistries;
-import spout.server.paper.impl.packetmapping.block.datadriven.UnappliedDataDrivenBlockMapping;
+import spout.clientview.packetmapping.blockstate.blockdefinitionextension.UnappliedDataDrivenBlockMapping;
 import spout.util.minecraft.registry.SpoutRegistryHookEvents;
 import java.util.List;
 

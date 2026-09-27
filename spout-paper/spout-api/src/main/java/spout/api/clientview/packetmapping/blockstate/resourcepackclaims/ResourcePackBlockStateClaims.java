@@ -3,7 +3,6 @@ package spout.api.clientview.packetmapping.blockstate.resourcepackclaims;
 import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
 import org.bukkit.block.data.BlockData;
 import spout.api.SpoutAPIServices;
-import spout.server.paper.api.packetmapping.block.BlockMappingsComposeEvent;
 import org.jspecify.annotations.Nullable;
 import java.util.Arrays;
 import java.util.List;

@@ -12,7 +12,6 @@ import spout.clientview.packetmapping.blockstate.macro.FromToBlockMacro;
 import spout.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroTypes;
 import spout.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.gamecontent.datadriven.block.VanillaOnlyBlockRegistry;
-import spout.server.paper.impl.packetmapping.block.automatic.RequestProcessor;
 
 /**
  * A {@link RequestProcessor} for {@link BlockStateMappingMacroTypes#TRAPDOOR}.

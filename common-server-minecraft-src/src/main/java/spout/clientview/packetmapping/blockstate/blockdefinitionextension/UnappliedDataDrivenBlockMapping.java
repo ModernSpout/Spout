@@ -1,4 +1,4 @@
-package spout.server.paper.impl.packetmapping.block.datadriven;
+package spout.clientview.packetmapping.blockstate.blockdefinitionextension;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
@@ -16,8 +16,6 @@ import spout.clientview.packetmapping.blockstate.decodingcontext.BlockStateMappi
 import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.clientview.packetmapping.blockstate.macro.processor.BlockStateMappingMacroProcessor;
 import spout.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType;
-import spout.server.paper.impl.packetmapping.block.BlockMappingsComposeEventImpl;
-import org.jspecify.annotations.Nullable;
 import java.util.List;
 
 /**
@@ -76,28 +74,6 @@ public final class UnappliedDataDrivenBlockMapping {
             BlockStateMappingDecodingContextBlock.remove();
         }
         Registry.register(registry, Identifier.fromNamespaceAndPath(block.keyInBlockRegistry.getNamespace(), block.keyInBlockRegistry.getPath() + "_json_" + BlockStateMappingMacroProcessor.generateRandomStringForMappingIdentifiers() + "_" + i), decoded);
-    }
-
-    private static <T> void apply(BlockMappingsComposeEventImpl event, @Nullable Block block, DynamicOps<T> ops, MapLike<T> mapLike) {
-
-        // Parse the type
-        T typeInput = mapLike.get("type");
-        if (typeInput == null) {
-            throw new IllegalArgumentException("Missing mapping type for a mapping" + (block == null ? "" : " for block " + block));
-        }
-        DataResult<String> typeResult = ops.getStringValue(typeInput);
-        if (typeResult.isError()) {
-            throw new IllegalArgumentException("Invalid mapping type for a mapping" + (block == null ? "" : " for block " + block) + typeResult.error().map(error -> ": " + error.message()).orElse(""));
-        }
-        String typeString = typeResult.getOrThrow();
-        @Nullable DataDrivenBlockMappingType type = DataDrivenBlockMappingTypeRegistry.get(typeString);
-        if (type == null) {
-            throw new IllegalArgumentException("Unknown mapping type for a mapping" + (block == null ? "" : " for block " + block) + ": " + typeString);
-        }
-
-        // Let the type apply the mapping
-        type.apply(event, block, ops, mapLike);
-
     }
 
 }

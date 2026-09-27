@@ -1,7 +1,7 @@
 package spout.clientview.packetmapping.blockstate.blockdefinitionextension;
 
 import net.minecraft.world.level.block.Block;
-import spout.server.paper.impl.packetmapping.block.datadriven.UnappliedDataDrivenBlockMapping;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

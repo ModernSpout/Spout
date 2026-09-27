@@ -10,7 +10,6 @@ import spout.api.clientview.model.ClientView;
 import spout.branding.SpoutNamespace;
 import spout.clientview.model.ClientViewImpl;
 import spout.gamecontent.datadriven.item.ItemRegistry;
-import spout.server.paper.impl.packetmapping.block.datadriven.DataDrivenBlockMappingType;
 import spout.server.paper.impl.packetmapping.item.ItemMappingsComposeEventImpl;
 import org.jspecify.annotations.Nullable;
 import java.util.Arrays;

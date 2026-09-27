@@ -15,7 +15,6 @@ import spout.api.gamecontent.datadriven.block.BlockTypeRegistryEntry;
 import spout.api.gamecontent.datadriven.item.ItemTypeRegistryEntry;
 import spout.api.gamecontent.datadriven.blocktype.BlockTypeTypeRegistryEntry;
 import spout.api.gamecontent.datadriven.itemtype.ItemTypeTypeRegistryEntry;
-import spout.server.paper.api.packetmapping.block.BlockMappingsComposeEvent;
 import spout.server.paper.api.packetmapping.component.ComponentMappings;
 import spout.server.paper.api.packetmapping.component.ComponentMappingsComposeEvent;
 import spout.server.paper.api.packetmapping.component.translatable.ServerSideTranslations;
