@@ -1,7 +1,6 @@
 package spout.api.clientview.packetmapping.blockstate.handle;
 
 import spout.api.clientview.packetmapping.common.context.WithClientViewMappingContext;
-import spout.server.paper.api.packetmapping.block.BlockMappingBuilder;
 
 /**
  * A context to include in {@link BlockStateMappingHandle}s.

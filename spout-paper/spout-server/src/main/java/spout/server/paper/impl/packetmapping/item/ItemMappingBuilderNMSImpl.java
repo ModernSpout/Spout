@@ -6,7 +6,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import org.bukkit.Registry;
 import org.bukkit.inventory.ItemType;
-import spout.server.paper.api.packetmapping.block.nms.BlockMappingBuilderNMS;
 import spout.server.paper.api.packetmapping.item.nms.ItemMappingBuilderNMS;
 import spout.server.paper.api.packetmapping.item.nms.ItemMappingHandleNMS;
 import org.jspecify.annotations.Nullable;
