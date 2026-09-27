@@ -9,12 +9,13 @@
   },
   "mappings": [
     {
-      "type": "manual",
       "awareness_levels": [
         "vanilla",
         "resource_pack"
       ],
-      "to": "minecraft:stone_bricks"
+      "operation": {
+        "to": "minecraft:stone_bricks"
+      }
     }
   ]
 }

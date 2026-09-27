@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ChainBlock;
 import spout.clientview.packetmapping.blockstate.macro.processor.claimablestates.BlockDynamicClaimableStates;
 import spout.clientview.packetmapping.blockstate.macro.processor.claimablestates.DynamicClaimableStates;
-import spout.server.paper.impl.moredatadriven.minecraft.VanillaOnlyBlockRegistry;
+import spout.gamecontent.datadriven.block.VanillaOnlyBlockRegistry;
 import spout.server.paper.impl.packetmapping.block.BlockMappingsComposeEventImpl;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;

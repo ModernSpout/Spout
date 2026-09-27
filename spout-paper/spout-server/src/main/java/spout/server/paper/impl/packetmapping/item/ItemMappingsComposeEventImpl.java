@@ -11,7 +11,7 @@ import spout.server.paper.api.packetmapping.item.ItemMappingBuilder;
 import spout.server.paper.api.packetmapping.item.ItemMappingsComposeEvent;
 import spout.server.paper.api.packetmapping.item.nms.ItemMappingBuilderNMS;
 import spout.server.paper.api.packetmapping.item.nms.ItemMappingsComposeEventNMS;
-import spout.server.paper.impl.moredatadriven.minecraft.ItemRegistry;
+import spout.gamecontent.datadriven.item.ItemRegistry;
 import spout.server.paper.impl.util.composable.AwarenessLevelPairKeyedBuilderComposeEventImpl;
 import org.jspecify.annotations.Nullable;
 import java.util.Collection;

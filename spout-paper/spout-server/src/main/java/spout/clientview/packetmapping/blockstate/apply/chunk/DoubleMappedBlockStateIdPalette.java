@@ -1,6 +1,6 @@
-package spout.server.paper.impl.packetmapping.block.chunk;
+package spout.clientview.packetmapping.blockstate.apply.chunk;
 
-import spout.server.paper.impl.moredatadriven.minecraft.BlockStateRegistry;
+import net.minecraft.world.level.block.Block;
 import java.util.Arrays;
 
 /**
@@ -16,7 +16,7 @@ public final class DoubleMappedBlockStateIdPalette extends BlockStateIdPalette {
      * The inverse of {@link #getBlockStateId}: which maps each block state id to its index,
      * or -1 if this palette does not contain that block state id.
      */
-    private final short[] invertedBlockStateIds = new short[BlockStateRegistry.get().size()];
+    private final short[] invertedBlockStateIds = new short[Block.BLOCK_STATE_REGISTRY.size()];
 
     DoubleMappedBlockStateIdPalette() {
         super();

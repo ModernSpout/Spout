@@ -1,8 +1,10 @@
 --- a/net/minecraft/world/item/Item.java
 +++ b/net/minecraft/world/item/Item.java
-@@ -95,16 +_,36 @@
+@@ -94,17 +_,38 @@
+ import net.minecraft.world.phys.Vec3;
  import org.jspecify.annotations.Nullable;
  import org.slf4j.Logger;
++import spout.gamecontent.datadriven.item.VanillaOnlyItemRegistry;
  
 -public class Item implements ItemLike, FeatureElement {
 +// Spout start - More data-driven - Minecraft registries - Block - Implement interfaces
@@ -52,7 +54,7 @@
 +     *
 +     * <p>
 +     * This will be null until initialized in
-+     * {@link spout.server.paper.impl.moredatadriven.minecraft.ItemRegistry#register}.
++     * {@link spout.gamecontent.datadriven.item.ItemRegistry#register}.
 +     * </p>
 +     */
 +    public net.minecraft.resources.Identifier keyInItemRegistry = null;
@@ -63,18 +65,18 @@
 +     *
 +     * <p>
 +     * This will be -1 until initialized in
-+     * {@link spout.server.paper.impl.moredatadriven.minecraft.ItemRegistry#register}.
++     * {@link spout.gamecontent.datadriven.item.ItemRegistry#register}.
 +     * </p>
 +     */
 +    public int indexInItemRegistry = -1;
 +
 +    /**
 +     * The {@linkplain net.minecraft.core.Registry#getId index} at which this item is registered in
-+     * {@link spout.server.paper.impl.moredatadriven.minecraft.VanillaOnlyItemRegistry}.
++     * {@link VanillaOnlyItemRegistry}.
 +     *
 +     * <p>
 +     * This will be -1 until initialized in
-+     * {@link spout.server.paper.impl.moredatadriven.minecraft.VanillaOnlyItemRegistry#add}.
++     * {@link VanillaOnlyItemRegistry#add}.
 +     * </p>
 +     */
 +    public int indexInVanillaOnlyItemRegistry = -1;

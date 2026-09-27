@@ -12,7 +12,7 @@ public class SpoutModInitializer implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-        System.out.println("Initializing Spouts server mod...");
+        System.out.println("Initializing Spout server mod...");
 	}
 
 }

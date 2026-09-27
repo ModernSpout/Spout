@@ -1,4 +1,4 @@
-package spout.server.paper.impl.packetmapping.block.chunk;
+package spout.clientview.packetmapping.blockstate.apply.chunk;
 
 /**
  * {@link DirectSectionContents} where each block has a particular block state id.

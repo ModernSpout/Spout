@@ -20,11 +20,11 @@ import spout.api.clientview.model.ClientView;
 import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.clientview.packetmapping.blockstate.apply.DirectBlockStateMappingStep;
 import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
+import spout.clientview.packetmapping.blockstate.macro.FromToBlockStatesMacro;
 import spout.clientview.packetmapping.blockstate.macro.UsedStates;
 import spout.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.server.paper.api.resourcepack.construct.BlockstatesResourcePackPath;
 import spout.server.paper.api.resourcepack.content.Blockstates;
-import spout.server.paper.impl.packetmapping.block.automatic.FromToBlockStatesRequestBuilder;
 import spout.server.paper.impl.resourcepack.construct.ResourcePackConstructionImpl;
 import spout.server.paper.impl.resourcepack.plugin.discover.PluginResourcePackDiscoveryImpl;
 import spout.util.minecraft.blockstate.BlockStateUtil;
@@ -44,7 +44,7 @@ public abstract class ArrayResultProcessor<M extends BlockStateMappingMacro, Re 
     }
 
     protected Re createResult() {
-        return (Re) new RequestBasedResult((FromToBlockStatesRequestBuilder) this.macro);
+        return (Re) new RequestBasedResult((FromToBlockStatesMacro) this.macro);
     }
 
     protected void useResult() {
@@ -249,22 +249,22 @@ public abstract class ArrayResultProcessor<M extends BlockStateMappingMacro, Re 
     }
 
     /**
-     * A {@link Result} for {@link FromToBlockStatesRequestBuilder} requests.
+     * A {@link Result} for {@link FromToBlockStatesMacro} requests.
      */
     public static class RequestBasedResult extends Result {
 
         /**
          * The request.
          */
-        protected final FromToBlockStatesRequestBuilder request;
+        protected final FromToBlockStatesMacro request;
 
-        public RequestBasedResult(FromToBlockStatesRequestBuilder request) {
+        public RequestBasedResult(FromToBlockStatesMacro request) {
             this.request = request;
         }
 
         @Override
         protected BlockState[] fromStates() {
-            return this.request.fromStates();
+            return this.request.getFromStates();
         }
 
     }

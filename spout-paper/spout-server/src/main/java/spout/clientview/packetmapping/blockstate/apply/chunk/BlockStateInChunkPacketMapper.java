@@ -1,10 +1,11 @@
-package spout.server.paper.impl.packetmapping.block.chunk;
+package spout.clientview.packetmapping.blockstate.apply.chunk;
 
 import ca.spottedleaf.dataconverter.util.IntegerUtil;
 import io.papermc.paper.antixray.ChunkPacketInfo;
 import net.minecraft.network.protocol.game.ClientboundLevelChunkPacketData;
 import net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.GlobalPalette;
 import net.minecraft.world.level.chunk.HashMapPalette;
@@ -14,15 +15,13 @@ import net.minecraft.world.level.chunk.Palette;
 import net.minecraft.world.level.chunk.PalettedContainer;
 import net.minecraft.world.level.chunk.SingleValuePalette;
 import spout.api.clientview.model.ClientView;
-import spout.server.paper.api.packetmapping.block.BlockMappingFunctionContext;
-import spout.server.paper.api.packetmapping.block.BlockMappings;
-import spout.server.paper.impl.moredatadriven.minecraft.BlockStateRegistry;
-import spout.server.paper.impl.moredatadriven.minecraft.VanillaOnlyBlockStateRegistry;
-import spout.server.paper.impl.packetmapping.block.BlockMappingFunctionContextImpl;
-import spout.server.paper.impl.packetmapping.block.BlockMappingsImpl;
-import spout.server.paper.impl.packetmapping.block.BlockMappingsStep;
-import spout.server.paper.impl.packetmapping.block.FunctionBlockMappingsStep;
+import spout.clientview.packetmapping.blockstate.apply.BlockStateInPacketMapper;
+import spout.clientview.packetmapping.blockstate.apply.BlockStateMappingStep;
+import spout.clientview.packetmapping.blockstate.apply.BlockStateMappingsApplicationContext;
+import spout.clientview.packetmapping.blockstate.apply.OptimizedBlockStateMappings;
+import spout.gamecontent.datadriven.block.VanillaOnlyBlockStateRegistry;
 import org.jspecify.annotations.Nullable;
+
 import java.util.Arrays;
 
 /**
@@ -32,12 +31,12 @@ import java.util.Arrays;
  * Each instance of this class can only be {@linkplain #applyMappings used} once.
  * </p>
  */
-public final class ChunkPacketBlockMapper {
+public final class BlockStateInChunkPacketMapper {
 
     /**
-     * The instance of the {@link BlockMappingsImpl}.
+     * The instance of the {@link BlockStateInPacketMapper}.
      */
-    private final BlockMappingsImpl pipeline = BlockMappingsImpl.get();
+    private final BlockStateInPacketMapper pipeline = BlockStateInPacketMapper.get();
 
     /**
      * The packet currently being processed.
@@ -67,7 +66,7 @@ public final class ChunkPacketBlockMapper {
     /**
      * The {@link ClientView.AwarenessLevel#ordinal()} of the {@link #clientView}.
      */
-    private final int clientViewAwarenessLevelI;
+    private final int clientViewAwarenessLevelId;
 
     /**
      * The number of bits per entry for a {@link PalettedContainer} using the {@link GlobalPalette}.
@@ -89,14 +88,14 @@ public final class ChunkPacketBlockMapper {
      */
     private final ChunkPacketBlockMapperWriter writer;
 
-    public ChunkPacketBlockMapper(ClientboundLevelChunkWithLightPacket packet, LevelChunk chunk, ServerPlayer player, ChunkPacketInfo<BlockState> chunkPacketInfo) {
+    public BlockStateInChunkPacketMapper(ClientboundLevelChunkWithLightPacket packet, LevelChunk chunk, ServerPlayer player, ChunkPacketInfo<BlockState> chunkPacketInfo) {
         this.packet = packet;
         this.chunkStartX = packet.getX() << 4;
         this.chunkStartY = chunk.getMinY();
         this.chunkStartZ = packet.getZ() << 4;
         this.clientView = player.getClientViewOrFallback();
-        this.clientViewAwarenessLevelI = this.clientView.getAwarenessLevel().ordinal();
-        this.globalPaletteBitsPerEntry = (byte) IntegerUtil.ceilLog2((this.clientView.understandsAllServerSideBlocks() ? BlockStateRegistry.get() : VanillaOnlyBlockStateRegistry.get()).size());
+        this.clientViewAwarenessLevelId = this.clientView.getAwarenessLevel().ordinal();
+        this.globalPaletteBitsPerEntry = (byte) IntegerUtil.ceilLog2((this.clientView.understandsAllServerSideBlocks() ? Block.BLOCK_STATE_REGISTRY : VanillaOnlyBlockStateRegistry.get()).size());
         this.chunkPacketInfo = chunkPacketInfo;
         ClientboundLevelChunkPacketData chunkData = packet.getChunkData();
         this.reader = new ChunkPacketBlockMapperReader(chunkData.buffer);
@@ -107,15 +106,15 @@ public final class ChunkPacketBlockMapper {
         // Mark the packet as ready
         this.packet.readyMappingBlocks = true;
         // Remove the reference to this mapper to reclaim memory
-        this.packet.spoutChunkPacketBlockMapper = null;
+        this.packet.spoutBlockStateInChunkPacketMapper = null;
     }
 
     /**
-     * Apply the block mappings registered with the {@link BlockMappings} to the {@link #packet}.
+     * Apply the block mappings registered with the {@link BlockStateInPacketMapper} to the {@link #packet}.
      */
     public void applyMappings() {
         // Do a check over all paletted containers to see if any mappings are necessary at all
-        if (!requiresMapping(this.chunkPacketInfo, this.pipeline, this.clientViewAwarenessLevelI, this.reader)) {
+        if (!requiresMapping(this.chunkPacketInfo, this.pipeline, this.clientViewAwarenessLevelId, this.reader)) {
             // Skip mapping if there are no block states with mappings
             this.setDone();
             return;
@@ -124,7 +123,7 @@ public final class ChunkPacketBlockMapper {
         this.applyMappingsToSection(0, this.packet.getChunkData());
     }
 
-    private static boolean requiresMapping(ChunkPacketInfo<BlockState> chunkPacketInfo, BlockMappingsImpl pipeline, int clientViewAwarenessLevelI, ChunkPacketBlockMapperReader reader) {
+    private static boolean requiresMapping(ChunkPacketInfo<BlockState> chunkPacketInfo, BlockStateInPacketMapper pipeline, int clientViewAwarenessLevelI, ChunkPacketBlockMapperReader reader) {
         int chunkSectionsCount = chunkPacketInfo.palettes.length;
         for (int i = 0; i < chunkSectionsCount; i++) {
             Palette<BlockState> palette = (Palette<BlockState>) chunkPacketInfo.palettes[i];
@@ -214,23 +213,23 @@ public final class ChunkPacketBlockMapper {
      */
     private DirectSectionContents determineNewSectionContentsForSingleValuedPalette(int sectionStartY) {
 
-        int oldBlockStateId = this.reader.readVarInt();
+        int oldBlockStateIndexInRegistry = this.reader.readVarInt();
 
-        int singleNewBlockStateId = this.pipeline.getDirectMapping(this.clientViewAwarenessLevelI, oldBlockStateId);
-        if (singleNewBlockStateId != -1) {
+        int singleNewBlockStateIndexInRegistry = OptimizedBlockStateMappings.getDirectIndex(this.clientViewAwarenessLevelId, oldBlockStateIndexInRegistry);
+        if (singleNewBlockStateIndexInRegistry != -1) {
             // Use the directly mapped result
-            return this.reusableSingleValuedNewSectionContents().setBlockStateId(singleNewBlockStateId);
+            return this.reusableSingleValuedNewSectionContents().setBlockStateIndexInRegistry(singleNewBlockStateIndexInRegistry);
         }
 
-        BlockMappingsStep @Nullable [] chainMapping = this.pipeline.getChainMapping(this.clientViewAwarenessLevelI, oldBlockStateId);
+        BlockStateMappingStep @Nullable [] chainMapping = OptimizedBlockStateMappings.getChain(this.clientViewAwarenessLevelId, oldBlockStateIndexInRegistry);
         if (chainMapping == null) {
             // There are no relevant mappings
-            return this.reusableSingleValuedNewSectionContents().setBlockStateId(oldBlockStateId);
+            return this.reusableSingleValuedNewSectionContents().setBlockStateIndexInRegistry(oldBlockStateIndexInRegistry);
         }
 
         if (noneRequiresCoordinates(chainMapping)) {
             // Apply the chain once for all blocks in this section that have this block state
-            return this.reusableSingleValuedNewSectionContents().setBlockStateId(BlockMappingsImpl.applyChain(oldBlockStateId, this.getGenericContext(), chainMapping));
+            return this.reusableSingleValuedNewSectionContents().setBlockStateIndexInRegistry(BlockStateMappingStep.applyChain(oldBlockStateIndexInRegistry, this.getGenericContext(), chainMapping));
         }
 
         // Apply the chain for each position
@@ -242,8 +241,8 @@ public final class ChunkPacketBlockMapper {
                 int z = this.chunkStartZ + zInSection;
                 for (int xInSection = 0; xInSection < 16; xInSection++) {
                     int x = this.chunkStartX + xInSection;
-                    BlockMappingFunctionContext context = new BlockMappingFunctionContextImpl(this.clientView, x, y, z);
-                    int mappedValue = BlockMappingsImpl.applyChain(oldBlockStateId, context, chainMapping);
+                    BlockStateMappingsApplicationContext context = new BlockStateMappingsApplicationContext(this.clientView, x, y, z);
+                    int mappedValue = BlockStateMappingStep.applyChain(oldBlockStateIndexInRegistry, context, chainMapping);
                     newContents.setBlockStateId(blockInSection++, mappedValue);
                 }
             }
@@ -263,26 +262,26 @@ public final class ChunkPacketBlockMapper {
         oldContents.readFromIndirectOrDirectPalettedContainer(this.reader, oldBitsPerEntry);
 
         // Determine the new block states for each old block state, or store their chain mapping if we must apply it per block later
-        int[] oldPaletteIndexToNewBlockStateId = this.reusableOldPaletteIndexToNewBlockStateId();
-        BlockMappingsStep[][] oldPaletteIndexToChain = this.reusableOldPaletteIndexToChain();
+        int[] oldPaletteIndexToNewBlockStateIndexInRegistry = this.reusableOldPaletteIndexToNewBlockStateId();
+        BlockStateMappingStep[][] oldPaletteIndexToChain = this.reusableOldPaletteIndexToChain();
         for (int oldPaletteIndex = 0; oldPaletteIndex < oldContents.palette.size(); oldPaletteIndex++) {
-            int oldBlockStateId = oldContents.palette.getBlockStateId(oldPaletteIndex);
-            int singleNewBlockStateId = this.pipeline.getDirectMapping(this.clientViewAwarenessLevelI, oldBlockStateId);
-            if (singleNewBlockStateId >= 0) {
+            int oldBlockStateIndexInRegistry = oldContents.palette.getBlockStateId(oldPaletteIndex);
+            int singleNewBlockStateIndexInRegistry = OptimizedBlockStateMappings.getDirectIndex(this.clientViewAwarenessLevelId, oldBlockStateIndexInRegistry);
+            if (singleNewBlockStateIndexInRegistry >= 0) {
                 // Use the directly mapped result
-                oldPaletteIndexToNewBlockStateId[oldPaletteIndex] = singleNewBlockStateId;
+                oldPaletteIndexToNewBlockStateIndexInRegistry[oldPaletteIndex] = singleNewBlockStateIndexInRegistry;
             } else {
-                BlockMappingsStep @Nullable [] chainMapping = this.pipeline.getChainMapping(this.clientViewAwarenessLevelI, oldBlockStateId);
+                BlockStateMappingStep @Nullable [] chainMapping = OptimizedBlockStateMappings.getChain(this.clientViewAwarenessLevelId, oldBlockStateIndexInRegistry);
                 if (chainMapping == null) {
                     // There are no relevant mappings
-                    oldPaletteIndexToNewBlockStateId[oldPaletteIndex] = oldBlockStateId;
+                    oldPaletteIndexToNewBlockStateIndexInRegistry[oldPaletteIndex] = oldBlockStateIndexInRegistry;
                 } else {
                     if (noneRequiresCoordinates(chainMapping)) {
                         // Apply the chain once for all blocks in this section that have this block state
-                        oldPaletteIndexToNewBlockStateId[oldPaletteIndex] = BlockMappingsImpl.applyChain(oldBlockStateId, this.getGenericContext(), chainMapping);
+                        oldPaletteIndexToNewBlockStateIndexInRegistry[oldPaletteIndex] = BlockStateMappingStep.applyChain(oldBlockStateIndexInRegistry, this.getGenericContext(), chainMapping);
                     } else {
                         // Store the chain for later application
-                        oldPaletteIndexToNewBlockStateId[oldPaletteIndex] = -1;
+                        oldPaletteIndexToNewBlockStateIndexInRegistry[oldPaletteIndex] = -1;
                         oldPaletteIndexToChain[oldPaletteIndex] = chainMapping;
                     }
                 }
@@ -299,13 +298,13 @@ public final class ChunkPacketBlockMapper {
                 for (int xInSection = 0; xInSection < 16; xInSection++) {
                     int x = this.chunkStartX + xInSection;
                     int oldPaletteIndex = oldContents.getPaletteIndex(blockIndexInSection);
-                    int newBlockStateId = oldPaletteIndexToNewBlockStateId[oldPaletteIndex];
-                    if (newBlockStateId < 0) {
+                    int newBlockStateIndexInRegistry = oldPaletteIndexToNewBlockStateIndexInRegistry[oldPaletteIndex];
+                    if (newBlockStateIndexInRegistry < 0) {
                         // Apply the chain
-                        BlockMappingFunctionContext context = new BlockMappingFunctionContextImpl(this.clientView, x, y, z);
-                        newBlockStateId = BlockMappingsImpl.applyChain(oldContents.palette.getBlockStateId(oldPaletteIndex), context, oldPaletteIndexToChain[oldPaletteIndex]);
+                        BlockStateMappingsApplicationContext context = new BlockStateMappingsApplicationContext(this.clientView, x, y, z);
+                        newBlockStateIndexInRegistry = BlockStateMappingStep.applyChain(oldContents.palette.getBlockStateId(oldPaletteIndex), context, oldPaletteIndexToChain[oldPaletteIndex]);
                     }
-                    newContents.setBlockStateId(blockIndexInSection++, newBlockStateId);
+                    newContents.setBlockStateId(blockIndexInSection++, newBlockStateIndexInRegistry);
                 }
             }
         }
@@ -321,9 +320,9 @@ public final class ChunkPacketBlockMapper {
     }
 
 
-    private static boolean noneRequiresCoordinates(BlockMappingsStep[] chainMapping) {
-        for (BlockMappingsStep mapping : chainMapping) {
-            if (mapping instanceof FunctionBlockMappingsStep complexMapping && complexMapping.requiresCoordinates()) {
+    private static boolean noneRequiresCoordinates(BlockStateMappingStep[] chainMapping) {
+        for (BlockStateMappingStep mapping : chainMapping) {
+            if (mapping.requiresCoordinates()) {
                 return false;
             }
         }
@@ -332,23 +331,23 @@ public final class ChunkPacketBlockMapper {
 
     private static final ThreadLocal<PaletteIndexedSectionContents> OLD_SECTION_CONTENTS_THREAD_LOCAL = ThreadLocal.withInitial(() -> new PaletteIndexedSectionContents(new DoubleMappedBlockStateIdPalette(), new int[4096]));
     private static final ThreadLocal<int[]> REUSABLE_OLD_PALETTE_INDEX_TO_NEW_BLOCK_STATE_ID_THREAD_LOCAL = ThreadLocal.withInitial(() -> new int[4096]);
-    private static final ThreadLocal<BlockMappingsStep[][]> REUSABLE_OLD_PALETTE_INDEX_TO_CHAIN_THREAD_LOCAL = ThreadLocal.withInitial(() -> new BlockMappingsStep[4096][]);
+    private static final ThreadLocal<BlockStateMappingStep[][]> REUSABLE_OLD_PALETTE_INDEX_TO_CHAIN_THREAD_LOCAL = ThreadLocal.withInitial(() -> new BlockStateMappingStep[4096][]);
     private static final ThreadLocal<SingleValuedDirectSectionContents> SINGLE_VALUED_NEW_SECTION_CONTENTS_THREAD_LOCAL = ThreadLocal.withInitial(SingleValuedDirectSectionContents::new);
     private static final ThreadLocal<MultiValuedDirectSectionContents> MULTI_VALUED_NEW_SECTION_CONTENTS_THREAD_LOCAL = ThreadLocal.withInitial(() -> new MultiValuedDirectSectionContents(new DoubleMappedBlockStateIdPalette(), new int[4096]));
 
-    private @Nullable BlockMappingFunctionContext cachedGenericContext;
+    private @Nullable BlockStateMappingsApplicationContext cachedGenericContext;
     private @Nullable PaletteIndexedSectionContents cachedReusableOldSectionContents;
     private int @Nullable [] cachedReusableOldPaletteIndexToNewBlockStateId;
-    private BlockMappingsStep @Nullable [] @Nullable [] cachedReusableOldPaletteIndexToChain;
+    private BlockStateMappingStep @Nullable [] @Nullable [] cachedReusableOldPaletteIndexToChain;
     private @Nullable SingleValuedDirectSectionContents cachedReusableSingleValuedNewSectionContents;
     private @Nullable MultiValuedDirectSectionContents cachedReusableMultiValuedNewSectionContents;
 
     /**
-     * @return A {@link BlockMappingFunctionContext} for mappings that do not require any specific information.
+     * @return A {@link BlockStateMappingsApplicationContext} for mappings that do not require any specific information.
      */
-    private BlockMappingFunctionContext getGenericContext() {
+    private BlockStateMappingsApplicationContext getGenericContext() {
         if (this.cachedGenericContext == null) {
-            this.cachedGenericContext = new BlockMappingFunctionContextImpl(this.clientView, true, 0, 0, 0);
+            this.cachedGenericContext = new BlockStateMappingsApplicationContext(this.clientView, true, 0, 0, 0);
         }
         return this.cachedGenericContext;
     }
@@ -387,7 +386,7 @@ public final class ChunkPacketBlockMapper {
      * that has the old block state id at that index in the old palette as its block state, or null
      * {@linkplain #cachedReusableOldPaletteIndexToNewBlockStateId if no chain mapping is required}.
      */
-    private BlockMappingsStep[][] reusableOldPaletteIndexToChain() {
+    private BlockStateMappingStep[][] reusableOldPaletteIndexToChain() {
         if (this.cachedReusableOldPaletteIndexToChain == null) {
             this.cachedReusableOldPaletteIndexToChain = REUSABLE_OLD_PALETTE_INDEX_TO_CHAIN_THREAD_LOCAL.get();
         }

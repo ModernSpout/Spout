@@ -6,7 +6,7 @@ import spout.server.paper.api.packetmapping.block.BlockMappingBuilder;
 import spout.server.paper.api.packetmapping.block.BlockMappingsComposeEvent;
 import spout.server.paper.api.packetmapping.block.nms.BlockMappingBuilderNMS;
 import spout.server.paper.api.packetmapping.block.nms.ManualBlockMappingsNMS;
-import spout.server.paper.impl.moredatadriven.minecraft.BlockStateRegistry;
+import spout.gamecontent.datadriven.block.BlockStateRegistry;
 import spout.server.paper.impl.packetmapping.block.automatic.AutomaticBlockMappingsImpl;
 import spout.server.paper.impl.util.composable.AwarenessLevelPairKeyedBuilderComposeEventImpl;
 import org.jspecify.annotations.Nullable;

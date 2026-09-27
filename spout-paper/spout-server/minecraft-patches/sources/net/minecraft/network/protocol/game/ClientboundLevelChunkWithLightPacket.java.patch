@@ -5,7 +5,7 @@
      private final ClientboundLevelChunkPacketData chunkData;
      private final ClientboundLightUpdatePacketData lightData;
 +    // Spout start - Block mapping - Chunk packets - Call
-+    public spout.server.paper.impl.packetmapping.block.chunk.@Nullable ChunkPacketBlockMapper spoutChunkPacketBlockMapper;
++    public spout.clientview.packetmapping.blockstate.apply.chunk.@Nullable BlockStateInChunkPacketMapper spoutBlockStateInChunkPacketMapper;
 +    private final java.util.concurrent.atomic.AtomicBoolean startedMappingBlocks = new java.util.concurrent.atomic.AtomicBoolean();
 +    public volatile boolean readyMappingBlocks;
 +    // Spout end - Block mapping - Chunk packets - Call
@@ -26,7 +26,7 @@
 +
 +    private void startMappingBlocksIfNecessary() {
 +        if (!this.startedMappingBlocks.compareAndExchange(false, true)) {
-+            this.spoutChunkPacketBlockMapper.applyMappings();
++            this.spoutBlockStateInChunkPacketMapper.applyMappings();
 +        }
      }
  
@@ -69,7 +69,7 @@
          this.chunkData = new ClientboundLevelChunkPacketData(levelChunk, chunkPacketInfo); // Paper - Anti-Xray
          this.lightData = new ClientboundLightUpdatePacketData(chunkPos, lightEngine, skyChangedLightSectionFilter, blockChangedLightSectionFilter);
          levelChunk.getLevel().chunkPacketBlockController.modifyBlocks(this, chunkPacketInfo); // Paper - Anti-Xray - Modify blocks
-+        this.spoutChunkPacketBlockMapper = new spout.server.paper.impl.packetmapping.block.chunk.ChunkPacketBlockMapper(this, levelChunk, player, chunkPacketInfo);
++        this.spoutBlockStateInChunkPacketMapper = new spout.clientview.packetmapping.blockstate.apply.chunk.BlockStateInChunkPacketMapper(this, levelChunk, player, chunkPacketInfo);
      }
  
      private ClientboundLevelChunkWithLightPacket(final RegistryFriendlyByteBuf input) {

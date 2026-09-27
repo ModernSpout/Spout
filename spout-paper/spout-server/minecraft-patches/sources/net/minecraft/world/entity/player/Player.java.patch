@@ -1,11 +1,15 @@
 --- a/net/minecraft/world/entity/player/Player.java
 +++ b/net/minecraft/world/entity/player/Player.java
-@@ -123,7 +_,7 @@
- import net.minecraft.world.scores.Team;
+@@ -120,10 +_,10 @@
+ import net.minecraft.world.phys.AABB;
+ import net.minecraft.world.phys.Vec3;
+ import net.minecraft.world.scores.PlayerTeam;
+-import net.minecraft.world.scores.Team;
  import org.jspecify.annotations.Nullable;
++import spout.clientview.packetmapping.clientviewlookup.ClientViewLookup;
  
 -public abstract class Player extends Avatar implements ContainerUser {
-+public abstract class Player extends Avatar implements ContainerUser, spout.server.paper.impl.clientview.lookup.ClientViewLookup { // Spout - Client view - Lookup - Provide from Player
++public abstract class Player extends Avatar implements ContainerUser, ClientViewLookup { // Spout - Client view - Lookup - Provide from Player
      public static final int MAX_HEALTH = 20;
      public static final int SLEEP_DURATION = 100;
      public static final int WAKE_UP_DURATION = 10;

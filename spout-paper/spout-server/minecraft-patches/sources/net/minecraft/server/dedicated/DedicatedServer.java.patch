@@ -8,13 +8,12 @@
          this.server.spark.enableEarlyIfRequested(); // Paper - spark
          // Paper start - fix converting txt to json file; convert old users earlier after PlayerList creation but before file load/save
          if (this.convertOldUsers()) {
-@@ -291,6 +_,17 @@
+@@ -291,6 +_,16 @@
          com.destroystokyo.paper.Metrics.PaperMetrics.startMetrics(); // Paper - start metrics
          com.destroystokyo.paper.VersionHistoryManager.INSTANCE.getClass(); // Paper - load version history now
  
 +        spout.server.paper.impl.packetmapping.component.translatable.ServerSideTranslationsImpl.get().fireComposeEvent(); // Spout - Server-side translations - Implementation part - Fire compose event to register translations
 +        spout.server.paper.impl.packetmapping.component.ComponentMappingsImpl.get().fireComposeEvent(); // Spout - Component mapping - Implementation part - Fire compose event to register mappings
-+        spout.server.paper.impl.packetmapping.block.BlockMappingsImpl.get().fireComposeEvent(); // Spout - Block mapping - Implementation part - Fire compose event to register mappings
 +        spout.server.paper.impl.packetmapping.item.ItemMappingsImpl.get().fireComposeEvent(); // Spout - Item mapping - Implementation part - Fire compose event to register mappings
 +        // Spout start - Resource pack - Construction - Fire compose event
 +        spout.server.paper.impl.resourcepack.construct.ResourcePackConstructionImpl resourcePackConstruction = spout.server.paper.impl.resourcepack.construct.ResourcePackConstructionImpl.get();

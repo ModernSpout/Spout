@@ -1,4 +1,4 @@
-package spout.server.paper.impl.packetmapping.block.chunk;
+package spout.clientview.packetmapping.blockstate.apply.chunk;
 
 public class PaletteIndexedSectionContents implements SectionContents {
 

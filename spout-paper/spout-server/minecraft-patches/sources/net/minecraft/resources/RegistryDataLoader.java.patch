@@ -6,8 +6,8 @@
          new RegistryDataLoader.RegistryData<>(Registries.TRADE_SET, TradeSet.CODEC)
 +        // Spout start - Load additional registries
 +        ,
-+        new RegistryDataLoader.RegistryData<>(spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacroRegistry.BLOCK_STATE_MAPPING_MACRO, spout.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType.MACRO_CODEC.codec()),
-+        new RegistryDataLoader.RegistryData<>(spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistry.BLOCK_STATE_MAPPING, spout.clientview.packetmapping.blockstate.registry.BlockStateMapping.CODEC)
++        new RegistryDataLoader.RegistryData<>(spout.clientview.packetmapping.blockstate.macro.registry.BlockStateMappingMacroRegistryKey.BLOCK_STATE_MAPPING_MACRO, spout.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType.MACRO_CODEC.codec()),
++        new RegistryDataLoader.RegistryData<>(spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryKey.BLOCK_STATE_MAPPING, spout.clientview.packetmapping.blockstate.BlockStateMapping.CODEC)
 +        // Spout end - Load additional registries
      );
      public static final List<RegistryDataLoader.RegistryData<?>> DIMENSION_REGISTRIES = List.of(

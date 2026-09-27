@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import org.jspecify.annotations.Nullable;
 import spout.clientview.packetmapping.blockstate.resourcepackclaims.ResourcePackBlockStateClaims;
-import spout.server.paper.impl.moredatadriven.minecraft.VanillaOnlyBlockStateRegistry;
+import spout.gamecontent.datadriven.block.VanillaOnlyBlockStateRegistry;
 import spout.util.minecraft.blockstate.visualduplicates.VisualDuplicateGroup;
 
 /**

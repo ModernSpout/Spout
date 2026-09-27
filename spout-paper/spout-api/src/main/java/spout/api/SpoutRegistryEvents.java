@@ -4,6 +4,8 @@ import io.papermc.paper.registry.event.RegistryEventProvider;
 import io.papermc.paper.registry.event.RegistryEventProviderImpl;
 import io.papermc.paper.registry.event.RegistryEvents;
 import spout.api.clientview.packetmapping.blockstate.BlockStateMapping;
+import spout.api.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
+import spout.api.clientview.packetmapping.blockstate.macro.registry.BlockStateMappingMacroRegistryEntry;
 import spout.api.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryEntry;
 
 /**
@@ -14,6 +16,11 @@ public final class SpoutRegistryEvents {
     private SpoutRegistryEvents() {
         throw new UnsupportedOperationException();
     }
+
+    /**
+     * Events for {@link SpoutRegistryKey#BLOCK_STATE_MAPPING_MACRO}.
+     */
+    public static final RegistryEventProvider<BlockStateMappingMacro, BlockStateMappingMacroRegistryEntry.Builder> BLOCK_STATE_MAPPING_MACRO = RegistryEventProviderImpl.create(SpoutRegistryKey.BLOCK_STATE_MAPPING_MACRO);
 
     /**
      * Events for {@link SpoutRegistryKey#BLOCK_STATE_MAPPING}.

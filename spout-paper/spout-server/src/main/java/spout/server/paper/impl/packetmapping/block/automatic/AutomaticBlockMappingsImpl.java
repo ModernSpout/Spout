@@ -15,7 +15,7 @@ import spout.server.paper.api.packetmapping.block.automatic.AutomaticBlockMappin
 import spout.server.paper.api.packetmapping.block.automatic.SlabRequestBuilder;
 import spout.server.paper.api.packetmapping.block.automatic.ToBlockStateRequestBuilder;
 import spout.server.paper.api.packetmapping.block.automatic.ToBlockTypeRequestBuilder;
-import spout.server.paper.impl.moredatadriven.minecraft.VanillaOnlyBlockRegistry;
+import spout.gamecontent.datadriven.block.VanillaOnlyBlockRegistry;
 import spout.server.paper.impl.packetmapping.block.BlockMappingsComposeEventImpl;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;

@@ -1,9 +1,13 @@
 package spout.clientview.packetmapping.blockstate.resourcepackclaims;
 
+import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
 import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2DoubleMaps;
+import net.minecraft.core.Registry;
+import net.minecraft.core.WritableRegistry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -11,13 +15,15 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.RedstoneSide;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import spout.clientview.model.awarenesslevel.AwarenessLevels;
+import spout.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryKey;
 import spout.api.clientview.packetmapping.blockstate.resourcepackclaims.ClaimRequestPriority;
 import spout.api.clientview.packetmapping.blockstate.resourcepackclaims.ClaimRequestPriorityComparator;
-import spout.server.paper.impl.moredatadriven.minecraft.VanillaOnlyBlockStateRegistry;
+import spout.gamecontent.datadriven.block.VanillaOnlyBlockStateRegistry;
 import org.jspecify.annotations.Nullable;
 import spout.util.minecraft.blockstate.visualduplicates.VisualDuplicateGroup;
 import spout.util.minecraft.blockstate.visualduplicates.VisualDuplicates;
+import spout.util.minecraft.registry.SpoutRegistryHookEvents;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -85,6 +91,20 @@ public final class ResourcePackBlockStateClaims {
 
     private ResourcePackBlockStateClaims() {
         throw new UnsupportedOperationException();
+    }
+
+    public static final class RegistryFreezeListener implements SpoutRegistryHookEvents.Listener<BlockStateMapping> {
+
+        @Override
+        public Iterable<Pair<ResourceKey<Registry<BlockStateMapping>>, SpoutRegistryHookEvents.EventType>> getRegistryHookEventsToListenFor() {
+            return List.of(Pair.of(BlockStateMappingRegistryKey.BLOCK_STATE_MAPPING, SpoutRegistryHookEvents.EventType.PRE_FREEZE));
+        }
+
+        @Override
+        public void onRegistryHookEvent(SpoutRegistryHookEvents.EventType type, WritableRegistry<BlockStateMapping> registry) {
+            processRequests();
+        }
+
     }
 
     private static int nextClaimId;

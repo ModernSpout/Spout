@@ -1,10 +1,18 @@
 --- a/net/minecraft/network/PacketEncoder.java
 +++ b/net/minecraft/network/PacketEncoder.java
+@@ -8,6 +_,7 @@
+ import net.minecraft.network.protocol.PacketType;
+ import net.minecraft.util.profiling.jfr.JvmProfiler;
+ import org.slf4j.Logger;
++import spout.clientview.packetmapping.clientviewlookup.ThreadLocalClientViewLookup;
+ 
+ public class PacketEncoder<T extends PacketListener> extends MessageToByteEncoder<Packet<T>> {
+     private static final Logger LOGGER = LogUtils.getLogger();
 @@ -24,6 +_,7 @@
  
          try {
              ADVENTURE_LOCALE.set(ctx.channel().attr(io.papermc.paper.adventure.PaperAdventure.LOCALE_ATTRIBUTE).get()); // Paper - adventure; set player's locale
-+            spout.server.paper.impl.clientview.lookup.packethandling.ClientViewLookupThreadLocal.THREAD_LOCAL.set(ctx.channel().attr(spout.server.paper.impl.clientview.lookup.packethandling.NettyClientViewLookupAttribute.ATTRIBUTE_KEY).get()); // Spout - Client view - Lookup - During packet handling - Copy lookup from the channel to the thread-local variable
++            ThreadLocalClientViewLookup.setWeakReference(spout.clientview.packetmapping.clientviewlookup.NettyChannelClientViewLookup.getWeakReference(ctx.channel())); // Spout - Client view - Packet mapping - Client view lookup - Netty channel - Copy lookup from the channel to the thread-local variable
              this.protocolInfo.codec().encode(output, packet);
              int writtenBytes = output.readableBytes();
              if (LOGGER.isDebugEnabled()) {

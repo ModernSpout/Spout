@@ -7,11 +7,10 @@ import net.minecraft.world.level.block.Block;
 import org.jspecify.annotations.Nullable;
 import spout.api.clientview.model.ClientView;
 import spout.clientview.model.JavaWithClientModClientViewImpl;
-import spout.server.paper.impl.clientview.lookup.ClientViewLookup;
-import spout.server.paper.impl.clientview.lookup.packethandling.ClientViewLookupThreadLocal;
-import spout.server.paper.impl.moredatadriven.minecraft.BlockRegistry;
-import spout.server.paper.impl.moredatadriven.minecraft.ItemRegistry;
-import java.lang.ref.WeakReference;
+import spout.clientview.packetmapping.clientviewlookup.ClientViewLookup;
+import spout.clientview.packetmapping.clientviewlookup.ThreadLocalClientViewLookup;
+import spout.gamecontent.datadriven.block.BlockRegistry;
+import spout.gamecontent.datadriven.item.ItemRegistry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -43,20 +42,20 @@ public final class ClientModCustomContentSending {
         List<Item> items = ItemRegistry.get().stream().filter(item -> !item.isVanilla()).toList();
 
         // Set a client mod client view to prevent any mapping
-        ClientViewLookupThreadLocal.THREAD_LOCAL.set(new WeakReference<>(new ClientViewLookup() {
+        ThreadLocalClientViewLookup.set(new ClientViewLookup() {
 
             @Override
             public ClientView getClientView() {
                 return new JavaWithClientModClientViewImpl(null);
             }
 
-        }));
+        });
 
         // Create the content instance
         ClientModCustomContent customContent = ClientModCustomContent.createFilled(blocks, items);
 
         // Remove the temporary client view
-        ClientViewLookupThreadLocal.THREAD_LOCAL.remove();
+        ThreadLocalClientViewLookup.remove();
 
         // Create the payloads
         class FillPayloadsHelper {

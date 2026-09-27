@@ -13,7 +13,7 @@ import spout.api.clientview.model.ClientView;
 import spout.clientview.packetmapping.blockstate.resourcepackclaims.ResourcePackBlockStateClaims;
 import spout.api.clientview.packetmapping.blockstate.resourcepackclaims.ClaimRequestPriority;
 import spout.server.paper.api.packetmapping.item.nms.ItemMappingUtilitiesNMS;
-import spout.server.paper.impl.moredatadriven.minecraft.VanillaOnlyBlockStateRegistry;
+import spout.gamecontent.datadriven.block.VanillaOnlyBlockStateRegistry;
 import spout.server.paper.impl.packetmapping.block.BlockMappingsComposeEventImpl;
 import spout.api.clientview.packetmapping.blockstate.resourcepackclaims.ResourcePackBlockStateClaimsImpl;
 import spout.server.paper.impl.packetmapping.item.ItemMappingsImpl;

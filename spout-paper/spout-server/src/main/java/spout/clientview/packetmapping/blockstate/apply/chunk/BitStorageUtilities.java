@@ -1,4 +1,4 @@
-package spout.server.paper.impl.packetmapping.block.chunk;
+package spout.clientview.packetmapping.blockstate.apply.chunk;
 
 /**
  * Utilities for handling data packed into arrays of longs.

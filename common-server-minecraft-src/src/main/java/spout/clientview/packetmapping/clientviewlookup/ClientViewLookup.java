@@ -1,4 +1,4 @@
-package spout.server.paper.impl.clientview.lookup;
+package spout.clientview.packetmapping.clientviewlookup;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerCommonPacketListenerImpl;

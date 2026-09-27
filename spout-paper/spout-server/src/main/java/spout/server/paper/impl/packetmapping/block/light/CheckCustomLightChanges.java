@@ -3,7 +3,8 @@ package spout.server.paper.impl.packetmapping.block.light;
 import net.minecraft.world.level.block.state.BlockState;
 import spout.api.clientview.model.ClientView;
 import spout.clientview.model.ClientViewImpl;
-import spout.server.paper.impl.packetmapping.block.BlockMappingFunctionContextImpl;
+import spout.clientview.packetmapping.blockstate.apply.BlockStateInPacketMapper;
+import spout.clientview.packetmapping.blockstate.apply.BlockStateMappingsApplicationContext;
 import java.util.Arrays;
 
 /**
@@ -16,13 +17,13 @@ public final class CheckCustomLightChanges {
         throw new UnsupportedOperationException();
     }
 
-    private static final BlockMappingFunctionContextImpl[] simulatedContexts = Arrays.stream(ClientView.AwarenessLevel.getThatDoNotAlwaysUnderstandsAllServerSideBlocks()).map(awarenessLevel ->
-        new BlockMappingFunctionContextImpl(ClientViewImpl.getSimulatedForAwarenessLevel(awarenessLevel))
-    ).toArray(BlockMappingFunctionContextImpl[]::new);
+    private static final BlockStateMappingsApplicationContext[] simulatedContexts = Arrays.stream(ClientView.AwarenessLevel.getThatDoNotAlwaysUnderstandsAllServerSideBlocks()).map(awarenessLevel ->
+        new BlockStateMappingsApplicationContext(ClientViewImpl.getSimulatedForAwarenessLevel(awarenessLevel))
+    ).toArray(BlockStateMappingsApplicationContext[]::new);
 
     public static boolean requiresExtraLightPacketSending(BlockState oldState, BlockState newState) {
-        for (BlockMappingFunctionContextImpl simulatedContext : simulatedContexts) {
-            if (spout.server.paper.impl.packetmapping.block.BlockMappingsImpl.get().apply(oldState, simulatedContext).getLightEmission() != oldState.getLightEmission() || spout.server.paper.impl.packetmapping.block.BlockMappingsImpl.get().apply(newState, simulatedContext).getLightEmission() != newState.getLightEmission()) {
+        for (BlockStateMappingsApplicationContext simulatedContext : simulatedContexts) {
+            if (BlockStateInPacketMapper.get().apply(oldState, simulatedContext).getLightEmission() != oldState.getLightEmission() || BlockStateInPacketMapper.get().apply(newState, simulatedContext).getLightEmission() != newState.getLightEmission()) {
                 return true;
             }
         }

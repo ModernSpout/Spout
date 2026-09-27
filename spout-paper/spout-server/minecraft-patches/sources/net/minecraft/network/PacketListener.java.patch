@@ -1,11 +1,13 @@
 --- a/net/minecraft/network/PacketListener.java
 +++ b/net/minecraft/network/PacketListener.java
-@@ -8,7 +_,7 @@
+@@ -7,8 +_,9 @@
+ import net.minecraft.network.protocol.Packet;
  import net.minecraft.network.protocol.PacketFlow;
  import net.minecraft.network.protocol.PacketUtils;
++import spout.clientview.packetmapping.clientviewlookup.ClientViewLookup;
  
 -public interface PacketListener {
-+public interface PacketListener extends spout.server.paper.impl.clientview.lookup.ClientViewLookup { // Spout - Client view - Lookup - Implement for PacketListener (actually only implemented for ServerLoginPacketListenerImpl and ServerCommonPacketListenerImpl, but having the method available is convenient)
++public interface PacketListener extends ClientViewLookup { // Spout - Client view - Lookup - Implement for PacketListener (actually only implemented for ServerLoginPacketListenerImpl and ServerCommonPacketListenerImpl, but having the method available is convenient)
      PacketFlow flow();
  
      ConnectionProtocol protocol();

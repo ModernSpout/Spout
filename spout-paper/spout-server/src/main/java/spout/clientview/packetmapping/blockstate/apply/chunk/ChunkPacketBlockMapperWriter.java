@@ -1,14 +1,15 @@
-package spout.server.paper.impl.packetmapping.block.chunk;
+package spout.clientview.packetmapping.blockstate.apply.chunk;
 
 import io.netty.buffer.Unpooled;
 import io.papermc.paper.antixray.BitStorageReader;
 import io.papermc.paper.antixray.BitStorageWriter;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.game.ClientboundLevelChunkPacketData;
+
 import java.util.Arrays;
 
 /**
- * A buffer writer for {@link ChunkPacketBlockMapper}.
+ * A buffer writer for {@link BlockStateInChunkPacketMapper}.
  */
 public final class ChunkPacketBlockMapperWriter {
 

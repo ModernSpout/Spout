@@ -3,7 +3,7 @@ package spout.server.paper.impl.packetmapping;
 import spout.api.clientview.model.ClientView;
 import spout.server.paper.api.packetmapping.WithClientViewMappingFunctionContext;
 import spout.server.paper.api.util.mapping.WithContextMappingFunctionHandle;
-import spout.server.paper.impl.clientview.lookup.packethandling.ClientViewLookupThreadLocal;
+import spout.clientview.packetmapping.clientviewlookup.ThreadLocalClientViewLookup;
 import spout.server.paper.impl.util.mappingpipeline.WithContextSingleStepMappingPipeline;
 
 /**
@@ -25,7 +25,7 @@ public interface WithClientViewContextSingleStepMappingPipeline<T, C extends Wit
 
     @Override
     default C createGenericContext() {
-        return this.createGenericContext(ClientViewLookupThreadLocal.getThreadLocalClientViewOrFallback());
+        return this.createGenericContext(ThreadLocalClientViewLookup.getThreadLocalClientViewOrFallback());
     }
 
     /**

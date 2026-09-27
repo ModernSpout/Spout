@@ -15,7 +15,6 @@ import spout.api.gamecontent.datadriven.block.BlockTypeRegistryEntry;
 import spout.api.gamecontent.datadriven.item.ItemTypeRegistryEntry;
 import spout.api.gamecontent.datadriven.blocktype.BlockTypeTypeRegistryEntry;
 import spout.api.gamecontent.datadriven.itemtype.ItemTypeTypeRegistryEntry;
-import spout.server.paper.api.packetmapping.block.BlockMappings;
 import spout.server.paper.api.packetmapping.block.BlockMappingsComposeEvent;
 import spout.server.paper.api.packetmapping.component.ComponentMappings;
 import spout.server.paper.api.packetmapping.component.ComponentMappingsComposeEvent;
@@ -48,7 +47,6 @@ public final class SpoutEvents {
     public static final ComposableEventType<PluginResourcePackDiscoverEvent> PLUGIN_RESOURCE_PACK_DISCOVERY = PluginResourcePackDiscovery.get().compose();
     public static final ComposableEventType<ResourcePackConstructEvent> RESOURCE_PACK_CONSTRUCT = ResourcePackConstruction.get().compose();
     public static final LifecycleEventType<BootstrapContext, ResourcePackConstructFinishEvent, PrioritizedLifecycleEventHandlerConfiguration<BootstrapContext>> RESOURCE_PACK_CONSTRUCT_FINISH = ResourcePackConstruction.get().finish();
-    public static final ComposableEventType<BlockMappingsComposeEvent> BLOCK_MAPPING = ((BlockMappings) BlockMappings.get()).compose();
     public static final ComposableEventType<ItemMappingsComposeEvent<?>> ITEM_MAPPING = ((ItemMappings) ItemMappings.get()).compose();
     public static final ComposableEventType<ComponentMappingsComposeEvent<?>> COMPONENT_MAPPING = ((ComponentMappings) ComponentMappings.get()).compose();
     public static final ComposableEventType<ServerSideTranslationsComposeEvent> SERVER_SIDE_TRANSLATION = ServerSideTranslations.get().compose();

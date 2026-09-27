@@ -19,4 +19,11 @@ public interface MappingStep<H extends AbstractMappingHandle<?>> {
         return false;
     }
 
+    static <T, H extends AbstractMappingHandle<T>> T applyChain(H handle, MappingStep<H>[] chain) {
+        for (MappingStep<H> mapping : chain) {
+            mapping.apply(handle);
+        }
+        return handle.getImmutable();
+    }
+
 }

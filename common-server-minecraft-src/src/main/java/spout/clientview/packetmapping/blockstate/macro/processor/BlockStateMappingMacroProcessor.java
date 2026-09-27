@@ -19,7 +19,7 @@ import spout.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryKey;
 import spout.clientview.packetmapping.blockstate.resourcepackclaims.ResourcePackBlockStateClaims;
 import spout.server.paper.api.packetmapping.item.nms.ItemMappingUtilitiesNMS;
-import spout.server.paper.impl.moredatadriven.minecraft.VanillaOnlyBlockStateRegistry;
+import spout.gamecontent.datadriven.block.VanillaOnlyBlockStateRegistry;
 import spout.server.paper.impl.packetmapping.block.automatic.FromToItemRequestBuilderImpl;
 import spout.server.paper.impl.packetmapping.item.ItemMappingsImpl;
 import spout.util.minecraft.blockstate.HoneyLevelUtil;

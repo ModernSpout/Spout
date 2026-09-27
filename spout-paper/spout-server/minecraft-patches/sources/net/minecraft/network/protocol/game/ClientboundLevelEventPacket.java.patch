@@ -15,8 +15,8 @@
 +            }
 +            case net.minecraft.world.level.block.LevelEvent.PARTICLES_DESTROY_BLOCK, net.minecraft.world.level.block.LevelEvent.PARTICLES_AND_SOUND_BRUSH_BLOCK_COMPLETE -> {
 +                net.minecraft.world.level.block.state.BlockState state = net.minecraft.world.level.block.Block.BLOCK_STATE_REGISTRY.byId(this.data);
-+                spout.server.paper.api.packetmapping.block.BlockMappingFunctionContext context = new spout.server.paper.impl.packetmapping.block.BlockMappingFunctionContextImpl(output.getClientViewOrFallback(), this.pos);
-+                net.minecraft.world.level.block.state.BlockState mapped = spout.server.paper.impl.packetmapping.block.BlockMappingsImpl.get().apply(state, context);
++                spout.clientview.packetmapping.blockstate.apply.BlockStateMappingsApplicationContext context = new spout.clientview.packetmapping.blockstate.apply.BlockStateMappingsApplicationContext(output.getClientViewOrFallback(), this.pos);
++                net.minecraft.world.level.block.state.BlockState mapped = spout.clientview.packetmapping.blockstate.apply.BlockStateInPacketMapper.get().apply(state, context);
 +                yield mapped.indexInBlockStateRegistry;
 +            }
 +            default -> this.data;

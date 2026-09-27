@@ -1,7 +1,15 @@
 --- a/net/minecraft/world/level/block/Blocks.java
 +++ b/net/minecraft/world/level/block/Blocks.java
-@@ -46,11 +_,11 @@
+@@ -39,18 +_,18 @@
+ import net.minecraft.world.level.block.state.properties.BlockSetType;
+ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+-import net.minecraft.world.level.block.state.properties.SculkSensorPhase;
+ import net.minecraft.world.level.block.state.properties.WoodType;
+ import net.minecraft.world.level.material.Fluids;
+ import net.minecraft.world.level.material.MapColor;
  import net.minecraft.world.level.material.PushReaction;
++import spout.gamecontent.datadriven.block.BlockRegistry;
  
  public class Blocks {
 -    private static final BlockBehaviour.StatePredicate NOT_CLOSED_SHULKER = (statex, level, pos) -> !(
@@ -100,6 +108,6 @@
                  state.initCache();
              }
          }
-+        spout.server.paper.impl.moredatadriven.minecraft.BlockRegistry.get().canInitializeBlockStateCaches = true; // Spout - More data-driven - Minecraft registries - Initialize block state caches for non-vanilla blocks in BlockRegistry#register
++        BlockRegistry.get().canInitializeBlockStateCaches = true; // Spout - More data-driven - Minecraft registries - Initialize block state caches for non-vanilla blocks in BlockRegistry#register
      }
  }

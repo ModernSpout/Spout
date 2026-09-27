@@ -8,14 +8,15 @@
  import net.minecraft.SharedConstants;
  import net.minecraft.network.chat.Component;
  import net.minecraft.network.protocol.BundlerInfo;
-@@ -53,8 +_,18 @@
+@@ -53,8 +_,19 @@
  import org.slf4j.Logger;
  import org.slf4j.Marker;
  import org.slf4j.MarkerFactory;
 +import spout.api.clientview.model.ClientView;
++import spout.clientview.packetmapping.clientviewlookup.ClientViewLookup;
  
 -public class Connection extends SimpleChannelInboundHandler<Packet<?>> {
-+public class Connection extends SimpleChannelInboundHandler<Packet<?>> implements spout.server.paper.impl.clientview.lookup.ClientViewLookup { // Spout - Client view - Lookup - Implement for Connection
++public class Connection extends SimpleChannelInboundHandler<Packet<?>> implements ClientViewLookup { // Spout - Client view - Lookup - Implement for Connection
 +    public @Nullable ClientView clientView; // Spout - Client view - Set - Field
 +    // Spout start - Client view - Lookup - Implement for Connection - Getter
 +    @Override
@@ -40,7 +41,7 @@
      public void channelActive(final ChannelHandlerContext ctx) throws Exception {
          super.channelActive(ctx);
          this.channel = ctx.channel();
-+        this.channel.attr(spout.server.paper.impl.clientview.lookup.packethandling.NettyClientViewLookupAttribute.ATTRIBUTE_KEY).set(new java.lang.ref.WeakReference<>(this)); // Spout - Client view - Lookup - During packet handling - Copy the connection (acting as the lookup) to the channel
++        spout.clientview.packetmapping.clientviewlookup.NettyChannelClientViewLookup.set(this.channel, this); // Spout - Client view - Packet mapping - Client view lookup - Netty channel - Copy the connection (acting as the lookup) to the channel
          this.address = this.channel.remoteAddress();
          this.preparing = false; // Spigot
          if (this.delayedDisconnect != null) {

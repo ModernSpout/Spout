@@ -1,6 +1,7 @@
 package spout.clientview.packetmapping.blockstate.macro;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import com.mojang.datafixers.util.Function10;
@@ -12,20 +13,19 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.TintedParticleLeavesBlock;
 import org.jspecify.annotations.Nullable;
 import spout.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType;
-import spout.util.mojang.codec.CodecUtil;
 
 /**
  * A {@link BlockStateMappingMacro} for leaves.
  */
 public class LeavesMacro extends FromToBlockMacro {
 
-    public static <M extends LeavesMacro> RecordCodecBuilder<M, @Nullable Boolean> getTintedCodecBuilder() {
-        return CodecUtil.optionalFieldOf(Codec.BOOL, "tinted", () -> null).forGetter(macro -> macro.tinted);
+    public static <M extends LeavesMacro> RecordCodecBuilder<M, Optional<Boolean>> getTintedCodecBuilder() {
+        return Codec.BOOL.optionalFieldOf("tinted").forGetter(macro -> Optional.ofNullable(macro.tinted));
     }
 
     public static <M extends LeavesMacro> MapCodec<? extends M> simpleCodec(
         Block defaultFallbackBlock,
-        Function10<Boolean, Boolean, Boolean, Boolean, Boolean, @Nullable Item, @Nullable Item, Block, Block, @Nullable Boolean, M> factory
+        Function10<Boolean, Boolean, Boolean, Boolean, Boolean, Optional<Item>, Optional<Item>, Block, Block, Optional<Boolean>, M> factory
     ) {
         return FromToBlockMacro.simpleCodec(
             defaultFallbackBlock,
@@ -56,11 +56,11 @@ public class LeavesMacro extends FromToBlockMacro {
                 createVanillaMappings,
                 createResourcePackBlockstatesEntries,
                 null,
-                fromItem,
-                fallbackItem,
+                fromItem.orElse(null),
+                fallbackItem.orElse(null),
                 fromBlock,
                 fallbackBlock,
-                tinted
+                tinted.orElse(null)
             )
         );
     }

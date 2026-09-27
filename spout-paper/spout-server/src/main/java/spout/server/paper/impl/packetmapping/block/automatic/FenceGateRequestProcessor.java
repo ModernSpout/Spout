@@ -4,7 +4,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import spout.server.paper.impl.moredatadriven.minecraft.VanillaOnlyBlockRegistry;
+import spout.gamecontent.datadriven.block.VanillaOnlyBlockRegistry;
 import spout.server.paper.impl.packetmapping.block.BlockMappingsComposeEventImpl;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;

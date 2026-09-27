@@ -1,10 +1,9 @@
-package spout.server.paper.impl.packetmapping.block.chunk;
+package spout.clientview.packetmapping.blockstate.apply.chunk;
 
 import io.papermc.paper.antixray.ChunkPacketInfo;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
-import spout.server.paper.impl.moredatadriven.minecraft.BlockStateRegistry;
-import java.util.Arrays;
 
 public abstract class DirectSectionContents implements SectionContents {
 
@@ -42,9 +41,9 @@ public abstract class DirectSectionContents implements SectionContents {
     public static final boolean[] IS_FLUID_STATE;
 
     static {
-        IS_NON_EMPTY_BLOCK_STATE = new boolean[BlockStateRegistry.get().size()];
-        IS_FLUID_STATE = new boolean[BlockStateRegistry.get().size()];
-        BlockStateRegistry.get().forEach(blockState -> {
+        IS_NON_EMPTY_BLOCK_STATE = new boolean[Block.BLOCK_STATE_REGISTRY.size()];
+        IS_FLUID_STATE = new boolean[Block.BLOCK_STATE_REGISTRY.size()];
+        Block.BLOCK_STATE_REGISTRY.forEach(blockState -> {
             if (!blockState.isAir()) {
                 int index = blockState.indexInBlockStateRegistry;
                 IS_NON_EMPTY_BLOCK_STATE[index] = true;

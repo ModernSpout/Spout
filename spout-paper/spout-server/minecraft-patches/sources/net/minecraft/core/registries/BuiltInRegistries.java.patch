@@ -1,5 +1,13 @@
 --- a/net/minecraft/core/registries/BuiltInRegistries.java
 +++ b/net/minecraft/core/registries/BuiltInRegistries.java
+@@ -86,7 +_,6 @@
+ import net.minecraft.world.inventory.MenuType;
+ import net.minecraft.world.item.CreativeModeTab;
+ import net.minecraft.world.item.CreativeModeTabs;
+-import net.minecraft.world.item.Item;
+ import net.minecraft.world.item.Items;
+ import net.minecraft.world.item.alchemy.Potion;
+ import net.minecraft.world.item.alchemy.Potions;
 @@ -168,8 +_,8 @@
  
  public class BuiltInRegistries {
@@ -16,13 +24,13 @@
      public static final DefaultedRegistry<Fluid> FLUID = registerDefaultedWithIntrusiveHolders(Registries.FLUID, "empty", registry -> Fluids.EMPTY);
      public static final Registry<MobEffect> MOB_EFFECT = registerSimple(Registries.MOB_EFFECT, MobEffects::bootstrap);
 -    public static final DefaultedRegistry<Block> BLOCK = registerDefaultedWithIntrusiveHolders(Registries.BLOCK, "air", registry -> Blocks.AIR);
-+    public static final spout.server.paper.impl.moredatadriven.minecraft.BlockRegistry BLOCK = internalRegister(Registries.BLOCK, spout.server.paper.impl.moredatadriven.minecraft.BlockRegistry.get(), registry -> Blocks.AIR); // Spout - More data-driven - Minecraft registries - Use custom class
++    public static final spout.gamecontent.datadriven.block.BlockRegistry BLOCK = internalRegister(Registries.BLOCK, spout.gamecontent.datadriven.block.BlockRegistry.get(), registry -> Blocks.AIR); // Spout - More data-driven - Minecraft registries - Use custom class
      public static final Registry<DebugSubscription<?>> DEBUG_SUBSCRIPTION = registerSimple(Registries.DEBUG_SUBSCRIPTION, DebugSubscriptions::bootstrap);
      public static final DefaultedRegistry<EntityType<?>> ENTITY_TYPE = registerDefaultedWithIntrusiveHolders(
          Registries.ENTITY_TYPE, "pig", registry -> EntityType.PIG
      );
 -    public static final DefaultedRegistry<Item> ITEM = registerDefaultedWithIntrusiveHolders(Registries.ITEM, "air", registry -> Items.AIR);
-+    public static final spout.server.paper.impl.moredatadriven.minecraft.ItemRegistry ITEM = internalRegister(Registries.ITEM, spout.server.paper.impl.moredatadriven.minecraft.ItemRegistry.get(), registry -> Items.AIR); // Spout - More data-driven - Minecraft registries - Use custom class
++    public static final spout.gamecontent.datadriven.item.ItemRegistry ITEM = internalRegister(Registries.ITEM, spout.gamecontent.datadriven.item.ItemRegistry.get(), registry -> Items.AIR); // Spout - More data-driven - Minecraft registries - Use custom class
      public static final Registry<Potion> POTION = registerSimple(Registries.POTION, Potions::bootstrap);
      public static final Registry<ParticleType<?>> PARTICLE_TYPE = registerSimple(Registries.PARTICLE_TYPE, registry -> ParticleTypes.BLOCK);
      public static final Registry<BlockEntityType<?>> BLOCK_ENTITY_TYPE = registerSimpleWithIntrusiveHolders(

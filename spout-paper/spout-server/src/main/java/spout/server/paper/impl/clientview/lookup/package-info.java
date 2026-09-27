@@ -2,7 +2,7 @@
  * <h1>Client view - Lookup</h1>
  *
  * <p>
- * Provides the {@link spout.server.paper.impl.clientview.lookup.ClientViewLookup}
+ * Provides the {@link spout.clientview.packetmapping.clientviewlookup.ClientViewLookup}
  * interface for any class that can look up its associated client view,
  * and implements that interface for:
  * <ul>

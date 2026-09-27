@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import org.jspecify.annotations.Nullable;
-import spout.server.paper.impl.moredatadriven.minecraft.VanillaOnlyBlockStateRegistry;
+import spout.gamecontent.datadriven.block.VanillaOnlyBlockStateRegistry;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;

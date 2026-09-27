@@ -93,8 +93,6 @@ public final class OptimizedBlockStateMappings {
      */
     public static void build(Registry<BlockStateMapping> registry) {
 
-        System.out.println("Filling optimized from " + registry.size()); // TODO remove debug
-
         // Initialize the arrays
         int awarenessLevelSize = AwarenessLevels.getAll().length;
         chains = new BlockStateMappingStep[awarenessLevelSize][][];

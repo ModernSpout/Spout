@@ -13,8 +13,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import spout.api.clientview.model.ClientView;
-import spout.server.paper.impl.packetmapping.block.BlockMappingFunctionContextImpl;
-import spout.server.paper.impl.packetmapping.block.BlockMappingsImpl;
+import spout.clientview.packetmapping.blockstate.apply.BlockStateInPacketMapper;
+import spout.clientview.packetmapping.blockstate.apply.BlockStateMappingsApplicationContext;
 import spout.server.paper.impl.packetmapping.item.ItemMappingFunctionContextImpl;
 import spout.server.paper.impl.packetmapping.item.ItemMappingsImpl;
 import org.jspecify.annotations.Nullable;
@@ -77,7 +77,7 @@ public final class BlockBreakSpeedFactorUpdater {
 
         // Get the client targeted block state
         ClientView clientView = player.getClientViewOrFallback();
-        BlockState clientBlockState = BlockMappingsImpl.get().apply(serverBlockState, new BlockMappingFunctionContextImpl(clientView, blockPos));
+        BlockState clientBlockState = BlockStateInPacketMapper.get().apply(serverBlockState, new BlockStateMappingsApplicationContext(clientView, blockPos));
 
         // Get the server and client held item stack
         ItemStack serverItemStack = player.getInventory().getSelectedItem();

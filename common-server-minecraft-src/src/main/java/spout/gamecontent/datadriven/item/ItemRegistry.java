@@ -1,4 +1,4 @@
-package spout.server.paper.impl.moredatadriven.minecraft;
+package spout.gamecontent.datadriven.item;
 
 import com.mojang.serialization.Lifecycle;
 import net.minecraft.core.DefaultedMappedRegistry;

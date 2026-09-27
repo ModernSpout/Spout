@@ -16,7 +16,7 @@ import spout.server.paper.api.packetmapping.item.ItemMappingFunctionContext;
 import spout.server.paper.api.packetmapping.item.ItemMappings;
 import spout.server.paper.api.packetmapping.item.ItemMappingsComposeEvent;
 import spout.server.paper.impl.configuration.SpoutGlobalConfiguration;
-import spout.server.paper.impl.moredatadriven.minecraft.ItemRegistry;
+import spout.gamecontent.datadriven.item.ItemRegistry;
 import spout.server.paper.impl.packetmapping.WithClientViewContextSingleStepMappingPipeline;
 import spout.server.paper.impl.packetmapping.item.builtin.AddTooltipItemMappingsStep;
 import spout.server.paper.impl.packetmapping.item.builtin.MapDefaultItemNamesItemMappingsStep;

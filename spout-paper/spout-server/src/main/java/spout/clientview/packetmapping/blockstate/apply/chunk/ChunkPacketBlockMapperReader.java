@@ -1,11 +1,11 @@
-package spout.server.paper.impl.packetmapping.block.chunk;
+package spout.clientview.packetmapping.blockstate.apply.chunk;
 
 import io.netty.buffer.Unpooled;
 import io.papermc.paper.antixray.BitStorageReader;
 import net.minecraft.network.FriendlyByteBuf;
 
 /**
- * A buffer reader for {@link ChunkPacketBlockMapper}.
+ * A buffer reader for {@link BlockStateInChunkPacketMapper}.
  */
 public final class ChunkPacketBlockMapperReader {
 

@@ -1,5 +1,13 @@
 --- a/net/minecraft/world/level/block/Block.java
 +++ b/net/minecraft/world/level/block/Block.java
+@@ -25,7 +_,6 @@
+ import net.minecraft.core.BlockPos;
+ import net.minecraft.core.Direction;
+ import net.minecraft.core.Holder;
+-import net.minecraft.core.IdMapper;
+ import net.minecraft.core.registries.BuiltInRegistries;
+ import net.minecraft.network.chat.Component;
+ import net.minecraft.network.chat.MutableComponent;
 @@ -75,11 +_,14 @@
  import org.jspecify.annotations.Nullable;
  import org.slf4j.Logger;
@@ -13,16 +21,14 @@
      private static final Logger LOGGER = LogUtils.getLogger();
      private final Holder.Reference<Block> builtInRegistryHolder = BuiltInRegistries.BLOCK.createIntrusiveHolder(this);
 -    public static final IdMapper<BlockState> BLOCK_STATE_REGISTRY = new IdMapper<>();
-+    public static final spout.server.paper.impl.moredatadriven.minecraft.BlockStateRegistry BLOCK_STATE_REGISTRY = spout.server.paper.impl.moredatadriven.minecraft.BlockStateRegistry.get(); // Spout - More data-driven - Minecraft registries - Custom registries for blocks and items
++    public static final spout.gamecontent.datadriven.block.BlockStateRegistry BLOCK_STATE_REGISTRY = spout.gamecontent.datadriven.block.BlockStateRegistry.get(); // Spout - More data-driven - Minecraft registries - Custom registries for blocks and items
      private static final LoadingCache<VoxelShape, Boolean> SHAPE_FULL_BLOCK_CACHE = CacheBuilder.newBuilder()
          .maximumSize(512L)
          .weakKeys()
-@@ -145,6 +_,73 @@
+@@ -145,6 +_,71 @@
      protected MapCodec<? extends Block> codec() {
          return CODEC;
      }
-+
-+    public @Nullable List<spout.server.paper.impl.packetmapping.block.datadriven.UnappliedDataDrivenBlockMapping> unappliedDataPackMappings = null; // Spout - Block mapping - Data-driven - Load mappings from data pack
 +
 +    // Spout start - More data-driven - Minecraft registries - Cache block and item values
 +    /**

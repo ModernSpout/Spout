@@ -27,7 +27,7 @@ import spout.clientview.packetmapping.blockstate.macro.processor.claimablestates
 import spout.clientview.packetmapping.blockstate.macro.processor.claimablestates.ExplicitDynamicClaimableStates;
 import spout.clientview.packetmapping.blockstate.macro.processor.claimablestates.SingletonBlockStateDynamicClaimableStates;
 import spout.clientview.packetmapping.blockstate.macro.processor.claimablestates.SortedClaimableStates;
-import spout.server.paper.impl.moredatadriven.minecraft.VanillaOnlyBlockStateRegistry;
+import spout.gamecontent.datadriven.block.VanillaOnlyBlockStateRegistry;
 import spout.server.paper.impl.packetmapping.block.BlockMappingsComposeEventImpl;
 
 /**

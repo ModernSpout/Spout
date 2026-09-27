@@ -25,7 +25,7 @@ import org.bukkit.inventory.ItemType;
 import org.bukkit.inventory.meta.trim.TrimMaterial;
 import spout.api.gamecontent.datadriven.item.ItemTypeRegistryEntry;
 import spout.server.paper.api.moredatadriven.paper.registry.nms.ItemTypeRegistryEntryBuilderNMS;
-import spout.server.paper.impl.moredatadriven.minecraft.BlockRegistry;
+import spout.gamecontent.datadriven.block.BlockRegistry;
 import org.jspecify.annotations.Nullable;
 import java.util.Arrays;
 import java.util.function.BiFunction;

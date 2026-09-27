@@ -1,7 +1,6 @@
 package spout.api;
 
 import spout.api.gamecontent.datadriven.material.enuminjection.MaterialEnumNames;
-import spout.server.paper.api.packetmapping.block.BlockMappings;
 import spout.api.clientview.packetmapping.blockstate.resourcepackclaims.ResourcePackBlockStateClaims;
 import spout.api.util.minecraft.blockstate.visualduplicates.VisualDuplicates;
 import spout.server.paper.api.packetmapping.component.ComponentMappings;
@@ -39,7 +38,6 @@ public final class SpoutAPIServices {
         }
     }
 
-    private static final BlockMappings[] blockMappings = new BlockMappings[1];
     private static final ComponentMappings[] componentMappings = new ComponentMappings[1];
     private static final ItemMappings[] itemMappings = new ItemMappings[1];
     private static final ItemMappingUtilities[] itemMappingUtilities = new ItemMappingUtilities[1];
@@ -50,10 +48,6 @@ public final class SpoutAPIServices {
     private static final ResourcePackConstruction[] resourcePackConstruction = new ResourcePackConstruction[1];
     private static final ServerSideTranslations[] serverSideTranslations = new ServerSideTranslations[1];
     private static final VisualDuplicates[] visualDuplicates = new VisualDuplicates[1];
-
-    public static BlockMappings getBlockMappings() {
-        return getOrInitialize(blockMappings, BlockMappings.class);
-    }
 
     public static ComponentMappings<?> getComponentMappings() {
         return getOrInitialize(componentMappings, ComponentMappings.class);

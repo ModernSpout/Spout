@@ -43,4 +43,12 @@ public final class BlockStateInPacketMapper implements FallbackContextValueInPac
         return value;
     }
 
+    public boolean hasAnyMapping(int awarenessLevelId, int stateIndexInRegistry) {
+        return OptimizedBlockStateMappings.getDirectIndex(awarenessLevelId, stateIndexInRegistry) != -1 || OptimizedBlockStateMappings.getChain(awarenessLevelId, stateIndexInRegistry) != null;
+    }
+
+    public boolean hasAnyMapping(int awarenessLevelId, BlockState state) {
+        return this.hasAnyMapping(awarenessLevelId, state.indexInBlockStateRegistry);
+    }
+
 }

@@ -14,7 +14,7 @@ import spout.server.paper.api.resourcepack.construct.ResourcePackConstructEvent;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstructFinishEvent;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstruction;
 import spout.server.paper.impl.configuration.SpoutGlobalConfiguration;
-import spout.server.paper.impl.moredatadriven.minecraft.BlockRegistry;
+import spout.gamecontent.datadriven.block.BlockRegistry;
 import spout.server.paper.impl.resourcepack.plugin.discover.PluginResourcePackDiscoveryImpl;
 import spout.server.paper.impl.resourcepack.send.ResourcePackSending;
 import spout.server.paper.impl.resourcepack.serve.ResourcePackServing;

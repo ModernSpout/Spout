@@ -1,4 +1,4 @@
-package spout.server.paper.impl.packetmapping.block.chunk;
+package spout.clientview.packetmapping.blockstate.apply.chunk;
 
 /**
  * The contents of a section, consisting of a {@link BlockStateIdPalette}

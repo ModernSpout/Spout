@@ -1,5 +1,7 @@
 package spout.clientview.packetmapping.blockstate.apply;
 
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import spout.util.mapping.handle.MappingStep;
 
 /**
@@ -16,6 +18,14 @@ public sealed interface BlockStateMappingStep extends MappingStep<BlockStateMapp
      */
     default boolean requiresCoordinates() {
         return false;
+    }
+
+    static BlockState applyChain(BlockState state, BlockStateMappingsApplicationContext context, BlockStateMappingStep[] chain) {
+        return MappingStep.applyChain(new BlockStateMappingHandle(state, context, false), chain);
+    }
+
+    static int applyChain(int stateIndexInRegistry, BlockStateMappingsApplicationContext context, BlockStateMappingStep[] chain) {
+        return applyChain(Block.BLOCK_STATE_REGISTRY.byId(stateIndexInRegistry), context, chain).indexInBlockStateRegistry;
     }
 
 }

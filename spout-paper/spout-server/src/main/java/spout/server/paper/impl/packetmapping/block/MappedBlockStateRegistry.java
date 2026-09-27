@@ -6,14 +6,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
 import spout.api.clientview.model.ClientView;
-import spout.server.paper.api.packetmapping.block.BlockMappingFunctionContext;
-import spout.server.paper.impl.clientview.lookup.packethandling.ClientViewLookupThreadLocal;
+import spout.clientview.packetmapping.blockstate.apply.BlockStateInPacketMapper;
+import spout.clientview.packetmapping.blockstate.apply.BlockStateMappingsApplicationContext;
+import spout.clientview.packetmapping.clientviewlookup.ThreadLocalClientViewLookup;
 import java.util.Iterator;
 
 /**
  * An implementation of {@link IdMap} that defers to
  * {@link Block#BLOCK_STATE_REGISTRY}, but applies block mappings first.
- *
  */
 public final class MappedBlockStateRegistry implements IdMap<BlockState> {
 
@@ -31,8 +31,8 @@ public final class MappedBlockStateRegistry implements IdMap<BlockState> {
 
     @Override
     public int getId(BlockState thing) {
-        BlockMappingFunctionContext context = new BlockMappingFunctionContextImpl(ClientViewLookupThreadLocal.getThreadLocalClientViewOrFallback());
-        BlockState mappedThing = BlockMappingsImpl.get().apply(thing, context);
+        BlockStateMappingsApplicationContext context = new BlockStateMappingsApplicationContext(ThreadLocalClientViewLookup.getThreadLocalClientViewOrFallback());
+        BlockState mappedThing = BlockStateInPacketMapper.get().apply(thing, context);
         return Block.BLOCK_STATE_REGISTRY.getId(mappedThing);
     }
 
@@ -53,10 +53,10 @@ public final class MappedBlockStateRegistry implements IdMap<BlockState> {
 
         ClientView clientView = player != null ? player.getClientView() : null;
         if (clientView == null) {
-            clientView = ClientViewLookupThreadLocal.getThreadLocalClientViewOrFallback();
+            clientView = ThreadLocalClientViewLookup.getThreadLocalClientViewOrFallback();
         }
-        BlockMappingFunctionContext context = new BlockMappingFunctionContextImpl(clientView);
-        BlockState mappedThing = BlockMappingsImpl.get().apply(thing, context);
+        BlockStateMappingsApplicationContext context = new BlockStateMappingsApplicationContext(clientView);
+        BlockState mappedThing = BlockStateInPacketMapper.get().apply(thing, context);
         int id = Block.BLOCK_STATE_REGISTRY.getId(mappedThing);
         return id == -1 ? 0 : id;
     }

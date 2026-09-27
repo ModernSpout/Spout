@@ -1,6 +1,7 @@
 package spout.clientview.packetmapping.blockstate.macro;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import com.mojang.datafixers.kinds.App;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import org.jspecify.annotations.Nullable;
+import spout.clientview.packetmapping.blockstate.decodingcontext.BlockStateMappingDecodingContextBlock;
 import spout.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType;
 import spout.util.mojang.codec.CodecUtil;
 
@@ -23,7 +25,7 @@ import spout.util.mojang.codec.CodecUtil;
 public class FromToBlockMacro extends FromToItemMacro implements FromToBlockStatesMacro {
 
     public static <M extends FromToBlockMacro> RecordCodecBuilder<M, Block> getFromBlockCodecBuilder() {
-        return BuiltInRegistries.BLOCK.byNameCodec().fieldOf("from").forGetter(macro -> macro.fromBlock);
+        return CodecUtil.optionalFieldOf(BuiltInRegistries.BLOCK.byNameCodec(), "from", BlockStateMappingDecodingContextBlock::get).forGetter(macro -> macro.fromBlock);
     }
 
     public static <M extends FromToBlockMacro> RecordCodecBuilder<M, Block> getFallbackBlockCodecBuilder(Block defaultFallbackBlock) {
@@ -32,7 +34,7 @@ public class FromToBlockMacro extends FromToItemMacro implements FromToBlockStat
 
     public static <M extends FromToBlockMacro> MapCodec<? extends M> simpleCodec(
         Block defaultFallbackBlock,
-        Function9<Boolean, Boolean, Boolean, Boolean, Boolean, @Nullable Item, @Nullable Item, Block, Block, M> factory
+        Function9<Boolean, Boolean, Boolean, Boolean, Boolean, Optional<Item>, Optional<Item>, Block, Block, M> factory
     ) {
         return FromToItemMacro.simpleCodec(
             getFromBlockCodecBuilder(),
@@ -44,7 +46,7 @@ public class FromToBlockMacro extends FromToItemMacro implements FromToBlockStat
     public static <M extends FromToBlockMacro, T1> MapCodec<? extends M> simpleCodec(
         Block defaultFallbackBlock,
         App<RecordCodecBuilder.Mu<M>, T1> t1,
-        Function10<Boolean, Boolean, Boolean, Boolean, Boolean, @Nullable Item, @Nullable Item, Block, Block, T1, M> factory
+        Function10<Boolean, Boolean, Boolean, Boolean, Boolean, Optional<Item>, Optional<Item>, Block, Block, T1, M> factory
     ) {
         return FromToItemMacro.simpleCodec(
             getFromBlockCodecBuilder(),
@@ -75,8 +77,8 @@ public class FromToBlockMacro extends FromToItemMacro implements FromToBlockStat
                 createVanillaMappings,
                 createResourcePackBlockstatesEntries,
                 null,
-                fromItem,
-                fallbackItem,
+                fromItem.orElse(null),
+                fallbackItem.orElse(null),
                 fromBlock,
                 fallbackBlock
             )

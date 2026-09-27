@@ -1,4 +1,4 @@
-package spout.server.paper.impl.packetmapping.block.chunk;
+package spout.clientview.packetmapping.blockstate.apply.chunk;
 
 import net.minecraft.network.VarInt;
 
@@ -16,7 +16,7 @@ public final class PalettedContainerUtilities {
      *
      * @param isBiomes     Whether the paletted container contains biomes.
      * @param bitsPerEntry The number of bits per entry. This must be a valid amount,
-     *                     e.g. 0, [4,8] or {@link ChunkPacketBlockMapper#globalPaletteBitsPerEntry} for block states.
+     *                     e.g. 0, [4,8] or {@link BlockStateInChunkPacketMapper#globalPaletteBitsPerEntry} for block states.
      */
     public static int getSizeInBytes(boolean isBiomes, byte bitsPerEntry, BlockStateIdPalette palette) {
         int headerSize;
@@ -40,7 +40,7 @@ public final class PalettedContainerUtilities {
      *
      * @param isBiomes     Whether the paletted container contains biomes.
      * @param bitsPerEntry The number of bits per entry. This must be a valid amount,
-     *                     e.g. 0, [4,8] or {@link ChunkPacketBlockMapper#globalPaletteBitsPerEntry} for block states.
+     *                     e.g. 0, [4,8] or {@link BlockStateInChunkPacketMapper#globalPaletteBitsPerEntry} for block states.
      */
     public static int getBitStorageSizeInBytes(boolean isBiomes, byte bitsPerEntry) {
         if (bitsPerEntry == 0) {

@@ -1,4 +1,4 @@
-package spout.server.paper.impl.moredatadriven.minecraft;
+package spout.gamecontent.datadriven.item;
 
 import net.minecraft.core.IdMapper;
 import net.minecraft.core.registries.BuiltInRegistries;

@@ -8,6 +8,7 @@ import net.minecraft.core.WritableRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
+import spout.clientview.packetmapping.blockstate.blockdefinitionextension.BlockDefinitionBlockStateMappingExtensionStorage;
 import spout.gamecontent.datadriven.block.ContextAwareBlockPropertiesDecoding;
 import spout.gamecontent.datadriven.block.SpoutNonBuiltInBlock;
 import spout.server.paper.impl.moredatadriven.datapack.CopyResourcesFromDataPackRegistryToInternalRegistry;
@@ -35,8 +36,11 @@ public final class CopyDataPackRegistryToActualRegistryListener implements Spout
                 Block block = resource.getValue();
                 Object mappingsInput = resource.getInput().input().get("mappings");
                 if (mappingsInput != null) {
-                    DataResult<com.mojang.datafixers.util.Pair<List<UnappliedDataDrivenBlockMapping>, ?>> mappings = UnappliedDataDrivenBlockMapping.LIST_CODEC.decode((DynamicOps) resource.getInput().ops(), mappingsInput);
-                    block.unappliedDataPackMappings = mappings.getOrThrow().getFirst();
+                    DataResult<com.mojang.datafixers.util.Pair<List<UnappliedDataDrivenBlockMapping>, ?>> mappingsResult = UnappliedDataDrivenBlockMapping.LIST_CODEC.decode((DynamicOps) resource.getInput().ops(), mappingsInput);
+                    List<UnappliedDataDrivenBlockMapping> mappings = mappingsResult.getOrThrow().getFirst();
+                    if (!mappings.isEmpty()) {
+                        BlockDefinitionBlockStateMappingExtensionStorage.add(block, mappings);
+                    }
                 }
                 resource.clearInput();
                 return block;

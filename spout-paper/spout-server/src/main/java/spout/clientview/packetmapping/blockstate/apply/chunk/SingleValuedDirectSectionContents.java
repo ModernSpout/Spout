@@ -1,4 +1,4 @@
-package spout.server.paper.impl.packetmapping.block.chunk;
+package spout.clientview.packetmapping.blockstate.apply.chunk;
 
 import net.minecraft.network.VarInt;
 
@@ -10,7 +10,7 @@ public final class SingleValuedDirectSectionContents extends DirectSectionConten
     /**
      * The single block state id.
      */
-    private int blockStateId;
+    private int blockStateIndexInRegistry;
 
     SingleValuedDirectSectionContents() {
         super();
@@ -18,22 +18,22 @@ public final class SingleValuedDirectSectionContents extends DirectSectionConten
 
     @Override
     public int getBlockStateId(int blockIndex) {
-        return this.blockStateId;
+        return this.blockStateIndexInRegistry;
     }
 
-    public SingleValuedDirectSectionContents setBlockStateId(int blockStateId) {
-        this.blockStateId = blockStateId;
+    public SingleValuedDirectSectionContents setBlockStateIndexInRegistry(int blockStateIndexInRegistry) {
+        this.blockStateIndexInRegistry = blockStateIndexInRegistry;
         return this;
     }
 
     @Override
     public short getNonEmptyBlockCount() {
-        return IS_NON_EMPTY_BLOCK_STATE[this.blockStateId] ? (short) 4096 : 0;
+        return IS_NON_EMPTY_BLOCK_STATE[this.blockStateIndexInRegistry] ? (short) 4096 : 0;
     }
 
     @Override
     public short getFluidCount() {
-        return IS_FLUID_STATE[this.blockStateId] ? (short) 4096 : 0;
+        return IS_FLUID_STATE[this.blockStateIndexInRegistry] ? (short) 4096 : 0;
     }
 
     @Override
@@ -43,7 +43,7 @@ public final class SingleValuedDirectSectionContents extends DirectSectionConten
 
     @Override
     public int getPalettedContainerSizeInBytes(byte bitsPerEntry) {
-        return 1 + VarInt.getByteSize(this.blockStateId);
+        return 1 + VarInt.getByteSize(this.blockStateIndexInRegistry);
     }
 
     @Override

@@ -20,7 +20,7 @@ import spout.server.paper.api.packetmapping.block.automatic.ToBlockStateRequestB
 import spout.server.paper.api.packetmapping.block.automatic.ToBlockTypeRequestBuilder;
 import spout.branding.SpoutNamespace;
 import spout.clientview.model.ClientViewImpl;
-import spout.server.paper.impl.moredatadriven.minecraft.BlockRegistry;
+import spout.gamecontent.datadriven.block.BlockRegistry;
 import spout.server.paper.impl.packetmapping.block.BlockMappingsComposeEventImpl;
 import org.jspecify.annotations.Nullable;
 import spout.server.paper.impl.packetmapping.block.automatic.AutomaticBlockMappingsImpl;

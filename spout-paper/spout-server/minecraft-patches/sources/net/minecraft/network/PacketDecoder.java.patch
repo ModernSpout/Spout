@@ -1,10 +1,18 @@
 --- a/net/minecraft/network/PacketDecoder.java
 +++ b/net/minecraft/network/PacketDecoder.java
+@@ -10,6 +_,7 @@
+ import net.minecraft.network.protocol.PacketType;
+ import net.minecraft.util.profiling.jfr.JvmProfiler;
+ import org.slf4j.Logger;
++import spout.clientview.packetmapping.clientviewlookup.ThreadLocalClientViewLookup;
+ 
+ public class PacketDecoder<T extends PacketListener> extends ByteToMessageDecoder implements ProtocolSwapHandler {
+     private static final Logger LOGGER = LogUtils.getLogger();
 @@ -25,6 +_,7 @@
  
          Packet<? super T> packet;
          try {
-+            spout.server.paper.impl.clientview.lookup.packethandling.ClientViewLookupThreadLocal.THREAD_LOCAL.set(ctx.channel().attr(spout.server.paper.impl.clientview.lookup.packethandling.NettyClientViewLookupAttribute.ATTRIBUTE_KEY).get()); // Spout - Client view - Lookup - During packet handling - Copy lookup from the channel to the thread-local variable
++            ThreadLocalClientViewLookup.setWeakReference(spout.clientview.packetmapping.clientviewlookup.NettyChannelClientViewLookup.getWeakReference(ctx.channel())); // Spout - Client view - Packet mapping - Client view lookup - Netty channel - Copy lookup from the channel to the thread-local variable
              packet = this.protocolInfo.codec().decode(input);
          } catch (Exception e) {
              if (e instanceof SkipPacketException) {

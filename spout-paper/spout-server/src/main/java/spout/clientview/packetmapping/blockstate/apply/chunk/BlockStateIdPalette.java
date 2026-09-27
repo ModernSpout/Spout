@@ -1,9 +1,9 @@
-package spout.server.paper.impl.packetmapping.block.chunk;
+package spout.clientview.packetmapping.blockstate.apply.chunk;
 
 import ca.spottedleaf.dataconverter.util.IntegerUtil;
 import net.minecraft.network.VarInt;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import spout.server.paper.impl.moredatadriven.minecraft.BlockStateRegistry;
 import java.util.Arrays;
 
 /**
@@ -84,7 +84,7 @@ public sealed class BlockStateIdPalette permits DoubleMappedBlockStateIdPalette 
     @Override
     public String toString() {
         int[] presentIds = Arrays.copyOf(this.blockStateIds, this.size);
-        BlockState[] presentBlockStates = Arrays.stream(presentIds).mapToObj(id -> BlockStateRegistry.get().byId(id)).toArray(BlockState[]::new);
+        BlockState[] presentBlockStates = Arrays.stream(presentIds).mapToObj(Block.BLOCK_STATE_REGISTRY::byId).toArray(BlockState[]::new);
         return Arrays.toString(presentIds) + " -> " + Arrays.toString(presentBlockStates);
     }
 }
