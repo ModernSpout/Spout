@@ -1,12 +1,20 @@
 --- a/net/minecraft/server/level/ServerPlayer.java
 +++ b/net/minecraft/server/level/ServerPlayer.java
+@@ -201,6 +_,7 @@
+ import net.minecraft.world.scores.criteria.ObjectiveCriteria;
+ import org.jspecify.annotations.Nullable;
+ import org.slf4j.Logger;
++import spout.clientview.packetmapping.blockstate.apply.breakspeed.BlockBreakSpeedFactorHistory;
+ 
+ public class ServerPlayer extends Player implements ca.spottedleaf.moonrise.patches.chunk_system.player.ChunkSystemServerPlayer { // Paper - rewrite chunk system
+     private static final Logger LOGGER = LogUtils.getLogger();
 @@ -227,6 +_,10 @@
      private static final boolean DEFAULT_SEEN_CREDITS = false;
      private static final boolean DEFAULT_SPAWN_EXTRA_PARTICLES_ON_FALL = false;
      public ServerGamePacketListenerImpl connection;
 +    // Spout start - Block mapping - Breaking speed - Store factor in player
 +    public float serverToClientSideBlockBreakSpeedFactor = 1;
-+    public spout.server.paper.impl.packetmapping.block.breakspeed.BlockBreakSpeedFactorHistory serverToClientSideBlockBreakSpeedFactorHistory = new spout.server.paper.impl.packetmapping.block.breakspeed.BlockBreakSpeedFactorHistory();
++    public BlockBreakSpeedFactorHistory serverToClientSideBlockBreakSpeedFactorHistory = new BlockBreakSpeedFactorHistory();
 +    // Spout end - Block mapping - Breaking speed - Store factor in player
      private final MinecraftServer server;
      public final ServerPlayerGameMode gameMode;

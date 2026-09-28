@@ -302,10 +302,11 @@ public abstract class ArrayResultProcessor<M extends BlockStateMappingMacro, Re 
             // Resource pack
             if (createResourcePackMappings) {
                 BlockState resourcePackToState = result.resourcePackToStates[fromStateIndex];
+                Identifier mappingKey = IdentifierUtil.addPathSuffix(macroKey, "_macro_rp_" + randomStringForInvocation + "_" + (fromStateIndex + 1));
                 // Block
                 Registry.register(
                     targetRegistry,
-                    IdentifierUtil.addPathSuffix(macroKey, "_macro_rp_" + randomStringForInvocation + "_" + (fromStateIndex + 1)),
+                    mappingKey,
                     new BlockStateMapping(
                         List.of(AwarenessLevels.RESOURCE_PACK),
                         List.of(fromState),
@@ -338,6 +339,7 @@ public abstract class ArrayResultProcessor<M extends BlockStateMappingMacro, Re 
                 // Item
                 if (createItemMappings) {
                     createItemMappingForBlockStateMapping(
+                        mappingKey,
                         fromState,
                         resourcePackToState,
                         fromItemFunction,
@@ -349,10 +351,11 @@ public abstract class ArrayResultProcessor<M extends BlockStateMappingMacro, Re 
             // Vanilla
             if (createVanillaMappings) {
                 BlockState vanillaToState = result.vanillaToStates[fromStateIndex];
+                Identifier mappingKey = IdentifierUtil.addPathSuffix(macroKey, "_macro_va_" + randomStringForInvocation + "_" + (fromStateIndex + 1));
                 // Block
                 Registry.register(
                     targetRegistry,
-                    IdentifierUtil.addPathSuffix(macroKey, "_macro_va_" + randomStringForInvocation + "_" + (fromStateIndex + 1)),
+                    mappingKey,
                     new BlockStateMapping(
                         List.of(AwarenessLevels.VANILLA),
                         List.of(fromState),
@@ -362,6 +365,7 @@ public abstract class ArrayResultProcessor<M extends BlockStateMappingMacro, Re 
                 // Item
                 if (createItemMappings) {
                     createItemMappingForBlockStateMapping(
+                        mappingKey,
                         fromState,
                         vanillaToState,
                         fromItemFunction,

@@ -1,5 +1,26 @@
 --- a/net/minecraft/server/players/PlayerList.java
 +++ b/net/minecraft/server/players/PlayerList.java
+@@ -49,12 +_,10 @@
+ import net.minecraft.network.protocol.game.ClientboundSetBorderSizePacket;
+ import net.minecraft.network.protocol.game.ClientboundSetBorderWarningDelayPacket;
+ import net.minecraft.network.protocol.game.ClientboundSetBorderWarningDistancePacket;
+-import net.minecraft.network.protocol.game.ClientboundSetChunkCacheRadiusPacket;
+ import net.minecraft.network.protocol.game.ClientboundSetDefaultSpawnPositionPacket;
+ import net.minecraft.network.protocol.game.ClientboundSetExperiencePacket;
+ import net.minecraft.network.protocol.game.ClientboundSetHeldSlotPacket;
+ import net.minecraft.network.protocol.game.ClientboundSetPlayerTeamPacket;
+-import net.minecraft.network.protocol.game.ClientboundSetSimulationDistancePacket;
+ import net.minecraft.network.protocol.game.ClientboundSoundPacket;
+ import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
+ import net.minecraft.network.protocol.game.ClientboundUpdateRecipesPacket;
+@@ -101,6 +_,7 @@
+ import net.minecraft.world.scores.Team;
+ import org.jspecify.annotations.Nullable;
+ import org.slf4j.Logger;
++import spout.clientview.packetmapping.blockstate.apply.breakspeed.BlockBreakSpeedFactorUpdater;
+ 
+ public abstract class PlayerList {
+     public static final File USERBANLIST_FILE = new File("banned-players.json");
 @@ -235,7 +_,7 @@
          // CraftBukkit start
          org.bukkit.craftbukkit.entity.CraftPlayer bukkitPlayer = player.getBukkitEntity();
@@ -22,7 +43,7 @@
              // CraftBukkit end
              this.sendAllPlayerInfoIn = 0;
          }
-+        spout.server.paper.impl.packetmapping.block.breakspeed.BlockBreakSpeedFactorUpdater.updateFactor(this.players); // Spout - Block mapping - Breaking speed - Update factor
++        BlockBreakSpeedFactorUpdater.updateFactor(this.players); // Spout - Block mapping - Breaking speed - Update factor
      }
  
      // CraftBukkit start - add a world/entity limited version

@@ -9,11 +9,12 @@ import net.minecraft.core.WritableRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
+import spout.clientview.packetmapping.itemstack.datapackitemextension.DataPackItemItemStackMapping;
+import spout.clientview.packetmapping.itemstack.datapackitemextension.DataPackItemItemStackMappingExtensionStorage;
 import spout.gamecontent.datadriven.item.ContextAwareItemPropertiesDecoding;
 import spout.gamecontent.datadriven.item.SpoutNonBuiltInItem;
 import spout.server.paper.impl.moredatadriven.datapack.CopyResourcesFromDataPackRegistryToInternalRegistry;
 import spout.server.paper.impl.moredatadriven.datapack.SpoutDataPackRegistries;
-import spout.server.paper.impl.packetmapping.item.datadriven.UnappliedDataDrivenItemMapping;
 import spout.util.minecraft.registry.SpoutRegistryHookEvents;
 
 public final class CopyDataPackRegistryToActualRegistryListener implements SpoutRegistryHookEvents.Listener<SpoutNonBuiltInItem> {
@@ -35,8 +36,11 @@ public final class CopyDataPackRegistryToActualRegistryListener implements Spout
                 Item item = resource.getValue();
                 Object mappingsInput = resource.getInput().input().get("mappings");
                 if (mappingsInput != null) {
-                    DataResult<com.mojang.datafixers.util.Pair<List<UnappliedDataDrivenItemMapping>, ?>> mappings = UnappliedDataDrivenItemMapping.LIST_CODEC.decode((DynamicOps) resource.getInput().ops(), mappingsInput);
-                    item.unappliedDataPackMappings = mappings.getOrThrow().getFirst();
+                    DataResult<com.mojang.datafixers.util.Pair<List<DataPackItemItemStackMapping>, ?>> mappingsResult = DataPackItemItemStackMapping.LIST_CODEC.decode((DynamicOps) resource.getInput().ops(), mappingsInput);
+                    List<DataPackItemItemStackMapping> mappings = mappingsResult.getOrThrow().getFirst();
+                    if (!mappings.isEmpty()) {
+                        DataPackItemItemStackMappingExtensionStorage.add(item, mappings);
+                    }
                 }
                 resource.clearInput();
                 return item;

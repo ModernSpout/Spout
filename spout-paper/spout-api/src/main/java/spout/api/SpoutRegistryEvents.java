@@ -7,6 +7,8 @@ import spout.api.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.api.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.api.clientview.packetmapping.blockstate.macro.registry.BlockStateMappingMacroRegistryEntry;
 import spout.api.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryEntry;
+import spout.api.clientview.packetmapping.itemstack.ItemStackMapping;
+import spout.api.clientview.packetmapping.itemstack.registry.ItemStackMappingRegistryEntry;
 
 /**
  * Analogous to {@link RegistryEvents}.
@@ -26,5 +28,10 @@ public final class SpoutRegistryEvents {
      * Events for {@link SpoutRegistryKey#BLOCK_STATE_MAPPING}.
      */
     public static final RegistryEventProvider<BlockStateMapping, BlockStateMappingRegistryEntry.Builder> BLOCK_STATE_MAPPING = RegistryEventProviderImpl.create(SpoutRegistryKey.BLOCK_STATE_MAPPING);
+
+    /**
+     * Events for {@link SpoutRegistryKey#ITEM_STACK_MAPPING}.
+     */
+    public static final RegistryEventProvider<ItemStackMapping, ItemStackMappingRegistryEntry.Builder> ITEM_STACK_MAPPING = RegistryEventProviderImpl.create(SpoutRegistryKey.ITEM_STACK_MAPPING);
 
 }

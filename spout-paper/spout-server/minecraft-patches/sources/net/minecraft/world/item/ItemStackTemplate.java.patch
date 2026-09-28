@@ -23,8 +23,8 @@
 +
 +        @Override
 +        public void encode(RegistryFriendlyByteBuf output, ItemStackTemplate value) {
-+            spout.server.paper.impl.packetmapping.item.ItemMappingFunctionContextImpl itemMappingContext = new spout.server.paper.impl.packetmapping.item.ItemMappingFunctionContextImpl(output.getClientViewOrFallback(), output.isEncodingItemFrameItem, output.isEncodingStonecutterRecipeResult);
-+            ItemStackTemplate mappedValue = spout.server.paper.impl.packetmapping.item.ItemMappingsImpl.get().apply(value, itemMappingContext);
++            spout.clientview.packetmapping.itemstack.apply.ItemStackMappingsApplicationContext itemMappingContext = new spout.clientview.packetmapping.itemstack.apply.ItemStackMappingsApplicationContext(output.getClientViewOrFallback(), output.isEncodingItemFrameItem, output.isEncodingStonecutterRecipeResult);
++            ItemStackTemplate mappedValue = spout.clientview.packetmapping.itemstack.apply.ItemInPacketMappers.ITEM_STACK_TEMPLATE.apply(value, itemMappingContext);
 +            UNMAPPED_STREAM_CODEC.encode(output, mappedValue);
 +        }
 +

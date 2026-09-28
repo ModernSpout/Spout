@@ -12,7 +12,7 @@
 -        for (AttributeInstance value : values) {
 -            this.attributes.add(new ClientboundUpdateAttributesPacket.AttributeSnapshot(value.getAttribute(), value.getBaseValue(), value.getModifiers()));
 +        for (AttributeInstance value : attributes) {
-+            this.attributes.add(new ClientboundUpdateAttributesPacket.AttributeSnapshot(value.getAttribute(), value.getBaseValue(), spout.server.paper.impl.packetmapping.block.breakspeed.BlockBreakSpeedAttributeModification.withServerToClientModifierIfNecessary(value, value.getModifiers(), selfPlayer))); // Spout - Block mapping - Breaking speed - Add attribute modifier in packets to self
++            this.attributes.add(new ClientboundUpdateAttributesPacket.AttributeSnapshot(value.getAttribute(), value.getBaseValue(), spout.clientview.packetmapping.blockstate.apply.breakspeed.BlockBreakSpeedAttributeModification.withServerToClientModifierIfNecessary(value, value.getModifiers(), selfPlayer))); // Spout - Block mapping - Breaking speed - Add attribute modifier in packets to self
          }
      }
  

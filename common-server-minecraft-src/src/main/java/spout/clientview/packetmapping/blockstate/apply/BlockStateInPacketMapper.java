@@ -3,6 +3,7 @@ package spout.clientview.packetmapping.blockstate.apply;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
 import spout.clientview.packetmapping.FallbackContextValueInPacketMapper;
+import spout.clientview.packetmapping.clientviewlookup.ThreadLocalClientViewLookup;
 import spout.util.mapping.handle.MappingStep;
 import spout.util.mapping.pipeline.PipelineMapper;
 
@@ -22,7 +23,7 @@ public final class BlockStateInPacketMapper implements FallbackContextValueInPac
 
     @Override
     public BlockStateMappingsApplicationContext getFallbackContext() {
-        return BlockStateMappingsApplicationContext.FALLBACK;
+        return new BlockStateMappingsApplicationContext(ThreadLocalClientViewLookup.getThreadLocalClientViewOrFallback());
     }
 
     @Override

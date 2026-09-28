@@ -1,6 +1,7 @@
 package spout.api.clientview.packetmapping.blockstate.registry;
 
 import org.jetbrains.annotations.ApiStatus;
+import org.jspecify.annotations.Nullable;
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandleNMS;
 import java.util.function.Consumer;
 
@@ -13,6 +14,11 @@ import java.util.function.Consumer;
  * </p>
  */
 public interface BlockStateMappingRegistryEntryNMS extends BlockStateMappingRegistryEntry {
+
+    // /**
+    //  * NMS extension for {@link #getToFunction}.
+    //  */
+    // @Nullable Consumer<BlockStateMappingHandleNMS> getToFunctionNMS();
 
     /**
      * NMS extension for {@link BlockStateMappingRegistryEntry.Builder}.

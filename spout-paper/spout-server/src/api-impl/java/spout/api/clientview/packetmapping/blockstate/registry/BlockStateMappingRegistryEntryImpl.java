@@ -13,10 +13,13 @@ import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHan
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandleImpl;
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandleNMS;
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandleNMSImpl;
+import spout.clientview.model.awarenesslevel.AwarenessLevel;
+import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.clientview.packetmapping.blockstate.apply.BlockStateMappingStep;
 import spout.clientview.packetmapping.blockstate.apply.DirectBlockStateMappingStep;
 import spout.clientview.packetmapping.blockstate.apply.FunctionBlockStateMappingStep;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -125,6 +128,10 @@ public class BlockStateMappingRegistryEntryImpl implements BlockStateMappingRegi
 
         @Override
         public spout.clientview.packetmapping.blockstate.BlockStateMapping build() {
+            List<AwarenessLevel> awarenessLevels = this.awarenessLevels != null ? this.awarenessLevels.stream().map(CraftAwarenessLevel::fromBukkit).toList() : Arrays.asList(AwarenessLevels.getThatDoNotAlwaysUnderstandsAllServerSideBlocks());
+            if (this.from == null) {
+                throw new IllegalStateException("No from was specified");
+            }
             BlockStateMappingStep operation;
             if (this.toFunction != null) {
                 operation = new FunctionBlockStateMappingStep(bukkitFunctionToInternalFunction(this.toFunction), this.toFunctionRequiresCoordinates);
@@ -136,7 +143,7 @@ public class BlockStateMappingRegistryEntryImpl implements BlockStateMappingRegi
                 throw new IllegalStateException("No to given");
             }
             return new spout.clientview.packetmapping.blockstate.BlockStateMapping(
-                this.awarenessLevels.stream().map(CraftAwarenessLevel::fromBukkit).toList(),
+                awarenessLevels,
                 this.from.stream().map(state -> ((CraftBlockData) state).getState()).toList(),
                 operation
             );

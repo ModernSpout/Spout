@@ -8,7 +8,7 @@ import spout.server.paper.api.util.mapping.MappingFunctionContext;
  * A {@linkplain WithContextMappingHandle#getContext() mapping context}
  * for mappings that happen in the context of some {@link ClientView}.
  */
-public interface WithClientViewMappingContext extends MappingFunctionContext {
+public interface WithClientViewMappingContext {
 
     /**
      * @return The {@link ClientView} of the client that this mapping is being done for.

@@ -1,11 +1,19 @@
 --- a/net/minecraft/network/chat/HoverEvent.java
 +++ b/net/minecraft/network/chat/HoverEvent.java
+@@ -15,6 +_,7 @@
+ import net.minecraft.world.entity.EntityType;
+ import net.minecraft.world.item.ItemStackTemplate;
+ import org.jspecify.annotations.Nullable;
++import spout.clientview.packetmapping.itemstack.apply.hoverevent.ClientViewMappedItemStackCodecs;
+ 
+ public interface HoverEvent {
+     Codec<HoverEvent> CODEC = HoverEvent.Action.CODEC.dispatch("action", HoverEvent::action, action -> action.codec);
 @@ -124,7 +_,7 @@
      }
  
      record ShowItem(ItemStackTemplate item) implements HoverEvent {
 -        public static final MapCodec<HoverEvent.ShowItem> CODEC = ItemStackTemplate.MAP_CODEC.xmap(HoverEvent.ShowItem::new, HoverEvent.ShowItem::item);
-+        public static final MapCodec<HoverEvent.ShowItem> CODEC = spout.server.paper.impl.packetmapping.item.applytohoverevent.ClientViewMappedItemStackCodecs.TEMPLATE_MAP_CODEC.xmap(HoverEvent.ShowItem::new, HoverEvent.ShowItem::item); // Spout - Item mapping - Apply to hover events - Use codec that applies mappings
++        public static final MapCodec<HoverEvent.ShowItem> CODEC = ClientViewMappedItemStackCodecs.TEMPLATE_MAP_CODEC.xmap(HoverEvent.ShowItem::new, HoverEvent.ShowItem::item); // Spout - Item mapping - Apply to hover events - Use codec that applies mappings
  
          @Override
          public HoverEvent.Action action() {

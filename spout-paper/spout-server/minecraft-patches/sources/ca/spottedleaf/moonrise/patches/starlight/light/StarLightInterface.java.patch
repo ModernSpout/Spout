@@ -12,7 +12,7 @@
                  return valueInMap;
              });
  
-+            ret.requiresExtraLightSending = spout.server.paper.impl.packetmapping.block.light.CurrentUpdateRequiresExtraLightSending.get(); // Spout - Block mapping - Update block light for custom blocks
++            ret.requiresExtraLightSending = spout.clientview.packetmapping.blockstate.apply.lightchanges.CurrentUpdateRequiresExtraLightSending.get(); // Spout - Block mapping - Update block light for custom blocks
              ret.schedule();
  
              return ret;
@@ -20,7 +20,7 @@
                  return valueInMap;
              });
  
-+            ret.requiresExtraLightSending = spout.server.paper.impl.packetmapping.block.light.CurrentUpdateRequiresExtraLightSending.get(); // Spout - Block mapping - Update block light for custom blocks
++            ret.requiresExtraLightSending = spout.clientview.packetmapping.blockstate.apply.lightchanges.CurrentUpdateRequiresExtraLightSending.get(); // Spout - Block mapping - Update block light for custom blocks
              ret.schedule();
  
              return ret;
@@ -36,9 +36,9 @@
              public void run() {
                  ((ServerLightQueue)this.queue).chunkTasks.remove(this.chunkCoordinate, this);
  
-+                if (this.requiresExtraLightSending) spout.server.paper.impl.packetmapping.block.light.CurrentTaskRequiresExtraLightSending.set(); // Spout - Block mapping - Update block light for custom blocks
++                if (this.requiresExtraLightSending) spout.clientview.packetmapping.blockstate.apply.lightchanges.CurrentTaskRequiresExtraLightSending.set(); // Spout - Block mapping - Update block light for custom blocks
                  this.runTasks();
-+                if (this.requiresExtraLightSending) spout.server.paper.impl.packetmapping.block.light.CurrentTaskRequiresExtraLightSending.clear(); // Spout - Block mapping - Update block light for custom blocks
++                if (this.requiresExtraLightSending) spout.clientview.packetmapping.blockstate.apply.lightchanges.CurrentTaskRequiresExtraLightSending.clear(); // Spout - Block mapping - Update block light for custom blocks
              }
          }
      }

@@ -19,8 +19,6 @@ import spout.server.paper.api.packetmapping.component.ComponentMappings;
 import spout.server.paper.api.packetmapping.component.ComponentMappingsComposeEvent;
 import spout.server.paper.api.packetmapping.component.translatable.ServerSideTranslations;
 import spout.server.paper.api.packetmapping.component.translatable.ServerSideTranslationsComposeEvent;
-import spout.server.paper.api.packetmapping.item.ItemMappings;
-import spout.server.paper.api.packetmapping.item.ItemMappingsComposeEvent;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstructEvent;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstructFinishEvent;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstruction;
@@ -46,7 +44,6 @@ public final class SpoutEvents {
     public static final ComposableEventType<PluginResourcePackDiscoverEvent> PLUGIN_RESOURCE_PACK_DISCOVERY = PluginResourcePackDiscovery.get().compose();
     public static final ComposableEventType<ResourcePackConstructEvent> RESOURCE_PACK_CONSTRUCT = ResourcePackConstruction.get().compose();
     public static final LifecycleEventType<BootstrapContext, ResourcePackConstructFinishEvent, PrioritizedLifecycleEventHandlerConfiguration<BootstrapContext>> RESOURCE_PACK_CONSTRUCT_FINISH = ResourcePackConstruction.get().finish();
-    public static final ComposableEventType<ItemMappingsComposeEvent<?>> ITEM_MAPPING = ((ItemMappings) ItemMappings.get()).compose();
     public static final ComposableEventType<ComponentMappingsComposeEvent<?>> COMPONENT_MAPPING = ((ComponentMappings) ComponentMappings.get()).compose();
     public static final ComposableEventType<ServerSideTranslationsComposeEvent> SERVER_SIDE_TRANSLATION = ServerSideTranslations.get().compose();
     public static final ComposableEventType<BukkitEnumNamesComposeEvent<Triple<NamespacedKey, @Nullable BlockType, @Nullable ItemType>>> MATERIAL_ENUM_NAME = MaterialEnumNames.get().compose();

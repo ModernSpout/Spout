@@ -13,4 +13,9 @@ public final class ItemStackMappingHandle extends SimpleWithContextMappingHandle
         super(data, context, isDataMutable);
     }
 
+    @Override
+    protected ItemStack cloneMutable(final ItemStack data) {
+        return data.copy();
+    }
+
 }

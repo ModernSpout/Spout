@@ -1,5 +1,13 @@
 --- a/net/minecraft/world/entity/item/FallingBlockEntity.java
 +++ b/net/minecraft/world/entity/item/FallingBlockEntity.java
+@@ -52,6 +_,7 @@
+ import net.minecraft.world.phys.Vec3;
+ import org.jspecify.annotations.Nullable;
+ import org.slf4j.Logger;
++import spout.clientview.packetmapping.blockstate.apply.MappedBlockStateRegistry;
+ 
+ public class FallingBlockEntity extends Entity {
+     private static final Logger LOGGER = LogUtils.getLogger();
 @@ -361,8 +_,10 @@
      }
  
@@ -8,7 +16,7 @@
 -        return new ClientboundAddEntityPacket(this, serverEntity, Block.getId(this.getBlockState()));
 +    // Spout start - Block mapping - Implementation part - Apply to entity block states
 +    public Packet<ClientGamePacketListener> getAddEntityPacket(final ServerEntity serverEntity, net.minecraft.server.level.@Nullable ServerPlayer player) {
-+        return new ClientboundAddEntityPacket(this, serverEntity, spout.server.paper.impl.packetmapping.block.MappedBlockStateRegistry.get().getIdNullable(this.getBlockState(), player));
++        return new ClientboundAddEntityPacket(this, serverEntity, MappedBlockStateRegistry.get().getIdNullable(this.getBlockState(), player));
 +        // Spout end - Block mapping - Implementation part - Apply to entity block states
      }
  

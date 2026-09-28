@@ -9,7 +9,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
-import spout.api.clientview.model.ClientView;
 import spout.api.clientview.packetmapping.blockstate.resourcepackclaims.ClaimRequestPriority;
 import spout.clientview.model.awarenesslevel.AwarenessLevel;
 import spout.clientview.model.awarenesslevel.AwarenessLevels;
@@ -19,9 +18,9 @@ import spout.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.clientview.packetmapping.blockstate.macro.FromToItemMacro;
 import spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryKey;
 import spout.clientview.packetmapping.blockstate.resourcepackclaims.ResourcePackBlockStateClaims;
-import spout.server.paper.api.packetmapping.item.nms.ItemMappingUtilitiesNMS;
+import spout.clientview.packetmapping.itemstack.ItemStackMapping;
+import spout.clientview.packetmapping.itemstack.builtin.changeonlyitem.ChangeOnlyItemUtility;
 import spout.gamecontent.datadriven.block.VanillaOnlyBlockStateRegistry;
-import spout.server.paper.impl.packetmapping.item.ItemMappingsImpl;
 import spout.util.minecraft.blockstate.HoneyLevelUtil;
 import spout.util.minecraft.blockstate.visualduplicates.BlocksWithVisuallyDifferentBlockstates;
 import spout.util.minecraft.resources.IdentifierUtil;
@@ -131,10 +130,11 @@ public abstract class BlockStateMappingMacroProcessor<M extends BlockStateMappin
                 for (int i = 0; i < visualDuplicateStateIndicesInRegistry.length; i++) {
                     BlockState visualDuplicateState = VanillaOnlyBlockStateRegistry.get().byId(visualDuplicateStateIndicesInRegistry[i]);
                     BlockState claimedState = VanillaOnlyBlockStateRegistry.get().byId(claimedStates[0][i]);
+                    Identifier mappingKey = IdentifierUtil.addPathSuffix(macroKey, "_macro_vd_" + randomStringForInvocation + "_" + (i + 1));
                     // Block
                     Registry.register(
                         targetRegistry,
-                        IdentifierUtil.addPathSuffix(macroKey, "_macro_vd_" + randomStringForInvocation + "_" + (i + 1)),
+                        mappingKey,
                         new BlockStateMapping(
                             List.of(AwarenessLevels.RESOURCE_PACK),
                             List.of(claimedState),
@@ -144,6 +144,7 @@ public abstract class BlockStateMappingMacroProcessor<M extends BlockStateMappin
                     // Item
                     if (createItemMappings) {
                         createItemMappingForBlockStateMapping(
+                            mappingKey,
                             claimedState,
                             visualDuplicateState,
                             null,
@@ -159,6 +160,7 @@ public abstract class BlockStateMappingMacroProcessor<M extends BlockStateMappin
     }
 
     public static void createItemMappingForBlockStateMapping(
+        Identifier mappingKey,
         BlockState fromState,
         BlockState targetState,
         @Nullable Function<BlockState, @Nullable Item> fromItemFunction,
@@ -190,7 +192,7 @@ public abstract class BlockStateMappingMacroProcessor<M extends BlockStateMappin
             return;
         }
         // Register the mapping
-        ItemMappingsImpl.get().addEventInitializer(itemMappingsEvent -> {
+        AddDerivedItemStackMappingsRegistryListener.add(mappingKey, () -> {
             @Nullable BlockItemStateProperties toBlockItemStateProperties;
             Item toItem;
             if (targetState == targetState.getBlock().defaultBlockState() && BlocksWithVisuallyDifferentBlockstates.check(fromState.getBlock())) {
@@ -205,25 +207,34 @@ public abstract class BlockStateMappingMacroProcessor<M extends BlockStateMappin
                 toBlockItemStateProperties = new BlockItemStateProperties(targetState.asBlockData().toStates(true));
                 toItem = targetItem;
             }
-            @Nullable Identifier toItemModel = (awarenessLevel == AwarenessLevels.VANILLA || toItem == fromItem) ? null : fromItem.getDefaultInstance().getOrDefault(DataComponents.ITEM_MODEL, fromItem.keyInItemRegistry);
-            if (fromItem != toItem || toItemModel != null || toBlockItemStateProperties != null) {
-                itemMappingsEvent.registerNMS(builder -> {
-                    builder.awarenessLevel(ClientView.AwarenessLevel.getAll()[awarenessLevel.getId()]);
-                    builder.from(fromItem);
-                    builder.to(handle -> {
+            if (fromItem != toItem || toBlockItemStateProperties != null) {
+                @Nullable Identifier @Nullable [] toItemModelCached = fromItem != toItem && awarenessLevel != AwarenessLevels.VANILLA ? new Identifier[1] : null;
+                return new ItemStackMapping(
+                    List.of(awarenessLevel),
+                    List.of(fromItem),
+                    handle -> {
+                        ItemStack itemStack;
                         if (fromItem != toItem) {
-                            ItemMappingUtilitiesNMS.get().setItemWhilePreservingRest(handle, toItem);
-                        }
-                        ItemStack itemStack = handle.getMutable();
-                        if (toItemModel != null) {
-                            itemStack.set(DataComponents.ITEM_MODEL, toItemModel);
+                            ChangeOnlyItemUtility.changeOnlyItem(handle, toItem);
+                            itemStack = handle.getMutable();
+                            if (awarenessLevel != AwarenessLevels.VANILLA) {
+                                Identifier toItemModel = toItemModelCached[0];
+                                if (toItemModel == null) {
+                                    toItemModel = fromItem.getDefaultInstance().getOrDefault(DataComponents.ITEM_MODEL, fromItem.keyInItemRegistry);
+                                    toItemModelCached[0] = toItemModel;
+                                }
+                                itemStack.set(DataComponents.ITEM_MODEL, toItemModel);
+                            }
+                        } else {
+                            itemStack = handle.getMutable();
                         }
                         if (toBlockItemStateProperties != null) {
                             itemStack.set(DataComponents.BLOCK_STATE, toBlockItemStateProperties);
                         }
-                    });
-                });
+                    }
+                );
             }
+            return null;
         });
     }
 

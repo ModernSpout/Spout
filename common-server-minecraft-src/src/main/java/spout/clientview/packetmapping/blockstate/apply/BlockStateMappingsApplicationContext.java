@@ -10,8 +10,6 @@ import spout.clientview.packetmapping.WithClientViewMappingsApplicationContext;
  */
 public final class BlockStateMappingsApplicationContext extends WithClientViewMappingsApplicationContext {
 
-    public static final BlockStateMappingsApplicationContext FALLBACK = new BlockStateMappingsApplicationContext(FallbackClientViewImpl.INSTANCE);
-
     private final boolean isStateOfPhysicalBlockInWorld;
     private final int physicalBlockX;
     private final int physicalBlockY;

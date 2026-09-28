@@ -1,17 +1,34 @@
 --- a/net/minecraft/server/level/ServerChunkCache.java
 +++ b/net/minecraft/server/level/ServerChunkCache.java
+@@ -10,7 +_,6 @@
+ import java.nio.file.Path;
+ import java.util.Arrays;
+ import java.util.List;
+-import java.util.Objects;
+ import java.util.Set;
+ import java.util.concurrent.CompletableFuture;
+ import java.util.concurrent.CompletionStage;
+@@ -53,6 +_,8 @@
+ import net.minecraft.world.level.storage.SavedDataStorage;
+ import org.jspecify.annotations.Nullable;
+ import org.slf4j.Logger;
++import spout.clientview.packetmapping.blockstate.apply.lightchanges.CurrentBroadcastRequiresExtraLightSending;
++import spout.clientview.packetmapping.blockstate.apply.lightchanges.CurrentTaskRequiresExtraLightSending;
+ 
+ public class ServerChunkCache extends ChunkSource implements ca.spottedleaf.moonrise.patches.chunk_system.world.ChunkSystemServerChunkCache { // Paper - rewrite chunk system
+     private static final Logger LOGGER = LogUtils.getLogger();
 @@ -669,11 +_,14 @@
  
      @Override
      public void onLightUpdate(final LightLayer layer, final SectionPos pos) {
-+        boolean requiresExtraLightSending = spout.server.paper.impl.packetmapping.block.light.CurrentTaskRequiresExtraLightSending.get(); // Spout - Block mapping - Update block light for custom blocks
++        boolean requiresExtraLightSending = CurrentTaskRequiresExtraLightSending.get(); // Spout - Block mapping - Update block light for custom blocks
          this.mainThreadProcessor.execute(() -> {
              ChunkHolder chunk = this.getVisibleChunkIfPresent(pos.chunk().pack());
-+            if (requiresExtraLightSending) spout.server.paper.impl.packetmapping.block.light.CurrentBroadcastRequiresExtraLightSending.set(); // Spout - Block mapping - Update block light for custom blocks
++            if (requiresExtraLightSending) CurrentBroadcastRequiresExtraLightSending.set(); // Spout - Block mapping - Update block light for custom blocks
              if (chunk != null && chunk.sectionLightChanged(layer, pos.y())) {
                  this.chunkHoldersToBroadcast.add(chunk);
              }
-+            if (requiresExtraLightSending) spout.server.paper.impl.packetmapping.block.light.CurrentBroadcastRequiresExtraLightSending.clear(); // Spout - Block mapping - Update block light for custom blocks
++            if (requiresExtraLightSending) CurrentBroadcastRequiresExtraLightSending.clear(); // Spout - Block mapping - Update block light for custom blocks
          });
      }
  

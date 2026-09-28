@@ -5,6 +5,7 @@ import io.papermc.paper.registry.RegistryKeyImpl;
 import spout.api.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.api.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType;
 import spout.api.clientview.packetmapping.blockstate.BlockStateMapping;
+import spout.api.clientview.packetmapping.itemstack.ItemStackMapping;
 import spout.branding.SpoutNamespace;
 
 /**
@@ -30,5 +31,10 @@ public final class SpoutRegistryKey {
      * Data-driven registry for block state mappings.
      */
     public static final RegistryKey<BlockStateMapping> BLOCK_STATE_MAPPING = RegistryKeyImpl.create(SpoutNamespace.SPOUT + ":block_state_mapping");
+
+    /**
+     * Data-driven registry for item stack mappings.
+     */
+    public static final RegistryKey<ItemStackMapping> ITEM_STACK_MAPPING = RegistryKeyImpl.create(SpoutNamespace.SPOUT + ":item_stack_mapping");
 
 }

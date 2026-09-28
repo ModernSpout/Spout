@@ -9,8 +9,8 @@
 +        int dataToWrite = switch (this.type) {
 +            case net.minecraft.world.level.block.LevelEvent.SOUND_PLAY_JUKEBOX_SONG -> {
 +                net.minecraft.world.item.Item item = net.minecraft.core.registries.BuiltInRegistries.ITEM.byId(this.data);
-+                spout.server.paper.api.packetmapping.item.ItemMappingFunctionContext context = new spout.server.paper.impl.packetmapping.item.ItemMappingFunctionContextImpl(output.getClientViewOrFallback(), false, false);
-+                net.minecraft.world.item.Item mapped = spout.server.paper.impl.packetmapping.item.ItemMappingsImpl.get().apply(item, context);
++                spout.clientview.packetmapping.itemstack.apply.ItemStackMappingsApplicationContext context = new spout.clientview.packetmapping.itemstack.apply.ItemStackMappingsApplicationContext(output.getClientViewOrFallback(), false, false);
++                net.minecraft.world.item.Item mapped = spout.clientview.packetmapping.itemstack.apply.ItemInPacketMappers.ITEM.apply(item, context);
 +                yield mapped.indexInItemRegistry;
 +            }
 +            case net.minecraft.world.level.block.LevelEvent.PARTICLES_DESTROY_BLOCK, net.minecraft.world.level.block.LevelEvent.PARTICLES_AND_SOUND_BRUSH_BLOCK_COMPLETE -> {

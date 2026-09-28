@@ -8,10 +8,10 @@ import java.util.function.Consumer;
  */
 public interface FunctionRegistryEntry<T> {
 
-    /**
-     * @return The function that is applied for this mapping,
-     * or null if not set.
-     */
-    @Nullable Consumer<T> getToFunction();
+    // /**
+    //  * @return The function that is applied for this mapping,
+    //  * or null if not set.
+    //  */
+    // @Nullable Consumer<T> getToFunction();
 
 }

@@ -5,12 +5,12 @@
  public final class Ingredient implements Predicate<ItemStack>, StackedContents.IngredientInfo<io.papermc.paper.inventory.recipe.ItemOrExact> { // Paper - Improve exact choice recipe ingredients
      public static final StreamCodec<RegistryFriendlyByteBuf, Ingredient> CONTENTS_STREAM_CODEC = ByteBufCodecs.holderSet(Registries.ITEM)
 -        .map(Ingredient::new, i -> i.values);
-+        .map(Ingredient::new, ingredient -> spout.server.paper.impl.packetmapping.item.ItemMappingsImpl.get().applyGenerically(ingredient.values)); // Spout - Item mapping - Implementation part - Map ingredients - Apply in codec
++        .map(Ingredient::new, ingredient -> spout.clientview.packetmapping.itemstack.apply.ItemInPacketMappers.ITEM_HOLDER_SET.apply(ingredient.values)); // Spout - Item mapping - Implementation part - Map ingredients - Apply in codec
      public static final StreamCodec<RegistryFriendlyByteBuf, Optional<Ingredient>> OPTIONAL_CONTENTS_STREAM_CODEC = ByteBufCodecs.holderSet(Registries.ITEM)
          .map(
              ingredient -> ingredient.size() == 0 ? Optional.empty() : Optional.of(new Ingredient((HolderSet<Item>)ingredient)),
 -            ingredient -> ingredient.map(i -> i.values).orElse(HolderSet.empty())
-+            optional -> optional.map(ingredient -> spout.server.paper.impl.packetmapping.item.ItemMappingsImpl.get().applyGenerically(ingredient.values)).orElse(HolderSet.direct()) // Spout - Item mapping - Implementation part - Map ingredients - Apply in codec
++            optional -> optional.map(ingredient -> spout.clientview.packetmapping.itemstack.apply.ItemInPacketMappers.ITEM_HOLDER_SET.apply(ingredient.values)).orElse(HolderSet.direct()) // Spout - Item mapping - Implementation part - Map ingredients - Apply in codec
          );
      public static final Codec<HolderSet<Item>> NON_AIR_HOLDER_SET_CODEC = HolderSetCodec.create(Registries.ITEM, Item.CODEC, false);
      public static final Codec<Ingredient> CODEC = ExtraCodecs.nonEmptyHolderSet(NON_AIR_HOLDER_SET_CODEC).xmap(Ingredient::new, i -> i.values);

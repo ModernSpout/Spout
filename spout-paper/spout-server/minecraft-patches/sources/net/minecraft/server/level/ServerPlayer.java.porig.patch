@@ -233,7 +233,7 @@
 +    public ServerGamePacketListenerImpl connection;
 +    // Spout start - Block mapping - Breaking speed - Store factor in player
 +    public float serverToClientSideBlockBreakSpeedFactor = 1;
-+    public spout.server.paper.impl.packetmapping.block.breakspeed.BlockBreakSpeedFactorHistory serverToClientSideBlockBreakSpeedFactorHistory = new spout.server.paper.impl.packetmapping.block.breakspeed.BlockBreakSpeedFactorHistory();
++    public spout.clientview.packetmapping.blockstate.apply.breakspeed.BlockBreakSpeedFactorHistory serverToClientSideBlockBreakSpeedFactorHistory = new spout.clientview.packetmapping.blockstate.apply.breakspeed.BlockBreakSpeedFactorHistory();
 +    // Spout end - Block mapping - Breaking speed - Store factor in player
 +    private final MinecraftServer server;
 +    public final ServerPlayerGameMode gameMode;

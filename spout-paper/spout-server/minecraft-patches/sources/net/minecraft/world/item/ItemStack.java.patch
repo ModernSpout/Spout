@@ -49,9 +49,9 @@
              @Override
              public void encode(final RegistryFriendlyByteBuf output, final ItemStack itemStack) {
 +                // Spout start - Item mapping - Implementation part - Apply at ItemStack encoding
-+                spout.server.paper.impl.packetmapping.item.ItemMappingFunctionContextImpl itemMappingContext = new spout.server.paper.impl.packetmapping.item.ItemMappingFunctionContextImpl(output.getClientViewOrFallback(), output.isEncodingItemFrameItem, output.isEncodingStonecutterRecipeResult);
++                spout.clientview.packetmapping.itemstack.apply.ItemStackMappingsApplicationContext itemMappingContext = new spout.clientview.packetmapping.itemstack.apply.ItemStackMappingsApplicationContext(output.getClientViewOrFallback(), output.isEncodingItemFrameItem, output.isEncodingStonecutterRecipeResult);
 +                spout.server.paper.impl.packetmapping.item.reverse.@Nullable ItemMappingReverser itemMappingReverser = ((ClientViewImpl) output.getClientViewOrFallback()).getItemMappingReverser();
-+                ItemStack mappedValue = spout.server.paper.impl.packetmapping.item.ItemMappingsImpl.get().apply(itemStack, itemMappingContext);
++                ItemStack mappedValue = spout.clientview.packetmapping.itemstack.apply.ItemInPacketMappers.ITEM_STACK.apply(itemStack, itemMappingContext);
 +                if (itemMappingReverser != null) {
 +                    long reservedId = -1;
 +                    if (mappedValue != itemStack) {

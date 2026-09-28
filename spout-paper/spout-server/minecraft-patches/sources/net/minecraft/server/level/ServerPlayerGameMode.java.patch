@@ -1,5 +1,13 @@
 --- a/net/minecraft/server/level/ServerPlayerGameMode.java
 +++ b/net/minecraft/server/level/ServerPlayerGameMode.java
+@@ -30,6 +_,7 @@
+ import net.minecraft.world.phys.shapes.VoxelShape;
+ import org.jspecify.annotations.Nullable;
+ import org.slf4j.Logger;
++import spout.clientview.packetmapping.blockstate.apply.breakspeed.BlockBreakSpeedLatencyCompensation;
+ 
+ public class ServerPlayerGameMode {
+     private static final double FLIGHT_DISABLE_RANGE = 1.0;
 @@ -38,10 +_,12 @@
      protected final ServerPlayer player;
      private GameType gameModeForPlayer = GameType.DEFAULT_MODE;
@@ -20,7 +28,7 @@
                      BlockState state = this.level.getBlockState(pos);
                      if (!state.isAir()) {
                          float destroyProgress = state.getDestroyProgress(this.player, this.player.level(), pos) * (ticksSpentDestroying + 1);
-+                        destroyProgress *= spout.server.paper.impl.packetmapping.block.breakspeed.BlockBreakSpeedLatencyCompensation.getCompensationFactor(this.player, this.player.level(), pos, state); // Spout - Block mapping - Breaking speed - Compensate for difference in intended ratio and recently observed ratio
++                        destroyProgress *= BlockBreakSpeedLatencyCompensation.getCompensationFactor(this.player, this.player.level(), pos, state); // Spout - Block mapping - Breaking speed - Compensate for difference in intended ratio and recently observed ratio
                          if (destroyProgress >= 0.7F) {
                              this.isDestroyingBlock = false;
                              this.level.destroyBlockProgress(this.player.getId(), pos, -1);

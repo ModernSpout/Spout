@@ -5,7 +5,7 @@
  
      public static StreamCodec<? super RegistryFriendlyByteBuf, BlockParticleOption> streamCodec(final ParticleType<BlockParticleOption> type) {
 -        return ByteBufCodecs.idMapper(Block.BLOCK_STATE_REGISTRY).map(state -> new BlockParticleOption(type, state), o -> o.state);
-+        return ByteBufCodecs.idMapper(spout.server.paper.impl.packetmapping.block.MappedBlockStateRegistry.get()).map(state -> new BlockParticleOption(type, state), o -> o.state); // Spout - Block mapping - Implementation part - Apply to block particles
++        return ByteBufCodecs.idMapper(spout.clientview.packetmapping.blockstate.apply.MappedBlockStateRegistry.get()).map(state -> new BlockParticleOption(type, state), o -> o.state); // Spout - Block mapping - Implementation part - Apply to block particles
      }
  
      public BlockParticleOption(final ParticleType<BlockParticleOption> type, final BlockState state) {

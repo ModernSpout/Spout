@@ -31,7 +31,7 @@
 +        @Override
 +        public void encode(final RegistryFriendlyByteBuf buffer, final Holder<Item> value) {
 +            Item item = value.value();
-+            Item mappedItem = spout.server.paper.impl.packetmapping.item.ItemMappingsImpl.get().applyGenerically(item);
++            Item mappedItem = spout.clientview.packetmapping.itemstack.apply.ItemInPacketMappers.ITEM.apply(item);
 +            UNMAPPED_STREAM_CODEC.encode(buffer, mappedItem == item ? value : Holder.direct(mappedItem));
 +        }
 +
@@ -41,12 +41,10 @@
      private static final Logger LOGGER = LogUtils.getLogger();
      public static final Map<Block, Item> BY_BLOCK = Maps.newHashMap();
      public static final Identifier BASE_ATTACK_DAMAGE_ID = Identifier.withDefaultNamespace("base_attack_damage");
-@@ -122,6 +_,73 @@
+@@ -122,6 +_,71 @@
          return item == null ? 0 : BuiltInRegistries.ITEM.getId(item);
      }
  
-+    public java.util.@Nullable List<spout.server.paper.impl.packetmapping.item.datadriven.UnappliedDataDrivenItemMapping> unappliedDataPackMappings = null; // Spout - Item mapping - Data-driven - Load mappings from data pack
-+
 +    // Spout start - More data-driven - Minecraft registries - Cache block and item values
 +    /**
 +     * The {@link net.minecraft.resources.Identifier} with which this item is registered in

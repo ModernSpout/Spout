@@ -112,8 +112,8 @@ public final class OptimizedBlockStateMappings {
         registry.stream()
             .forEach(mapping -> {
                 for (AwarenessLevel awarenessLevel : mapping.awarenessLevels()) {
-                    for (BlockState fromState : mapping.targets()) {
-                        registered.computeIfAbsent(IntIntPair.of(awarenessLevel.getId(), fromState.indexInBlockStateRegistry), _ -> new ArrayList<>(1)).add(mapping);
+                    for (BlockState target : mapping.targets()) {
+                        registered.computeIfAbsent(IntIntPair.of(awarenessLevel.getId(), target.indexInBlockStateRegistry), _ -> new ArrayList<>(1)).add(mapping);
                     }
                 }
             });

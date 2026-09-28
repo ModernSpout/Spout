@@ -16,6 +16,7 @@ import spout.clientview.packetmapping.blockstate.decodingcontext.BlockStateMappi
 import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.clientview.packetmapping.blockstate.macro.processor.BlockStateMappingMacroProcessor;
 import spout.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType;
+import spout.util.minecraft.resources.IdentifierUtil;
 import java.util.List;
 
 /**
@@ -62,7 +63,7 @@ public final class DataPackBlockBlockStateMappingOrMacro {
         } finally {
             BlockStateMappingDecodingContextBlock.remove();
         }
-        Registry.register(registry, Identifier.fromNamespaceAndPath(block.keyInBlockRegistry.getNamespace(), block.keyInBlockRegistry.getPath() + "_json_" + BlockStateMappingMacroProcessor.generateRandomStringForMappingIdentifiers() + "_" + i), decoded);
+        Registry.register(registry, IdentifierUtil.addPathSuffix(block.keyInBlockRegistry, "_json_" + BlockStateMappingMacroProcessor.generateRandomStringForMappingIdentifiers() + "_" + i), decoded);
     }
 
     public void applyAsMappingMacro(WritableRegistry<BlockStateMappingMacro> registry, Block block, int i) {
@@ -73,7 +74,7 @@ public final class DataPackBlockBlockStateMappingOrMacro {
         } finally {
             BlockStateMappingDecodingContextBlock.remove();
         }
-        Registry.register(registry, Identifier.fromNamespaceAndPath(block.keyInBlockRegistry.getNamespace(), block.keyInBlockRegistry.getPath() + "_json_" + BlockStateMappingMacroProcessor.generateRandomStringForMappingIdentifiers() + "_" + i), decoded);
+        Registry.register(registry, IdentifierUtil.addPathSuffix(block.keyInBlockRegistry, "_json_" + BlockStateMappingMacroProcessor.generateRandomStringForMappingIdentifiers() + "_" + i), decoded);
     }
 
 }

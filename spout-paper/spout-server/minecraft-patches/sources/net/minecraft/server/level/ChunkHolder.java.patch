@@ -1,5 +1,29 @@
 --- a/net/minecraft/server/level/ChunkHolder.java
 +++ b/net/minecraft/server/level/ChunkHolder.java
+@@ -5,7 +_,6 @@
+ import java.util.BitSet;
+ import java.util.List;
+ import java.util.concurrent.CompletableFuture;
+-import java.util.concurrent.CompletionStage;
+ import java.util.concurrent.Executor;
+ import java.util.function.IntConsumer;
+ import java.util.function.IntSupplier;
+@@ -15,7 +_,6 @@
+ import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
+ import net.minecraft.network.protocol.game.ClientboundLightUpdatePacket;
+ import net.minecraft.network.protocol.game.ClientboundSectionBlocksUpdatePacket;
+-import net.minecraft.util.Util;
+ import net.minecraft.world.level.ChunkPos;
+ import net.minecraft.world.level.Level;
+ import net.minecraft.world.level.LevelHeightAccessor;
+@@ -28,6 +_,7 @@
+ import net.minecraft.world.level.chunk.status.ChunkStatus;
+ import net.minecraft.world.level.lighting.LevelLightEngine;
+ import org.jspecify.annotations.Nullable;
++import spout.clientview.packetmapping.blockstate.apply.lightchanges.CurrentBroadcastRequiresExtraLightSending;
+ 
+ public class ChunkHolder extends GenerationChunkHolder implements ca.spottedleaf.moonrise.patches.chunk_system.level.chunk.ChunkSystemChunkHolder { // Paper - rewrite chunk system
+     public static final ChunkResult<LevelChunk> UNLOADED_LEVEL_CHUNK = ChunkResult.error("Unloaded level chunk");
 @@ -37,6 +_,7 @@
      private boolean hasChangedSections;
      private final @Nullable ShortSet[] changedBlocksPerSection;
@@ -13,7 +37,7 @@
              if (!filter.get(index)) {
                  filter.set(index);
 +                // Spout start - Block mapping - Update block light for custom blocks
-+                if (layer == LightLayer.BLOCK && spout.server.paper.impl.packetmapping.block.light.CurrentBroadcastRequiresExtraLightSending.get()) {
++                if (layer == LightLayer.BLOCK && CurrentBroadcastRequiresExtraLightSending.get()) {
 +                    this.nonClientModBlockChangedLightSectionFilter.set(index);
 +                }
 +                // Spout end - Block mapping - Update block light for custom blocks

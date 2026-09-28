@@ -1,15 +1,12 @@
 package spout.clientview.packetmapping.itemstack.apply;
 
 import spout.api.clientview.model.ClientView;
-import spout.clientview.model.FallbackClientViewImpl;
 import spout.clientview.packetmapping.WithClientViewMappingsApplicationContext;
 
 /**
  * The context for applying mappings to an item stack.
  */
 public final class ItemStackMappingsApplicationContext extends WithClientViewMappingsApplicationContext {
-
-    public static final ItemStackMappingsApplicationContext FALLBACK = new ItemStackMappingsApplicationContext(FallbackClientViewImpl.INSTANCE);
 
     private final boolean isItemStackInItemFrame;
     private final boolean isStonecutterRecipeResult;

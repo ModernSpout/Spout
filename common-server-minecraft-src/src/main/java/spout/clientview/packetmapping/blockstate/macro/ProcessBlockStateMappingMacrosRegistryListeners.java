@@ -31,6 +31,7 @@ public final class ProcessBlockStateMappingMacrosRegistryListeners {
         public void onRegistryHookEvent(final SpoutRegistryHookEvents.EventType type, final WritableRegistry<BlockStateMappingMacro> registry) {
             macroRegistry = registry;
         }
+
     }
 
     public static final class MappingRegistryListener implements SpoutRegistryHookEvents.Listener<BlockStateMapping> {
@@ -53,6 +54,7 @@ public final class ProcessBlockStateMappingMacrosRegistryListeners {
                 processor.process();
             });
         }
+
     }
 
 }

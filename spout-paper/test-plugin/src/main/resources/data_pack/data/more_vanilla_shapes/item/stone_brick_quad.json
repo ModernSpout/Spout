@@ -3,7 +3,9 @@
   "block": "more_vanilla_shapes:stone_brick_quad",
   "mappings": [
     {
-      "to": "minecraft:stone_button"
+      "operation": {
+        "to": "minecraft:stone_button"
+      }
     }
   ]
 }

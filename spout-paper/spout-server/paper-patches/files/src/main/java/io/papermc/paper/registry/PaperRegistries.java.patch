@@ -17,7 +17,7 @@
              start(Registries.VILLAGER_PROFESSION, RegistryKey.VILLAGER_PROFESSION).craft(Villager.Profession.class, CraftVillager.CraftProfession::new).build(),
              start(Registries.VILLAGER_TYPE, RegistryKey.VILLAGER_TYPE).craft(Villager.Type.class, CraftVillager.CraftType::new).build(),
              start(Registries.MAP_DECORATION_TYPE, RegistryKey.MAP_DECORATION_TYPE).craft(MapCursor.Type.class, CraftMapCursor.CraftType::new).build(),
-@@ -156,6 +_,13 @@
+@@ -156,6 +_,14 @@
              start(Registries.POTION, RegistryKey.POTION).apiOnly(PaperSimpleRegistry::potion),
              start(Registries.MEMORY_MODULE_TYPE, RegistryKey.MEMORY_MODULE_TYPE).apiOnly(() -> org.bukkit.Registry.MEMORY_MODULE_TYPE)
              // End generate - RegistryDefinitions
@@ -26,7 +26,8 @@
 +            ,
 +            start(spout.clientview.packetmapping.blockstate.macro.type.registry.BuiltInBlockStateMappingMacroTypeRegistryKey.BLOCK_STATE_MAPPING_MACRO_TYPE, spout.api.SpoutRegistryKey.BLOCK_STATE_MAPPING_MACRO_TYPE).craft(spout.api.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType.class, spout.api.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroTypeImpl::new).build(),
 +            start(spout.clientview.packetmapping.blockstate.macro.registry.BlockStateMappingMacroRegistryKey.BLOCK_STATE_MAPPING_MACRO, spout.api.SpoutRegistryKey.BLOCK_STATE_MAPPING_MACRO).craft(spout.api.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro.class, spout.api.clientview.packetmapping.blockstate.macro.BlockStateMappingMacroImpl::new).writable(spout.api.clientview.packetmapping.blockstate.macro.registry.BlockStateMappingMacroRegistryEntryImpl.Builder::new).delayed(),
-+            start(spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryKey.BLOCK_STATE_MAPPING, spout.api.SpoutRegistryKey.BLOCK_STATE_MAPPING).craft(spout.api.clientview.packetmapping.blockstate.BlockStateMapping.class, spout.api.clientview.packetmapping.blockstate.BlockStateMappingImpl::create).writable(spout.api.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryEntryImpl.Builder::new).delayed()
++            start(spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryKey.BLOCK_STATE_MAPPING, spout.api.SpoutRegistryKey.BLOCK_STATE_MAPPING).craft(spout.api.clientview.packetmapping.blockstate.BlockStateMapping.class, spout.api.clientview.packetmapping.blockstate.BlockStateMappingImpl::create).writable(spout.api.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryEntryImpl.Builder::new).delayed(),
++            start(spout.clientview.packetmapping.itemstack.registry.ItemStackMappingRegistryKey.ITEM_STACK_MAPPING, spout.api.SpoutRegistryKey.ITEM_STACK_MAPPING).craft(spout.api.clientview.packetmapping.itemstack.ItemStackMapping.class, spout.api.clientview.packetmapping.itemstack.ItemStackMappingImpl::new).writable(spout.api.clientview.packetmapping.itemstack.registry.ItemStackMappingRegistryEntryImpl.Builder::new).delayed()
 +            // Spout end - Define additional registries
          );
          final Map<RegistryKey<?>, RegistryEntry<?, ?>> byRegistryKey = new IdentityHashMap<>(REGISTRY_ENTRIES.size());

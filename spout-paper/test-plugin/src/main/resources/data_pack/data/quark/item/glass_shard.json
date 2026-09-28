@@ -2,7 +2,9 @@
   "type": "minecraft:item",
   "mappings": [
     {
-      "to": "minecraft:prismarine_shard"
+      "operation": {
+        "to": "minecraft:prismarine_shard"
+      }
     }
   ]
 }

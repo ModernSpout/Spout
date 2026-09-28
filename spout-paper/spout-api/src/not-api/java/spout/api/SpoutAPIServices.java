@@ -5,8 +5,7 @@ import spout.api.clientview.packetmapping.blockstate.resourcepackclaims.Resource
 import spout.api.util.minecraft.blockstate.visualduplicates.VisualDuplicates;
 import spout.server.paper.api.packetmapping.component.ComponentMappings;
 import spout.server.paper.api.packetmapping.component.translatable.ServerSideTranslations;
-import spout.server.paper.api.packetmapping.item.ItemMappingUtilities;
-import spout.server.paper.api.packetmapping.item.ItemMappings;
+import spout.api.clientview.packetmapping.itemstack.builtin.changeonlyitem.ChangeOnlyItemUtility;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstruction;
 import spout.server.paper.api.resourcepack.plugin.discover.PluginResourcePackDiscovery;
 import spout.api.gamecontent.datadriven.material.enuminjection.match.MaterialByKeyLookup;
@@ -39,8 +38,7 @@ public final class SpoutAPIServices {
     }
 
     private static final ComponentMappings[] componentMappings = new ComponentMappings[1];
-    private static final ItemMappings[] itemMappings = new ItemMappings[1];
-    private static final ItemMappingUtilities[] itemMappingUtilities = new ItemMappingUtilities[1];
+    private static final ChangeOnlyItemUtility[] changeOnlyItemUtility = new ChangeOnlyItemUtility[1];
     private static final MaterialByKeyLookup[] materialByKeyLookup = new MaterialByKeyLookup[1];
     private static final MaterialEnumNames[] materialEnumNames = new MaterialEnumNames[1];
     private static final PluginResourcePackDiscovery[] pluginResourcePackDiscovery = new PluginResourcePackDiscovery[1];
@@ -53,12 +51,8 @@ public final class SpoutAPIServices {
         return getOrInitialize(componentMappings, ComponentMappings.class);
     }
 
-    public static ItemMappings<?> getItemMappings() {
-        return getOrInitialize(itemMappings, ItemMappings.class);
-    }
-
-    public static ItemMappingUtilities getItemMappingUtilities() {
-        return getOrInitialize(itemMappingUtilities, ItemMappingUtilities.class);
+    public static ChangeOnlyItemUtility getChangeOnlyItemUtility() {
+        return getOrInitialize(changeOnlyItemUtility, ChangeOnlyItemUtility.class);
     }
 
     public static MaterialByKeyLookup getMaterialByKeyLookup() {
