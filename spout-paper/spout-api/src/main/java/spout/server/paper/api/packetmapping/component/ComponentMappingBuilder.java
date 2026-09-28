@@ -1,5 +1,6 @@
 package spout.server.paper.api.packetmapping.component;
 
+import spout.api.clientview.packetmapping.component.ComponentTarget;
 import spout.server.paper.api.packetmapping.AwarenessLevelMappingBuilder;
 import spout.util.composable.FromBuilder;
 import spout.util.composable.FunctionBuilder;

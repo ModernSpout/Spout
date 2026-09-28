@@ -13,6 +13,7 @@ import spout.api.clientview.packetmapping.itemstack.ItemStackMapping;
 import spout.api.clientview.packetmapping.itemstack.handle.ItemStackMappingHandle;
 import spout.api.util.mapping.builder.FromRegistryEntry;
 import spout.api.util.mapping.builder.FromRegistryEntryBuilder;
+import spout.api.util.mapping.builder.FunctionRegistryEntry;
 import spout.api.util.mapping.builder.FunctionRegistryEntryBuilder;
 import spout.api.util.mapping.builder.ToRegistryEntry;
 import spout.api.util.mapping.builder.ToRegistryEntryBuilder;
@@ -20,7 +21,7 @@ import spout.api.util.mapping.builder.ToRegistryEntryBuilder;
 /**
  * A data-centric version-specific registry entry for the {@link ItemStackMapping} type.
  */
-public interface ItemStackMappingRegistryEntry extends AwarenessLevelsMappingRegistryEntry, FromRegistryEntry<ItemType>, ToRegistryEntry<ItemType> {
+public interface ItemStackMappingRegistryEntry extends AwarenessLevelsMappingRegistryEntry, FromRegistryEntry<ItemType>, ToRegistryEntry<ItemType>, FunctionRegistryEntry<ItemStackMappingHandle> {
 
     /**
      * @return Whether this mapping should set the {@code item_model} component of the item stack,

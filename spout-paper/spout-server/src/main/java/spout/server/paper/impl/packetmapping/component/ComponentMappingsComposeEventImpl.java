@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 import spout.api.clientview.model.ClientView;
 import spout.server.paper.api.packetmapping.component.ComponentMappingBuilder;
 import spout.server.paper.api.packetmapping.component.ComponentMappingsComposeEvent;
-import spout.server.paper.api.packetmapping.component.ComponentTarget;
+import spout.api.clientview.packetmapping.component.ComponentTarget;
 import spout.server.paper.api.packetmapping.component.nms.ComponentMappingBuilderNMS;
 import spout.server.paper.api.packetmapping.component.nms.ComponentMappingsComposeEventNMS;
 import spout.server.paper.impl.util.composable.AwarenessLevelPairKeyedBuilderComposeEventImpl;

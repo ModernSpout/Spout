@@ -3,13 +3,10 @@ package spout.api.clientview.packetmapping.itemstack.handle;
 import spout.api.clientview.packetmapping.common.context.WithClientViewMappingContextImpl;
 import spout.clientview.packetmapping.itemstack.apply.ItemStackMappingsApplicationContext;
 
-public class ItemStackMappingContextImpl extends WithClientViewMappingContextImpl implements ItemStackMappingContext {
-
-    private final ItemStackMappingsApplicationContext handle;
+public class ItemStackMappingContextImpl extends WithClientViewMappingContextImpl<ItemStackMappingsApplicationContext> implements ItemStackMappingContext {
 
     public ItemStackMappingContextImpl(ItemStackMappingsApplicationContext handle) {
         super(handle);
-        this.handle = handle;
     }
 
     @Override

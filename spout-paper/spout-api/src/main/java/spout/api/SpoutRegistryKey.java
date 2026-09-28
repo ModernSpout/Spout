@@ -5,6 +5,7 @@ import io.papermc.paper.registry.RegistryKeyImpl;
 import spout.api.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.api.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType;
 import spout.api.clientview.packetmapping.blockstate.BlockStateMapping;
+import spout.api.clientview.packetmapping.component.ComponentMapping;
 import spout.api.clientview.packetmapping.itemstack.ItemStackMapping;
 import spout.branding.SpoutNamespace;
 
@@ -16,6 +17,11 @@ public final class SpoutRegistryKey {
     private SpoutRegistryKey() {
         throw new UnsupportedOperationException();
     }
+
+    /**
+     * Data-driven registry for component mappings.
+     */
+    public static final RegistryKey<ComponentMapping> COMPONENT_MAPPING = RegistryKeyImpl.create(SpoutNamespace.SPOUT + ":component_mapping");
 
     /**
      * Data-driven registry for block state mapping macro types.

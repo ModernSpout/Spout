@@ -7,6 +7,7 @@ import org.bukkit.Registry;
 import spout.api.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.api.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType;
 import spout.api.clientview.packetmapping.blockstate.BlockStateMapping;
+import spout.api.clientview.packetmapping.component.ComponentMapping;
 import spout.api.clientview.packetmapping.itemstack.ItemStackMapping;
 
 /**
@@ -17,6 +18,11 @@ public final class SpoutRegistry {
     private SpoutRegistry() {
         throw new UnsupportedOperationException();
     }
+
+    /**
+     * Data-driven registry for component mappings.
+     */
+    public static final Registry<ComponentMapping> COMPONENT_MAPPING = registryFor(SpoutRegistryKey.COMPONENT_MAPPING);
 
     /**
      * Data-driven registry for block state mapping macro types.

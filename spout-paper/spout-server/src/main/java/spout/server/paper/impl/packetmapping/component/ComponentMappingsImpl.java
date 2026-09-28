@@ -8,7 +8,7 @@ import spout.api.clientview.model.ClientView;
 import spout.server.paper.api.packetmapping.component.ComponentMappingFunctionContext;
 import spout.server.paper.api.packetmapping.component.ComponentMappings;
 import spout.server.paper.api.packetmapping.component.ComponentMappingsComposeEvent;
-import spout.server.paper.api.packetmapping.component.ComponentTarget;
+import spout.api.clientview.packetmapping.component.ComponentTarget;
 import spout.server.paper.impl.packetmapping.WithClientViewContextSingleStepMappingPipeline;
 import spout.server.paper.impl.packetmapping.component.translatable.ServerSideTranslationsComponentMappingsStep;
 import spout.server.paper.impl.util.composable.ComposableImpl;

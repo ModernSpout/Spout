@@ -18,7 +18,7 @@ import net.minecraft.network.chat.contents.data.StorageDataSource;
 import net.minecraft.network.chat.contents.objects.AtlasSprite;
 import net.minecraft.network.chat.contents.objects.ObjectInfo;
 import net.minecraft.network.chat.contents.objects.PlayerSprite;
-import spout.server.paper.api.packetmapping.component.ComponentTarget;
+import spout.api.clientview.packetmapping.component.ComponentTarget;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
