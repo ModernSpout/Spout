@@ -8,12 +8,12 @@ import net.minecraft.core.WritableRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
-import spout.clientview.packetmapping.blockstate.blockdefinitionextension.BlockDefinitionBlockStateMappingExtensionStorage;
+import spout.clientview.packetmapping.blockstate.datapackblockextension.DataPackBlockBlockStateMappingOrMacro;
+import spout.clientview.packetmapping.blockstate.datapackblockextension.DataPackBlockBlockStateMappingExtensionStorage;
 import spout.gamecontent.datadriven.block.ContextAwareBlockPropertiesDecoding;
 import spout.gamecontent.datadriven.block.SpoutNonBuiltInBlock;
 import spout.server.paper.impl.moredatadriven.datapack.CopyResourcesFromDataPackRegistryToInternalRegistry;
 import spout.server.paper.impl.moredatadriven.datapack.SpoutDataPackRegistries;
-import spout.clientview.packetmapping.blockstate.blockdefinitionextension.UnappliedDataDrivenBlockMapping;
 import spout.util.minecraft.registry.SpoutRegistryHookEvents;
 import java.util.List;
 
@@ -36,10 +36,10 @@ public final class CopyDataPackRegistryToActualRegistryListener implements Spout
                 Block block = resource.getValue();
                 Object mappingsInput = resource.getInput().input().get("mappings");
                 if (mappingsInput != null) {
-                    DataResult<com.mojang.datafixers.util.Pair<List<UnappliedDataDrivenBlockMapping>, ?>> mappingsResult = UnappliedDataDrivenBlockMapping.LIST_CODEC.decode((DynamicOps) resource.getInput().ops(), mappingsInput);
-                    List<UnappliedDataDrivenBlockMapping> mappings = mappingsResult.getOrThrow().getFirst();
+                    DataResult<com.mojang.datafixers.util.Pair<List<DataPackBlockBlockStateMappingOrMacro>, ?>> mappingsResult = DataPackBlockBlockStateMappingOrMacro.LIST_CODEC.decode((DynamicOps) resource.getInput().ops(), mappingsInput);
+                    List<DataPackBlockBlockStateMappingOrMacro> mappings = mappingsResult.getOrThrow().getFirst();
                     if (!mappings.isEmpty()) {
-                        BlockDefinitionBlockStateMappingExtensionStorage.add(block, mappings);
+                        DataPackBlockBlockStateMappingExtensionStorage.add(block, mappings);
                     }
                 }
                 resource.clearInput();

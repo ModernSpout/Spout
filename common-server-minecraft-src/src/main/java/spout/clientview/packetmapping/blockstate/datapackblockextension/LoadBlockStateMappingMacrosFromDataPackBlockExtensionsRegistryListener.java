@@ -1,4 +1,4 @@
-package spout.clientview.packetmapping.blockstate.blockdefinitionextension;
+package spout.clientview.packetmapping.blockstate.datapackblockextension;
 
 import it.unimi.dsi.fastutil.Pair;
 import java.util.List;
@@ -11,7 +11,7 @@ import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.clientview.packetmapping.blockstate.macro.registry.BlockStateMappingMacroRegistryKey;
 import spout.util.minecraft.registry.SpoutRegistryHookEvents;
 
-public final class LoadBlockStateMappingMacrosFromBlockDefinitionExtensionsRegistryListener implements SpoutRegistryHookEvents.Listener<BlockStateMappingMacro> {
+public final class LoadBlockStateMappingMacrosFromDataPackBlockExtensionsRegistryListener implements SpoutRegistryHookEvents.Listener<BlockStateMappingMacro> {
 
     static volatile boolean isDone = false;
 
@@ -22,10 +22,10 @@ public final class LoadBlockStateMappingMacrosFromBlockDefinitionExtensionsRegis
 
     @Override
     public void onRegistryHookEvent(final SpoutRegistryHookEvents.EventType type, final WritableRegistry<BlockStateMappingMacro> registry) {
-        for (Map.Entry<Block, List<UnappliedDataDrivenBlockMapping>> entry : BlockDefinitionBlockStateMappingExtensionStorage.mappings.entrySet()) {
-            List<UnappliedDataDrivenBlockMapping> mappings = entry.getValue();
+        for (Map.Entry<Block, List<DataPackBlockBlockStateMappingOrMacro>> entry : DataPackBlockBlockStateMappingExtensionStorage.mappings.entrySet()) {
+            List<DataPackBlockBlockStateMappingOrMacro> mappings = entry.getValue();
             for (int i = 0; i < mappings.size(); i++) {
-                UnappliedDataDrivenBlockMapping mapping = mappings.get(i);
+                DataPackBlockBlockStateMappingOrMacro mapping = mappings.get(i);
                 if (mapping.isMacro()) {
                     mapping.applyAsMappingMacro(registry, entry.getKey(), i);
                 }
@@ -33,8 +33,8 @@ public final class LoadBlockStateMappingMacrosFromBlockDefinitionExtensionsRegis
         }
         // Dereference to reclaim memory
         isDone = true;
-        if (LoadBlockStateMappingsFromBlockDefinitionExtensionsRegistryListener.isDone) {
-            BlockDefinitionBlockStateMappingExtensionStorage.mappings = null;
+        if (LoadBlockStateMappingsFromDataPackBlockExtensionsRegistryListener.isDone) {
+            DataPackBlockBlockStateMappingExtensionStorage.mappings = null;
         }
     }
 

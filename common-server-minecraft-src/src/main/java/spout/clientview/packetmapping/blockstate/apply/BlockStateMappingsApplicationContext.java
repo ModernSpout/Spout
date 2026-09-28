@@ -8,7 +8,7 @@ import spout.clientview.packetmapping.WithClientViewMappingsApplicationContext;
 /**
  * The context for applying mappings to a block state.
  */
-public class BlockStateMappingsApplicationContext extends WithClientViewMappingsApplicationContext {
+public final class BlockStateMappingsApplicationContext extends WithClientViewMappingsApplicationContext {
 
     public static final BlockStateMappingsApplicationContext FALLBACK = new BlockStateMappingsApplicationContext(FallbackClientViewImpl.INSTANCE);
 

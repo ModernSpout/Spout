@@ -1,4 +1,4 @@
-package spout.clientview.packetmapping.blockstate.blockdefinitionextension;
+package spout.clientview.packetmapping.blockstate.datapackblockextension;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
@@ -22,29 +22,29 @@ import java.util.List;
  * A data-driven {@link BlockStateMapping}
  * or {@link BlockStateMappingMacro} that has not been applied yet.
  */
-public final class UnappliedDataDrivenBlockMapping {
+public final class DataPackBlockBlockStateMappingOrMacro {
 
-    public static final Codec<UnappliedDataDrivenBlockMapping> CODEC = new Codec<>() {
+    public static final Codec<DataPackBlockBlockStateMappingOrMacro> CODEC = new Codec<>() {
 
         @Override
-        public <T> DataResult<T> encode(UnappliedDataDrivenBlockMapping mapping, DynamicOps<T> ops, T t) {
+        public <T> DataResult<T> encode(DataPackBlockBlockStateMappingOrMacro mapping, DynamicOps<T> ops, T t) {
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public <T> DataResult<Pair<UnappliedDataDrivenBlockMapping, T>> decode(DynamicOps<T> ops, T input) {
-            return ops.getMap(input).flatMap(mapLike -> DataResult.success(Pair.of(new UnappliedDataDrivenBlockMapping(ops, input, mapLike), input)));
+        public <T> DataResult<Pair<DataPackBlockBlockStateMappingOrMacro, T>> decode(DynamicOps<T> ops, T input) {
+            return ops.getMap(input).flatMap(mapLike -> DataResult.success(Pair.of(new DataPackBlockBlockStateMappingOrMacro(ops, input, mapLike), input)));
         }
 
     };
 
-    public static final Decoder<List<UnappliedDataDrivenBlockMapping>> LIST_CODEC = Codec.list(CODEC);
+    public static final Decoder<List<DataPackBlockBlockStateMappingOrMacro>> LIST_CODEC = Codec.list(CODEC);
 
     private final DynamicOps<?> ops;
     private final Object input;
     private final MapLike<?> mapLike;
 
-    private UnappliedDataDrivenBlockMapping(DynamicOps<?> ops, Object input, MapLike<?> mapLike) {
+    private DataPackBlockBlockStateMappingOrMacro(DynamicOps<?> ops, Object input, MapLike<?> mapLike) {
         this.ops = ops;
         this.input = input;
         this.mapLike = mapLike;
