@@ -4,7 +4,7 @@
              }
          };
          // Paper end - adventure; create separate codec for each locale
-+        fullCodec = fullCodec.xmap(Function.identity(), component -> spout.server.paper.impl.packetmapping.component.ComponentMappingsImpl.get().applyGenerically(component)); // Spout - Component mapping - Implementation part - Apply at Component encoding
++        fullCodec = fullCodec.xmap(Function.identity(), component -> spout.clientview.packetmapping.component.ComponentInPacketMapper.get().apply(component)); // Spout - Component mapping - Implementation part - Apply at Component encoding
          return Codec.either(Codec.either(Codec.STRING, ExtraCodecs.nonEmptyList(topSerializer.listOf())), fullCodec)
              .xmap(
                  specialOrComponent -> specialOrComponent.map(

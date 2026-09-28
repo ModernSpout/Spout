@@ -1,6 +1,9 @@
-package spout.server.paper.impl.packetmapping.component;
+package spout.clientview.packetmapping.component;
 
-import io.papermc.paper.adventure.AdventureComponent;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentContents;
 import net.minecraft.network.chat.MutableComponent;
@@ -18,24 +21,13 @@ import net.minecraft.network.chat.contents.data.StorageDataSource;
 import net.minecraft.network.chat.contents.objects.AtlasSprite;
 import net.minecraft.network.chat.contents.objects.ObjectInfo;
 import net.minecraft.network.chat.contents.objects.PlayerSprite;
-import spout.api.clientview.packetmapping.component.ComponentTarget;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 
-/**
- * Utilities for getting {@link ComponentTarget}.
- */
-public final class ComponentTargetUtil {
-
-    private ComponentTargetUtil() {
-        throw new UnsupportedOperationException();
-    }
+public class NMSComponentTargetUtil extends ComponentTargetUtil {
 
     private static final ComponentTarget[] VALUES = ComponentTarget.values();
 
-    public static ComponentTarget getMostSpecificTarget(Component component) {
+    @Override
+    public ComponentTarget getMostSpecificTarget(Component component) {
         if (component instanceof MutableComponent mutableComponent) {
             ComponentContents contents = mutableComponent.getContents();
             if (contents instanceof PlainTextContents) {
@@ -69,39 +61,6 @@ public final class ComponentTargetUtil {
                 }
                 return ComponentTarget.OBJECT;
             }
-        } else if (component instanceof AdventureComponent adventureComponentHolder) {
-            net.kyori.adventure.text.Component adventureComponent = adventureComponentHolder.adventure$component();
-            if (adventureComponent instanceof net.kyori.adventure.text.TextComponent) {
-                return ComponentTarget.TEXT;
-            } else if (adventureComponent instanceof net.kyori.adventure.text.TranslatableComponent translatableComponent) {
-                if (translatableComponent.fallback() == null) {
-                    return ComponentTarget.TRANSLATABLE_WITHOUT_FALLBACK;
-                }
-                return ComponentTarget.TRANSLATABLE;
-            } else if (adventureComponent instanceof net.kyori.adventure.text.ScoreComponent) {
-                return ComponentTarget.SCORE;
-            } else if (adventureComponent instanceof net.kyori.adventure.text.SelectorComponent) {
-                return ComponentTarget.SELECTOR;
-            } else if (adventureComponent instanceof net.kyori.adventure.text.KeybindComponent) {
-                return ComponentTarget.KEYBIND;
-            } else if (adventureComponent instanceof net.kyori.adventure.text.NBTComponent<?, ?>) {
-                if (adventureComponent instanceof net.kyori.adventure.text.BlockNBTComponent) {
-                    return ComponentTarget.NBT_BLOCK;
-                } else if (adventureComponent instanceof net.kyori.adventure.text.EntityNBTComponent) {
-                    return ComponentTarget.NBT_ENTITY;
-                } else if (adventureComponent instanceof net.kyori.adventure.text.StorageNBTComponent) {
-                    return ComponentTarget.NBT_STORAGE;
-                }
-                return ComponentTarget.NBT;
-            } else if (adventureComponent instanceof net.kyori.adventure.text.ObjectComponent objectComponent) {
-                net.kyori.adventure.text.object.ObjectContents objectContents = objectComponent.contents();
-                if (objectContents instanceof net.kyori.adventure.text.object.SpriteObjectContents) {
-                    return ComponentTarget.OBJECT_ATLAS;
-                } else if (objectContents instanceof net.kyori.adventure.text.object.PlayerHeadObjectContents) {
-                    return ComponentTarget.OBJECT_PLAYER;
-                }
-                return ComponentTarget.OBJECT;
-            }
         }
         return ComponentTarget.ALL;
     }
@@ -111,7 +70,8 @@ public final class ComponentTargetUtil {
      * @param b A {@link ComponentTarget}.
      * @return Whether target {@code a} implies target {@code b}.
      */
-    public static boolean implies(ComponentTarget a, ComponentTarget b) {
+    @Override
+    public boolean implies(ComponentTarget a, ComponentTarget b) {
         if (a == b) {
             return true;
         } else if (a == ComponentTarget.ALL) {
@@ -126,11 +86,13 @@ public final class ComponentTargetUtil {
         return false;
     }
 
-    public static List<ComponentTarget> expandTargets(Collection<ComponentTarget> targets) {
+    @Override
+    public List<ComponentTarget> expandTargets(Collection<ComponentTarget> targets) {
         return Arrays.stream(ComponentTarget.values()).filter(potentialTarget -> targets.stream().anyMatch(target -> implies(target, potentialTarget))).toList();
     }
 
-    public static ComponentTarget getByOrdinal(int ordinal) {
+    @Override
+    public ComponentTarget getByOrdinal(int ordinal) {
         return VALUES[ordinal];
     }
 

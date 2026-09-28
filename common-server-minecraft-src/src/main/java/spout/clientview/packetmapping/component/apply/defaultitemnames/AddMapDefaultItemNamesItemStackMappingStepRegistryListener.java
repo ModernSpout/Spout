@@ -1,4 +1,4 @@
-package spout.clientview.packetmapping.itemstack.builtin.mapdefaultitemnames;
+package spout.clientview.packetmapping.component.apply.defaultitemnames;
 
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.core.Registry;

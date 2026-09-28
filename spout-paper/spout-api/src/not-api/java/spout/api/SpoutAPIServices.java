@@ -3,7 +3,6 @@ package spout.api;
 import spout.api.gamecontent.datadriven.material.enuminjection.MaterialEnumNames;
 import spout.api.clientview.packetmapping.blockstate.resourcepackclaims.ResourcePackBlockStateClaims;
 import spout.api.util.minecraft.blockstate.visualduplicates.VisualDuplicates;
-import spout.server.paper.api.packetmapping.component.ComponentMappings;
 import spout.server.paper.api.packetmapping.component.translatable.ServerSideTranslations;
 import spout.api.clientview.packetmapping.itemstack.builtin.changeonlyitem.ChangeOnlyItemUtility;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstruction;
@@ -37,7 +36,6 @@ public final class SpoutAPIServices {
         }
     }
 
-    private static final ComponentMappings[] componentMappings = new ComponentMappings[1];
     private static final ChangeOnlyItemUtility[] changeOnlyItemUtility = new ChangeOnlyItemUtility[1];
     private static final MaterialByKeyLookup[] materialByKeyLookup = new MaterialByKeyLookup[1];
     private static final MaterialEnumNames[] materialEnumNames = new MaterialEnumNames[1];
@@ -46,10 +44,6 @@ public final class SpoutAPIServices {
     private static final ResourcePackConstruction[] resourcePackConstruction = new ResourcePackConstruction[1];
     private static final ServerSideTranslations[] serverSideTranslations = new ServerSideTranslations[1];
     private static final VisualDuplicates[] visualDuplicates = new VisualDuplicates[1];
-
-    public static ComponentMappings<?> getComponentMappings() {
-        return getOrInitialize(componentMappings, ComponentMappings.class);
-    }
 
     public static ChangeOnlyItemUtility getChangeOnlyItemUtility() {
         return getOrInitialize(changeOnlyItemUtility, ChangeOnlyItemUtility.class);

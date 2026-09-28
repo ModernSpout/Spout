@@ -12,7 +12,6 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.TranslatableComponent;
 import net.kyori.adventure.text.object.PlayerHeadObjectContents;
 import net.kyori.adventure.text.object.SpriteObjectContents;
-import spout.server.paper.api.packetmapping.component.ComponentMappingBuilder;
 
 /**
  * The different types of component that can be targeted by a {@link ComponentMapping}.

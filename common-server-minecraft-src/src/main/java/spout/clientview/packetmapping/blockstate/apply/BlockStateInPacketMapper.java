@@ -12,13 +12,13 @@ import spout.util.mapping.pipeline.PipelineMapper;
  */
 public final class BlockStateInPacketMapper implements FallbackContextValueInPacketMapper<BlockState, BlockState, BlockStateMappingsApplicationContext> {
 
-    private static BlockStateInPacketMapper INSTANCE;
+    private static BlockStateInPacketMapper instance;
 
     public static BlockStateInPacketMapper get() {
-        if (INSTANCE == null) {
-            INSTANCE = new BlockStateInPacketMapper();
+        if (instance == null) {
+            instance = new BlockStateInPacketMapper();
         }
-        return INSTANCE;
+        return instance;
     }
 
     @Override

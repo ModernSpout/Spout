@@ -119,6 +119,7 @@ public final class OptimizedItemStackMappings {
                     }
                 }
             });
+        // TODO invert and re-invert
         registered.forEach((key, mappings) -> {
             OptimizedItemStackMappings.mappings[key.firstInt()][key.secondInt()] = mappings.toArray(Consumer[]::new);
         });
