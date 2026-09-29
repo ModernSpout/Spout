@@ -1,5 +1,5 @@
 plugins {
-    id("net.fabricmc.fabric-loom")
+    id("net.neoforged.moddev")
     `maven-publish`
 }
 
@@ -7,23 +7,28 @@ version = providers.gradleProperty("mod_version").get()
 group = providers.gradleProperty("maven_group").get()
 
 base {
-    archivesName = providers.gradleProperty("archives_base_name").map { "$it-fabric" }
+    archivesName = providers.gradleProperty("archives_base_name").map { "$it-neoforge" }
 }
 
-loom {
-    splitEnvironmentSourceSets()
+repositories {
+    mavenCentral()
+}
+
+neoForge {
+    version = providers.gradleProperty("neoforge_version").get()
+
+    accessTransformers {
+        file("src/main/resources/META-INF/accesstransformer.cfg")
+    }
 
     mods {
         register("spoutcraft") {
             sourceSet(sourceSets.main.get())
-            sourceSet(sourceSets.getByName("client"))
         }
     }
-
-    accessWidenerPath = file("src/main/resources/spoutcraft.classtweaker")
 }
 
-sourceSets.getByName("client") {
+sourceSets.main {
     java.srcDir("../../common/src/main/java")
     java.srcDir("../../common/minecraft/src/main/java")
     java.srcDir("../common/src/main/java")
@@ -32,21 +37,11 @@ sourceSets.getByName("client") {
     resources.srcDir("../common/src/main/resources")
 }
 
-dependencies {
-    // To change the versions see the gradle.properties file
-    minecraft("com.mojang:minecraft:${providers.gradleProperty("minecraft_version").get()}")
-
-    implementation("net.fabricmc:fabric-loader:${providers.gradleProperty("loader_version").get()}")
-
-    // Fabric API. This is technically optional, but you probably want it anyway.
-    implementation("net.fabricmc.fabric-api:fabric-api:${providers.gradleProperty("fabric_api_version").get()}")
-}
-
 tasks.processResources {
     val version = version
     inputs.property("version", version)
 
-    filesMatching("fabric.mod.json") {
+    filesMatching("META-INF/neoforge.mods.toml") {
         expand("version" to version)
     }
 }
