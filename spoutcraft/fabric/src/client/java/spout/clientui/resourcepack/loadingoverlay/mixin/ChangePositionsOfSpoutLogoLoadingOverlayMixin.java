@@ -7,7 +7,7 @@ import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import spout.clientui.resourcepack.loadingoverlay.SpoutLogoIdentifier;
+import spout.clientui.resourcepack.loadingoverlay.SpoutLogo;
 
 /**
  * Redirect the two specific blit calls in render that draw {@link LoadingOverlay#MOJANG_STUDIOS_LOGO_LOCATION}.
@@ -57,7 +57,7 @@ public abstract class ChangePositionsOfSpoutLogoLoadingOverlayMixin {
         int textureWidth, int textureHeight,
         int color
     ) {
-        if (texture.equals(SpoutLogoIdentifier.IDENTIFIER)) {
+        if (texture.equals(SpoutLogo.IDENTIFIER)) {
             adjustedGraphicsBlit(graphics, renderPipeline, texture, color, 0);
         } else {
             graphics.blit(renderPipeline, texture, x, y, u, v, width, height, srcWidth, srcHeight, textureWidth, textureHeight, color);
@@ -83,7 +83,7 @@ public abstract class ChangePositionsOfSpoutLogoLoadingOverlayMixin {
         int textureWidth, int textureHeight,
         int color
     ) {
-        if (texture.equals(SpoutLogoIdentifier.IDENTIFIER)) {
+        if (texture.equals(SpoutLogo.IDENTIFIER)) {
             adjustedGraphicsBlit(graphics, renderPipeline, texture, color, 1);
         } else {
             graphics.blit(renderPipeline, texture, x, y, u, v, width, height, srcWidth, srcHeight, textureWidth, textureHeight, color);

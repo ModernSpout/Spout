@@ -8,12 +8,7 @@ package spout.clientview.clientmod.protocol;
  *     <li>{@link #HANDSHAKE_STARTED} -> {@link #CLIENT_MOD_NOT_DETECTED} - When the configuration phase starts without having received a client mod detection packet</li>
  *     <li>{@link #CLIENT_MOD_DETECTED} -> {@link #RECEIVED_CUSTOM_CONTENT} - When the custom content packet has been received</li>
  *     <li>{@link #RECEIVED_CUSTOM_CONTENT} -> {@link #ADDED_CUSTOM_CONTENT} - When the custom content packet has been processed</li>
- *     <li>{@link #IDLE} -> {@link #REMOVED_CUSTOM_CONTENT} - When the client is disconnecting and the custom content was never added</li>
- *     <li>{@link #HANDSHAKE_STARTED} -> {@link #REMOVED_CUSTOM_CONTENT} - When the client is disconnecting and the custom content was never added</li>
- *     <li>{@link #CLIENT_MOD_DETECTED} -> {@link #REMOVED_CUSTOM_CONTENT} - When the client is disconnecting and the custom content was never added</li>
- *     <li>{@link #CLIENT_MOD_NOT_DETECTED} -> {@link #REMOVED_CUSTOM_CONTENT} - When the client is disconnecting and the client mod was never detected</li>
- *     <li>{@link #ADDED_CUSTOM_CONTENT} -> {@link #REMOVED_CUSTOM_CONTENT} - When the client is disconnecting and the custom content has been removed</li>
- *     <li>{@link #REMOVED_CUSTOM_CONTENT} -> {@link #IDLE} - When the client has disconnected</li>
+ *     <li>Any state -> {@link #IDLE} - When the client disconnects</li>
  * </ul>
  */
 public enum ClientModState {
@@ -40,9 +35,5 @@ public enum ClientModState {
     /**
      * All custom content has been received and added (e.g. registered).
      */
-    ADDED_CUSTOM_CONTENT,
-    /**
-     * Received custom content has been removed, or we are disconnecting and it was never successfully added.
-     */
-    REMOVED_CUSTOM_CONTENT,
+    ADDED_CUSTOM_CONTENT
 }

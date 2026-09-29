@@ -48,7 +48,7 @@ public final class ClientModCustomContentReceiving {
             ClientModCustomContentPacketPayload.Element.Contents contents = element.getContents();
             switch (contents.getType()) {
                 case END -> {
-                    // Add the received content to registries
+                    // Add the received content to internal data structures
                     TemporaryRegistryModifiers.prepareToAddCustomContent();
                     TemporaryRegistryModifiers.addCustomContent(
                         () -> receivedContent.getBlocks().stream().map(keyedValue -> {
@@ -109,6 +109,13 @@ public final class ClientModCustomContentReceiving {
                     receivedContent.getBlockStateRegistryEntryIdLists().add(((ClientModCustomContentPacketPayload.Element.BlockStateRegistryEntryIdListContents) contents).value);
             }
         }
+    }
+
+    /**
+     * Clear the received content, to reclaim memory.
+     */
+    static void clear() {
+        receivedContent = null;
     }
 
 }

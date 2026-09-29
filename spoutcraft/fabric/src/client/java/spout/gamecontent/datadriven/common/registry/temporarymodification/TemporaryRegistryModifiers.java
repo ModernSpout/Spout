@@ -1,10 +1,13 @@
 package spout.gamecontent.datadriven.common.registry.temporarymodification;
 
 import it.unimi.dsi.fastutil.Pair;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
+import spout.gamecontent.datadriven.block.RemappedBlockStateRegistry;
 import spout.gamecontent.datadriven.block.TemporaryBlockRegistryModifier;
 import spout.gamecontent.datadriven.item.TemporaryItemRegistryModifier;
 import java.util.List;
@@ -49,7 +52,22 @@ public final class TemporaryRegistryModifiers {
         Supplier<List<Pair<ResourceKey<Item>, Supplier<Item>>>> items
     ) {
         initializeIfNecessary();
-        blockRegistryModifier.addAndRefreeze(blocks.get());
+        // Add blocks
+        var blocksToAdd = blocks.get();
+        blockRegistryModifier.addAndRefreeze(blocksToAdd);
+        // Initialize and add block states
+        RemappedBlockStateRegistry blockStateRegistry =
+            (RemappedBlockStateRegistry) Block.BLOCK_STATE_REGISTRY;
+        for (var blockToAdd : blocksToAdd) {
+            Block block = BuiltInRegistries.BLOCK.get(blockToAdd.first().identifier()).orElseThrow().value();
+            for (BlockState state : block.getStateDefinition().getPossibleStates()) {
+                state.initCache();
+                if (blockStateRegistry.getIdUnmapped(state) == -1) {
+                    Block.BLOCK_STATE_REGISTRY.add(state);
+                }
+            }
+        }
+        // Add items
         itemRegistryModifier.addAndRefreeze(items.get());
     }
 

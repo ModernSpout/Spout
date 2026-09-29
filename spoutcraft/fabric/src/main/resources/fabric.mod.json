@@ -3,25 +3,17 @@
   "id": "spoutcraft",
   "version": "${version}",
   "name": "Spoutcraft",
-  "description": "Automatically downloads and install modded content when joining Spout servers",
+  "description": "Automatically downloads and installs modded content when joining Spout servers",
   "authors": [
     "Martijn Muijsers",
     "Spoutcraft authors and contributors"
   ],
   "contact": {
-    "sources": "https://github.com/ModernSpout/Spoutcraft"
+    "sources": "https://github.com/ModernSpout/Spout"
   },
   "license": "See the included LICENSE.txt",
   "icon": "assets/spout/icon.png",
   "environment": "*",
-  "entrypoints": {
-    "main": [
-      "spout.main.SpoutcraftModInitializer"
-    ],
-    "client": [
-      "spout.main.SpoutcraftClientModInitializer"
-    ]
-  },
   "accessWidener": "spoutcraft.classtweaker",
   "mixins": [
     {
@@ -76,7 +68,6 @@
   "depends": {
     "fabricloader": ">=0.19.2",
     "minecraft": "~26.1.2",
-    "java": ">=25",
-    "fabric-api": "*"
+    "java": ">=25"
   }
 }

@@ -31,7 +31,7 @@ public final class SwitchOverlayStyle {
         if (mojangIdentifier == null) {
             mojangIdentifier = LoadingOverlayLogoLocationAccessor.getMojangStudiosLogoLocation();
         }
-        LoadingOverlayLogoLocationAccessor.setMojangStudiosLogoLocation(SpoutLogoIdentifier.IDENTIFIER);
+        LoadingOverlayLogoLocationAccessor.setMojangStudiosLogoLocation(SpoutLogo.IDENTIFIER);
         isSpout = true;
     }
 

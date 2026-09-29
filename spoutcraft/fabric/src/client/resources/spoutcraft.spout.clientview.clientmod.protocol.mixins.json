@@ -4,7 +4,13 @@
   "compatibilityLevel": "JAVA_25",
   "client": [
     "AllowSpoutServerPacksMixin",
-    "ClientCommonPacketListenerImplAccessor"
+    "ClientCommonPacketListenerImplAccessor",
+    "ClientCommonPacketListenerImplMixin",
+    "ClientConfigurationPacketListenerImplMixin",
+    "ClientHandshakePacketListenerImplMixin",
+    "ClientPacketListenerMixin",
+    "ClientboundCustomQueryPacketMixin",
+    "CustomPacketPayloadCodecMixin"
   ],
   "injectors": {
     "defaultRequire": 1
