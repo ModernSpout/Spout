@@ -4,13 +4,21 @@ pluginManagement {
             name = "Fabric"
             url = uri("https://maven.fabricmc.net/")
         }
+        maven {
+            name = "NeoForge"
+            url = uri("https://maven.neoforged.net/releases/")
+        }
         mavenCentral()
         gradlePluginPortal()
     }
 
     plugins {
         id("net.fabricmc.fabric-loom") version providers.gradleProperty("loom_version")
+        id("net.neoforged.moddev") version providers.gradleProperty("moddevgradle_version")
     }
 }
 
-rootProject.name = "spoutcraft-mod"
+rootProject.name = "spoutcraft"
+
+include("fabric")
+include("neoforge")

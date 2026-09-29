@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "spoutcraft-mod",
+  "id": "spoutcraft",
   "version": "${version}",
   "name": "Spoutcraft",
   "description": "Automatically downloads and install modded content when joining Spout servers",

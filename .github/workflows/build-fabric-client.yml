@@ -25,11 +25,11 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
       - name: Build
-        run: ./gradlew :spoutcraft-fabric:build
+        run: ./gradlew :spoutcraft-multiloader:fabric:build
       - name: Install AdvanceCOMP (for advzip)
         run: sudo apt-get update && sudo apt-get install -y advancecomp
       - name: Compress
-        run: ./gradlew :spoutcraft-fabric:recompressJar
+        run: ./gradlew :spoutcraft:fabric:recompressJar
       - name: Upload JAR
         uses: actions/upload-artifact@v7
         with:

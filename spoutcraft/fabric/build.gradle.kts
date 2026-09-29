@@ -7,7 +7,7 @@ version = providers.gradleProperty("mod_version").get()
 group = providers.gradleProperty("maven_group").get()
 
 base {
-	archivesName = providers.gradleProperty("archives_base_name")
+	archivesName = providers.gradleProperty("archives_base_name").map { "$it-fabric" }
 }
 
 repositories {
@@ -22,7 +22,7 @@ loom {
 	splitEnvironmentSourceSets()
 
 	mods {
-		register("spoutcraft-mod") {
+		register("spoutcraft") {
 			sourceSet(sourceSets.main.get())
 			sourceSet(sourceSets.getByName("client"))
 		}
@@ -80,7 +80,7 @@ tasks.jar {
 	inputs.property("archivesName", archivesName)
 	inputs.property("projectName", projectName)
 
-	from("LICENSE.md") {
+    from(rootProject.file("../LICENSE.md")) {
 		rename { "${it}_${projectName}" }
 	}
 
