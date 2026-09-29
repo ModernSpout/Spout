@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Publishes the dev bundle and refreshes it as a dependency of the test plugin (in IntelliJ, right-click -> Run 'refreshTestPluginDevBundle')
+
+./publishDevBundleToMavenLocal
+cd ../../..
+./gradlew :spout-paper:test-plugin:cleanAllPaperweightUserdevCaches
+./gradlew :spout-paper:test-plugin:paperweightUserdevSetup
+cd spout/paper/gradle-bin

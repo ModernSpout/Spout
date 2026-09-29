@@ -1,0 +1,259 @@
+--- a/paper-server/build.gradle.kts
++++ b/paper-server/build.gradle.kts
+@@ -1,14 +_,17 @@
+-import io.papermc.fill.model.BuildChannel
++// import io.papermc.fill.model.BuildChannel // Spout - Project setup - Remove Fill
+ import io.papermc.paperweight.attribute.DevBundleOutput
+ import io.papermc.paperweight.util.*
+ import java.time.Instant
++import kotlin.io.path.deleteRecursively
++import kotlin.io.path.readLines
++import kotlin.io.path.writeLines
+ 
+ plugins {
+     `java-library`
+     `maven-publish`
+     idea
+     id("io.papermc.paperweight.core")
+-    id("io.papermc.fill.gradle") version "1.0.11"
++    // id("io.papermc.fill.gradle") version "1.0.11" // Spout - Project setup - Remove Fill
+ }
+ 
+ val paperMavenPublicUrl = "https://repo.papermc.io/repository/maven-public/"
+@@ -22,6 +_,18 @@
+     minecraftVersion = providers.gradleProperty("mcVersion")
+     gitFilePatches = false
+ 
++    // Spout start - Project setup - Set up Paperweight
++    val spout = forks.register("spout") {
++        upstream.patchDir("paperServer") {
++            upstreamPath = "paper-server"
++            excludes = setOf("src/minecraft", "patches", "build.gradle.kts")
++            patchesDir = rootDirectory.dir("spout-server/paper-patches")
++            outputDir = rootDirectory.dir("paper-server")
++        }
++    }
++    activeFork = spout
++    // Spout end - Project setup - Set up Paperweight
++
+     updatingMinecraft {
+         // oldPaperCommit = "711c5de2b05df39b72c44ff54e9f9381f8d153cb"
+     }
+@@ -86,7 +_,33 @@
+     }
+ }
+ 
+-val log4jPlugins = sourceSets.create("log4jPlugins")
++// Spout start - Project setup - Set project directory references
++sourceSets {
++    main {
++        java { srcDir("../paper-server/src/main/java") }
++        resources { srcDir("../paper-server/src/main/resources") }
++    }
++    main {
++        java.srcDir("../../../common/src/main/java")
++        java.srcDir("../../../common/minecraft/src/main/java")
++        java.srcDir("../../common/src/main/java")
++        java.srcDir(file("src/api/java"))
++        java.srcDir(file("src/api-impl/java"))
++        resources.srcDir("../../../common/src/main/resources")
++        resources.srcDir("../../../common/minecraft/src/main/resources")
++        resources.srcDir("../../common/src/main/resources")
++        resources.srcDir(file("src/api/resources"))
++        resources.srcDir(file("src/api-impl/resources"))
++    }
++    test {
++        java { srcDir("../paper-server/src/test/java") }
++        resources { srcDir("../paper-server/src/test/resources") }
++    }
++}
++val log4jPlugins = sourceSets.create("log4jPlugins", Action {
++    java { srcDir("../paper-server/src/log4jPlugins/java") }
++})
++// Spout end - Project setup - Set project directory references
+ configurations.named(log4jPlugins.compileClasspathConfigurationName) {
+     extendsFrom(configurations.compileClasspath.get())
+ }
+@@ -109,7 +_,7 @@
+ }
+ 
+ dependencies {
+-    implementation(project(":paper-api"))
++    implementation(project(":spout-api")) // Spout - Project setup - Set up Gradle project
+     implementation("ca.spottedleaf:concurrentutil:0.0.10")
+     implementation("org.jline:jline-terminal-ffm:3.27.1") // use ffm on java 22+
+     implementation("org.jline:jline-terminal-jni:3.27.1") // fall back to jni on java 21
+@@ -159,26 +_,37 @@
+     implementation("me.lucko:spark-paper:1.10.152")
+ }
+ 
++// Spout start - Project setup - Explicitly include specific files that appear multiple times in sources
++tasks.processResources {
++    filesMatching("META-INF/services/spout.gamecontent.datadriven.common.registry.bootstrap.SpoutBuiltInDataDrivenRegistryBootstrap\$Provider") {
++        duplicatesStrategy = DuplicatesStrategy.INCLUDE
++    }
++}
++// Spout end - Project setup - Explicitly include specific files that appear multiple times in sources
++
+ tasks.jar {
+     manifest {
+         val git = Git(rootProject.layout.projectDirectory.path)
+         val mcVersion = rootProject.providers.gradleProperty("mcVersion").get()
+         val build = System.getenv("BUILD_NUMBER") ?: null
+-        val buildTime = providers.environmentVariable("BUILD_STARTED_AT").map(Instant::parse).orElse(Instant.EPOCH).get()
++        val buildTime = if (build != null) Instant.now() else Instant.EPOCH // Purpur
+         val gitHash = git.exec(providers, "rev-parse", "--short=7", "HEAD").get().trim()
+         val implementationVersion = "$mcVersion-${build ?: "DEV"}-$gitHash"
+         val date = git.exec(providers, "show", "-s", "--format=%ci", gitHash).get().trim()
+         val gitBranch = git.exec(providers, "rev-parse", "--abbrev-ref", "HEAD").get().trim()
+         attributes(
+             "Main-Class" to "org.bukkit.craftbukkit.Main",
+-            "Implementation-Title" to "Paper",
++            "Add-Opens" to "java.base/java.lang", // Spout - Synchronize Bukkit enums - Add module opens to server JAR
++            "Enable-Final-Field-Mutation" to "ALL-UNNAMED", // Spout - Synchronize Bukkit enums - Add enable final field mutation to server JAR
++            "Implementation-Title" to "Spout", // Spout - Branding changes - Rename server brand
+             "Implementation-Version" to implementationVersion,
+-            "Implementation-Vendor" to date,
+-            "Specification-Title" to "Paper",
++            "Implementation-Build-Date" to date, // Spout - Project setup - Include Git date as "Implementation-Build-Date"
++            "Implementation-Vendor" to "Spout authors & contributors", // Spout - Branding changes - Rename server brand
++            "Specification-Title" to "Spout", // Spout - Branding changes - Rename server brand
+             "Specification-Version" to project.version,
+-            "Specification-Vendor" to "Paper Team",
+-            "Brand-Id" to "papermc:paper",
+-            "Brand-Name" to "Paper",
++            "Specification-Vendor" to "Spout authors & contributors", // Spout - Branding changes - Rename server brand
++            "Brand-Id" to "spout:spout-paper-server", // Spout - Branding changes - Rename server brand
++            "Brand-Name" to "Spout", // Spout - Branding changes - Rename server brand
+             "Build-Number" to (build ?: ""),
+             "Build-Time" to buildTime.toString(),
+             "Git-Branch" to gitBranch,
+@@ -237,7 +_,10 @@
+     jvmArgumentProviders.add(provider)
+ }
+ 
+-val generatedDir: java.nio.file.Path = layout.projectDirectory.dir("src/generated/java").asFile.toPath()
++// Spout start - Project setup - Set project directory references
++val generatedDir: java.nio.file.Path =
++    layout.projectDirectory.dir("../paper-server/src/generated/java").asFile.toPath()
++// Spout end - Project setup - Set project directory references
+ idea {
+     module {
+         generatedSourceDirs.add(generatedDir.toFile())
+@@ -267,6 +_,10 @@
+         // vendor.set(JvmVendorSpec.JETBRAINS)
+     })
+     //jvmArgs("-XX:+AllowEnhancedClassRedefinition")
++    jvmArgs("--add-opens", "java.base/java.lang=ALL-UNNAMED") // Spout - Synchronize Bukkit enums - Add module opens to dev server runs
++    // jvmArgs("--enable-final-field-mutation", "ALL-UNNAMED") // Spout - Synchronize Bukkit enums - Add enable final field mutation to dev server runs
++    jvmArgs("-Dcom.mojang.eula.agree=true") // Spout - Accept EULA for dev server runs
++    jvmArgs("-Dspout.server.paper.enabled=true") // Spout - Confirm permanence - Ignore for dev server runs
+ 
+     if (rootProject.childProjects["test-plugin"] != null) {
+         val testPluginJar = rootProject.project(":test-plugin").tasks.jar.flatMap { it.archiveFile }
+@@ -315,6 +_,21 @@
+     mainClass.set(null as String?)
+ }
+ 
++// Spout start - Project setup - Hide annoying compilation warnings
++tasks.withType<JavaCompile> {
++    options.compilerArgs.addAll(
++        listOf(
++            "-Xlint:-dep-ann",
++            "-Xlint:-deprecation",
++            "-Xlint:-module",
++            "-Xlint:-removal",
++        )
++    )
++}
++// Spout end - Project setup - Hide annoying compilation warnings
++
++// Spout start - Project setup - Remove Fill
++/*
+ fill {
+     project("paper")
+     versionFamily(paperweight.minecraftVersion.map { it.split(".", "-").takeWhile { part -> part.toIntOrNull() != null }.take(2).joinToString(".") })
+@@ -331,3 +_,83 @@
+         }
+     }
+ }
++*/
++// Spout end - Project setup - Remove Fill
++
++// Spout start - Synchronize Bukkit enums - Add module opens and enable final field mutation to server JAR
++val extendedManifestLines: List<String> = listOf(
++    "Add-Opens" to "java.base/java.lang",
++    "Enable-Final-Field-Mutation" to "ALL-UNNAMED"
++).map { "${it.first}: ${it.second}" }
++
++if (extendedManifestLines.isNotEmpty()) {
++    tasks.named<io.papermc.paperweight.tasks.CreateBundlerJar>("createBundlerJar") {
++        var resultPath = outputZip.get().asFile.toPath()
++        doLast {
++
++            val tempUnpackDir = findOutputDir(resultPath)
++
++            try {
++                unzip(resultPath, tempUnpackDir)
++
++                val manifestFile = tempUnpackDir.resolve("META-INF/MANIFEST.MF")
++                val lines = ArrayList(manifestFile.readLines())
++                val extendedManifestLinesToAdd = extendedManifestLines.filter { it !in lines }
++                if (extendedManifestLinesToAdd.isNotEmpty()) {
++                    val mainClassLineIndex = lines.indexOfFirst { line -> line.startsWith("Main-Class:") }
++                    if (mainClassLineIndex != -1) {
++                        lines.addAll(mainClassLineIndex + 1, extendedManifestLinesToAdd)
++                        manifestFile.writeLines(lines)
++
++                        ensureDeleted(resultPath)
++                        zip(tempUnpackDir, resultPath)
++                    }
++                }
++            } finally {
++                @OptIn(kotlin.io.path.ExperimentalPathApi::class)
++                tempUnpackDir.deleteRecursively()
++            }
++
++        }
++    }
++}
++// Spout end - Synchronize Bukkit enums - Add module opens and enable final field mutation to server JAR
++
++// Spout start - Built-in content - Include Fabric API conventional tags
++val fabricApiCloneDir: Provider<Directory> = layout.buildDirectory.dir("tmp/fabric-api")
++val cloneFabricApi by tasks.registering(Exec::class) {
++    group = "fabric conventional tags"
++    description = "Clones Fabric API into a temporary build directory"
++    val cloneDir = fabricApiCloneDir.get().asFile
++    doFirst {
++        // Always start fresh
++        delete(cloneDir)
++        cloneDir.parentFile.mkdirs()
++    }
++    commandLine(
++        "git",
++        "clone",
++        "--depth", "1", // Avoid cloning full history
++        "https://github.com/FabricMC/fabric-api.git",
++        cloneDir.absolutePath
++    )
++}
++val importFabricConventionTags by tasks.registering(Sync::class) {
++    group = "fabric conventional tags"
++    description = "Synchronizes Fabric conventional tags into this project"
++    dependsOn(cloneFabricApi)
++    val cloneDir = fabricApiCloneDir.get().asFile
++    val sourceDir = cloneDir.resolve(
++        "fabric-convention-tags-v2/src/generated/resources/data/c/tags"
++    )
++    val targetDir = layout.projectDirectory.dir(
++        "src/main/resources/data/minecraft/datapacks/spout/data/c/tags"
++    )
++    from(sourceDir)
++    into(targetDir)
++    doFirst {
++        // Ensure previous contents are completely removed
++        delete(targetDir)
++    }
++}
++// Spout end - Built-in content - Include Fabric API conventional tags

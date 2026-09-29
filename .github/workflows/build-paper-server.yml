@@ -37,7 +37,7 @@ jobs:
       - name: Build JAR
         run: ./gradlew :spout-paper:spout-server:createPaperclipJar --stacktrace
       - name: Rename and move JAR
-        run: mv spout-paper/spout-server/build/libs/spout-paperclip-*.jar spout-$(basename spout-paper/spout-server/build/libs/spout-paperclip-*.jar | sed -E 's/^spout-paperclip-(.*)\.jar$/\1/').jar
+        run: mv spout/paper/spout-server/build/libs/spout-paperclip-*.jar spout-$(basename spout/paper/spout-server/build/libs/spout-paperclip-*.jar | sed -E 's/^spout-paperclip-(.*)\.jar$/\1/').jar
       - name: Upload JAR
         uses: actions/upload-artifact@v7
         with:

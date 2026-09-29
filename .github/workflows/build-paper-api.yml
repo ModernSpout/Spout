@@ -41,5 +41,5 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: Spout API JAR
-          path: spout-paper/spout-api/build/libs/spout-api-*.jar
+          path: spout/paper/spout-api/build/libs/spout-api-*.jar
           archive: false

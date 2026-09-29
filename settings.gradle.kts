@@ -1,5 +1,5 @@
 rootProject.name = "spout-monorepo"
 
-includeBuild("spout-fabric")
-includeBuild("spout-paper")
-includeBuild("spoutcraft-fabric")
+includeBuild("spout/fabric") { name = "spout-fabric" }
+includeBuild("spout/paper") { name = "spout-paper"}
+includeBuild("spoutcraft/fabric") { name = "spout-craft-fabric" }

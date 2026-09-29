@@ -35,6 +35,6 @@ jobs:
         with:
           name: Spoutcraft JAR
           path: |
-            spoutcraft-fabric/build/libs/spoutcraft-*.jar
-            !spoutcraft-fabric/build/libs/spoutcraft-*-sources.jar
+            spoutcraft/fabric/build/libs/spoutcraft-*.jar
+            !spoutcraft/fabric/build/libs/spoutcraft-*-sources.jar
           archive: false

@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# Applies all patches (in IntelliJ, right-click -> Run 'apply')
-
-cd ../..
-find . -name '.DS_Store' -type f -delete
-./gradlew :spout-paper:applyAllPatches
-cd spout-paper/gradle-bin

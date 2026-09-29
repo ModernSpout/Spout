@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# Runs the dev server after deleting session lock files (in IntelliJ, right-click -> Run 'runDevServerWithoutSessionLocks')
-
-./deleteDevServerSessionLocks
-cd ../..
-./gradlew :spout-paper:spout-server:runDevServer
-cd spout-paper/gradle-bin
