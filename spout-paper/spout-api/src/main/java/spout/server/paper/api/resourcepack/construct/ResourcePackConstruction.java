@@ -4,7 +4,7 @@ import io.papermc.paper.plugin.bootstrap.BootstrapContext;
 import io.papermc.paper.plugin.lifecycle.event.handler.configuration.PrioritizedLifecycleEventHandlerConfiguration;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEventType;
 import spout.api.SpoutAPIServices;
-import spout.util.composable.Composable;
+import spout.api.util.composable.Composable;
 
 /**
  * A service to construct the Spout server resource pack.

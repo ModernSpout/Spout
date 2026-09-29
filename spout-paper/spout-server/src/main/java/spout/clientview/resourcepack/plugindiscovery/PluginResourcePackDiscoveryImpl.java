@@ -12,7 +12,7 @@ import spout.server.paper.api.resourcepack.content.Lang;
 import spout.api.clientview.resourcepack.plugindiscovery.PluginResourcePackDiscoverEvent;
 import spout.api.clientview.resourcepack.plugindiscovery.PluginResourcePackDiscovery;
 import spout.util.minecraft.locale.MinecraftLocaleUtil;
-import spout.server.paper.impl.util.composable.ComposableImpl;
+import spout.api.util.composable.ComposableImpl;
 import org.jspecify.annotations.Nullable;
 import java.io.InputStream;
 import java.io.InputStreamReader;

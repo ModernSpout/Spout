@@ -1,7 +1,7 @@
 package spout.api.clientview.resourcepack.plugindiscovery;
 
 import spout.api.SpoutAPIServices;
-import spout.util.composable.Composable;
+import spout.api.util.composable.Composable;
 
 /**
  * A service to discover Spout plugin resource pack content.

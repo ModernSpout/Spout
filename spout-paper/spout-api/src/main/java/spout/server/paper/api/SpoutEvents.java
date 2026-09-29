@@ -5,12 +5,8 @@ import io.papermc.paper.plugin.lifecycle.event.handler.configuration.Prioritized
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEventType;
 import io.papermc.paper.registry.event.RegistryComposeEvent;
 import io.papermc.paper.registry.event.RegistryEvents;
-import org.apache.commons.lang3.tuple.Triple;
-import org.bukkit.NamespacedKey;
 import org.bukkit.block.BlockType;
 import org.bukkit.inventory.ItemType;
-import spout.api.gamecontent.datadriven.common.enuminjection.BukkitEnumNamesComposeEvent;
-import spout.api.gamecontent.datadriven.material.enuminjection.MaterialEnumNames;
 import spout.api.gamecontent.datadriven.block.registry.BlockTypeRegistryEntry;
 import spout.api.gamecontent.datadriven.item.registry.ItemTypeRegistryEntry;
 import spout.api.gamecontent.datadriven.blocktype.registry.BlockTypeTypeRegistryEntry;
@@ -20,8 +16,7 @@ import spout.server.paper.api.resourcepack.construct.ResourcePackConstructFinish
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstruction;
 import spout.api.clientview.resourcepack.plugindiscovery.PluginResourcePackDiscoverEvent;
 import spout.api.clientview.resourcepack.plugindiscovery.PluginResourcePackDiscovery;
-import spout.util.composable.ComposableEventType;
-import org.jspecify.annotations.Nullable;
+import spout.api.util.composable.ComposableEventType;
 
 /**
  * A convenience class providing links to the different Spout {@link LifecycleEventType}s.
@@ -40,6 +35,5 @@ public final class SpoutEvents {
     public static final ComposableEventType<PluginResourcePackDiscoverEvent> PLUGIN_RESOURCE_PACK_DISCOVERY = PluginResourcePackDiscovery.get().compose();
     public static final ComposableEventType<ResourcePackConstructEvent> RESOURCE_PACK_CONSTRUCT = ResourcePackConstruction.get().compose();
     public static final LifecycleEventType<BootstrapContext, ResourcePackConstructFinishEvent, PrioritizedLifecycleEventHandlerConfiguration<BootstrapContext>> RESOURCE_PACK_CONSTRUCT_FINISH = ResourcePackConstruction.get().finish();
-    public static final ComposableEventType<BukkitEnumNamesComposeEvent<Triple<NamespacedKey, @Nullable BlockType, @Nullable ItemType>>> MATERIAL_ENUM_NAME = MaterialEnumNames.get().compose();
 
 }

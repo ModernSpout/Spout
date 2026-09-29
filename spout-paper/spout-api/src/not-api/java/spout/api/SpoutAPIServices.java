@@ -1,6 +1,5 @@
 package spout.api;
 
-import spout.api.gamecontent.datadriven.material.enuminjection.MaterialEnumNames;
 import spout.api.clientview.packetmapping.blockstate.resourcepackclaims.ResourcePackBlockStateClaims;
 import spout.api.util.minecraft.blockstate.visualduplicates.VisualDuplicates;
 import spout.api.gamecontent.datadriven.serversidetranslation.apply.ServersideTranslations;
@@ -38,7 +37,6 @@ public final class SpoutAPIServices {
 
     private static final ChangeOnlyItemUtility[] changeOnlyItemUtility = new ChangeOnlyItemUtility[1];
     private static final MaterialByKeyLookup[] materialByKeyLookup = new MaterialByKeyLookup[1];
-    private static final MaterialEnumNames[] materialEnumNames = new MaterialEnumNames[1];
     private static final PluginResourcePackDiscovery[] pluginResourcePackDiscovery = new PluginResourcePackDiscovery[1];
     private static final ResourcePackBlockStateClaims[] resourcePackBlockStateClaims = new ResourcePackBlockStateClaims[1];
     private static final ResourcePackConstruction[] resourcePackConstruction = new ResourcePackConstruction[1];
@@ -51,10 +49,6 @@ public final class SpoutAPIServices {
 
     public static MaterialByKeyLookup getMaterialByKeyLookup() {
         return getOrInitialize(materialByKeyLookup, MaterialByKeyLookup.class);
-    }
-
-    public static MaterialEnumNames getMaterialEnumNames() {
-        return getOrInitialize(materialEnumNames, MaterialEnumNames.class);
     }
 
     public static PluginResourcePackDiscovery getPluginResourcePackDiscovery() {

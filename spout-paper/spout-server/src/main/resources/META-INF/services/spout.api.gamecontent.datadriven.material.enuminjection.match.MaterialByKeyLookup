@@ -1,1 +1,1 @@
-spout.server.paper.impl.bukkit.enuminjection.material.match.MaterialByKeyLookupImpl
+spout.api.gamecontent.datadriven.material.enuminjection.match.MaterialByKeyLookupImpl

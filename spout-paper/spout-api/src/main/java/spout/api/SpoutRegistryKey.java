@@ -2,12 +2,19 @@ package spout.api;
 
 import io.papermc.paper.registry.RegistryKey;
 import io.papermc.paper.registry.RegistryKeyImpl;
+import org.apache.commons.lang3.tuple.Triple;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.block.BlockType;
+import org.bukkit.inventory.ItemType;
+import org.jspecify.annotations.Nullable;
 import spout.api.clientview.model.awarenesslevel.AwarenessLevel;
 import spout.api.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.api.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType;
 import spout.api.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.api.clientview.packetmapping.component.ComponentMapping;
 import spout.api.clientview.packetmapping.itemstack.ItemStackMapping;
+import spout.api.gamecontent.datadriven.common.enuminjection.rewrite.EnumNameRewriter;
 import spout.api.gamecontent.datadriven.serversidetranslation.ServersideTranslation;
 import spout.branding.SpoutNamespace;
 
@@ -19,6 +26,11 @@ public final class SpoutRegistryKey {
     private SpoutRegistryKey() {
         throw new UnsupportedOperationException();
     }
+
+    /**
+     * Data-driven registry for {@link Material#name()} rewriters.
+     */
+    public static final RegistryKey<EnumNameRewriter<Triple<NamespacedKey, @Nullable BlockType, @Nullable ItemType>>> MATERIAL_NAME_REWRITER = RegistryKeyImpl.create(SpoutNamespace.SPOUT + ":material_name_rewriter");
 
     /**
      * Data-driven registry for server-side translations.

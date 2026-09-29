@@ -2,10 +2,11 @@ package spout.api.clientview.packetmapping.component.handle;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import spout.api.util.mapping.handle.ProxyMutableMappingHandleImpl;
+import spout.api.util.mapping.handle.ProxyWithContextMutableMappingHandleImpl;
+import spout.clientview.packetmapping.component.apply.ComponentMappingHandle;
 import spout.clientview.packetmapping.component.apply.ComponentMappingsApplicationContext;
 
-public final class ComponentMappingHandleNMSImpl extends ProxyMutableMappingHandleImpl<Component, MutableComponent, ComponentMappingContext, ComponentMappingsApplicationContext, spout.clientview.packetmapping.component.apply.ComponentMappingHandle> implements ComponentMappingHandleNMS {
+public final class ComponentMappingHandleNMSImpl extends ProxyWithContextMutableMappingHandleImpl<Component, MutableComponent, ComponentMappingContext, ComponentMappingsApplicationContext, ComponentMappingHandle> implements ComponentMappingHandleNMS {
 
     public ComponentMappingHandleNMSImpl(spout.clientview.packetmapping.component.apply.ComponentMappingHandle handle) {
         super(handle);
