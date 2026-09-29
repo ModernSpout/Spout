@@ -20,7 +20,7 @@ public final class ItemStackMappingRegistryKey {
     }
 
     /**
-     * Key for the block state mapping registry.
+     * Key for the item stack mapping registry.
      */
     public static final ResourceKey<Registry<ItemStackMapping>> ITEM_STACK_MAPPING = RegistryKeyUtil.createWithSpoutNamespace("item_stack_mapping");
 

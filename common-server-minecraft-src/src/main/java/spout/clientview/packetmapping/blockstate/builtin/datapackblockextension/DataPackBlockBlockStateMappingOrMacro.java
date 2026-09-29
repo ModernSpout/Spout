@@ -1,4 +1,4 @@
-package spout.clientview.packetmapping.blockstate.datapackblockextension;
+package spout.clientview.packetmapping.blockstate.builtin.datapackblockextension;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
@@ -9,7 +9,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.MapLike;
 import net.minecraft.core.Registry;
 import net.minecraft.core.WritableRegistry;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import spout.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.clientview.packetmapping.blockstate.decodingcontext.BlockStateMappingDecodingContextBlock;

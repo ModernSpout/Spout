@@ -11,6 +11,8 @@ import spout.api.clientview.packetmapping.component.ComponentMapping;
 import spout.api.clientview.packetmapping.component.registry.ComponentMappingRegistryEntry;
 import spout.api.clientview.packetmapping.itemstack.ItemStackMapping;
 import spout.api.clientview.packetmapping.itemstack.registry.ItemStackMappingRegistryEntry;
+import spout.api.gamecontent.datadriven.serversidetranslation.ServersideTranslation;
+import spout.api.gamecontent.datadriven.serversidetranslation.registry.ServersideTranslationRegistryEntry;
 
 /**
  * Analogous to {@link RegistryEvents}.
@@ -20,6 +22,11 @@ public final class SpoutRegistryEvents {
     private SpoutRegistryEvents() {
         throw new UnsupportedOperationException();
     }
+
+    /**
+     * Events for {@link SpoutRegistryKey#SERVERSIDE_TRANSLATION}.
+     */
+    public static final RegistryEventProvider<ServersideTranslation, ServersideTranslationRegistryEntry.Builder> SERVERSIDE_TRANSLATION = RegistryEventProviderImpl.create(SpoutRegistryKey.SERVERSIDE_TRANSLATION);
 
     /**
      * Events for {@link SpoutRegistryKey#COMPONENT_MAPPING}.

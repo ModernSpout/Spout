@@ -1,4 +1,4 @@
-package spout.clientview.packetmapping.itemstack.datapackitemextension;
+package spout.clientview.packetmapping.itemstack.builtin.datapackitemextension;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
@@ -8,7 +8,6 @@ import com.mojang.serialization.DynamicOps;
 import java.util.List;
 import net.minecraft.core.Registry;
 import net.minecraft.core.WritableRegistry;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import spout.clientview.packetmapping.blockstate.macro.processor.BlockStateMappingMacroProcessor;
 import spout.clientview.packetmapping.itemstack.ItemStackMapping;

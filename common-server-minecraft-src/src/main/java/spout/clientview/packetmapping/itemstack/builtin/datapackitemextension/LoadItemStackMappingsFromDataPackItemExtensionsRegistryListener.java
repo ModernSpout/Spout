@@ -1,4 +1,4 @@
-package spout.clientview.packetmapping.itemstack.datapackitemextension;
+package spout.clientview.packetmapping.itemstack.builtin.datapackitemextension;
 
 import it.unimi.dsi.fastutil.Pair;
 import java.util.List;

@@ -1,4 +1,4 @@
-package spout.clientview.packetmapping.component.builtin.serversidetranslations;
+package spout.gamecontent.datadriven.serversidetranslation.apply.packetmapping;
 
 import it.unimi.dsi.fastutil.Pair;
 import java.util.Arrays;
@@ -14,7 +14,7 @@ import spout.clientview.packetmapping.component.ComponentTarget;
 import spout.clientview.packetmapping.component.registry.ComponentMappingRegistryKey;
 import spout.util.minecraft.registry.SpoutRegistryHookEvents;
 
-public final class AddServerSideTranslationsComponentMappingStepRegistryListener implements SpoutRegistryHookEvents.Listener<ComponentMapping> {
+public final class AddServersideTranslationsComponentMappingStepRegistryListener implements SpoutRegistryHookEvents.Listener<ComponentMapping> {
 
     @Override
     public Iterable<Pair<ResourceKey<Registry<ComponentMapping>>, SpoutRegistryHookEvents.EventType>> getRegistryHookEventsToListenFor() {
@@ -25,11 +25,11 @@ public final class AddServerSideTranslationsComponentMappingStepRegistryListener
     public void onRegistryHookEvent(final SpoutRegistryHookEvents.EventType type, final WritableRegistry<ComponentMapping> registry) {
         Registry.register(
             registry,
-            Identifier.fromNamespaceAndPath(SpoutNamespace.SPOUT, "server_side_translations"),
+            Identifier.fromNamespaceAndPath(SpoutNamespace.SPOUT, "serverside_translations"),
             new ComponentMapping(
                 Arrays.asList(AwarenessLevels.getThatDoNotAlwaysUnderstandsAllServerSideTranslatables()),
                 List.of(ComponentTarget.TRANSLATABLE),
-                new ServerSideTranslationsComponentMappingStep()
+                new ServersideTranslationsComponentMappingStep()
             )
         );
     }

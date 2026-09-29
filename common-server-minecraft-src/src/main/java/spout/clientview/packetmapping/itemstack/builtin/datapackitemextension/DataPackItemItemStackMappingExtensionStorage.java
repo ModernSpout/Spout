@@ -1,4 +1,4 @@
-package spout.clientview.packetmapping.itemstack.datapackitemextension;
+package spout.clientview.packetmapping.itemstack.builtin.datapackitemextension;
 
 import java.util.ArrayList;
 import java.util.HashMap;

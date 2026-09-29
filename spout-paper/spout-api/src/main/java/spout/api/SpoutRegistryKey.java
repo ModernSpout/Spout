@@ -7,6 +7,7 @@ import spout.api.clientview.packetmapping.blockstate.macro.type.BlockStateMappin
 import spout.api.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.api.clientview.packetmapping.component.ComponentMapping;
 import spout.api.clientview.packetmapping.itemstack.ItemStackMapping;
+import spout.api.gamecontent.datadriven.serversidetranslation.ServersideTranslation;
 import spout.branding.SpoutNamespace;
 
 /**
@@ -17,6 +18,11 @@ public final class SpoutRegistryKey {
     private SpoutRegistryKey() {
         throw new UnsupportedOperationException();
     }
+
+    /**
+     * Data-driven registry for server-side translations.
+     */
+    public static final RegistryKey<ServersideTranslation> SERVERSIDE_TRANSLATION = RegistryKeyImpl.create(SpoutNamespace.SPOUT + ":serverside_translation");
 
     /**
      * Data-driven registry for component mappings.

@@ -1,17 +1,19 @@
-package spout.clientview.packetmapping.component.builtin.serversidetranslations;
+package spout.gamecontent.datadriven.serversidetranslation.apply.packetmapping;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentContents;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import spout.api.clientview.model.ClientView;
 import spout.clientview.packetmapping.component.apply.ComponentMappingHandle;
-import spout.server.paper.api.packetmapping.component.translatable.ServerSideTranslations;
+import spout.gamecontent.datadriven.serversidetranslation.ServersideTranslation;
+import spout.gamecontent.datadriven.serversidetranslation.apply.OptimizedServersideTranslations;
 import spout.util.mapping.handle.MappingStep;
 
 /**
- * A {@link MappingStep} that applies the {@linkplain ServerSideTranslations registered server-side translations}.
+ * A {@link MappingStep} that applies the
+ * {@linkplain OptimizedServersideTranslations registered server-side translations}.
  */
-public final class ServerSideTranslationsComponentMappingStep implements MappingStep<ComponentMappingHandle> {
+public final class ServersideTranslationsComponentMappingStep implements MappingStep<ComponentMappingHandle> {
 
     @Override
     public void apply(ComponentMappingHandle handle) {
@@ -21,9 +23,9 @@ public final class ServerSideTranslationsComponentMappingStep implements Mapping
         ComponentContents contents = immutable.getContents();
         if (contents instanceof TranslatableContents translatableContents) {
             String key = translatableContents.getKey();
-            ServerSideTranslations.ServerSideTranslation translation = ServerSideTranslations.get().get(key, clientView.getLocale());
+            ServersideTranslation translation = OptimizedServersideTranslations.get(key, clientView.getLocale());
             if (translation != null) {
-                if (translation.overrideClientSide()) {
+                if (translation.overrideClientside()) {
                     handle.setMutable(Component.literal(translation.translation()).withStyle(immutable.getStyle()));
                 } else {
                     handle.setMutable(Component.translatableWithFallback(key, translation.translation()).withStyle(immutable.getStyle()));

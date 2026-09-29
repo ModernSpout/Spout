@@ -1,4 +1,4 @@
-package spout.clientview.packetmapping.blockstate.datapackblockextension;
+package spout.clientview.packetmapping.blockstate.builtin.datapackblockextension;
 
 import net.minecraft.world.level.block.Block;
 

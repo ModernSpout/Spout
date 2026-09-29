@@ -1,11 +1,12 @@
 --- a/net/minecraft/resources/RegistryDataLoader.java
 +++ b/net/minecraft/resources/RegistryDataLoader.java
-@@ -126,6 +_,13 @@
+@@ -126,6 +_,14 @@
          new RegistryDataLoader.RegistryData<>(Registries.TIMELINE, Timeline.DIRECT_CODEC, Timeline::validateRegistry),
          new RegistryDataLoader.RegistryData<>(Registries.VILLAGER_TRADE, VillagerTrade.CODEC),
          new RegistryDataLoader.RegistryData<>(Registries.TRADE_SET, TradeSet.CODEC)
 +        // Spout start - Load additional registries
 +        ,
++        new RegistryDataLoader.RegistryData<>(spout.gamecontent.datadriven.serversidetranslation.registry.ServersideTranslationRegistryKey.SERVERSIDE_TRANSLATION, spout.gamecontent.datadriven.serversidetranslation.ServersideTranslation.CODEC),
 +        new RegistryDataLoader.RegistryData<>(spout.clientview.packetmapping.component.registry.ComponentMappingRegistryKey.COMPONENT_MAPPING, spout.clientview.packetmapping.component.ComponentMapping.CODEC),
 +        new RegistryDataLoader.RegistryData<>(spout.clientview.packetmapping.blockstate.macro.registry.BlockStateMappingMacroRegistryKey.BLOCK_STATE_MAPPING_MACRO, spout.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType.MACRO_CODEC.codec()),
 +        new RegistryDataLoader.RegistryData<>(spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryKey.BLOCK_STATE_MAPPING, spout.clientview.packetmapping.blockstate.BlockStateMapping.CODEC),

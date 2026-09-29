@@ -9,6 +9,7 @@ import spout.api.clientview.packetmapping.blockstate.macro.type.BlockStateMappin
 import spout.api.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.api.clientview.packetmapping.component.ComponentMapping;
 import spout.api.clientview.packetmapping.itemstack.ItemStackMapping;
+import spout.api.gamecontent.datadriven.serversidetranslation.ServersideTranslation;
 
 /**
  * Analogous to {@link Registry}.
@@ -18,6 +19,11 @@ public final class SpoutRegistry {
     private SpoutRegistry() {
         throw new UnsupportedOperationException();
     }
+
+    /**
+     * Data-driven registry for server-side translations.
+     */
+    public static final Registry<ServersideTranslation> SERVERSIDE_TRANSLATION = registryFor(SpoutRegistryKey.SERVERSIDE_TRANSLATION);
 
     /**
      * Data-driven registry for component mappings.

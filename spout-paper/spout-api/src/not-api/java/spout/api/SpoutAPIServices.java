@@ -3,7 +3,7 @@ package spout.api;
 import spout.api.gamecontent.datadriven.material.enuminjection.MaterialEnumNames;
 import spout.api.clientview.packetmapping.blockstate.resourcepackclaims.ResourcePackBlockStateClaims;
 import spout.api.util.minecraft.blockstate.visualduplicates.VisualDuplicates;
-import spout.server.paper.api.packetmapping.component.translatable.ServerSideTranslations;
+import spout.api.gamecontent.datadriven.serversidetranslation.apply.ServersideTranslations;
 import spout.api.clientview.packetmapping.itemstack.builtin.changeonlyitem.ChangeOnlyItemUtility;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstruction;
 import spout.server.paper.api.resourcepack.plugin.discover.PluginResourcePackDiscovery;
@@ -42,7 +42,7 @@ public final class SpoutAPIServices {
     private static final PluginResourcePackDiscovery[] pluginResourcePackDiscovery = new PluginResourcePackDiscovery[1];
     private static final ResourcePackBlockStateClaims[] resourcePackBlockStateClaims = new ResourcePackBlockStateClaims[1];
     private static final ResourcePackConstruction[] resourcePackConstruction = new ResourcePackConstruction[1];
-    private static final ServerSideTranslations[] serverSideTranslations = new ServerSideTranslations[1];
+    private static final ServersideTranslations[] serversideTranslations = new ServersideTranslations[1];
     private static final VisualDuplicates[] visualDuplicates = new VisualDuplicates[1];
 
     public static ChangeOnlyItemUtility getChangeOnlyItemUtility() {
@@ -69,8 +69,8 @@ public final class SpoutAPIServices {
         return getOrInitialize(resourcePackConstruction, ResourcePackConstruction.class);
     }
 
-    public static ServerSideTranslations getServerSideTranslations() {
-        return getOrInitialize(serverSideTranslations, ServerSideTranslations.class);
+    public static ServersideTranslations getServersideTranslations() {
+        return getOrInitialize(serversideTranslations, ServersideTranslations.class);
     }
 
     public static VisualDuplicates getVisualDuplicates() {

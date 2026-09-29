@@ -20,7 +20,7 @@ public final class ComponentMappingRegistryKey {
     }
 
     /**
-     * Key for the block state mapping registry.
+     * Key for the component mapping registry.
      */
     public static final ResourceKey<Registry<ComponentMapping>> COMPONENT_MAPPING = RegistryKeyUtil.createWithSpoutNamespace("component_mapping");
 

@@ -1,4 +1,4 @@
-package spout.clientview.packetmapping.blockstate.datapackblockextension;
+package spout.clientview.packetmapping.blockstate.builtin.datapackblockextension;
 
 import it.unimi.dsi.fastutil.Pair;
 import java.util.List;
