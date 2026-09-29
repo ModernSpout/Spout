@@ -13,14 +13,14 @@
          }
      };
 -    StreamCodec<RegistryFriendlyByteBuf, HashedStack> STREAM_CODEC = ByteBufCodecs.optional(HashedStack.ActualItem.STREAM_CODEC)
-+    // Spout start - Item mapping - Reverse - Reverse-map hashed item stacks - Wrap codec
++    // Spout start - Client view / Packet mapping / Item stacks / Apply / Reverse - Reverse-map hashed item stacks - Wrap codec
 +    StreamCodec<RegistryFriendlyByteBuf, HashedStack> STREAM_CODEC = new net.minecraft.network.codec.StreamCodec<RegistryFriendlyByteBuf, HashedStack>() {
 +
 +        @Override
 +        public HashedStack decode(final RegistryFriendlyByteBuf buffer) {
 +            HashedStack decoded = UNMAPPED_STREAM_CODEC.decode(buffer);
-+            spout.server.paper.impl.packetmapping.item.reverse.@org.jspecify.annotations.Nullable ItemMappingReverser itemMappingReverser = ((ClientViewImpl) buffer.getClientViewOrFallback()).getItemMappingReverser();
-+            return itemMappingReverser != null ? itemMappingReverser.reverseMappingIfPossible(decoded) : decoded;
++            spout.clientview.packetmapping.itemstack.apply.reverse.@org.jspecify.annotations.Nullable ItemStackMappingReverser itemStackMappingReverser = ((ClientViewImpl) buffer.getClientViewOrFallback()).getItemMappingReverser();
++            return itemStackMappingReverser != null ? itemStackMappingReverser.reverseMappingIfPossible(decoded) : decoded;
 +        }
 +
 +        @Override
@@ -30,7 +30,7 @@
 +
 +    };
 +    StreamCodec<RegistryFriendlyByteBuf, HashedStack> UNMAPPED_STREAM_CODEC = ByteBufCodecs.optional(HashedStack.ActualItem.STREAM_CODEC)
-+        // Spout end - Item mapping - Reverse - Reverse-map hashed item stacks - Wrap codec
++        // Spout end - Client view / Packet mapping / Item stacks / Apply / Reverse - Reverse-map hashed item stacks - Wrap codec
          .map(
              actualItem -> DataFixUtils.orElse((Optional<? extends HashedStack>)actualItem, EMPTY),
              hashedStack -> hashedStack instanceof HashedStack.ActualItem actualItem ? Optional.of(actualItem) : Optional.empty()

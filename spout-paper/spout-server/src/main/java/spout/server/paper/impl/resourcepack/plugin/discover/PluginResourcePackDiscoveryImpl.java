@@ -11,7 +11,7 @@ import spout.server.paper.api.resourcepack.content.Blockstates;
 import spout.server.paper.api.resourcepack.content.Lang;
 import spout.server.paper.api.resourcepack.plugin.discover.PluginResourcePackDiscoverEvent;
 import spout.server.paper.api.resourcepack.plugin.discover.PluginResourcePackDiscovery;
-import spout.server.paper.impl.packetmapping.component.translatable.MinecraftLocaleUtil;
+import spout.util.minecraft.locale.MinecraftLocaleUtil;
 import spout.server.paper.impl.util.composable.ComposableImpl;
 import org.jspecify.annotations.Nullable;
 import java.io.InputStream;

@@ -14,7 +14,7 @@ import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.clientview.packetmapping.blockstate.macro.FromToBlockMacro;
 import spout.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroTypes;
 import spout.clientview.packetmapping.blockstate.BlockStateMapping;
-import spout.gamecontent.datadriven.block.VanillaOnlyBlockRegistry;
+import spout.gamecontent.datadriven.block.registry.VanillaOnlyBlockRegistry;
 import spout.clientview.packetmapping.blockstate.macro.processor.claimablestates.DynamicClaimableStates;
 import spout.clientview.packetmapping.blockstate.macro.processor.claimablestates.SingletonBlockStateDynamicClaimableStates;
 

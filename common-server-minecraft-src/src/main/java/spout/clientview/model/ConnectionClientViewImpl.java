@@ -2,8 +2,9 @@ package spout.clientview.model;
 
 import net.minecraft.network.Connection;
 import spout.api.clientview.model.ClientView;
-import spout.server.paper.impl.packetmapping.item.reverse.ItemMappingReverser;
+import spout.clientview.packetmapping.itemstack.apply.reverse.ItemStackMappingReverser;
 import org.jspecify.annotations.Nullable;
+
 import java.lang.ref.WeakReference;
 
 /**
@@ -27,8 +28,8 @@ public abstract class ConnectionClientViewImpl extends ClientViewImpl {
     }
 
     @Override
-    public @Nullable ItemMappingReverser getItemMappingReverser() {
-        return this.getConnection().itemMappingReverser;
+    public @Nullable ItemStackMappingReverser getItemMappingReverser() {
+        return this.getConnection().itemStackMappingReverser;
     }
 
 }

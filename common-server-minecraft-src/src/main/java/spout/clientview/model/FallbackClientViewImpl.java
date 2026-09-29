@@ -2,7 +2,7 @@ package spout.clientview.model;
 
 import net.minecraft.network.Connection;
 import spout.api.clientview.model.ClientView;
-import spout.server.paper.impl.packetmapping.item.reverse.ItemMappingReverser;
+import spout.clientview.packetmapping.itemstack.apply.reverse.ItemStackMappingReverser;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -30,7 +30,7 @@ public final class FallbackClientViewImpl extends ClientViewImpl {
     }
 
     @Override
-    public @Nullable ItemMappingReverser getItemMappingReverser() {
+    public @Nullable ItemStackMappingReverser getItemMappingReverser() {
         return null;
     }
 

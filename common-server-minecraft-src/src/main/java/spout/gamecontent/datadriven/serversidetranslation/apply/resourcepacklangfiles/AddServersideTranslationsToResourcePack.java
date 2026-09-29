@@ -6,7 +6,7 @@ import spout.api.clientview.model.ClientView;
 import spout.gamecontent.datadriven.serversidetranslation.ServersideTranslation;
 import spout.gamecontent.datadriven.serversidetranslation.apply.OptimizedServersideTranslations;
 import spout.server.paper.api.resourcepack.content.Lang;
-import spout.server.paper.impl.packetmapping.component.translatable.MinecraftLocaleUtil;
+import spout.util.minecraft.locale.MinecraftLocaleUtil;
 import spout.server.paper.impl.resourcepack.construct.ResourcePackConstructionImpl;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

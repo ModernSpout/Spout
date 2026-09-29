@@ -4,7 +4,7 @@
      }
  
      public <M, T extends Keyed, B extends PaperRegistryBuilder<M, T>> void runFreezeListeners(final ResourceKey<? extends Registry<M>> resourceKey, final Conversions conversions) {
-+        if (!spout.gamecontent.datadriven.common.registry.delayedfrozen.DelayedRegistryFreezing.canFreeze(resourceKey)) return; // Spout - Game content - Data-driven - Delayed frozen registries - Delay freezing registries
++        if (!spout.gamecontent.datadriven.common.registry.delayedfrozen.DelayedRegistryFreezing.canFreeze(resourceKey)) return; // Spout - Game content / Data-driven / Delayed frozen registries - Delay freezing registries
          final RegistryEntry<M, T> entry = PaperRegistries.getEntry(resourceKey);
          if (entry == null || !entry.meta().modificationApiSupport().canAdd() || !this.composeEventType.hasHandlers(entry.apiKey())) {
              return;

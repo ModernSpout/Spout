@@ -27,12 +27,12 @@
      }
  
      protected float getDestroyProgress(final BlockState state, final Player player, final BlockGetter level, final BlockPos pos) {
-+        // Spout start - Block mapping - Breaking speed - Implement calculating destroy progress with given held item stack
++        // Spout start - Client view / Packet mapping / Block states / Apply / Breaking speed - Implement calculating destroy progress with given held item stack
 +        return this.getDestroyProgress(state, player, level, pos, null);
 +    }
 +
 +    protected float getDestroyProgress(final BlockState state, final Player player, final BlockGetter level, final BlockPos pos, @Nullable ItemStack heldItemStack) {
-+        // Spout end - Block mapping - Breaking speed - Implement calculating destroy progress with given held item stack
++        // Spout end - Client view / Packet mapping / Block states / Apply / Breaking speed - Implement calculating destroy progress with given held item stack
          float destroySpeed = state.getDestroySpeed(level, pos);
          if (destroySpeed == -1.0F) {
              return 0.0F;
@@ -40,10 +40,10 @@
  
 -        int modifier = player.hasCorrectToolForDrops(state) ? 30 : 100;
 -        return player.getDestroySpeed(state) / destroySpeed / modifier;
-+        // Spout start - Block mapping - Breaking speed - Implement calculating destroy progress with given held item stack
++        // Spout start - Client view / Packet mapping / Block states / Apply / Breaking speed - Implement calculating destroy progress with given held item stack
 +        int modifier = player.hasCorrectToolForDrops(state, heldItemStack) ? 30 : 100;
 +        return player.getDestroySpeed(state, heldItemStack) / destroySpeed / modifier;
-+        // Spout end - Block mapping - Breaking speed - Implement calculating destroy progress with given held item stack
++        // Spout end - Client view / Packet mapping / Block states / Apply / Breaking speed - Implement calculating destroy progress with given held item stack
      }
  
      protected void spawnAfterBreak(final BlockState state, final ServerLevel level, final BlockPos pos, final ItemStack tool, final boolean dropExperience) {
@@ -52,13 +52,13 @@
  
          public float getDestroyProgress(final Player player, final BlockGetter level, final BlockPos pos) {
 -            return this.getBlock().getDestroyProgress(this.asState(), player, level, pos);
-+            // Spout start - Block mapping - Breaking speed - Implement calculating destroy progress with given held item stack
++            // Spout start - Client view / Packet mapping / Block states / Apply / Breaking speed - Implement calculating destroy progress with given held item stack
 +            return this.getDestroyProgress(player, level, pos, null);
 +        }
 +
 +        public float getDestroyProgress(Player player, BlockGetter level, BlockPos pos, @Nullable ItemStack heldItemStack) {
 +            return this.getBlock().getDestroyProgress(this.asState(), player, level, pos, heldItemStack);
-+            // Spout end - Block mapping - Breaking speed - Implement calculating destroy progress with given held item stack
++            // Spout end - Client view / Packet mapping / Block states / Apply / Breaking speed - Implement calculating destroy progress with given held item stack
          }
  
          public int getDirectSignal(final BlockGetter level, final BlockPos pos, final Direction direction) {

@@ -13,7 +13,7 @@
  
      record ShowItem(ItemStackTemplate item) implements HoverEvent {
 -        public static final MapCodec<HoverEvent.ShowItem> CODEC = ItemStackTemplate.MAP_CODEC.xmap(HoverEvent.ShowItem::new, HoverEvent.ShowItem::item);
-+        public static final MapCodec<HoverEvent.ShowItem> CODEC = ClientViewMappedItemStackCodecs.TEMPLATE_MAP_CODEC.xmap(HoverEvent.ShowItem::new, HoverEvent.ShowItem::item); // Spout - Item mapping - Apply to hover events - Use codec that applies mappings
++        public static final MapCodec<HoverEvent.ShowItem> CODEC = ClientViewMappedItemStackCodecs.TEMPLATE_MAP_CODEC.xmap(HoverEvent.ShowItem::new, HoverEvent.ShowItem::item); // Spout - Client view / Packet mapping / Item stacks / Apply / Hover events - Use codec that applies mappings
  
          @Override
          public HoverEvent.Action action() {

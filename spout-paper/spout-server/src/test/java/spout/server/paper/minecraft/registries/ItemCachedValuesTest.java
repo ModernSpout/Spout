@@ -3,8 +3,8 @@ package spout.server.paper.minecraft.registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import org.bukkit.support.environment.VanillaFeature;
-import spout.gamecontent.datadriven.item.ItemRegistry;
-import spout.gamecontent.datadriven.item.VanillaOnlyItemRegistry;
+import spout.gamecontent.datadriven.item.registry.ItemRegistry;
+import spout.gamecontent.datadriven.item.registry.VanillaOnlyItemRegistry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

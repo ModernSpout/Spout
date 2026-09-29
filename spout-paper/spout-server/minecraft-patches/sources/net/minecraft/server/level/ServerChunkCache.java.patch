@@ -21,14 +21,14 @@
  
      @Override
      public void onLightUpdate(final LightLayer layer, final SectionPos pos) {
-+        boolean requiresExtraLightSending = CurrentTaskRequiresExtraLightSending.get(); // Spout - Block mapping - Update block light for custom blocks
++        boolean requiresExtraLightSending = CurrentTaskRequiresExtraLightSending.get(); // Spout - Client view / Packet mapping / Block states / Apply / Light changes
          this.mainThreadProcessor.execute(() -> {
              ChunkHolder chunk = this.getVisibleChunkIfPresent(pos.chunk().pack());
-+            if (requiresExtraLightSending) CurrentBroadcastRequiresExtraLightSending.set(); // Spout - Block mapping - Update block light for custom blocks
++            if (requiresExtraLightSending) CurrentBroadcastRequiresExtraLightSending.set(); // Spout - Client view / Packet mapping / Block states / Apply / Light changes
              if (chunk != null && chunk.sectionLightChanged(layer, pos.y())) {
                  this.chunkHoldersToBroadcast.add(chunk);
              }
-+            if (requiresExtraLightSending) CurrentBroadcastRequiresExtraLightSending.clear(); // Spout - Block mapping - Update block light for custom blocks
++            if (requiresExtraLightSending) CurrentBroadcastRequiresExtraLightSending.clear(); // Spout - Client view / Packet mapping / Block states / Apply / Light changes
          });
      }
  

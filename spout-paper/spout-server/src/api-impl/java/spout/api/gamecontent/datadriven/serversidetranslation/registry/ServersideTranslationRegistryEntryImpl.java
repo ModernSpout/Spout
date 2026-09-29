@@ -7,7 +7,7 @@ import org.jspecify.annotations.Nullable;
 import spout.api.gamecontent.datadriven.serversidetranslation.CraftServersideTranslationFallbackScope;
 import spout.api.gamecontent.datadriven.serversidetranslation.ServersideTranslationFallbackScope;
 import spout.gamecontent.datadriven.serversidetranslation.ServersideTranslation;
-import spout.server.paper.impl.packetmapping.component.translatable.MinecraftLocaleUtil;
+import spout.util.minecraft.locale.MinecraftLocaleUtil;
 
 /**
  * The implementation for {@link ServersideTranslationRegistryEntry}.

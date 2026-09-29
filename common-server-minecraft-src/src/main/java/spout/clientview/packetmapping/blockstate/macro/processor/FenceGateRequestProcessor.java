@@ -11,7 +11,7 @@ import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.clientview.packetmapping.blockstate.macro.FromToBlockMacro;
 import spout.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroTypes;
 import spout.clientview.packetmapping.blockstate.BlockStateMapping;
-import spout.gamecontent.datadriven.block.VanillaOnlyBlockRegistry;
+import spout.gamecontent.datadriven.block.registry.VanillaOnlyBlockRegistry;
 
 /**
  * A {@link BlockStateMappingMacroProcessor} for {@link BlockStateMappingMacroTypes#FENCE_GATE}.

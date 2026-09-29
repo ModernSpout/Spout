@@ -14,13 +14,13 @@
      private @Nullable GameType previousGameModeForPlayer;
 -    private boolean isDestroyingBlock;
 -    private int destroyProgressStart;
-+    // Spout start - Block mapping - Breaking speed - Keep ratio history for compensation - Make fields public
++    // Spout start - Client view / Packet mapping / Block states / Apply / Breaking speed - Keep ratio history for compensation - Make fields public
 +    public boolean isDestroyingBlock;
 +    public int destroyProgressStart;
      private BlockPos destroyPos = BlockPos.ZERO;
 -    private int gameTicks;
 +    public int gameTicks;
-+    // Spout end - Block mapping - Breaking speed - Keep ratio history for compensation - Make fields public
++    // Spout end - Client view / Packet mapping / Block states / Apply / Breaking speed - Keep ratio history for compensation - Make fields public
      private boolean hasDelayedDestroy;
      private BlockPos delayedDestroyPos = BlockPos.ZERO;
      private int delayedTickStart;
@@ -28,7 +28,7 @@
                      BlockState state = this.level.getBlockState(pos);
                      if (!state.isAir()) {
                          float destroyProgress = state.getDestroyProgress(this.player, this.player.level(), pos) * (ticksSpentDestroying + 1);
-+                        destroyProgress *= BlockBreakSpeedLatencyCompensation.getCompensationFactor(this.player, this.player.level(), pos, state); // Spout - Block mapping - Breaking speed - Compensate for difference in intended ratio and recently observed ratio
++                        destroyProgress *= BlockBreakSpeedLatencyCompensation.getCompensationFactor(this.player, this.player.level(), pos, state); // Spout - Client view / Packet mapping / Block states / Apply / Breaking speed - Compensate for difference in intended ratio and recently observed ratio
                          if (destroyProgress >= 0.7F) {
                              this.isDestroyingBlock = false;
                              this.level.destroyBlockProgress(this.player.getId(), pos, -1);

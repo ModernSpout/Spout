@@ -25,7 +25,7 @@
 +    }
 +    // Spout end - Client view - Lookup - Implement for Connection - Getter
 +    public final spout.server.paper.impl.clientview.set.ClientViewSetter clientViewSetter; // Spout - Client view - Set - Setter
-+    public final spout.server.paper.impl.packetmapping.item.reverse.ItemMappingReverser itemMappingReverser; // Spout - Item mapping - Reverse - Store reverser in Connection
++    public final spout.clientview.packetmapping.itemstack.apply.reverse.ItemStackMappingReverser itemStackMappingReverser; // Spout - Client view / Packet mapping / Item stacks / Apply / Reverse - Store reverser in Connection
      private static final float AVERAGE_PACKETS_SMOOTHING = 0.75F;
      private static final Logger LOGGER = LogUtils.getLogger();
      public static final Marker ROOT_MARKER = MarkerFactory.getMarker("NETWORK");
@@ -34,7 +34,7 @@
      public Connection(final PacketFlow receiving) {
          this.receiving = receiving;
 +        this.clientViewSetter = new spout.server.paper.impl.clientview.set.ClientViewSetter(this); // Spout - Client view - Set - Setter
-+        this.itemMappingReverser = new spout.server.paper.impl.packetmapping.item.reverse.ItemMappingReverser(); // Spout - Item mapping - Reverse - Store reverser in Connection
++        this.itemStackMappingReverser = new spout.clientview.packetmapping.itemstack.apply.reverse.ItemStackMappingReverser(); // Spout - Client view / Packet mapping / Item stacks / Apply / Reverse - Store reverser in Connection
      }
  
      @Override

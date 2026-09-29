@@ -3,7 +3,7 @@ package spout.gamecontent.datadriven.serversidetranslation;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import spout.branding.SpoutNamespace;
-import spout.server.paper.impl.packetmapping.component.translatable.MinecraftLocaleUtil;
+import spout.util.minecraft.locale.MinecraftLocaleUtil;
 import spout.util.mojang.codec.CodecUtil;
 import spout.util.mojang.codec.EnumViaIdentifierCodec;
 

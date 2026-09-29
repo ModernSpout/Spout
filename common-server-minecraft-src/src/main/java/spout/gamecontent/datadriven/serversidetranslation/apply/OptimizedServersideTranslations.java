@@ -10,7 +10,7 @@ import spout.gamecontent.datadriven.serversidetranslation.ServersideTranslationF
 import spout.gamecontent.datadriven.serversidetranslation.apply.resourcepacklangfiles.AddServersideTranslationsToResourcePack;
 import spout.gamecontent.datadriven.serversidetranslation.registry.ServersideTranslationRegistryKey;
 import spout.server.paper.impl.moredatadriven.namespace.NamespaceNames;
-import spout.server.paper.impl.packetmapping.component.translatable.MinecraftLocaleUtil;
+import spout.util.minecraft.locale.MinecraftLocaleUtil;
 import spout.util.minecraft.registry.SpoutRegistryHookEvents;
 import java.util.HashMap;
 import java.util.List;

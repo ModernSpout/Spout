@@ -12,7 +12,7 @@
                  return valueInMap;
              });
  
-+            ret.requiresExtraLightSending = spout.clientview.packetmapping.blockstate.apply.lightchanges.CurrentUpdateRequiresExtraLightSending.get(); // Spout - Block mapping - Update block light for custom blocks
++            ret.requiresExtraLightSending = spout.clientview.packetmapping.blockstate.apply.lightchanges.CurrentUpdateRequiresExtraLightSending.get(); // Spout - Client view / Packet mapping / Block states / Apply / Light changes
              ret.schedule();
  
              return ret;
@@ -20,7 +20,7 @@
                  return valueInMap;
              });
  
-+            ret.requiresExtraLightSending = spout.clientview.packetmapping.blockstate.apply.lightchanges.CurrentUpdateRequiresExtraLightSending.get(); // Spout - Block mapping - Update block light for custom blocks
++            ret.requiresExtraLightSending = spout.clientview.packetmapping.blockstate.apply.lightchanges.CurrentUpdateRequiresExtraLightSending.get(); // Spout - Client view / Packet mapping / Block states / Apply / Light changes
              ret.schedule();
  
              return ret;
@@ -28,7 +28,7 @@
  
              private final AtomicBoolean ticketAdded = new AtomicBoolean();
              private final PrioritisedExecutor.PrioritisedTask task;
-+            public boolean requiresExtraLightSending; // Spout - Block mapping - Update block light for custom blocks
++            public boolean requiresExtraLightSending; // Spout - Client view / Packet mapping / Block states / Apply / Light changes
  
              public ServerChunkTasks(final long chunkCoordinate, final StarLightInterface lightEngine,
                                      final ServerLightQueue queue) {
@@ -36,9 +36,9 @@
              public void run() {
                  ((ServerLightQueue)this.queue).chunkTasks.remove(this.chunkCoordinate, this);
  
-+                if (this.requiresExtraLightSending) spout.clientview.packetmapping.blockstate.apply.lightchanges.CurrentTaskRequiresExtraLightSending.set(); // Spout - Block mapping - Update block light for custom blocks
++                if (this.requiresExtraLightSending) spout.clientview.packetmapping.blockstate.apply.lightchanges.CurrentTaskRequiresExtraLightSending.set(); // Spout - Client view / Packet mapping / Block states / Apply / Light changes
                  this.runTasks();
-+                if (this.requiresExtraLightSending) spout.clientview.packetmapping.blockstate.apply.lightchanges.CurrentTaskRequiresExtraLightSending.clear(); // Spout - Block mapping - Update block light for custom blocks
++                if (this.requiresExtraLightSending) spout.clientview.packetmapping.blockstate.apply.lightchanges.CurrentTaskRequiresExtraLightSending.clear(); // Spout - Client view / Packet mapping / Block states / Apply / Light changes
              }
          }
      }

@@ -9,7 +9,7 @@
  import net.minecraft.world.level.material.Fluids;
  import net.minecraft.world.level.material.MapColor;
  import net.minecraft.world.level.material.PushReaction;
-+import spout.gamecontent.datadriven.block.BlockRegistry;
++import spout.gamecontent.datadriven.block.registry.BlockRegistry;
  
  public class Blocks {
 -    private static final BlockBehaviour.StatePredicate NOT_CLOSED_SHULKER = (statex, level, pos) -> !(

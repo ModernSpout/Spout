@@ -1,11 +1,19 @@
 --- a/net/minecraft/commands/Commands.java
 +++ b/net/minecraft/commands/Commands.java
+@@ -38,7 +_,6 @@
+ import net.minecraft.network.chat.ClickEvent;
+ import net.minecraft.network.chat.CommonComponents;
+ import net.minecraft.network.chat.Component;
+-import net.minecraft.network.chat.ComponentUtils;
+ import net.minecraft.network.chat.HoverEvent;
+ import net.minecraft.network.chat.MutableComponent;
+ import net.minecraft.network.protocol.game.ClientboundCommandsPacket;
 @@ -171,7 +_,7 @@
          @Override
          public @Nullable Identifier suggestionId(final ArgumentCommandNode<CommandSourceStack, ?> node) {
              SuggestionProvider<CommandSourceStack> suggestionProvider = node.getCustomSuggestions();
 -            return suggestionProvider != null ? SuggestionProviders.getName(suggestionProvider) : null;
-+            return suggestionProvider != null ? SuggestionProviders.getName(suggestionProvider) : spout.server.paper.impl.packetmapping.command.AskServerCommandSuggestionsExtender.getIdForNode(node); // Spout - Command mapping - Ask server for registry-backed suggestions
++            return suggestionProvider != null ? SuggestionProviders.getName(suggestionProvider) : spout.clientview.packetmapping.command.AskServerCommandSuggestionsExtender.getIdForNode(node); // Spout - Client view / Packet mapping / Commands - Ask server for registry-backed suggestions
          }
  
          @Override

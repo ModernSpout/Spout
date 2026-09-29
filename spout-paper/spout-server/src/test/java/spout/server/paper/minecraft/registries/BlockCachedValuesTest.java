@@ -4,10 +4,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.bukkit.support.environment.VanillaFeature;
-import spout.gamecontent.datadriven.block.BlockRegistry;
-import spout.gamecontent.datadriven.block.BlockStateRegistry;
-import spout.gamecontent.datadriven.block.VanillaOnlyBlockRegistry;
-import spout.gamecontent.datadriven.block.VanillaOnlyBlockStateRegistry;
+import spout.gamecontent.datadriven.block.registry.BlockRegistry;
+import spout.gamecontent.datadriven.block.registry.BlockStateRegistry;
+import spout.gamecontent.datadriven.block.registry.VanillaOnlyBlockRegistry;
+import spout.gamecontent.datadriven.block.registry.VanillaOnlyBlockStateRegistry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

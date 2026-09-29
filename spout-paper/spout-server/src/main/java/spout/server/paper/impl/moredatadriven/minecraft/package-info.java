@@ -6,9 +6,9 @@
  * </p>
  *
  * <p>
- * Special classes ({@link spout.gamecontent.datadriven.block.BlockRegistry},
- * {@link spout.gamecontent.datadriven.block.BlockStateRegistry} and
- * {@link spout.gamecontent.datadriven.item.ItemRegistry}) replace the vanilla
+ * Special classes ({@link spout.gamecontent.datadriven.block.registry.BlockRegistry},
+ * {@link spout.gamecontent.datadriven.block.registry.BlockStateRegistry} and
+ * {@link spout.gamecontent.datadriven.item.registry.ItemRegistry}) replace the vanilla
  * implementations of these registries.
  * The contents of the vanilla registries are preserved in respective {@code VanillaOnly}-prefixed registries.
  * </p>

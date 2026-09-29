@@ -12,7 +12,7 @@ import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.clientview.packetmapping.blockstate.macro.LeavesMacro;
 import spout.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroTypes;
 import spout.clientview.packetmapping.blockstate.BlockStateMapping;
-import spout.gamecontent.datadriven.block.VanillaOnlyBlockRegistry;
+import spout.gamecontent.datadriven.block.registry.VanillaOnlyBlockRegistry;
 
 /**
  * A {@link BlockStateMappingMacroProcessor} for {@link BlockStateMappingMacroTypes#LEAVES}.

@@ -3,7 +3,7 @@ package spout.clientview.model;
 import com.mojang.serialization.Codec;
 import spout.api.clientview.model.ClientView;
 import spout.branding.SpoutNamespace;
-import spout.server.paper.impl.packetmapping.item.reverse.ItemMappingReverser;
+import spout.clientview.packetmapping.itemstack.apply.reverse.ItemStackMappingReverser;
 import spout.util.mojang.codec.EnumViaIdentifierCodec;
 import org.jspecify.annotations.Nullable;
 import java.util.List;
@@ -21,14 +21,14 @@ public abstract class ClientViewImpl implements ClientViewNonAPI {
     public static final Codec<List<AwarenessLevel>> AWARENESS_LEVEL_LIST_CODEC = Codec.list(AWARENESS_LEVEL_CODEC);
 
     /**
-     * @return The {@link ItemMappingReverser} of this client,
+     * @return The {@link ItemStackMappingReverser} of this client,
      * or null if not available.
      *
      * <p>
      * The reverser (if present) instance stays the same during the entire connection session of a client.
      * </p>
      */
-    public abstract @Nullable ItemMappingReverser getItemMappingReverser();
+    public abstract @Nullable ItemStackMappingReverser getItemMappingReverser();
 
     public static ClientView getSimulatedForAwarenessLevel(AwarenessLevel awarenessLevel) {
         return switch (awarenessLevel) {

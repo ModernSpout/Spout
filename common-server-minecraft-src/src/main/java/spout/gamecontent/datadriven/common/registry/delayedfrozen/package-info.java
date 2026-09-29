@@ -1,5 +1,5 @@
 /**
- * <h1>Game content - Data-driven - Delayed frozen registries</h1>
+ * <h1>Game content / Data-driven / Delayed frozen registries</h1>
  *
  * <p>
  * Delays the freezing of some registries.

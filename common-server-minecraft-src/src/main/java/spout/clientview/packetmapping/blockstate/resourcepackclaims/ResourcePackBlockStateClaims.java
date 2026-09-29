@@ -19,7 +19,7 @@ import spout.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryKey;
 import spout.api.clientview.packetmapping.blockstate.resourcepackclaims.ClaimRequestPriority;
 import spout.api.clientview.packetmapping.blockstate.resourcepackclaims.ClaimRequestPriorityComparator;
-import spout.gamecontent.datadriven.block.VanillaOnlyBlockStateRegistry;
+import spout.gamecontent.datadriven.block.registry.VanillaOnlyBlockStateRegistry;
 import org.jspecify.annotations.Nullable;
 import spout.util.minecraft.blockstate.visualduplicates.VisualDuplicateGroup;
 import spout.util.minecraft.blockstate.visualduplicates.VisualDuplicates;

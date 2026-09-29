@@ -2,7 +2,7 @@ package spout.server.paper.api.moredatadriven.paper.registry.nms;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import spout.api.gamecontent.datadriven.block.BlockTypeRegistryEntry;
+import spout.api.gamecontent.datadriven.block.registry.BlockTypeRegistryEntry;
 
 import java.util.function.Consumer;
 import java.util.function.Function;

@@ -41,7 +41,7 @@
  
      @Override
      public Registry<T> freeze() {
-+        if (!DelayedRegistryFreezing.canFreeze(this)) return this; // Spout - Game content - Data-driven - Delayed frozen registries - Delay freezing registries
++        if (!DelayedRegistryFreezing.canFreeze(this)) return this; // Spout - Game content / Data-driven / Delayed frozen registries - Delay freezing registries
          if (this.frozen) {
              return this;
          }

@@ -18,13 +18,13 @@
  
      public float getDestroySpeed(final BlockState state) {
 -        float speed = this.inventory.getSelectedItem().getDestroySpeed(state);
-+        // Spout start - Block mapping - Breaking speed - Implement calculating destroy progress with given held item stack
++        // Spout start - Client view / Packet mapping / Block states / Apply / Breaking speed - Implement calculating destroy progress with given held item stack
 +        return this.getDestroySpeed(state, null);
 +    }
 +
 +    public float getDestroySpeed(BlockState state, @Nullable ItemStack heldItemStack) {
 +        float speed = (heldItemStack != null ? heldItemStack : this.inventory.getSelectedItem()).getDestroySpeed(state);
-+        // Spout end - Block mapping - Breaking speed - Implement calculating destroy progress with given held item stack
++        // Spout end - Client view / Packet mapping / Block states / Apply / Breaking speed - Implement calculating destroy progress with given held item stack
          if (speed > 1.0F) {
              speed += (float)this.getAttributeValue(Attributes.MINING_EFFICIENCY);
          }
@@ -33,13 +33,13 @@
  
      public boolean hasCorrectToolForDrops(final BlockState state) {
 -        return !state.requiresCorrectToolForDrops() || this.inventory.getSelectedItem().isCorrectToolForDrops(state);
-+        // Spout start - Block mapping - Breaking speed - Implement calculating destroy progress with given held item stack
++        // Spout start - Client view / Packet mapping / Block states / Apply / Breaking speed - Implement calculating destroy progress with given held item stack
 +        return this.hasCorrectToolForDrops(state, null);
 +    }
 +
 +    public boolean hasCorrectToolForDrops(BlockState state, @Nullable ItemStack heldItemStack) {
 +        return !state.requiresCorrectToolForDrops() || (heldItemStack != null ? heldItemStack : this.inventory.getSelectedItem()).isCorrectToolForDrops(state);
-+        // Spout end - Block mapping - Breaking speed - Implement calculating destroy progress with given held item stack
++        // Spout end - Client view / Packet mapping / Block states / Apply / Breaking speed - Implement calculating destroy progress with given held item stack
      }
  
      @Override

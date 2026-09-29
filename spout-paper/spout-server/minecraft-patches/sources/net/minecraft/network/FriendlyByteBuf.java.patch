@@ -18,8 +18,8 @@
 +        return clientViewLookup == null ? null : clientViewLookup.getClientView();
 +    }
 +    // Spout end - Client view - Lookup - During packet handling - Store provider in FriendlyByteBuf - Easy access via ClientViewProvider interface
-+    public boolean isEncodingStonecutterRecipeResult; // Spout - Item mapping - Detect stonecutter result - Store in FriendlyByteBuf
-+    public boolean isEncodingItemFrameItem; // Spout - Item mapping - Detect item frame - Store in FriendlyByteBuf
++    public boolean isEncodingStonecutterRecipeResult; // Spout - Client view / Packet mapping / Item stacks / Apply / Detect stonecutter result - Store in FriendlyByteBuf
++    public boolean isEncodingItemFrameItem; // Spout - Client view / Packet mapping / Item stacks / Apply / Detect item frame - Store in FriendlyByteBuf
      public static final short MAX_STRING_LENGTH = 32767;
      public static final int MAX_COMPONENT_STRING_LENGTH = 262144;
      private static final int PUBLIC_KEY_SIZE = 256;

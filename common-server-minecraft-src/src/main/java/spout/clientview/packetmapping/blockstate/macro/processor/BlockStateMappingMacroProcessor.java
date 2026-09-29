@@ -20,7 +20,7 @@ import spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegis
 import spout.clientview.packetmapping.blockstate.resourcepackclaims.ResourcePackBlockStateClaims;
 import spout.clientview.packetmapping.itemstack.ItemStackMapping;
 import spout.clientview.packetmapping.itemstack.builtin.changeonlyitem.ChangeOnlyItemUtility;
-import spout.gamecontent.datadriven.block.VanillaOnlyBlockStateRegistry;
+import spout.gamecontent.datadriven.block.registry.VanillaOnlyBlockStateRegistry;
 import spout.util.minecraft.blockstate.HoneyLevelUtil;
 import spout.util.minecraft.blockstate.visualduplicates.BlocksWithVisuallyDifferentBlockstates;
 import spout.util.minecraft.resources.IdentifierUtil;

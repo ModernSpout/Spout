@@ -4,7 +4,7 @@ import io.papermc.paper.registry.PaperRegistryBuilder;
 import io.papermc.paper.registry.data.util.Conversions;
 import spout.gamecontent.datadriven.blocktype.SpoutBlockType;
 import spout.api.gamecontent.datadriven.blocktype.BlockTypeType;
-import spout.api.gamecontent.datadriven.blocktype.BlockTypeTypeRegistryEntry;
+import spout.api.gamecontent.datadriven.blocktype.registry.BlockTypeTypeRegistryEntry;
 import spout.server.paper.api.moredatadriven.paper.registry.type.nms.BlockTypeTypeRegistryEntryNMS;
 import org.jspecify.annotations.Nullable;
 

@@ -19,7 +19,7 @@ import spout.clientview.packetmapping.blockstate.apply.BlockStateInPacketMapper;
 import spout.clientview.packetmapping.blockstate.apply.BlockStateMappingStep;
 import spout.clientview.packetmapping.blockstate.apply.BlockStateMappingsApplicationContext;
 import spout.clientview.packetmapping.blockstate.apply.OptimizedBlockStateMappings;
-import spout.gamecontent.datadriven.block.VanillaOnlyBlockStateRegistry;
+import spout.gamecontent.datadriven.block.registry.VanillaOnlyBlockStateRegistry;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Arrays;

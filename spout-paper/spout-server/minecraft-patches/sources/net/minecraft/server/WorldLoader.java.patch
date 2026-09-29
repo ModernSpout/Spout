@@ -12,7 +12,7 @@
              .thenComposeAsync(
                  packsAndResourceManager -> {
                      CloseableResourceManager resources = packsAndResourceManager.getSecond();
-+                    return DelayedRegistryFreezing.freezeDelayedRegistries(resources, mainThreadExecutor).thenComposeAsync(_ -> { // Spout - Game content - Data-driven - Delayed frozen registries - Freeze delayed registries
++                    return DelayedRegistryFreezing.freezeDelayedRegistries(resources, mainThreadExecutor).thenComposeAsync(_ -> { // Spout - Game content / Data-driven / Delayed frozen registries - Freeze delayed registries
 +                    spout.server.paper.impl.logging.CustomContentLogging.logCustomContent(); // Spout - Logging - Log custom content
                      LayeredRegistryAccess<RegistryLayer> initialLayers = RegistryLayer.createRegistryAccess();
                      List<Registry.PendingTags<?>> staticLayerTags = TagLoader.loadTagsForExistingRegistries(
@@ -21,7 +21,7 @@
                              },
                              backgroundExecutor
                          );
-+                    }); // Spout - Game content - Data-driven - Delayed frozen registries - Load some registries before
++                    }); // Spout - Game content / Data-driven / Delayed frozen registries - Load some registries before
                  },
                  backgroundExecutor
              );

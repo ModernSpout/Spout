@@ -7,7 +7,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import spout.api.gamecontent.datadriven.item.ItemTypeRegistryEntry;
+import spout.api.gamecontent.datadriven.item.registry.ItemTypeRegistryEntry;
 
 /**
  * An {@link ItemTypeRegistryEntry.Builder} that allows building an {@link Item} using Minecraft internals.

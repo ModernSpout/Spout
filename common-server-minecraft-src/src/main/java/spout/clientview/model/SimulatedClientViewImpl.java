@@ -3,7 +3,7 @@ package spout.clientview.model;
 import net.minecraft.network.Connection;
 import org.jspecify.annotations.Nullable;
 import spout.api.clientview.model.ClientView;
-import spout.server.paper.impl.packetmapping.item.reverse.ItemMappingReverser;
+import spout.clientview.packetmapping.itemstack.apply.reverse.ItemStackMappingReverser;
 
 /**
  * A fake {@link ClientView} that is used to simulate mappings
@@ -33,7 +33,7 @@ public final class SimulatedClientViewImpl extends ClientViewImpl {
     }
 
     @Override
-    public @Nullable ItemMappingReverser getItemMappingReverser() {
+    public @Nullable ItemStackMappingReverser getItemMappingReverser() {
         return null;
     }
 

@@ -8,9 +8,11 @@
  import net.minecraft.core.registries.BuiltInRegistries;
  import net.minecraft.network.chat.Component;
  import net.minecraft.network.chat.MutableComponent;
-@@ -75,11 +_,14 @@
+@@ -74,12 +_,16 @@
+ import net.minecraft.world.phys.shapes.VoxelShape;
  import org.jspecify.annotations.Nullable;
  import org.slf4j.Logger;
++import spout.gamecontent.datadriven.block.registry.BlockStateRegistry;
  
 -public class Block extends BlockBehaviour implements ItemLike {
 +// Spout start - More data-driven - Minecraft registries - Block - Implement interfaces
@@ -21,7 +23,7 @@
      private static final Logger LOGGER = LogUtils.getLogger();
      private final Holder.Reference<Block> builtInRegistryHolder = BuiltInRegistries.BLOCK.createIntrusiveHolder(this);
 -    public static final IdMapper<BlockState> BLOCK_STATE_REGISTRY = new IdMapper<>();
-+    public static final spout.gamecontent.datadriven.block.BlockStateRegistry BLOCK_STATE_REGISTRY = spout.gamecontent.datadriven.block.BlockStateRegistry.get(); // Spout - More data-driven - Minecraft registries - Custom registries for blocks and items
++    public static final BlockStateRegistry BLOCK_STATE_REGISTRY = BlockStateRegistry.get(); // Spout - More data-driven - Minecraft registries - Custom registries for blocks and items
      private static final LoadingCache<VoxelShape, Boolean> SHAPE_FULL_BLOCK_CACHE = CacheBuilder.newBuilder()
          .maximumSize(512L)
          .weakKeys()

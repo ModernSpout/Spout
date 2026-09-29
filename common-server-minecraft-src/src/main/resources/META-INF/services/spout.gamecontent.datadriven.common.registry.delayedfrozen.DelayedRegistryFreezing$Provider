@@ -1,2 +1,2 @@
-spout.gamecontent.datadriven.block.BlockRegistryDelayedFreezingProvider
-spout.gamecontent.datadriven.item.ItemRegistryDelayedFreezingProvider
+spout.gamecontent.datadriven.block.registry.BlockRegistryDelayedFreezingProvider
+spout.gamecontent.datadriven.item.registry.ItemRegistryDelayedFreezingProvider

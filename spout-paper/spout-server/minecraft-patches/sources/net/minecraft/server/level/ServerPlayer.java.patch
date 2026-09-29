@@ -12,10 +12,10 @@
      private static final boolean DEFAULT_SEEN_CREDITS = false;
      private static final boolean DEFAULT_SPAWN_EXTRA_PARTICLES_ON_FALL = false;
      public ServerGamePacketListenerImpl connection;
-+    // Spout start - Block mapping - Breaking speed - Store factor in player
++    // Spout start - Client view / Packet mapping / Block states / Apply / Breaking speed - Store factor in player
 +    public float serverToClientSideBlockBreakSpeedFactor = 1;
 +    public BlockBreakSpeedFactorHistory serverToClientSideBlockBreakSpeedFactorHistory = new BlockBreakSpeedFactorHistory();
-+    // Spout end - Block mapping - Breaking speed - Store factor in player
++    // Spout end - Client view / Packet mapping / Block states / Apply / Breaking speed - Store factor in player
      private final MinecraftServer server;
      public final ServerPlayerGameMode gameMode;
      private final PlayerAdvancements advancements;
@@ -26,21 +26,21 @@
 -    public final ContainerSynchronizer containerSynchronizer = new ContainerSynchronizer() {
 -        private final LoadingCache<TypedDataComponent<?>, Integer> cache = CacheBuilder.newBuilder()
 -            .maximumSize(256L)
-+    // Spout start - Item mapping - Reverse - Reverse-map hashed item stacks - Expose hashing mechanism
++    // Spout start - Client view / Packet mapping / Item stacks / Apply / Reverse - Reverse-map hashed item stacks - Expose hashing mechanism
 +    public static LoadingCache<TypedDataComponent<?>, Integer> createHashingCache(net.minecraft.core.RegistryAccess registryAccess, long maximumSize) {
 +        return CacheBuilder.newBuilder()
 +            .maximumSize(maximumSize)
-+            // Spout end - Item mapping - Reverse - Reverse-map hashed item stacks - Expose hashing mechanism
++            // Spout end - Client view / Packet mapping / Item stacks / Apply / Reverse - Reverse-map hashed item stacks - Expose hashing mechanism
              .build(
                  new CacheLoader<TypedDataComponent<?>, Integer>() {
 -                    private final DynamicOps<HashCode> registryHashOps = ServerPlayer.this.registryAccess().createSerializationContext(HashOps.CRC32C_INSTANCE);
-+                    // Spout start - Item mapping - Reverse - Reverse-map hashed item stacks - Expose hashing mechanism
++                    // Spout start - Client view / Packet mapping / Item stacks / Apply / Reverse - Reverse-map hashed item stacks - Expose hashing mechanism
 +                    private final DynamicOps<HashCode> registryHashOps;
 +                    {
 +                        java.util.Objects.requireNonNull(registryAccess);
 +                        registryHashOps = registryAccess.createSerializationContext(HashOps.CRC32C_INSTANCE);
 +                    }
-+                    // Spout end - Item mapping - Reverse - Reverse-map hashed item stacks - Expose hashing mechanism
++                    // Spout end - Client view / Packet mapping / Item stacks / Apply / Reverse - Reverse-map hashed item stacks - Expose hashing mechanism
  
                      @Override
                      public Integer load(final TypedDataComponent<?> component) {
@@ -48,12 +48,12 @@
                      }
                  }
              );
-+        // Spout start - Item mapping - Reverse - Reverse-map hashed item stacks - Expose hashing mechanism
++        // Spout start - Client view / Packet mapping / Item stacks / Apply / Reverse - Reverse-map hashed item stacks - Expose hashing mechanism
 +    }
  
 +    public final ContainerSynchronizer containerSynchronizer = new ContainerSynchronizer() {
 +        private final LoadingCache<TypedDataComponent<?>, Integer> cache = createHashingCache(ServerPlayer.this.registryAccess(), 256L);
-+        // Spout end - Item mapping - Reverse - Reverse-map hashed item stacks - Expose hashing mechanism
++        // Spout end - Client view / Packet mapping / Item stacks / Apply / Reverse - Reverse-map hashed item stacks - Expose hashing mechanism
          @Override
          public void sendInitialData(final AbstractContainerMenu container, final List<ItemStack> slotItems, final ItemStack carriedItem, final int[] dataSlots) {
              ServerPlayer.this.connection

@@ -20,12 +20,12 @@
          return new StreamCodec<RegistryFriendlyByteBuf, ItemStack>() {
              @Override
              public ItemStack decode(final RegistryFriendlyByteBuf input) {
-+                // Spout start - Item mapping - Reverse - Apply at ItemStack decoding
++                // Spout start - Client view / Packet mapping / Item stacks / Apply / Reverse - Apply at ItemStack decoding
 +                return this.decode(input, true);
 +            }
 +
 +            public ItemStack decode(RegistryFriendlyByteBuf input, boolean attemptReversing) {
-+                // Spout end - Item mapping - Reverse - Apply at ItemStack decoding
++                // Spout end - Client view / Packet mapping / Item stacks / Apply / Reverse - Apply at ItemStack decoding
                  int count = input.readVarInt();
                  if (count <= 0) {
                      return ItemStack.EMPTY;
@@ -34,28 +34,28 @@
                  Holder<Item> item = Item.STREAM_CODEC.decode(input);
                  DataComponentPatch patch = patchCodec.decode(input);
 -                return new ItemStack(item, count, patch);
-+                // Spout start - Item mapping - Reverse - Apply at ItemStack decoding
++                // Spout start - Client view / Packet mapping / Item stacks / Apply / Reverse - Apply at ItemStack decoding
 +                ItemStack received = new ItemStack(item, count, patch);
 +                if (attemptReversing) {
-+                    spout.server.paper.impl.packetmapping.item.reverse.@Nullable ItemMappingReverser itemMappingReverser = ((ClientViewImpl) input.getClientViewOrFallback()).getItemMappingReverser();
-+                    if (itemMappingReverser != null) {
-+                        received = itemMappingReverser.reverseMappingIfPossible(received);
++                    spout.clientview.packetmapping.itemstack.apply.reverse.@Nullable ItemStackMappingReverser itemStackMappingReverser = ((ClientViewImpl) input.getClientViewOrFallback()).getItemMappingReverser();
++                    if (itemStackMappingReverser != null) {
++                        received = itemStackMappingReverser.reverseMappingIfPossible(received);
 +                    }
 +                }
 +                return received;
-+                // Spout end - Item mapping - Reverse - Apply at ItemStack decoding
++                // Spout end - Client view / Packet mapping / Item stacks / Apply / Reverse - Apply at ItemStack decoding
              }
  
              @Override
              public void encode(final RegistryFriendlyByteBuf output, final ItemStack itemStack) {
 +                // Spout start - Item mapping - Implementation part - Apply at ItemStack encoding
 +                spout.clientview.packetmapping.itemstack.apply.ItemStackMappingsApplicationContext itemMappingContext = new spout.clientview.packetmapping.itemstack.apply.ItemStackMappingsApplicationContext(output.getClientViewOrFallback(), output.isEncodingItemFrameItem, output.isEncodingStonecutterRecipeResult);
-+                spout.server.paper.impl.packetmapping.item.reverse.@Nullable ItemMappingReverser itemMappingReverser = ((ClientViewImpl) output.getClientViewOrFallback()).getItemMappingReverser();
++                spout.clientview.packetmapping.itemstack.apply.reverse.@Nullable ItemStackMappingReverser itemStackMappingReverser = ((ClientViewImpl) output.getClientViewOrFallback()).getItemMappingReverser();
 +                ItemStack mappedValue = spout.clientview.packetmapping.itemstack.apply.ItemInPacketMappers.ITEM_STACK.apply(itemStack, itemMappingContext);
-+                if (itemMappingReverser != null) {
++                if (itemStackMappingReverser != null) {
 +                    long reservedId = -1;
 +                    if (mappedValue != itemStack) {
-+                        reservedId = itemMappingReverser.reserveAndAttachId(mappedValue, itemStack);
++                        reservedId = itemStackMappingReverser.reserveAndAttachId(mappedValue, itemStack);
 +                    }
 +                    int writerIndexBeforeEncoding = output.writerIndex();
 +                    this.encodeUnmapped(output, mappedValue);
@@ -67,13 +67,13 @@
 +                        if (reservedId == -1) {
 +                            mappedValue = mappedValue.copy();
 +                        }
-+                        reservedId = itemMappingReverser.reserveAndAttachId(actuallySent, itemStack);
-+                        itemMappingReverser.attachId(mappedValue, reservedId);
++                        reservedId = itemStackMappingReverser.reserveAndAttachId(actuallySent, itemStack);
++                        itemStackMappingReverser.attachId(mappedValue, reservedId);
 +                        output.writerIndex(writerIndexBeforeEncoding);
 +                        this.encodeUnmapped(output, mappedValue);
 +                    }
 +                    if (reservedId != -1) {
-+                        itemMappingReverser.storeAsReversible(reservedId, actuallySent);
++                        itemStackMappingReverser.storeAsReversible(reservedId, actuallySent);
 +                    }
 +                } else {
 +                    this.encodeUnmapped(output, mappedValue);

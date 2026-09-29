@@ -4,10 +4,10 @@
  import org.bukkit.entity.Pig;
  import org.bukkit.entity.Wolf;
  import org.bukkit.entity.ZombieNautilus;
-+import spout.api.gamecontent.datadriven.block.BlockTypeRegistryEntry;
-+import spout.api.gamecontent.datadriven.blocktype.BlockTypeTypeRegistryEntry;
-+import spout.api.gamecontent.datadriven.item.ItemTypeRegistryEntry;
-+import spout.api.gamecontent.datadriven.itemtype.ItemTypeTypeRegistryEntry;
++import spout.api.gamecontent.datadriven.block.registry.BlockTypeRegistryEntry;
++import spout.api.gamecontent.datadriven.blocktype.registry.BlockTypeTypeRegistryEntry;
++import spout.api.gamecontent.datadriven.item.registry.ItemTypeRegistryEntry;
++import spout.api.gamecontent.datadriven.itemtype.registry.ItemTypeTypeRegistryEntry;
  
  import static io.papermc.paper.registry.event.RegistryEventProviderImpl.create;
  

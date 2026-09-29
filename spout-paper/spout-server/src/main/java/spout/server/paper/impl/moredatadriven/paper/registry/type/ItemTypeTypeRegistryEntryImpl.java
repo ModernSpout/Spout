@@ -4,7 +4,7 @@ import io.papermc.paper.registry.PaperRegistryBuilder;
 import io.papermc.paper.registry.data.util.Conversions;
 import spout.gamecontent.datadriven.itemtype.SpoutItemType;
 import spout.api.gamecontent.datadriven.itemtype.ItemTypeType;
-import spout.api.gamecontent.datadriven.itemtype.ItemTypeTypeRegistryEntry;
+import spout.api.gamecontent.datadriven.itemtype.registry.ItemTypeTypeRegistryEntry;
 import spout.server.paper.api.moredatadriven.paper.registry.type.nms.ItemTypeTypeRegistryEntryNMS;
 import org.jspecify.annotations.Nullable;
 

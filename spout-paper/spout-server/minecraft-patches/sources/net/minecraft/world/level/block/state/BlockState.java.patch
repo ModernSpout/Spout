@@ -1,10 +1,11 @@
 --- a/net/minecraft/world/level/block/state/BlockState.java
 +++ b/net/minecraft/world/level/block/state/BlockState.java
-@@ -4,6 +_,7 @@
+@@ -4,6 +_,8 @@
  import net.minecraft.core.registries.BuiltInRegistries;
  import net.minecraft.world.level.block.Block;
  import net.minecraft.world.level.block.state.properties.Property;
-+import spout.gamecontent.datadriven.block.VanillaOnlyBlockStateRegistry;
++import spout.gamecontent.datadriven.block.registry.BlockStateRegistry;
++import spout.gamecontent.datadriven.block.registry.VanillaOnlyBlockStateRegistry;
  
  public class BlockState extends BlockBehaviour.BlockStateBase {
      public static final Codec<BlockState> CODEC = codec(BuiltInRegistries.BLOCK.byNameCodec(), Block::defaultBlockState, Block::getStateDefinition).stable();
@@ -20,7 +21,7 @@
 +     *
 +     * <p>
 +     * This will be -1 until initialized in
-+     * {@link spout.gamecontent.datadriven.block.BlockStateRegistry#add}.
++     * {@link BlockStateRegistry#add}.
 +     * </p>
 +     */
 +    public int indexInBlockStateRegistry = -1;

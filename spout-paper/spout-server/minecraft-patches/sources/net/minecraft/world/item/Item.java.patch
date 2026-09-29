@@ -1,10 +1,11 @@
 --- a/net/minecraft/world/item/Item.java
 +++ b/net/minecraft/world/item/Item.java
-@@ -94,17 +_,38 @@
+@@ -94,17 +_,39 @@
  import net.minecraft.world.phys.Vec3;
  import org.jspecify.annotations.Nullable;
  import org.slf4j.Logger;
-+import spout.gamecontent.datadriven.item.VanillaOnlyItemRegistry;
++import spout.gamecontent.datadriven.item.registry.ItemRegistry;
++import spout.gamecontent.datadriven.item.registry.VanillaOnlyItemRegistry;
  
 -public class Item implements ItemLike, FeatureElement {
 +// Spout start - More data-driven - Minecraft registries - Block - Implement interfaces
@@ -52,7 +53,7 @@
 +     *
 +     * <p>
 +     * This will be null until initialized in
-+     * {@link spout.gamecontent.datadriven.item.ItemRegistry#register}.
++     * {@link ItemRegistry#register}.
 +     * </p>
 +     */
 +    public net.minecraft.resources.Identifier keyInItemRegistry = null;
@@ -63,7 +64,7 @@
 +     *
 +     * <p>
 +     * This will be -1 until initialized in
-+     * {@link spout.gamecontent.datadriven.item.ItemRegistry#register}.
++     * {@link ItemRegistry#register}.
 +     * </p>
 +     */
 +    public int indexInItemRegistry = -1;

@@ -4,7 +4,7 @@
          buffer.writeShort(this.fluidCount);
          this.states.write(buffer, chunkPacketInfo, chunkSectionIndex); // Paper - Anti-Xray
          this.biomes.write(buffer, null, chunkSectionIndex); // Paper - Anti-Xray
-+        chunkPacketInfo.sectionEndIndexes[chunkSectionIndex] = buffer.writerIndex(); // Spout - Block mapping - Chunk packets - Track section end indexes
++        chunkPacketInfo.sectionEndIndexes[chunkSectionIndex] = buffer.writerIndex(); // Spout - Client view / Packet mapping / Block states / Apply / Chunk packets - Track section end indexes
      }
  
      public int getSerializedSize() {
