@@ -1,6 +1,6 @@
 package spout.clientview.model.awarenesslevel;
 
-import spout.api.clientview.model.ClientView;
+import spout.clientview.model.ClientView;
 
 /**
  * Represents the major categorization of the client's capability

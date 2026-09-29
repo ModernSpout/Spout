@@ -1,0 +1,135 @@
+package spout.clientview.clientmod.protocol;
+
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import org.jspecify.annotations.Nullable;
+import spout.clientview.model.ClientView;
+import spout.clientview.model.JavaWithClientModClientViewImpl;
+import spout.clientview.packetmapping.clientviewlookup.ClientViewLookup;
+import spout.clientview.packetmapping.clientviewlookup.ThreadLocalClientViewLookup;
+import spout.gamecontent.datadriven.block.registry.BlockRegistry;
+import spout.gamecontent.datadriven.item.registry.ItemRegistry;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+
+/**
+ * Collects all custom content to send to client mods.
+ */
+public final class ClientModCustomContentSending {
+
+    private ClientModCustomContentSending() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * The packets containing the payloads (each of type {@link ClientModCustomContentPacketPayload}),
+     * or null if not initialized yet.
+     */
+    private static ClientboundCustomPayloadPacket @Nullable [] packets;
+
+    /**
+     * A {@link CountDownLatch} guarding the initialization of {@link #packets}.
+     */
+    private static final CountDownLatch packetsInitializationLatch = new CountDownLatch(1);
+
+    private static void initializePackets() {
+
+        // Look up the custom content to send
+        List<Block> blocks = BlockRegistry.get().stream().filter(block -> !block.isVanilla()).toList();
+        List<Item> items = ItemRegistry.get().stream().filter(item -> !item.isVanilla()).toList();
+
+        // Set a client mod client view to prevent any mapping
+        ThreadLocalClientViewLookup.set(new ClientViewLookup() {
+
+            @Override
+            public ClientView getClientView() {
+                return new JavaWithClientModClientViewImpl(null);
+            }
+
+        });
+
+        // Create the content instance
+        ClientModCustomContent customContent = ClientModCustomContent.createFilled(blocks, items);
+
+        // Remove the temporary client view
+        ThreadLocalClientViewLookup.remove();
+
+        // Create the payloads
+        class FillPayloadsHelper {
+
+            static final int MAX_PAYLOAD_SIZE = 80000;
+
+            static List<ClientModCustomContentPacketPayload> payloads = new ArrayList<>();
+            static List<ClientModCustomContentPacketPayload.Element> nextPayloadElements = new ArrayList<>();
+            static int nextPayloadSize = 0;
+
+            static void addElement(ClientModCustomContentPacketPayload.Element.Contents contents) {
+                addElement(new ClientModCustomContentPacketPayload.Element(contents));
+            }
+
+            static void addElement(ClientModCustomContentPacketPayload.Element element) {
+                int elementSize = 1 + element.sizeInBytes();
+                if (nextPayloadSize + elementSize <= MAX_PAYLOAD_SIZE || nextPayloadSize == 0) {
+                    nextPayloadElements.add(element);
+                    nextPayloadSize += elementSize;
+                } else {
+                    finishCurrentPayload();
+                    addElement(element);
+                }
+            }
+
+            static void finishCurrentPayload() {
+                if (!nextPayloadElements.isEmpty()) {
+                    payloads.add(new ClientModCustomContentPacketPayload(nextPayloadElements.toArray(ClientModCustomContentPacketPayload.Element[]::new)));
+                    nextPayloadElements.clear();
+                    nextPayloadSize = 0;
+                }
+            }
+
+        }
+        customContent.getBlocks().forEach(value -> FillPayloadsHelper.addElement(new ClientModCustomContentPacketPayload.Element.BlockContents(value)));
+        customContent.getItems().forEach(value -> FillPayloadsHelper.addElement(new ClientModCustomContentPacketPayload.Element.ItemContents(value)));
+        customContent.getRegistryEntryIdLists().forEach(value -> FillPayloadsHelper.addElement(new ClientModCustomContentPacketPayload.Element.RegistryEntryIdListContents(value)));
+        customContent.getBlockStateRegistryEntryIdLists().forEach(value -> FillPayloadsHelper.addElement(new ClientModCustomContentPacketPayload.Element.BlockStateRegistryEntryIdListContents(value)));
+        FillPayloadsHelper.addElement(ClientModCustomContentPacketPayload.Element.EndContents.INSTANCE);
+        FillPayloadsHelper.finishCurrentPayload();
+
+        // Fill the packets array
+        packets = FillPayloadsHelper.payloads.stream().map(ClientboundCustomPayloadPacket::new).toArray(ClientboundCustomPayloadPacket[]::new);
+
+    }
+
+    private static void initializePacketsIfNecessary() {
+        if (packetsInitializationLatch.getCount() == 0) {
+            // Skip, already initialized and visible
+        }
+        // Run the initialization on the current thread, or wait for another thread to complete it
+        synchronized (ClientModCustomContentPacketPayload.class) {
+            if (packetsInitializationLatch.getCount() == 1) {
+                try {
+                    // Initialize
+                    initializePackets();
+                } finally {
+                    packetsInitializationLatch.countDown();
+                }
+            }
+        }
+        // Wait for the initialization to complete
+        try {
+            packetsInitializationLatch.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void sendAllPackets(Connection connection) {
+        initializePacketsIfNecessary();
+        for (ClientboundCustomPayloadPacket packet : packets) {
+            connection.send(packet);
+        }
+    }
+
+}

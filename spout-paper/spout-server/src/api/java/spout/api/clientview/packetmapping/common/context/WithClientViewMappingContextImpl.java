@@ -1,5 +1,6 @@
 package spout.api.clientview.packetmapping.common.context;
 
+import spout.api.clientview.model.ClientViewImpl;
 import spout.api.clientview.model.ClientView;
 import spout.clientview.packetmapping.WithClientViewMappingsApplicationContext;
 
@@ -13,7 +14,7 @@ public class WithClientViewMappingContextImpl<H extends WithClientViewMappingsAp
 
     @Override
     public ClientView getClientView() {
-        return this.handle.getClientView();
+        return new ClientViewImpl(this.handle.getClientView());
     }
 
 }

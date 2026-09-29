@@ -2,7 +2,7 @@ package spout.api.clientview.packetmapping.common.builder;
 
 import java.util.List;
 import org.jspecify.annotations.Nullable;
-import spout.api.clientview.model.ClientView;
+import spout.api.clientview.model.awarenesslevel.AwarenessLevel;
 
 /**
  * Provides getters for {@link AwarenessLevelsMappingRegistryEntryBuilder}.
@@ -10,9 +10,9 @@ import spout.api.clientview.model.ClientView;
 public interface AwarenessLevelsMappingRegistryEntry {
 
     /**
-     * @return The {@link ClientView.AwarenessLevel}s to which this mapping will be applied,
+     * @return The {@link AwarenessLevel}s to which this mapping will be applied,
      * or null if not set.
      */
-    @Nullable List<? extends ClientView.AwarenessLevel> getAwarenessLevels();
+    @Nullable List<? extends AwarenessLevel> getAwarenessLevels();
 
 }

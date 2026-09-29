@@ -3,7 +3,7 @@ package spout.gamecontent.datadriven.serversidetranslation.apply.packetmapping;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentContents;
 import net.minecraft.network.chat.contents.TranslatableContents;
-import spout.api.clientview.model.ClientView;
+import spout.clientview.model.ClientView;
 import spout.clientview.packetmapping.component.apply.ComponentMappingHandle;
 import spout.gamecontent.datadriven.serversidetranslation.ServersideTranslation;
 import spout.gamecontent.datadriven.serversidetranslation.apply.OptimizedServersideTranslations;

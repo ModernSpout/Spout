@@ -8,19 +8,16 @@
  import net.minecraft.SharedConstants;
  import net.minecraft.network.chat.Component;
  import net.minecraft.network.protocol.BundlerInfo;
-@@ -53,8 +_,19 @@
- import org.slf4j.Logger;
+@@ -54,7 +_,16 @@
  import org.slf4j.Marker;
  import org.slf4j.MarkerFactory;
-+import spout.api.clientview.model.ClientView;
-+import spout.clientview.packetmapping.clientviewlookup.ClientViewLookup;
  
 -public class Connection extends SimpleChannelInboundHandler<Packet<?>> {
-+public class Connection extends SimpleChannelInboundHandler<Packet<?>> implements ClientViewLookup { // Spout - Client view - Lookup - Implement for Connection
-+    public @Nullable ClientView clientView; // Spout - Client view - Set - Field
++public class Connection extends SimpleChannelInboundHandler<Packet<?>> implements spout.clientview.packetmapping.clientviewlookup.ClientViewLookup { // Spout - Client view - Lookup - Implement for Connection
++    public spout.clientview.model.@Nullable ClientView clientView; // Spout - Client view - Set - Field
 +    // Spout start - Client view - Lookup - Implement for Connection - Getter
 +    @Override
-+    public @Nullable ClientView getClientView() {
++    public spout.clientview.model.@Nullable ClientView getClientView() {
 +        return this.clientView;
 +    }
 +    // Spout end - Client view - Lookup - Implement for Connection - Getter

@@ -6,8 +6,8 @@ import io.papermc.paper.plugin.lifecycle.event.LifecycleEvent;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
-import spout.api.clientview.model.ClientView;
 import org.jspecify.annotations.Nullable;
+import spout.api.clientview.model.awarenesslevel.AwarenessLevel;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Predicate;
@@ -18,18 +18,18 @@ import java.util.function.Predicate;
 public interface ResourcePackConstructEvent extends LifecycleEvent {
 
     /**
-     * @param awarenessLevel The {@link ClientView.AwarenessLevel} for which to modify the resource pack.
+     * @param awarenessLevel The {@link AwarenessLevel} for which to modify the resource pack.
      * @return The {@link ResourcePackPath} at the given string path,
      * where directories are separated by forward slashes ({@code /}),
      * for example {@code "assets/example/models/item/ash.json"} to get the path to the model of the
      * {@code "example:ash"} item.
-     * @throws IllegalArgumentException If the given {@link ClientView.AwarenessLevel}
+     * @throws IllegalArgumentException If the given {@link AwarenessLevel}
      *                                  does not support a resource pack.
      */
-    ResourcePackPath path(ClientView.AwarenessLevel awarenessLevel, String path);
+    ResourcePackPath path(AwarenessLevel awarenessLevel, String path);
 
     /**
-     * @param awarenessLevel The {@link ClientView.AwarenessLevel} for which to modify the resource pack.
+     * @param awarenessLevel The {@link AwarenessLevel} for which to modify the resource pack.
      * @param directoryName  The name of the directory in which the asset is.
      *                       This must not start with {@code "assets/"} (it is automatically added).
      *                       The name is allowed to contain forward slashes,
@@ -44,25 +44,25 @@ public interface ResourcePackConstructEvent extends LifecycleEvent {
      * @param extension      The file extension, for example {@code "json"} or {@code "png"}.
      * @return The {@link ResourcePackPath} for the asset in the given directory,
      * at the given {@link NamespacedKey}.
-     * @throws IllegalArgumentException If the given {@link ClientView.AwarenessLevel}
+     * @throws IllegalArgumentException If the given {@link AwarenessLevel}
      *                                  does not support a resource pack.
      */
-    ResourcePackPath asset(ClientView.AwarenessLevel awarenessLevel, String directoryName, NamespacedKey key, @Nullable String extension);
+    ResourcePackPath asset(AwarenessLevel awarenessLevel, String directoryName, NamespacedKey key, @Nullable String extension);
 
     /**
-     * @see #asset(ClientView.AwarenessLevel, String, NamespacedKey, String)
+     * @see #asset(AwarenessLevel, String, NamespacedKey, String)
      */
-    ResourcePackPath asset(ClientView.AwarenessLevel awarenessLevel, String directoryName, Keyed keyed, @Nullable String extension);
+    ResourcePackPath asset(AwarenessLevel awarenessLevel, String directoryName, Keyed keyed, @Nullable String extension);
 
     /**
-     * @see #asset(ClientView.AwarenessLevel, String, NamespacedKey, String)
+     * @see #asset(AwarenessLevel, String, NamespacedKey, String)
      */
-    ResourcePackPath asset(ClientView.AwarenessLevel awarenessLevel, String directoryName, Key keyed, @Nullable String extension);
+    ResourcePackPath asset(AwarenessLevel awarenessLevel, String directoryName, Key keyed, @Nullable String extension);
 
     /**
-     * @see #asset(ClientView.AwarenessLevel, String, NamespacedKey, String)
+     * @see #asset(AwarenessLevel, String, NamespacedKey, String)
      */
-    ResourcePackPath asset(ClientView.AwarenessLevel awarenessLevel, String directoryName, net.kyori.adventure.key.Keyed keyed, @Nullable String extension);
+    ResourcePackPath asset(AwarenessLevel awarenessLevel, String directoryName, net.kyori.adventure.key.Keyed keyed, @Nullable String extension);
 
     /**
      * Copies a plugin resource to the resource pack.
@@ -73,32 +73,32 @@ public interface ResourcePackConstructEvent extends LifecycleEvent {
      * @param pathInResourcePack    A path to a file in the resource pack,
      *                              for example {@code "assets/example/models/block/ash_block.json"}.
      */
-    void copyPluginResource(PluginBootstrap bootstrap, ClientView.AwarenessLevel awarenessLevel, String pathInPluginResources, String pathInResourcePack) throws IOException;
+    void copyPluginResource(PluginBootstrap bootstrap, AwarenessLevel awarenessLevel, String pathInPluginResources, String pathInResourcePack) throws IOException;
 
     /**
-     * @see #copyPluginResource(PluginBootstrap, ClientView.AwarenessLevel, String, String)
+     * @see #copyPluginResource(PluginBootstrap, AwarenessLevel, String, String)
      */
-    void copyPluginResource(PluginBootstrap bootstrap, ClientView.AwarenessLevel[] awarenessLevels, String pathInPluginResources, String pathInResourcePack) throws IOException;
+    void copyPluginResource(PluginBootstrap bootstrap, AwarenessLevel[] awarenessLevels, String pathInPluginResources, String pathInResourcePack) throws IOException;
 
     /**
-     * @see #copyPluginResource(PluginBootstrap, ClientView.AwarenessLevel, String, String)
+     * @see #copyPluginResource(PluginBootstrap, AwarenessLevel, String, String)
      */
-    void copyPluginResource(PluginBootstrap bootstrap, Iterable<ClientView.AwarenessLevel> awarenessLevels, String pathInPluginResources, String pathInResourcePack) throws IOException;
+    void copyPluginResource(PluginBootstrap bootstrap, Iterable<AwarenessLevel> awarenessLevels, String pathInPluginResources, String pathInResourcePack) throws IOException;
 
     /**
-     * @see #copyPluginResource(PluginBootstrap, ClientView.AwarenessLevel, String, String)
+     * @see #copyPluginResource(PluginBootstrap, AwarenessLevel, String, String)
      */
-    void copyPluginResource(Class<? extends PluginBootstrap> bootstrapClass, ClientView.AwarenessLevel awarenessLevel, String pathInPluginResources, String pathInResourcePack) throws IOException;
+    void copyPluginResource(Class<? extends PluginBootstrap> bootstrapClass, AwarenessLevel awarenessLevel, String pathInPluginResources, String pathInResourcePack) throws IOException;
 
     /**
-     * @see #copyPluginResource(PluginBootstrap, ClientView.AwarenessLevel, String, String)
+     * @see #copyPluginResource(PluginBootstrap, AwarenessLevel, String, String)
      */
-    void copyPluginResource(Class<? extends PluginBootstrap> bootstrapClass, ClientView.AwarenessLevel[] awarenessLevels, String pathInPluginResources, String pathInResourcePack) throws IOException;
+    void copyPluginResource(Class<? extends PluginBootstrap> bootstrapClass, AwarenessLevel[] awarenessLevels, String pathInPluginResources, String pathInResourcePack) throws IOException;
 
     /**
-     * @see #copyPluginResource(PluginBootstrap, ClientView.AwarenessLevel, String, String)
+     * @see #copyPluginResource(PluginBootstrap, AwarenessLevel, String, String)
      */
-    void copyPluginResource(Class<? extends PluginBootstrap> bootstrapClass, Iterable<ClientView.AwarenessLevel> awarenessLevels, String pathInPluginResources, String pathInResourcePack) throws IOException;
+    void copyPluginResource(Class<? extends PluginBootstrap> bootstrapClass, Iterable<AwarenessLevel> awarenessLevels, String pathInPluginResources, String pathInResourcePack) throws IOException;
 
     /**
      * Copies plugin resources to the resource pack.
@@ -113,32 +113,32 @@ public interface ResourcePackConstructEvent extends LifecycleEvent {
      *                              or null if not required. If present, only file names for which the predicate
      *                              returns true will be copied.
      */
-    void copyPluginResources(BootstrapContext context, ClientView.AwarenessLevel awarenessLevel, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException;
+    void copyPluginResources(BootstrapContext context, AwarenessLevel awarenessLevel, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException;
 
     /**
-     * @see #copyPluginResources(BootstrapContext, ClientView.AwarenessLevel, String, String, Predicate)
+     * @see #copyPluginResources(BootstrapContext, AwarenessLevel, String, String, Predicate)
      */
-    void copyPluginResources(BootstrapContext context, ClientView.AwarenessLevel[] awarenessLevels, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException;
+    void copyPluginResources(BootstrapContext context, AwarenessLevel[] awarenessLevels, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException;
 
     /**
-     * @see #copyPluginResources(BootstrapContext, ClientView.AwarenessLevel, String, String, Predicate)
+     * @see #copyPluginResources(BootstrapContext, AwarenessLevel, String, String, Predicate)
      */
-    void copyPluginResources(BootstrapContext context, Iterable<ClientView.AwarenessLevel> awarenessLevels, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException;
+    void copyPluginResources(BootstrapContext context, Iterable<AwarenessLevel> awarenessLevels, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException;
 
     /**
-     * The same as {@link #copyPluginResources(BootstrapContext, ClientView.AwarenessLevel, String, String, Predicate)},
+     * The same as {@link #copyPluginResources(BootstrapContext, AwarenessLevel, String, String, Predicate)},
      * but for the given {@link BootstrapContext#getPluginSource()}.
      */
-    void copyPluginResources(Path pluginSource, ClientView.AwarenessLevel awarenessLevel, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException;
+    void copyPluginResources(Path pluginSource, AwarenessLevel awarenessLevel, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException;
 
     /**
-     * @see #copyPluginResources(Path, ClientView.AwarenessLevel, String, String, Predicate)
+     * @see #copyPluginResources(Path, AwarenessLevel, String, String, Predicate)
      */
-    void copyPluginResources(Path pluginSource, ClientView.AwarenessLevel[] awarenessLevels, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException;
+    void copyPluginResources(Path pluginSource, AwarenessLevel[] awarenessLevels, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException;
 
     /**
-     * @see #copyPluginResources(Path, ClientView.AwarenessLevel, String, String, Predicate)
+     * @see #copyPluginResources(Path, AwarenessLevel, String, String, Predicate)
      */
-    void copyPluginResources(Path pluginSource, Iterable<ClientView.AwarenessLevel> awarenessLevels, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException;
+    void copyPluginResources(Path pluginSource, Iterable<AwarenessLevel> awarenessLevels, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException;
 
 }

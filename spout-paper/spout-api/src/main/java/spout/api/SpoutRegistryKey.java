@@ -2,6 +2,7 @@ package spout.api;
 
 import io.papermc.paper.registry.RegistryKey;
 import io.papermc.paper.registry.RegistryKeyImpl;
+import spout.api.clientview.model.awarenesslevel.AwarenessLevel;
 import spout.api.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.api.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroType;
 import spout.api.clientview.packetmapping.blockstate.BlockStateMapping;
@@ -23,6 +24,11 @@ public final class SpoutRegistryKey {
      * Data-driven registry for server-side translations.
      */
     public static final RegistryKey<ServersideTranslation> SERVERSIDE_TRANSLATION = RegistryKeyImpl.create(SpoutNamespace.SPOUT + ":serverside_translation");
+
+    /**
+     * Data-driven registry for awareness levels.
+     */
+    public static final RegistryKey<AwarenessLevel> AWARENESS_LEVEL = RegistryKeyImpl.create(SpoutNamespace.SPOUT + ":awareness_level");
 
     /**
      * Data-driven registry for component mappings.

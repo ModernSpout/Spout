@@ -2,7 +2,6 @@ package spout.api.clientview.packetmapping.common.context;
 
 import spout.api.clientview.model.ClientView;
 import spout.api.util.mapping.handle.WithContextMappingHandle;
-import spout.server.paper.api.util.mapping.MappingFunctionContext;
 
 /**
  * A {@linkplain WithContextMappingHandle#getContext() mapping context}

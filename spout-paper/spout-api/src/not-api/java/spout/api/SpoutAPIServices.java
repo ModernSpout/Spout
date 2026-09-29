@@ -6,7 +6,7 @@ import spout.api.util.minecraft.blockstate.visualduplicates.VisualDuplicates;
 import spout.api.gamecontent.datadriven.serversidetranslation.apply.ServersideTranslations;
 import spout.api.clientview.packetmapping.itemstack.builtin.changeonlyitem.ChangeOnlyItemUtility;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstruction;
-import spout.server.paper.api.resourcepack.plugin.discover.PluginResourcePackDiscovery;
+import spout.api.clientview.resourcepack.plugindiscovery.PluginResourcePackDiscovery;
 import spout.api.gamecontent.datadriven.material.enuminjection.match.MaterialByKeyLookup;
 import java.util.ServiceLoader;
 

@@ -3,8 +3,8 @@ package spout.api.clientview.packetmapping.component;
 import io.papermc.paper.registry.HolderableBase;
 import java.util.List;
 import net.minecraft.core.Holder;
-import spout.api.clientview.model.ClientView;
-import spout.api.clientview.model.CraftAwarenessLevel;
+import spout.api.clientview.model.awarenesslevel.AwarenessLevel;
+import spout.api.clientview.model.awarenesslevel.CraftAwarenessLevel;
 
 /**
  * The implementation for {@link ComponentMapping} and {@link ComponentMappingNMS}.
@@ -16,7 +16,7 @@ public final class ComponentMappingImpl extends HolderableBase<spout.clientview.
     }
 
     @Override
-    public List<? extends ClientView.AwarenessLevel> getAwarenessLevels() {
+    public List<? extends AwarenessLevel> getAwarenessLevels() {
         return this.getHolder().value().awarenessLevels().stream().map(CraftAwarenessLevel::toBukkit).toList();
     }
 

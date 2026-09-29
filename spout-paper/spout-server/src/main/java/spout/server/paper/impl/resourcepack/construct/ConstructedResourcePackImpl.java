@@ -3,7 +3,8 @@ package spout.server.paper.impl.resourcepack.construct;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hashing;
 import com.google.common.io.ByteSource;
-import spout.api.clientview.model.ClientView;
+import spout.api.clientview.model.awarenesslevel.CraftAwarenessLevel;
+import spout.clientview.model.awarenesslevel.AwarenessLevel;
 import spout.server.paper.api.resourcepack.construct.ConstructedResourcePack;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,12 +17,12 @@ import java.util.UUID;
  */
 public final class ConstructedResourcePackImpl implements ConstructedResourcePack {
 
-    private final ClientView.AwarenessLevel awarenessLevel;
+    private final AwarenessLevel awarenessLevel;
     private final byte[] bytes;
     private final String sha1Hash;
     private final UUID uuid;
 
-    public ConstructedResourcePackImpl(ClientView.AwarenessLevel awarenessLevel, byte[] bytes) {
+    public ConstructedResourcePackImpl(AwarenessLevel awarenessLevel, byte[] bytes) {
         this.awarenessLevel = awarenessLevel;
         this.bytes = bytes;
         HashCode sha1HashCode;
@@ -33,13 +34,13 @@ public final class ConstructedResourcePackImpl implements ConstructedResourcePac
         this.sha1Hash = sha1HashCode.toString();
         byte[] sha1HashBytes = sha1HashCode.asBytes();
         byte[] sha1HashBytesAndAwarenessLevel = Arrays.copyOf(sha1HashBytes, sha1HashBytes.length + 1);
-        sha1HashBytesAndAwarenessLevel[sha1HashBytes.length] = (byte) awarenessLevel.ordinal();
+        sha1HashBytesAndAwarenessLevel[sha1HashBytes.length] = (byte) awarenessLevel.getId();
         this.uuid = UUID.nameUUIDFromBytes(sha1HashBytesAndAwarenessLevel);
     }
 
     @Override
-    public ClientView.AwarenessLevel getAwarenessLevel() {
-        return this.awarenessLevel;
+    public spout.api.clientview.model.awarenesslevel.AwarenessLevel getAwarenessLevel() {
+        return CraftAwarenessLevel.toBukkit(this.awarenessLevel);
     }
 
     @Override

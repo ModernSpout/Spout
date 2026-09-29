@@ -1,6 +1,6 @@
 package spout.clientview.packetmapping.clientviewlookup;
 
-import spout.api.clientview.model.ClientView;
+import spout.clientview.model.ClientView;
 import spout.clientview.model.FallbackClientViewImpl;
 import org.jspecify.annotations.Nullable;
 import java.lang.ref.WeakReference;

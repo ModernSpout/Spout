@@ -2,7 +2,9 @@ package spout.gamecontent.datadriven.serversidetranslation.apply.resourcepacklan
 
 import com.google.gson.JsonParser;
 import org.jspecify.annotations.Nullable;
-import spout.api.clientview.model.ClientView;
+import spout.api.clientview.model.awarenesslevel.CraftAwarenessLevel;
+import spout.clientview.model.awarenesslevel.AwarenessLevel;
+import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.gamecontent.datadriven.serversidetranslation.ServersideTranslation;
 import spout.gamecontent.datadriven.serversidetranslation.apply.OptimizedServersideTranslations;
 import spout.server.paper.api.resourcepack.content.Lang;
@@ -24,12 +26,12 @@ public final class AddServersideTranslationsToResourcePack {
     public static void addToResourcePack() {
         ResourcePackConstructionImpl.get().addEventInitializer(resourcePackConstructEvent -> {
             Map<String, Lang> languageFiles = exportForResourcePackAsLangs();
-            for (ClientView.AwarenessLevel awarenessLevel : ClientView.AwarenessLevel.getAll()) {
+            for (AwarenessLevel awarenessLevel : AwarenessLevels.getAll()) {
                 // Skip if the awareness level is not relevant
                 if (!ResourcePackConstructionImpl.generateForAwarenessLevel(awarenessLevel)) continue;
                 // Add the language files
                 for (Map.Entry<String, Lang> entry : languageFiles.entrySet()) {
-                    resourcePackConstructEvent.path(awarenessLevel, "assets/minecraft/lang/" + entry.getKey() + ".json").asLang().setMutable(entry.getValue());
+                    resourcePackConstructEvent.path(CraftAwarenessLevel.toBukkit(awarenessLevel), "assets/minecraft/lang/" + entry.getKey() + ".json").asLang().setMutable(entry.getValue());
                 }
             }
         });

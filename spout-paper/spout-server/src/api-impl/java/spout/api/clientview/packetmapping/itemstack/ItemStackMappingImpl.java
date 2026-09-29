@@ -7,8 +7,8 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
 import org.bukkit.craftbukkit.inventory.CraftItemType;
 import org.bukkit.inventory.ItemType;
-import spout.api.clientview.model.ClientView;
-import spout.api.clientview.model.CraftAwarenessLevel;
+import spout.api.clientview.model.awarenesslevel.AwarenessLevel;
+import spout.api.clientview.model.awarenesslevel.CraftAwarenessLevel;
 
 /**
  * The implementation for {@link ItemStackMapping} and {@link ItemStackMappingNMS}.
@@ -20,7 +20,7 @@ public final class ItemStackMappingImpl extends HolderableBase<spout.clientview.
     }
 
     @Override
-    public List<? extends ClientView.AwarenessLevel> getAwarenessLevels() {
+    public List<? extends AwarenessLevel> getAwarenessLevels() {
         return this.getHolder().value().awarenessLevels().stream().map(CraftAwarenessLevel::toBukkit).toList();
     }
 

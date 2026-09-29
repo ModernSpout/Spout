@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import spout.server.paper.api.resourcepack.content.Blockstates;
-import spout.server.paper.impl.resourcepack.plugin.discover.PluginResourcePackDiscoveryImpl;
+import spout.clientview.resourcepack.plugindiscovery.PluginResourcePackDiscoveryImpl;
 
 /**
  * A utility class that can return whether a {@link Block}

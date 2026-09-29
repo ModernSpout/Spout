@@ -1,6 +1,6 @@
 package spout.clientview.packetmapping.itemstack.apply;
 
-import spout.api.clientview.model.ClientView;
+import spout.clientview.model.ClientView;
 import spout.clientview.packetmapping.WithClientViewMappingsApplicationContext;
 
 /**

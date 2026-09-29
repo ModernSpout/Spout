@@ -1,10 +1,10 @@
 package spout.clientview.model;
 
 import com.mojang.serialization.Codec;
-import spout.api.clientview.model.ClientView;
-import spout.branding.SpoutNamespace;
+import spout.clientview.model.awarenesslevel.AwarenessLevel;
+import spout.clientview.model.awarenesslevel.AwarenessLevels;
+import spout.clientview.model.awarenesslevel.BuiltInAwarenessLevelRegistry;
 import spout.clientview.packetmapping.itemstack.apply.reverse.ItemStackMappingReverser;
-import spout.util.mojang.codec.EnumViaIdentifierCodec;
 import org.jspecify.annotations.Nullable;
 import java.util.List;
 
@@ -15,9 +15,9 @@ import java.util.List;
  * Every instance of {@link ClientView} is also an instance of {@link ClientViewImpl}.
  * </p>
  */
-public abstract class ClientViewImpl implements ClientViewNonAPI {
+public abstract class ClientViewImpl implements ClientView {
 
-    public static final Codec<AwarenessLevel> AWARENESS_LEVEL_CODEC = new EnumViaIdentifierCodec<>(ClientView.AwarenessLevel.class, SpoutNamespace.SPOUT);
+    public static final Codec<AwarenessLevel> AWARENESS_LEVEL_CODEC = BuiltInAwarenessLevelRegistry.AWARENESS_LEVEL.byNameCodec();;
     public static final Codec<List<AwarenessLevel>> AWARENESS_LEVEL_LIST_CODEC = Codec.list(AWARENESS_LEVEL_CODEC);
 
     /**
@@ -31,11 +31,14 @@ public abstract class ClientViewImpl implements ClientViewNonAPI {
     public abstract @Nullable ItemStackMappingReverser getItemMappingReverser();
 
     public static ClientView getSimulatedForAwarenessLevel(AwarenessLevel awarenessLevel) {
-        return switch (awarenessLevel) {
-            case VANILLA -> SimulatedClientViewImpl.VANILLA_INSTANCE;
-            case RESOURCE_PACK -> SimulatedClientViewImpl.RESOURCE_PACK_INSTANCE;
-            case CLIENT_MOD -> SimulatedClientViewImpl.CLIENT_MOD_INSTANCE;
-        };
+        if (awarenessLevel == AwarenessLevels.VANILLA) {
+            return SimulatedClientViewImpl.VANILLA_INSTANCE;
+        } else if (awarenessLevel == AwarenessLevels.RESOURCE_PACK) {
+            return SimulatedClientViewImpl.RESOURCE_PACK_INSTANCE;
+        } else if (awarenessLevel == AwarenessLevels.CLIENT_MOD) {
+            return SimulatedClientViewImpl.CLIENT_MOD_INSTANCE;
+        }
+        throw new IllegalArgumentException();
     }
 
 }

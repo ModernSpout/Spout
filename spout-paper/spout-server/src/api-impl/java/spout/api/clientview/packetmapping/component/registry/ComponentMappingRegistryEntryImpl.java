@@ -9,8 +9,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import org.jspecify.annotations.Nullable;
-import spout.api.clientview.model.ClientView;
-import spout.api.clientview.model.CraftAwarenessLevel;
+import spout.api.clientview.model.awarenesslevel.AwarenessLevel;
+import spout.api.clientview.model.awarenesslevel.CraftAwarenessLevel;
 import spout.api.clientview.packetmapping.component.ComponentMapping;
 import spout.api.clientview.packetmapping.component.ComponentTarget;
 import spout.api.clientview.packetmapping.component.CraftComponentTarget;
@@ -18,7 +18,6 @@ import spout.api.clientview.packetmapping.component.handle.ComponentMappingHandl
 import spout.api.clientview.packetmapping.component.handle.ComponentMappingHandleImpl;
 import spout.api.clientview.packetmapping.component.handle.ComponentMappingHandleNMS;
 import spout.api.clientview.packetmapping.component.handle.ComponentMappingHandleNMSImpl;
-import spout.clientview.model.awarenesslevel.AwarenessLevel;
 import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.util.mapping.handle.FunctionMappingStep;
 import spout.util.mapping.handle.MappingStep;
@@ -29,7 +28,7 @@ import spout.util.mapping.handle.MappingStep;
  */
 public class ComponentMappingRegistryEntryImpl implements ComponentMappingRegistryEntryNMS, ComponentMappingRegistryEntryNMS.Builder {
 
-    protected @Nullable ArrayList<ClientView.AwarenessLevel> awarenessLevels;
+    protected @Nullable ArrayList<AwarenessLevel> awarenessLevels;
     protected @Nullable ArrayList<ComponentTarget> from;
     protected @Nullable Consumer<ComponentMappingHandle> toFunction;
     protected @Nullable Consumer<ComponentMappingHandleNMS> toFunctionNMS;
@@ -45,17 +44,17 @@ public class ComponentMappingRegistryEntryImpl implements ComponentMappingRegist
     }
 
     @Override
-    public @Nullable List<? extends ClientView.AwarenessLevel> getAwarenessLevels() {
+    public @Nullable List<? extends AwarenessLevel> getAwarenessLevels() {
         return this.awarenessLevels == null ? null : Collections.unmodifiableList(this.awarenessLevels);
     }
 
     @Override
-    public void setAwarenessLevels(Collection<ClientView.AwarenessLevel> awarenessLevels) {
+    public void setAwarenessLevels(Collection<AwarenessLevel> awarenessLevels) {
         this.awarenessLevels = new ArrayList<>(awarenessLevels);
     }
 
     @Override
-    public void addAwarenessLevel(ClientView.AwarenessLevel awarenessLevel) {
+    public void addAwarenessLevel(AwarenessLevel awarenessLevel) {
         if (this.awarenessLevels == null) {
             this.awarenessLevels = new ArrayList<>(1);
         }
@@ -108,7 +107,7 @@ public class ComponentMappingRegistryEntryImpl implements ComponentMappingRegist
 
         @Override
         public spout.clientview.packetmapping.component.ComponentMapping build() {
-            List<AwarenessLevel> awarenessLevels = this.awarenessLevels != null ? this.awarenessLevels.stream().map(CraftAwarenessLevel::fromBukkit).toList() : Arrays.asList(AwarenessLevels.getThatDoNotAlwaysUnderstandsAllServerSideTranslatables());
+            List<spout.clientview.model.awarenesslevel.AwarenessLevel> awarenessLevels = this.awarenessLevels != null ? this.awarenessLevels.stream().map(CraftAwarenessLevel::fromBukkit).toList() : Arrays.asList(AwarenessLevels.getThatDoNotAlwaysUnderstandsAllServerSideTranslatables());
             List<ComponentTarget> from = this.from != null ? this.from : List.of(ComponentTarget.ALL);
             MappingStep<spout.clientview.packetmapping.component.apply.ComponentMappingHandle> operation;
             if (this.toFunction != null) {

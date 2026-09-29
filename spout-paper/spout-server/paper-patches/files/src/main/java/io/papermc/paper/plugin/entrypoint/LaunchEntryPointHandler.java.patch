@@ -4,7 +4,7 @@
      // Utility
      public static void enterBootstrappers() {
          LaunchEntryPointHandler.INSTANCE.enter(Entrypoint.BOOTSTRAPPER);
-+        spout.server.paper.impl.resourcepack.plugin.discover.PluginResourcePackDiscoveryImpl.get().fireComposeEvent(); // Spout - Resource pack - Plugin resource pack discovery - Implementation part - Fire event
++        spout.clientview.resourcepack.plugindiscovery.PluginResourcePackDiscoveryImpl.get().fireComposeEvent(); // Spout - Resource pack - Plugin resource pack discovery - Implementation part - Fire event
      }
  
      @Override

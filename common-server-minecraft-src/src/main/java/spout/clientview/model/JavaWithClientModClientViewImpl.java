@@ -1,11 +1,12 @@
 package spout.clientview.model;
 
 import net.minecraft.network.Connection;
-import spout.api.clientview.model.ClientView;
+import spout.clientview.model.awarenesslevel.AwarenessLevel;
+import spout.clientview.model.awarenesslevel.AwarenessLevels;
 
 /**
  * A simple implementation of {@link ClientView}
- * for {@link AwarenessLevel#CLIENT_MOD} clients.
+ * for {@link AwarenessLevels#CLIENT_MOD} clients.
  */
 public class JavaWithClientModClientViewImpl extends ConnectionClientViewImpl {
 
@@ -15,7 +16,7 @@ public class JavaWithClientModClientViewImpl extends ConnectionClientViewImpl {
 
     @Override
     public AwarenessLevel getAwarenessLevel() {
-        return AwarenessLevel.CLIENT_MOD;
+        return AwarenessLevels.CLIENT_MOD;
     }
 
 }

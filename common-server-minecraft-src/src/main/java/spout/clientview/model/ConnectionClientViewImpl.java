@@ -1,7 +1,6 @@
 package spout.clientview.model;
 
 import net.minecraft.network.Connection;
-import spout.api.clientview.model.ClientView;
 import spout.clientview.packetmapping.itemstack.apply.reverse.ItemStackMappingReverser;
 import org.jspecify.annotations.Nullable;
 

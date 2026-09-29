@@ -2,7 +2,8 @@ package spout.clientview.model;
 
 import net.minecraft.network.Connection;
 import org.jspecify.annotations.Nullable;
-import spout.api.clientview.model.ClientView;
+import spout.clientview.model.awarenesslevel.AwarenessLevel;
+import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.clientview.packetmapping.itemstack.apply.reverse.ItemStackMappingReverser;
 
 /**
@@ -13,9 +14,9 @@ public final class SimulatedClientViewImpl extends ClientViewImpl {
 
     private final AwarenessLevel awarenessLevel;
 
-    public static final SimulatedClientViewImpl VANILLA_INSTANCE = new SimulatedClientViewImpl(AwarenessLevel.VANILLA);
-    public static final SimulatedClientViewImpl RESOURCE_PACK_INSTANCE = new SimulatedClientViewImpl(AwarenessLevel.RESOURCE_PACK);
-    public static final SimulatedClientViewImpl CLIENT_MOD_INSTANCE = new SimulatedClientViewImpl(AwarenessLevel.CLIENT_MOD);
+    public static final SimulatedClientViewImpl VANILLA_INSTANCE = new SimulatedClientViewImpl(AwarenessLevels.VANILLA);
+    public static final SimulatedClientViewImpl RESOURCE_PACK_INSTANCE = new SimulatedClientViewImpl(AwarenessLevels.RESOURCE_PACK);
+    public static final SimulatedClientViewImpl CLIENT_MOD_INSTANCE = new SimulatedClientViewImpl(AwarenessLevels.CLIENT_MOD);
 
     private SimulatedClientViewImpl(AwarenessLevel awarenessLevel) {
         super();

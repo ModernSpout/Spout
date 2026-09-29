@@ -1,7 +1,7 @@
 package spout.server.paper.api.resourcepack.construct;
 
 import com.google.common.hash.Hashing;
-import spout.api.clientview.model.ClientView;
+import spout.api.clientview.model.awarenesslevel.AwarenessLevel;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.UUID;
@@ -9,9 +9,9 @@ import java.util.UUID;
 public interface ConstructedResourcePack {
 
     /**
-     * @return The {@link ClientView.AwarenessLevel} for which this resource pack was constructed.
+     * @return The {@link AwarenessLevel} for which this resource pack was constructed.
      */
-    ClientView.AwarenessLevel getAwarenessLevel();
+    AwarenessLevel getAwarenessLevel();
 
     /**
      * @return The byte array contents of the pack.

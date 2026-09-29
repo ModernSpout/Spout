@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.bukkit.block.data.BlockData;
 import org.jspecify.annotations.Nullable;
-import spout.api.clientview.model.ClientView;
+import spout.api.clientview.model.awarenesslevel.CraftAwarenessLevel;
 import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.clientview.packetmapping.blockstate.apply.DirectBlockStateMappingStep;
 import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
@@ -26,7 +26,7 @@ import spout.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.server.paper.api.resourcepack.construct.BlockstatesResourcePackPath;
 import spout.server.paper.api.resourcepack.content.Blockstates;
 import spout.server.paper.impl.resourcepack.construct.ResourcePackConstructionImpl;
-import spout.server.paper.impl.resourcepack.plugin.discover.PluginResourcePackDiscoveryImpl;
+import spout.clientview.resourcepack.plugindiscovery.PluginResourcePackDiscoveryImpl;
 import spout.util.minecraft.blockstate.BlockStateUtil;
 import spout.util.minecraft.resources.IdentifierUtil;
 
@@ -71,7 +71,7 @@ public abstract class ArrayResultProcessor<M extends BlockStateMappingMacro, Re 
     public static abstract class Result {
 
         /**
-         * The block states that will be mapped to for {@link ClientView.AwarenessLevel#RESOURCE_PACK} clients,
+         * The block states that will be mapped to for {@link AwarenessLevels#RESOURCE_PACK} clients,
          * at the same index as the corresponding state in {@link #fromStates()}.
          *
          * <p>
@@ -88,7 +88,7 @@ public abstract class ArrayResultProcessor<M extends BlockStateMappingMacro, Re 
         protected boolean @Nullable [] isResourcePackToStateProxy;
 
         /**
-         * The block states that will be mapped to for {@link ClientView.AwarenessLevel#VANILLA} clients.
+         * The block states that will be mapped to for {@link AwarenessLevels#VANILLA} clients.
          *
          * <p>
          * The array may be null if not initialized yet,
@@ -316,7 +316,7 @@ public abstract class ArrayResultProcessor<M extends BlockStateMappingMacro, Re 
                 // Resource pack entry
                 if (createResourcePackBlockstatesEntries && result.isResourcePackToStateProxy[fromStateIndex] && createdResourcePackEntryForProxyStates.add(resourcePackToState)) {
                     ResourcePackConstructionImpl.get().addEventInitializer(resourcePackEvent -> {
-                        BlockstatesResourcePackPath path = resourcePackEvent.asset(ClientView.AwarenessLevel.RESOURCE_PACK, "blockstates", resourcePackToState.getBlock().keyInBlockRegistry, "json").asBlockstates();
+                        BlockstatesResourcePackPath path = resourcePackEvent.asset(CraftAwarenessLevel.toBukkit(AwarenessLevels.RESOURCE_PACK), "blockstates", resourcePackToState.getBlock().keyInBlockRegistry, "json").asBlockstates();
                         path.update(blockstates -> {
                             if (blockstates == null) {
                                 blockstates = Blockstates.create();

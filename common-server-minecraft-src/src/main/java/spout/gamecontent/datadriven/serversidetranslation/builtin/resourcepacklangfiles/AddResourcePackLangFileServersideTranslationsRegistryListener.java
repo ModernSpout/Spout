@@ -14,7 +14,7 @@ import spout.gamecontent.datadriven.serversidetranslation.registry.ServersideTra
 import spout.server.paper.api.resourcepack.content.Lang;
 import spout.server.paper.impl.configuration.SpoutGlobalConfiguration;
 import spout.util.minecraft.locale.MinecraftLocaleUtil;
-import spout.server.paper.impl.resourcepack.plugin.discover.PluginResourcePackDiscoveryImpl;
+import spout.clientview.resourcepack.plugindiscovery.PluginResourcePackDiscoveryImpl;
 import spout.util.minecraft.registry.SpoutRegistryHookEvents;
 import java.util.ArrayList;
 import java.util.Collections;

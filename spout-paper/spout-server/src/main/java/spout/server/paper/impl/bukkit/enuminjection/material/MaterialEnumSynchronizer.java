@@ -1,6 +1,5 @@
 package spout.server.paper.impl.bukkit.enuminjection.material;
 
-import com.google.common.collect.ImmutableMap;
 import it.unimi.dsi.fastutil.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.bukkit.Material;
@@ -11,7 +10,6 @@ import org.bukkit.inventory.ItemType;
 import spout.server.paper.impl.bukkit.enuminjection.BukkitEnumSynchronizer;
 import spout.server.paper.impl.bukkit.enuminjection.KeyedSourceBukkitEnumSynchronizer;
 import org.jspecify.annotations.Nullable;
-import spout.server.paper.impl.util.java.reflect.ReflectionUtil;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;

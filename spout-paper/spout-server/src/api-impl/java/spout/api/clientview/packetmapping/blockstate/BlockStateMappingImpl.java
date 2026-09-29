@@ -5,8 +5,8 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.bukkit.block.data.BlockData;
-import spout.api.clientview.model.ClientView;
-import spout.api.clientview.model.CraftAwarenessLevel;
+import spout.api.clientview.model.awarenesslevel.AwarenessLevel;
+import spout.api.clientview.model.awarenesslevel.CraftAwarenessLevel;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +21,7 @@ public sealed abstract class BlockStateMappingImpl extends HolderableBase<spout.
     }
 
     @Override
-    public List<? extends ClientView.AwarenessLevel> getAwarenessLevels() {
+    public List<? extends AwarenessLevel> getAwarenessLevels() {
         return this.getHolder().value().awarenessLevels().stream().map(CraftAwarenessLevel::toBukkit).toList();
     }
 

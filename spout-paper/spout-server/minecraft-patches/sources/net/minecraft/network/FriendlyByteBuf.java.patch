@@ -1,10 +1,8 @@
 --- a/net/minecraft/network/FriendlyByteBuf.java
 +++ b/net/minecraft/network/FriendlyByteBuf.java
-@@ -67,10 +_,21 @@
- import org.joml.Vector3f;
+@@ -68,9 +_,19 @@
  import org.joml.Vector3fc;
  import org.jspecify.annotations.Nullable;
-+import spout.api.clientview.model.ClientView;
  
 -public class FriendlyByteBuf extends ByteBuf {
 +public class FriendlyByteBuf extends ByteBuf implements spout.clientview.packetmapping.clientviewlookup.ClientViewLookup { // Spout - Client view - Lookup - During packet handling - Store provider in FriendlyByteBuf - Easy access via ClientViewProvider interface
@@ -13,7 +11,7 @@
 +    public final java.lang.ref.@Nullable WeakReference<spout.clientview.packetmapping.clientviewlookup.ClientViewLookup> clientViewProvider; // Spout - Client view - Lookup - During packet handling - Store provider in FriendlyByteBuf
 +    // Spout start - Client view - Lookup - During packet handling - Store provider in FriendlyByteBuf - Easy access via ClientViewProvider interface
 +    @Override
-+    public @Nullable ClientView getClientView() {
++    public spout.clientview.model.@Nullable ClientView getClientView() {
 +        spout.clientview.packetmapping.clientviewlookup.@Nullable ClientViewLookup clientViewLookup = this.clientViewProvider == null ? null : this.clientViewProvider.get();
 +        return clientViewLookup == null ? null : clientViewLookup.getClientView();
 +    }

@@ -4,21 +4,23 @@ import net.minecraft.network.Connection;
 import net.minecraft.server.level.ServerPlayer;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.Nullable;
+import spout.api.clientview.model.awarenesslevel.AwarenessLevel;
+import spout.api.clientview.model.awarenesslevel.CraftAwarenessLevel;
 
 /**
  * Implementation of {@link ClientView} and {@link ClientViewNMS}.
  */
 public class ClientViewImpl implements ClientViewNMS {
 
-    private final spout.clientview.model.ClientViewImpl handle;
+    private final spout.clientview.model.ClientView handle;
 
-    public ClientViewImpl(spout.clientview.model.ClientViewImpl handle) {
+    public ClientViewImpl(spout.clientview.model.ClientView handle) {
         this.handle = handle;
     }
 
     @Override
     public AwarenessLevel getAwarenessLevel() {
-        return this.handle.getAwarenessLevel();
+        return CraftAwarenessLevel.toBukkit(this.handle.getAwarenessLevel());
         // return new AwarenessLevelImpl(this.handle.getAwarenessLevel());
     }
 

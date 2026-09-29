@@ -1,7 +1,8 @@
 package spout.clientview.model;
 
 import net.minecraft.network.Connection;
-import spout.api.clientview.model.ClientView;
+import spout.clientview.model.awarenesslevel.AwarenessLevel;
+import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.clientview.packetmapping.itemstack.apply.reverse.ItemStackMappingReverser;
 import org.jspecify.annotations.Nullable;
 
@@ -21,7 +22,7 @@ public final class FallbackClientViewImpl extends ClientViewImpl {
 
     @Override
     public AwarenessLevel getAwarenessLevel() {
-        return AwarenessLevel.VANILLA;
+        return AwarenessLevels.VANILLA;
     }
 
     @Override

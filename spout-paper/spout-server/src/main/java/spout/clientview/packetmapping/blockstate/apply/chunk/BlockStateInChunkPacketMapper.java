@@ -14,7 +14,8 @@ import net.minecraft.world.level.chunk.LinearPalette;
 import net.minecraft.world.level.chunk.Palette;
 import net.minecraft.world.level.chunk.PalettedContainer;
 import net.minecraft.world.level.chunk.SingleValuePalette;
-import spout.api.clientview.model.ClientView;
+import spout.clientview.model.ClientView;
+import spout.clientview.model.awarenesslevel.AwarenessLevel;
 import spout.clientview.packetmapping.blockstate.apply.BlockStateInPacketMapper;
 import spout.clientview.packetmapping.blockstate.apply.BlockStateMappingStep;
 import spout.clientview.packetmapping.blockstate.apply.BlockStateMappingsApplicationContext;
@@ -64,7 +65,7 @@ public final class BlockStateInChunkPacketMapper {
     private final ClientView clientView;
 
     /**
-     * The {@link ClientView.AwarenessLevel#ordinal()} of the {@link #clientView}.
+     * The {@link AwarenessLevel#getId()} of the {@link #clientView}.
      */
     private final int clientViewAwarenessLevelId;
 
@@ -94,7 +95,7 @@ public final class BlockStateInChunkPacketMapper {
         this.chunkStartY = chunk.getMinY();
         this.chunkStartZ = packet.getZ() << 4;
         this.clientView = player.getClientViewOrFallback();
-        this.clientViewAwarenessLevelId = this.clientView.getAwarenessLevel().ordinal();
+        this.clientViewAwarenessLevelId = this.clientView.getAwarenessLevel().getId();
         this.globalPaletteBitsPerEntry = (byte) IntegerUtil.ceilLog2((this.clientView.understandsAllServerSideBlocks() ? Block.BLOCK_STATE_REGISTRY : VanillaOnlyBlockStateRegistry.get()).size());
         this.chunkPacketInfo = chunkPacketInfo;
         ClientboundLevelChunkPacketData chunkData = packet.getChunkData();

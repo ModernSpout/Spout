@@ -6,14 +6,13 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.craftbukkit.block.data.CraftBlockData;
 import org.jspecify.annotations.Nullable;
-import spout.api.clientview.model.ClientView;
-import spout.api.clientview.model.CraftAwarenessLevel;
+import spout.api.clientview.model.awarenesslevel.AwarenessLevel;
+import spout.api.clientview.model.awarenesslevel.CraftAwarenessLevel;
 import spout.api.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandle;
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandleImpl;
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandleNMS;
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandleNMSImpl;
-import spout.clientview.model.awarenesslevel.AwarenessLevel;
 import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.clientview.packetmapping.blockstate.apply.BlockStateMappingStep;
 import spout.clientview.packetmapping.blockstate.apply.DirectBlockStateMappingStep;
@@ -31,7 +30,7 @@ import java.util.function.Consumer;
  */
 public class BlockStateMappingRegistryEntryImpl implements BlockStateMappingRegistryEntryNMS, BlockStateMappingRegistryEntryNMS.Builder {
 
-    protected @Nullable ArrayList<ClientView.AwarenessLevel> awarenessLevels;
+    protected @Nullable ArrayList<AwarenessLevel> awarenessLevels;
     protected @Nullable ArrayList<BlockData> from;
     protected @Nullable BlockData to;
     protected @Nullable Consumer<BlockStateMappingHandle> toFunction;
@@ -49,17 +48,17 @@ public class BlockStateMappingRegistryEntryImpl implements BlockStateMappingRegi
     }
 
     @Override
-    public @Nullable List<? extends ClientView.AwarenessLevel> getAwarenessLevels() {
+    public @Nullable List<? extends AwarenessLevel> getAwarenessLevels() {
         return this.awarenessLevels == null ? null : Collections.unmodifiableList(this.awarenessLevels);
     }
 
     @Override
-    public void setAwarenessLevels(Collection<ClientView.AwarenessLevel> awarenessLevels) {
+    public void setAwarenessLevels(Collection<AwarenessLevel> awarenessLevels) {
         this.awarenessLevels = new ArrayList<>(awarenessLevels);
     }
 
     @Override
-    public void addAwarenessLevel(ClientView.AwarenessLevel awarenessLevel) {
+    public void addAwarenessLevel(AwarenessLevel awarenessLevel) {
         if (this.awarenessLevels == null) {
             this.awarenessLevels = new ArrayList<>(1);
         }
@@ -128,7 +127,7 @@ public class BlockStateMappingRegistryEntryImpl implements BlockStateMappingRegi
 
         @Override
         public spout.clientview.packetmapping.blockstate.BlockStateMapping build() {
-            List<AwarenessLevel> awarenessLevels = this.awarenessLevels != null ? this.awarenessLevels.stream().map(CraftAwarenessLevel::fromBukkit).toList() : Arrays.asList(AwarenessLevels.getThatDoNotAlwaysUnderstandsAllServerSideBlocks());
+            List<spout.clientview.model.awarenesslevel.AwarenessLevel> awarenessLevels = this.awarenessLevels != null ? this.awarenessLevels.stream().map(CraftAwarenessLevel::fromBukkit).toList() : Arrays.asList(AwarenessLevels.getThatDoNotAlwaysUnderstandsAllServerSideBlocks());
             if (this.from == null) {
                 throw new IllegalStateException("No from was specified");
             }

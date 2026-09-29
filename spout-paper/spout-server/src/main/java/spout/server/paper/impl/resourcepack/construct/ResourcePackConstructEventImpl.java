@@ -3,15 +3,18 @@ package spout.server.paper.impl.resourcepack.construct;
 import io.papermc.paper.plugin.bootstrap.BootstrapContext;
 import io.papermc.paper.plugin.bootstrap.PluginBootstrap;
 import io.papermc.paper.plugin.lifecycle.event.PaperLifecycleEvent;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import net.kyori.adventure.key.Key;
 import net.minecraft.resources.Identifier;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.util.CraftNamespacedKey;
-import spout.api.clientview.model.ClientView;
+import spout.api.clientview.model.awarenesslevel.AwarenessLevel;
+import spout.api.clientview.model.awarenesslevel.CraftAwarenessLevel;
+import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstructEvent;
 import spout.server.paper.api.resourcepack.construct.ResourcePackPath;
-import spout.server.paper.impl.util.io.JarFileUtil;
+import spout.util.io.JarFileUtil;
 import org.jspecify.annotations.Nullable;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -19,7 +22,6 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -38,23 +40,23 @@ public final class ResourcePackConstructEventImpl implements PaperLifecycleEvent
 
     /**
      * The file paths in this resource pack, as an array of maps.
-     * The array contains a {@link Map} for each {@link ClientView.AwarenessLevel},
-     * indexed by their {@link ClientView.AwarenessLevel#ordinal()}.
+     * The array contains a {@link Map} for each {@link spout.clientview.model.awarenesslevel.AwarenessLevel},
+     * indexed by their {@link spout.clientview.model.awarenesslevel.AwarenessLevel#getId()}.
      */
     private final @Nullable Map<String, ResourcePackPathImpl>[] paths;
 
     ResourcePackConstructEventImpl() {
-        this.paths = new Map[ClientView.AwarenessLevel.getAll().length];
-        for (ClientView.AwarenessLevel awarenessLevel : ClientView.AwarenessLevel.getAll()) {
+        this.paths = new Map[AwarenessLevels.getAll().length];
+        for (spout.clientview.model.awarenesslevel.AwarenessLevel awarenessLevel : AwarenessLevels.getAll()) {
             // Skip if the awareness level is not relevant
             if (!ResourcePackConstructionImpl.generateForAwarenessLevel(awarenessLevel)) continue;
             // Initialize paths for awareness level
-            this.paths[awarenessLevel.ordinal()] = new HashMap<>();
+            this.paths[awarenessLevel.getId()] = new HashMap<>();
         }
     }
 
     @Override
-    public ResourcePackPath path(ClientView.AwarenessLevel awarenessLevel, String path) {
+    public ResourcePackPath path(AwarenessLevel awarenessLevel, String path) {
         // Normalize and validate the path
         if (path.indexOf(' ') != -1) {
             throw new IllegalArgumentException("Path contains a space (which is not allowed): " + path);
@@ -71,7 +73,7 @@ public final class ResourcePackConstructEventImpl implements PaperLifecycleEvent
             }
         }
         // Validate the awareness level
-        @Nullable Map<String, ResourcePackPathImpl> map = this.paths[awarenessLevel.ordinal()];
+        @Nullable Map<String, ResourcePackPathImpl> map = this.paths[CraftAwarenessLevel.fromBukkit(awarenessLevel).getId()];
         if (map == null) {
             throw new IllegalArgumentException("Generating a resource pack is not supported for clients with awareness level " + awarenessLevel);
         }
@@ -79,62 +81,62 @@ public final class ResourcePackConstructEventImpl implements PaperLifecycleEvent
     }
 
     @Override
-    public ResourcePackPath asset(ClientView.AwarenessLevel awarenessLevel, String directoryName, NamespacedKey key, @Nullable String extension) {
+    public ResourcePackPath asset(AwarenessLevel awarenessLevel, String directoryName, NamespacedKey key, @Nullable String extension) {
         return this.path(awarenessLevel, "assets/" + key.getNamespace() + "/" + directoryName + "/" + key.getKey() + (extension != null ? "." + extension : ""));
     }
 
     @Override
-    public ResourcePackPath asset(ClientView.AwarenessLevel awarenessLevel, String directoryName, Keyed keyed, @Nullable String extension) {
+    public ResourcePackPath asset(AwarenessLevel awarenessLevel, String directoryName, Keyed keyed, @Nullable String extension) {
         return this.asset(awarenessLevel, directoryName, keyed.getKey(), extension);
     }
 
     @Override
-    public ResourcePackPath asset(ClientView.AwarenessLevel awarenessLevel, String directoryName, Key key, @Nullable String extension) {
+    public ResourcePackPath asset(AwarenessLevel awarenessLevel, String directoryName, Key key, @Nullable String extension) {
         return this.asset(awarenessLevel, directoryName, new NamespacedKey(key.namespace(), key.value()), extension);
     }
 
     @Override
-    public ResourcePackPath asset(ClientView.AwarenessLevel awarenessLevel, String directoryName, net.kyori.adventure.key.Keyed keyed, @Nullable String extension) {
+    public ResourcePackPath asset(AwarenessLevel awarenessLevel, String directoryName, net.kyori.adventure.key.Keyed keyed, @Nullable String extension) {
         return this.asset(awarenessLevel, directoryName, keyed.key(), extension);
     }
 
     /**
-     * @see #asset(ClientView.AwarenessLevel, String, NamespacedKey, String)
+     * @see #asset(AwarenessLevel, String, NamespacedKey, String)
      */
-    public ResourcePackPath asset(ClientView.AwarenessLevel awarenessLevel, String directoryName, Identifier identifier, @Nullable String extension) {
+    public ResourcePackPath asset(AwarenessLevel awarenessLevel, String directoryName, Identifier identifier, @Nullable String extension) {
         return this.asset(awarenessLevel, directoryName, CraftNamespacedKey.fromMinecraft(identifier), extension);
     }
 
     @Override
-    public void copyPluginResource(PluginBootstrap bootstrap, ClientView.AwarenessLevel awarenessLevel, String pathInPluginResources, String pathInResourcePack) throws IOException {
+    public void copyPluginResource(PluginBootstrap bootstrap, AwarenessLevel awarenessLevel, String pathInPluginResources, String pathInResourcePack) throws IOException {
         this.copyPluginResource(bootstrap.getClass(), awarenessLevel, pathInPluginResources, pathInResourcePack);
     }
 
     @Override
-    public void copyPluginResource(PluginBootstrap bootstrap, ClientView.AwarenessLevel[] awarenessLevels, String pathInPluginResources, String pathInResourcePack) throws IOException {
+    public void copyPluginResource(PluginBootstrap bootstrap, AwarenessLevel[] awarenessLevels, String pathInPluginResources, String pathInResourcePack) throws IOException {
         this.copyPluginResource(bootstrap.getClass(), awarenessLevels, pathInPluginResources, pathInResourcePack);
     }
 
     @Override
-    public void copyPluginResource(PluginBootstrap bootstrap, Iterable<ClientView.AwarenessLevel> awarenessLevels, String pathInPluginResources, String pathInResourcePack) throws IOException {
+    public void copyPluginResource(PluginBootstrap bootstrap, Iterable<AwarenessLevel> awarenessLevels, String pathInPluginResources, String pathInResourcePack) throws IOException {
         this.copyPluginResource(bootstrap.getClass(), awarenessLevels, pathInPluginResources, pathInResourcePack);
     }
 
     @Override
-    public void copyPluginResource(Class<? extends PluginBootstrap> bootstrapClass, ClientView.AwarenessLevel awarenessLevel, String pathInPluginResources, String pathInResourcePack) throws IOException {
+    public void copyPluginResource(Class<? extends PluginBootstrap> bootstrapClass, AwarenessLevel awarenessLevel, String pathInPluginResources, String pathInResourcePack) throws IOException {
         this.copyPluginResource(bootstrapClass, List.of(awarenessLevel), pathInPluginResources, pathInResourcePack);
     }
 
     @Override
-    public void copyPluginResource(Class<? extends PluginBootstrap> bootstrapClass, ClientView.AwarenessLevel[] awarenessLevels, String pathInPluginResources, String pathInResourcePack) throws IOException {
+    public void copyPluginResource(Class<? extends PluginBootstrap> bootstrapClass, AwarenessLevel[] awarenessLevels, String pathInPluginResources, String pathInResourcePack) throws IOException {
         this.copyPluginResource(bootstrapClass, Arrays.asList(awarenessLevels), pathInPluginResources, pathInResourcePack);
     }
 
     @Override
-    public void copyPluginResource(Class<? extends PluginBootstrap> bootstrapClass, Iterable<ClientView.AwarenessLevel> awarenessLevels, String pathInPluginResources, String pathInResourcePack) throws IOException {
+    public void copyPluginResource(Class<? extends PluginBootstrap> bootstrapClass, Iterable<AwarenessLevel> awarenessLevels, String pathInPluginResources, String pathInResourcePack) throws IOException {
         byte[] bytes = bootstrapClass.getClassLoader().getResourceAsStream(pathInPluginResources).readAllBytes();
         boolean first = true;
-        for (ClientView.AwarenessLevel awarenessLevel : awarenessLevels) {
+        for (AwarenessLevel awarenessLevel : awarenessLevels) {
             if (first) {
                 first = false;
             } else {
@@ -145,34 +147,34 @@ public final class ResourcePackConstructEventImpl implements PaperLifecycleEvent
     }
 
     @Override
-    public void copyPluginResources(BootstrapContext context, ClientView.AwarenessLevel awarenessLevel, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException {
+    public void copyPluginResources(BootstrapContext context, AwarenessLevel awarenessLevel, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException {
         this.copyPluginResources(context, List.of(awarenessLevel), pathInPluginResources, pathInResourcePack, filter);
 
     }
 
     @Override
-    public void copyPluginResources(BootstrapContext context, ClientView.AwarenessLevel[] awarenessLevels, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException {
+    public void copyPluginResources(BootstrapContext context, AwarenessLevel[] awarenessLevels, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException {
         this.copyPluginResources(context, Arrays.asList(awarenessLevels), pathInPluginResources, pathInResourcePack, filter);
     }
 
     @Override
-    public void copyPluginResources(BootstrapContext context, Iterable<ClientView.AwarenessLevel> awarenessLevels, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException {
+    public void copyPluginResources(BootstrapContext context, Iterable<AwarenessLevel> awarenessLevels, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException {
         this.copyPluginResources(context.getPluginSource(), awarenessLevels, pathInPluginResources, pathInResourcePack, filter);
     }
 
     @Override
-    public void copyPluginResources(Path pluginSource, ClientView.AwarenessLevel awarenessLevel, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException {
+    public void copyPluginResources(Path pluginSource, AwarenessLevel awarenessLevel, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException {
         this.copyPluginResources(pluginSource, List.of(awarenessLevel), pathInPluginResources, pathInResourcePack, filter);
 
     }
 
     @Override
-    public void copyPluginResources(Path pluginSource, ClientView.AwarenessLevel[] awarenessLevels, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException {
+    public void copyPluginResources(Path pluginSource, AwarenessLevel[] awarenessLevels, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException {
         this.copyPluginResources(pluginSource, Arrays.asList(awarenessLevels), pathInPluginResources, pathInResourcePack, filter);
     }
 
     @Override
-    public void copyPluginResources(Path pluginSource, Iterable<ClientView.AwarenessLevel> awarenessLevels, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException {
+    public void copyPluginResources(Path pluginSource, Iterable<AwarenessLevel> awarenessLevels, String pathInPluginResources, String pathInResourcePack, @Nullable Predicate<String> filter) throws IOException {
         JarFileUtil.forEachFileBelowDirectory(pluginSource.toFile(), pathInPluginResources + (pathInResourcePack.isEmpty() ? "" : "/" + pathInResourcePack), (entry, jar, relativePath) -> {
             if (filter == null || filter.test(relativePath)) {
                 byte[] bytes;
@@ -180,7 +182,7 @@ public final class ResourcePackConstructEventImpl implements PaperLifecycleEvent
                     bytes = inputStream.readAllBytes();
                 }
                 boolean first = true;
-                for (ClientView.AwarenessLevel awarenessLevel : awarenessLevels) {
+                for (AwarenessLevel awarenessLevel : awarenessLevels) {
                     if (first) {
                         first = false;
                     } else {
@@ -201,11 +203,11 @@ public final class ResourcePackConstructEventImpl implements PaperLifecycleEvent
         ".bin"
     );
 
-    Map<ClientView.AwarenessLevel, byte[]> buildPacks() throws Exception {
+    Map<spout.clientview.model.awarenesslevel.AwarenessLevel, byte[]> buildPacks() throws Exception {
 
         // Create an archive for each relevant awareness level
-        Map<ClientView.AwarenessLevel, byte[]> packs = new EnumMap<>(ClientView.AwarenessLevel.class);
-        for (ClientView.AwarenessLevel awarenessLevel : ClientView.AwarenessLevel.getAll()) {
+        Map<spout.clientview.model.awarenesslevel.AwarenessLevel, byte[]> packs = new Object2ObjectArrayMap<>(AwarenessLevels.getAll().length);
+        for (spout.clientview.model.awarenesslevel.AwarenessLevel awarenessLevel : AwarenessLevels.getAll()) {
             if (!ResourcePackConstructionImpl.generateForAwarenessLevel(awarenessLevel)) {
                 continue;
             }
@@ -216,7 +218,7 @@ public final class ResourcePackConstructEventImpl implements PaperLifecycleEvent
                     zip.setLevel(Deflater.BEST_COMPRESSION);
 
                     // Sort the files (for better compression)
-                    List<Map.Entry<String, ResourcePackPathImpl>> pathEntries = new ArrayList<>(paths[awarenessLevel.ordinal()].entrySet());
+                    List<Map.Entry<String, ResourcePackPathImpl>> pathEntries = new ArrayList<>(paths[awarenessLevel.getId()].entrySet());
                     pathEntries.sort(Map.Entry.comparingByKey());
 
                     // Add the files

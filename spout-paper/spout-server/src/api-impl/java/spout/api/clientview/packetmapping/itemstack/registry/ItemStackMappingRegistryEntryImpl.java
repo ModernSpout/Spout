@@ -14,14 +14,13 @@ import org.bukkit.craftbukkit.inventory.CraftItemType;
 import org.bukkit.craftbukkit.util.CraftNamespacedKey;
 import org.bukkit.inventory.ItemType;
 import org.jspecify.annotations.Nullable;
-import spout.api.clientview.model.ClientView;
-import spout.api.clientview.model.CraftAwarenessLevel;
+import spout.api.clientview.model.awarenesslevel.AwarenessLevel;
+import spout.api.clientview.model.awarenesslevel.CraftAwarenessLevel;
 import spout.api.clientview.packetmapping.itemstack.ItemStackMapping;
 import spout.api.clientview.packetmapping.itemstack.handle.ItemStackMappingHandle;
 import spout.api.clientview.packetmapping.itemstack.handle.ItemStackMappingHandleImpl;
 import spout.api.clientview.packetmapping.itemstack.handle.ItemStackMappingHandleNMS;
 import spout.api.clientview.packetmapping.itemstack.handle.ItemStackMappingHandleNMSImpl;
-import spout.clientview.model.awarenesslevel.AwarenessLevel;
 import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.clientview.packetmapping.itemstack.builtin.changeonlyitem.ChangeOnlyItemItemStackMappingStep;
 import spout.util.mapping.handle.FunctionMappingStep;
@@ -33,7 +32,7 @@ import spout.util.mapping.handle.MappingStep;
  */
 public class ItemStackMappingRegistryEntryImpl implements ItemStackMappingRegistryEntryNMS, ItemStackMappingRegistryEntryNMS.Builder {
 
-    protected @Nullable ArrayList<ClientView.AwarenessLevel> awarenessLevels;
+    protected @Nullable ArrayList<AwarenessLevel> awarenessLevels;
     protected @Nullable ArrayList<ItemType> from;
     protected @Nullable ItemType to;
     protected @Nullable Consumer<ItemStackMappingHandle> toFunction;
@@ -52,17 +51,17 @@ public class ItemStackMappingRegistryEntryImpl implements ItemStackMappingRegist
     }
 
     @Override
-    public @Nullable List<? extends ClientView.AwarenessLevel> getAwarenessLevels() {
+    public @Nullable List<? extends AwarenessLevel> getAwarenessLevels() {
         return this.awarenessLevels == null ? null : Collections.unmodifiableList(this.awarenessLevels);
     }
 
     @Override
-    public void setAwarenessLevels(Collection<ClientView.AwarenessLevel> awarenessLevels) {
+    public void setAwarenessLevels(Collection<AwarenessLevel> awarenessLevels) {
         this.awarenessLevels = new ArrayList<>(awarenessLevels);
     }
 
     @Override
-    public void addAwarenessLevel(ClientView.AwarenessLevel awarenessLevel) {
+    public void addAwarenessLevel(AwarenessLevel awarenessLevel) {
         if (this.awarenessLevels == null) {
             this.awarenessLevels = new ArrayList<>(1);
         }
@@ -159,7 +158,7 @@ public class ItemStackMappingRegistryEntryImpl implements ItemStackMappingRegist
 
         @Override
         public spout.clientview.packetmapping.itemstack.ItemStackMapping build() {
-            List<AwarenessLevel> awarenessLevels = this.awarenessLevels != null ? this.awarenessLevels.stream().map(CraftAwarenessLevel::fromBukkit).toList() : Arrays.asList(AwarenessLevels.getThatDoNotAlwaysUnderstandsAllServerSideItems());
+            List<spout.clientview.model.awarenesslevel.AwarenessLevel> awarenessLevels = this.awarenessLevels != null ? this.awarenessLevels.stream().map(CraftAwarenessLevel::fromBukkit).toList() : Arrays.asList(AwarenessLevels.getThatDoNotAlwaysUnderstandsAllServerSideItems());
             if (this.from == null) {
                 throw new IllegalStateException("No from was specified");
             }

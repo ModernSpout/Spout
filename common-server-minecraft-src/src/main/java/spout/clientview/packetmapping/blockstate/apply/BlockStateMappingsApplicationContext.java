@@ -1,8 +1,7 @@
 package spout.clientview.packetmapping.blockstate.apply;
 
 import net.minecraft.core.BlockPos;
-import spout.api.clientview.model.ClientView;
-import spout.clientview.model.FallbackClientViewImpl;
+import spout.clientview.model.ClientView;
 import spout.clientview.packetmapping.WithClientViewMappingsApplicationContext;
 
 /**
@@ -49,8 +48,9 @@ public final class BlockStateMappingsApplicationContext extends WithClientViewMa
 
     /**
      * @return The x-coordinate of the physical block for which this mapping is being applied.
-     * This is only available if {@link #isStateOfPhysicalBlockInWorld()} is true
-     * and if {@link BlockMappingBuilder#to} had {@code requiresCoordinates = true}.
+     * This is only available if {@link #isStateOfPhysicalBlockInWorld()} is true and if
+     * {@link spout.api.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryEntry.Builder#setToFunction}
+     * had {@code requiresCoordinates = true}.
      * Otherwise, the returned value is meaningless.
      */
     public int getPhysicalBlockX() {
@@ -59,8 +59,9 @@ public final class BlockStateMappingsApplicationContext extends WithClientViewMa
 
     /**
      * @return The y-coordinate of the physical block for which this mapping is being applied,
-     * This is only available if {@link #isStateOfPhysicalBlockInWorld()} is true
-     * and if {@link BlockMappingBuilder#to} had {@code requiresCoordinates = true}.
+     * This is only available if {@link #isStateOfPhysicalBlockInWorld()} is true and if
+     * {@link spout.api.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryEntry.Builder#setToFunction}
+     * had {@code requiresCoordinates = true}.
      * Otherwise, the returned value is meaningless.
      */
     public int getPhysicalBlockY() {
@@ -69,8 +70,9 @@ public final class BlockStateMappingsApplicationContext extends WithClientViewMa
 
     /**
      * @return The z-coordinate of the physical block for which this mapping is being applied,
-     * This is only available if {@link #isStateOfPhysicalBlockInWorld()} is true
-     * and if {@link BlockMappingBuilder#to} had {@code requiresCoordinates = true}.
+     * This is only available if {@link #isStateOfPhysicalBlockInWorld()} is true and if
+     * {@link spout.api.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryEntry.Builder#setToFunction}
+     * had {@code requiresCoordinates = true}.
      * Otherwise, the returned value is meaningless.
      */
     public int getPhysicalBlockZ() {

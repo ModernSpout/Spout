@@ -7,15 +7,18 @@ import io.papermc.paper.plugin.lifecycle.event.handler.configuration.Prioritized
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEventType;
 import io.papermc.paper.plugin.lifecycle.event.types.PrioritizableLifecycleEventType;
 import it.unimi.dsi.fastutil.Pair;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
-import spout.api.clientview.model.ClientView;
+import spout.api.clientview.model.awarenesslevel.CraftAwarenessLevel;
+import spout.clientview.model.awarenesslevel.AwarenessLevel;
+import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstructEvent;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstructFinishEvent;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstruction;
 import spout.server.paper.impl.configuration.SpoutGlobalConfiguration;
 import spout.gamecontent.datadriven.block.registry.BlockRegistry;
-import spout.server.paper.impl.resourcepack.plugin.discover.PluginResourcePackDiscoveryImpl;
+import spout.clientview.resourcepack.plugindiscovery.PluginResourcePackDiscoveryImpl;
 import spout.server.paper.impl.resourcepack.send.ResourcePackSending;
 import spout.server.paper.impl.resourcepack.serve.ResourcePackServing;
 import spout.server.paper.impl.util.composable.ComposableImpl;
@@ -50,7 +53,7 @@ public final class ResourcePackConstructionImpl extends ComposableImpl<ResourceP
         // Add default contents
         for (String path : DEFAULT_RESOURCE_PACK_CONTENTS_PATHS) {
             try {
-                event.copyPluginResource((Class) this.getClass(), Arrays.stream(ClientView.AwarenessLevel.getAll()).filter(ResourcePackConstructionImpl::generateForAwarenessLevel).toList(), "default_resource_pack_contents/" + path, path);
+                event.copyPluginResource((Class) this.getClass(), Arrays.stream(AwarenessLevels.getAll()).filter(ResourcePackConstructionImpl::generateForAwarenessLevel).map(CraftAwarenessLevel::toBukkit).toList(), "default_resource_pack_contents/" + path, path);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -89,9 +92,9 @@ public final class ResourcePackConstructionImpl extends ComposableImpl<ResourceP
                 // Not a blockstates file
                 isNonVanillaBlockstates = false;
             }
-            ClientView.AwarenessLevel[] awarenessLevels = isNonVanillaBlockstates ? new ClientView.AwarenessLevel[]{ClientView.AwarenessLevel.CLIENT_MOD} : new ClientView.AwarenessLevel[]{ClientView.AwarenessLevel.RESOURCE_PACK, ClientView.AwarenessLevel.CLIENT_MOD};
+            AwarenessLevel[] awarenessLevels = isNonVanillaBlockstates ? new AwarenessLevel[]{AwarenessLevels.CLIENT_MOD} : new AwarenessLevel[]{AwarenessLevels.RESOURCE_PACK, AwarenessLevels.CLIENT_MOD};
             try {
-                event.copyPluginResource(providingPlugin.left(), awarenessLevels, (providingPlugin.right().isEmpty() ? "" : providingPlugin.right() + "/") + pathInResourcePack, pathInResourcePack);
+                event.copyPluginResource(providingPlugin.left(), Arrays.stream(awarenessLevels).map(CraftAwarenessLevel::toBukkit).toArray(spout.api.clientview.model.awarenesslevel.AwarenessLevel[]::new), (providingPlugin.right().isEmpty() ? "" : providingPlugin.right() + "/") + pathInResourcePack, pathInResourcePack);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -103,22 +106,22 @@ public final class ResourcePackConstructionImpl extends ComposableImpl<ResourceP
     @Override
     protected void copyInformationFromEvent(final ResourcePackConstructEventImpl event) {
         // Build the pack contents
-        Map<ClientView.AwarenessLevel, byte[]> packBytes;
+        Map<AwarenessLevel, byte[]> packBytes;
         try {
             packBytes = event.buildPacks();
         } catch (Exception e) {
             throw new RuntimeException("An exception occurred while constructing the server resource pack", e);
         }
         // Create pack instances
-        Map<ClientView.AwarenessLevel, ConstructedResourcePackImpl> packs = new EnumMap<>(ClientView.AwarenessLevel.class);
-        for (Map.Entry<ClientView.AwarenessLevel, byte[]> entry : packBytes.entrySet()) {
+        Map<AwarenessLevel, ConstructedResourcePackImpl> packs = new Object2ObjectArrayMap<>(AwarenessLevels.getAll().length);
+        for (Map.Entry<AwarenessLevel, byte[]> entry : packBytes.entrySet()) {
             packs.put(entry.getKey(), new ConstructedResourcePackImpl(entry.getKey(), entry.getValue()));
         }
         // Call plugins
         LifecycleEventRunner.INSTANCE.callEvent(this.finish(), new ResourcePackConstructFinishEventImpl(packs));
         // Get the packs to pass to built-in output use cases
-        ConstructedResourcePackImpl vanillaPack = packs.get(ClientView.AwarenessLevel.RESOURCE_PACK);
-        ConstructedResourcePackImpl clientModPack = packs.get(ClientView.AwarenessLevel.CLIENT_MOD);
+        ConstructedResourcePackImpl vanillaPack = packs.get(AwarenessLevels.RESOURCE_PACK);
+        ConstructedResourcePackImpl clientModPack = packs.get(AwarenessLevels.CLIENT_MOD);
         // TODO save to file if enabled
         // Set up the HTTP serving
         if (ResourcePackServing.isEnabled()) {
@@ -157,8 +160,8 @@ public final class ResourcePackConstructionImpl extends ComposableImpl<ResourceP
         return this.finishEventType;
     }
 
-    public static boolean generateForAwarenessLevel(ClientView.AwarenessLevel awarenessLevel) {
-        return awarenessLevel != ClientView.AwarenessLevel.VANILLA;
+    public static boolean generateForAwarenessLevel(spout.clientview.model.awarenesslevel.AwarenessLevel awarenessLevel) {
+        return awarenessLevel != AwarenessLevels.VANILLA;
     }
 
     private static final String[] DEFAULT_RESOURCE_PACK_CONTENTS_PATHS = {

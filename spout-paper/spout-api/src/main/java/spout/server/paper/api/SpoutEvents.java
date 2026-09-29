@@ -18,8 +18,8 @@ import spout.api.gamecontent.datadriven.itemtype.registry.ItemTypeTypeRegistryEn
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstructEvent;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstructFinishEvent;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstruction;
-import spout.server.paper.api.resourcepack.plugin.discover.PluginResourcePackDiscoverEvent;
-import spout.server.paper.api.resourcepack.plugin.discover.PluginResourcePackDiscovery;
+import spout.api.clientview.resourcepack.plugindiscovery.PluginResourcePackDiscoverEvent;
+import spout.api.clientview.resourcepack.plugindiscovery.PluginResourcePackDiscovery;
 import spout.util.composable.ComposableEventType;
 import org.jspecify.annotations.Nullable;
 

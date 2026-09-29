@@ -9,7 +9,7 @@ import net.minecraft.world.item.component.ItemLore;
 import org.jspecify.annotations.Nullable;
 import spout.clientview.packetmapping.itemstack.apply.ItemStackMappingHandle;
 import spout.server.paper.impl.configuration.SpoutGlobalConfiguration;
-import spout.server.paper.impl.moredatadriven.namespace.NamespaceNames;
+import spout.gamecontent.datadriven.namespacename.NamespaceNames;
 import spout.util.mapping.handle.MappingStep;
 
 /**

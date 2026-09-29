@@ -1,6 +1,6 @@
 package spout.clientview.packetmapping;
 
-import spout.api.clientview.model.ClientView;
+import spout.clientview.model.ClientView;
 
 /**
  * A context for mappings that happen in the context of some {@link ClientView}.

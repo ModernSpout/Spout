@@ -1,8 +1,8 @@
 package spout.clientview.packetmapping.blockstate.apply.lightchanges;
 
 import net.minecraft.world.level.block.state.BlockState;
-import spout.api.clientview.model.ClientView;
 import spout.clientview.model.ClientViewImpl;
+import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.clientview.packetmapping.blockstate.apply.BlockStateInPacketMapper;
 import spout.clientview.packetmapping.blockstate.apply.BlockStateMappingsApplicationContext;
 import java.util.Arrays;
@@ -17,7 +17,7 @@ public final class CheckCustomLightChanges {
         throw new UnsupportedOperationException();
     }
 
-    private static final BlockStateMappingsApplicationContext[] simulatedContexts = Arrays.stream(ClientView.AwarenessLevel.getThatDoNotAlwaysUnderstandsAllServerSideBlocks()).map(awarenessLevel ->
+    private static final BlockStateMappingsApplicationContext[] simulatedContexts = Arrays.stream(AwarenessLevels.getThatDoNotAlwaysUnderstandsAllServerSideBlocks()).map(awarenessLevel ->
         new BlockStateMappingsApplicationContext(ClientViewImpl.getSimulatedForAwarenessLevel(awarenessLevel))
     ).toArray(BlockStateMappingsApplicationContext[]::new);
 
