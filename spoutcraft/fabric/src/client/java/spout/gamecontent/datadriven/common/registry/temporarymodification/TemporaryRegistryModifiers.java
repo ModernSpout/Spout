@@ -1,13 +1,10 @@
 package spout.gamecontent.datadriven.common.registry.temporarymodification;
 
 import it.unimi.dsi.fastutil.Pair;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
-import spout.gamecontent.datadriven.block.RemappedBlockStateRegistry;
 import spout.gamecontent.datadriven.block.TemporaryBlockRegistryModifier;
 import spout.gamecontent.datadriven.item.TemporaryItemRegistryModifier;
 import java.util.List;
@@ -23,12 +20,20 @@ public final class TemporaryRegistryModifiers {
     }
 
     /**
-     * The Minecraft block registry modifier, or null if not initialized yet.
+     * The Minecraft block registry modifier,
+     * or null if not initialized yet.
      */
     private static @Nullable TemporaryRegistryModifier<Block, ?> blockRegistryModifier;
 
     /**
-     * The Minecraft block registry modifier, or null if not initialized yet.
+     * The {@link Block#BLOCK_STATE_REGISTRY} modifier,
+     * or null if not initialized yet.
+     */
+    private static @Nullable TemporaryBlockStateRegistryModifier blockStateRegistryModifier;
+
+    /**
+     * The Minecraft block registry modifier,
+     * or null if not initialized yet.
      */
     private static @Nullable TemporaryRegistryModifier<Item, ?> itemRegistryModifier;
 
@@ -38,6 +43,7 @@ public final class TemporaryRegistryModifiers {
             return;
         }
         blockRegistryModifier = new TemporaryBlockRegistryModifier();
+        blockStateRegistryModifier = new TemporaryBlockStateRegistryModifier();
         itemRegistryModifier = new TemporaryItemRegistryModifier();
     }
 
@@ -52,28 +58,16 @@ public final class TemporaryRegistryModifiers {
         Supplier<List<Pair<ResourceKey<Item>, Supplier<Item>>>> items
     ) {
         initializeIfNecessary();
-        // Add blocks
-        var blocksToAdd = blocks.get();
+        List<Pair<ResourceKey<Block>, Supplier<Block>>> blocksToAdd = blocks.get();
         blockRegistryModifier.addAndRefreeze(blocksToAdd);
-        // Initialize and add block states
-        RemappedBlockStateRegistry blockStateRegistry =
-            (RemappedBlockStateRegistry) Block.BLOCK_STATE_REGISTRY;
-        for (var blockToAdd : blocksToAdd) {
-            Block block = BuiltInRegistries.BLOCK.get(blockToAdd.first().identifier()).orElseThrow().value();
-            for (BlockState state : block.getStateDefinition().getPossibleStates()) {
-                state.initCache();
-                if (blockStateRegistry.getIdUnmapped(state) == -1) {
-                    Block.BLOCK_STATE_REGISTRY.add(state);
-                }
-            }
-        }
-        // Add items
+        blockStateRegistryModifier.add(blocksToAdd);
         itemRegistryModifier.addAndRefreeze(items.get());
     }
 
     public static void removeCustomContent() {
         initializeIfNecessary();
         blockRegistryModifier.remove();
+        blockStateRegistryModifier.remove();
         itemRegistryModifier.remove();
     }
 
