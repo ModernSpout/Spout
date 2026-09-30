@@ -10,8 +10,8 @@ plugins {
 
 subprojects {
 
-    apply(plugin = "maven-publish")
     apply(plugin = "java")
+    apply(plugin = "maven-publish")
 
     version = providers.gradleProperty("mod_version").get()
     group = providers.gradleProperty("maven_group").get()

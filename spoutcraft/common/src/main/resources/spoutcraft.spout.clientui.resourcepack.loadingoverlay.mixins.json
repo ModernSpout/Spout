@@ -5,9 +5,7 @@
   "client": [
     "ChangePositionsOfSpoutLogoLoadingOverlayMixin",
     "LoadingOverlayLogoLocationAccessor",
-    "ReplaceColorsAndSizesOverlayMixin",
-    "ReplaceLogoWhenRegisteringTexturesLoadingOverlayMixin",
-    "ReplaceMojangLogoAfterTexturesRegisteredMixin"
+    "ReplaceColorsAndSizesOverlayMixin"
   ],
   "injectors": {
     "defaultRequire": 1
