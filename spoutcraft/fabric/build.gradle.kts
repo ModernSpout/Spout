@@ -11,19 +11,16 @@ base {
 }
 
 loom {
-    splitEnvironmentSourceSets()
-
     mods {
         register("spoutcraft") {
             sourceSet(sourceSets.main.get())
-            sourceSet(sourceSets.getByName("client"))
         }
     }
 
     accessWidenerPath = file("src/main/resources/spoutcraft.classtweaker")
 }
 
-sourceSets.getByName("client") {
+sourceSets.main {
     java.srcDir("../../common/src/main/java")
     java.srcDir("../../common/minecraft/src/main/java")
     java.srcDir("../common/src/main/java")
