@@ -26,7 +26,7 @@ public final class TestPlugin extends JavaPlugin implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if (player.getName().startsWith("Player")) { // Fabric client test players
+        if (player.getName().startsWith("Player") || player.getName().equals("Dev")) { // Fabric or Forge client test players
             player.setOp(true);
             Registry.ITEM.stream().filter(item -> !item.isVanilla()).forEach(itemType -> {
                 int hasAmount = Arrays.stream(player.getInventory().getContents())

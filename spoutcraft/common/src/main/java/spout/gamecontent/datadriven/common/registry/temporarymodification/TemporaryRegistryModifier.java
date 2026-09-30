@@ -125,8 +125,8 @@ public abstract class TemporaryRegistryModifier<T, R extends MappedRegistry<T>> 
 
     }
 
-    private static Field allTagsField;
-    private static Method unboundMethod;
+    private static final Field allTagsField;
+    private static final Method unboundMethod;
     static {
         try {
             allTagsField = Arrays.stream(MappedRegistry.class.getDeclaredFields())

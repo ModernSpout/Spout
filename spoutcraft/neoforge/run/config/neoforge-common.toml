@@ -1,0 +1,2 @@
+#Set this to true to enable showing debug information about attributes on an item when advanced tooltips is on.
+attributeAdvancedTooltipDebugInfo = true

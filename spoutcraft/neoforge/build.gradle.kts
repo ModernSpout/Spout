@@ -1,4 +1,5 @@
 plugins {
+    id("java-library")
     id("net.neoforged.moddev")
     `maven-publish`
 }
@@ -24,6 +25,17 @@ neoForge {
     mods {
         register("spoutcraft") {
             sourceSet(sourceSets.main.get())
+        }
+    }
+
+    runs {
+        register("client") {
+            jvmArgument("-XX:+IgnoreUnrecognizedVMOptions")
+            jvmArgument("-XX:+AllowEnhancedClassRedefinition")
+            systemProperty("mixin.debug.verbose", "true")
+            systemProperty("mixin.debug.export", "true")
+            systemProperty("neoforge.enabledGameTestNamespaces", "spoutcraft")
+            client()
         }
     }
 }

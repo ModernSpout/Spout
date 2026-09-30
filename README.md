@@ -128,8 +128,6 @@ All custom content is automatically removed the moment you leave a server.
 
 Place the `.jar` file into the `mods` folder.
 
-Requires [Fabric API](https://modrinth.com/mod/fabric-api).
-
 Most mods are compatible and integrate with Spoutcraft perfectly.\
 For example,  mods with custom statistics, shulker box tooltips, minimaps, dynamic lights, etc.
 all support the custom blocks and items.

@@ -7,7 +7,7 @@ import net.neoforged.neoforge.network.registration.HandlerThread;
 import spout.clientview.clientmod.protocol.ClientModCustomContentPacketPayload;
 import spout.clientview.clientmod.protocol.ClientModCustomContentReceiving;
 
-@Mod("spoutcraft_mod")
+@Mod("spoutcraft")
 public final class SpoutcraftNeoForgeMod {
 
     public SpoutcraftNeoForgeMod(IEventBus modEventBus) {
@@ -18,7 +18,7 @@ public final class SpoutcraftNeoForgeMod {
         event.registrar("1").optional().executesOn(HandlerThread.NETWORK).commonToClient(
             ClientModCustomContentPacketPayload.TYPE,
             ClientModCustomContentPacketPayload.STREAM_CODEC,
-            (payload, context) -> ClientModCustomContentReceiving.handlePacket(payload)
+            (payload, _) -> ClientModCustomContentReceiving.handlePacket(payload)
         );
     }
 

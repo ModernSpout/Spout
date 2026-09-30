@@ -1,0 +1,2 @@
+/spoutcraft
+/give @s chinese_mythology_mashup:paper_lamp

@@ -73,10 +73,10 @@ public final class ClientModCustomContentReceiving {
                     );
                     // Set up registry id mappings where necessary
                     for (RegistryEntryIdList list : receivedContent.getRegistryEntryIdLists()) {
-                        Registry registry = BuiltInRegistries.REGISTRY.getValue(list.registryIdentifier());
+                        Registry<?> registry = BuiltInRegistries.REGISTRY.getValue(list.registryIdentifier());
                         if (registry != null) {
                             for (IntObjectPair<Identifier> pair : list.entryIds()) {
-                                int currentId = registry.getId(registry.getValue(pair.right()));
+                                int currentId = ((Registry) registry).getId(registry.getValue(pair.right()));
                                 if (currentId != pair.leftInt()) {
                                     RegistryIdMappings.add(registry, currentId, pair.leftInt());
                                 }

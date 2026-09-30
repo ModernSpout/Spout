@@ -48,7 +48,9 @@ public final class TemporaryItemRegistryModifier extends TemporaryRegistryModifi
 
     private static ResourceKey<?> getInitializerResourceKey(Object initializer) {
         if (initializerResourceKeyField == null) {
-            initializerResourceKeyField = Arrays.stream(initializer.getClass().getDeclaredFields()).filter(field -> field.getType() == ResourceKey.class).findFirst().get();
+            initializerResourceKeyField = Arrays.stream(initializer.getClass().getDeclaredFields())
+                .filter(field -> field.getType() == ResourceKey.class)
+                .findFirst().get();
             initializerResourceKeyField.setAccessible(true);
         }
         try {
