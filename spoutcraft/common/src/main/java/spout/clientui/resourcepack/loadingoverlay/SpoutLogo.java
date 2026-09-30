@@ -15,7 +15,7 @@ public final class SpoutLogo {
         throw new UnsupportedOperationException();
     }
 
-    private static final String FILENAME = "icon.png";
+    private static final String FILENAME = "splash_icon.png";
     public static final Identifier IDENTIFIER = Identifier.fromNamespaceAndPath(SpoutNamespace.SPOUT, FILENAME);
     private static final String RESOURCE_PATH = "assets/spout/" + FILENAME;
 

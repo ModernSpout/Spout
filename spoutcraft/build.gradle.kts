@@ -20,9 +20,11 @@ subprojects {
         named("main") {
             java.srcDir("../../common/src/main/java")
             java.srcDir("../../common/minecraft/src/main/java")
+            java.srcDir("../../common/mod/src/main/java")
             java.srcDir("../common/src/main/java")
             resources.srcDir("../../common/src/main/resources")
             resources.srcDir("../../common/minecraft/src/main/resources")
+            resources.srcDir("../../common/mod/src/main/resources")
             resources.srcDir("../common/src/main/resources")
         }
     }
