@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import org.jspecify.annotations.Nullable;
+import spout.clientview.clientmod.protocol.CurrentLoadedContentDiagnosticSummary;
 import spout.gamecontent.datadriven.block.TemporaryBlockRegistryModifier;
 import spout.gamecontent.datadriven.block.TemporaryBlockStateRegistryModifier;import spout.gamecontent.datadriven.item.TemporaryItemRegistryModifier;
 import java.util.List;
@@ -60,8 +61,11 @@ public final class TemporaryRegistryModifiers {
         initializeIfNecessary();
         List<Pair<ResourceKey<Block>, Supplier<Block>>> blocksToAdd = blocks.get();
         blockRegistryModifier.addAndRefreeze(blocksToAdd);
+        CurrentLoadedContentDiagnosticSummary.INSTANCE.setBlocks(blocksToAdd.size());
         blockStateRegistryModifier.add(blocksToAdd);
-        itemRegistryModifier.addAndRefreeze(items.get());
+        List<Pair<ResourceKey<Item>, Supplier<Item>>> itemsToAdd = items.get();
+        itemRegistryModifier.addAndRefreeze(itemsToAdd);
+        CurrentLoadedContentDiagnosticSummary.INSTANCE.setItems(itemsToAdd.size());
     }
 
     public static void removeCustomContent() {

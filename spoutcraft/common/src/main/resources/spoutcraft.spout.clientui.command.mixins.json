@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "spout.clientui.command.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "ClientPacketListenerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

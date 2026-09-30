@@ -17,6 +17,10 @@
   "accessWidener": "spoutcraft.classtweaker",
   "mixins": [
     {
+      "config": "spoutcraft.spout.clientui.command.mixins.json",
+      "environment": "client"
+    },
+    {
       "config": "spoutcraft.spout.clientui.resourcepack.loadingoverlay.mixins.json",
       "environment": "client"
     },

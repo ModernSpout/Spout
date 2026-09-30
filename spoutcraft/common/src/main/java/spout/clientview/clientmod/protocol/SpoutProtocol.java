@@ -26,6 +26,9 @@ public final class SpoutProtocol {
     private static final int MAX_PROTOCOL_VERSION = 5;
 
     private static final AtomicReference<ClientModState> state = new AtomicReference<>(ClientModState.IDLE);
+    private static volatile int serverMinProtocolVersion = -1;
+    private static volatile int serverMaxProtocolVersion = -1;
+    private static volatile int selectedProtocolVersion = -1;
 
     private SpoutProtocol() {
         throw new UnsupportedOperationException();
@@ -68,6 +71,9 @@ public final class SpoutProtocol {
             responseProtocolVersion = bestProtocolVersion;
         }
         int selectedProtocolVersion = responseProtocolVersion;
+        SpoutProtocol.serverMinProtocolVersion = detectionPayload.minProtocolVersion;
+        SpoutProtocol.serverMaxProtocolVersion = detectionPayload.maxProtocolVersion;
+        SpoutProtocol.selectedProtocolVersion = selectedProtocolVersion;
         return output -> {
             output.writeVarInt(0);
             output.writeVarInt(detectionPayload.nonce);
@@ -103,6 +109,9 @@ public final class SpoutProtocol {
     public static void onDisconnect() {
         SwitchOverlayStyle.setMojang();
         ClientModState oldState = state.getAndSet(ClientModState.IDLE);
+        SpoutProtocol.serverMinProtocolVersion = -1;
+        SpoutProtocol.serverMaxProtocolVersion = -1;
+        SpoutProtocol.selectedProtocolVersion = -1;
         ClientModCustomContentReceiving.clear();
         if (oldState == ClientModState.ADDED_CUSTOM_CONTENT) {
             TemporaryRegistryModifiers.removeCustomContent();
@@ -123,6 +132,18 @@ public final class SpoutProtocol {
 
     public static ClientModState getState() {
         return state.get();
+    }
+
+    public static int getServerMinProtocolVersion() {
+        return serverMinProtocolVersion;
+    }
+
+    public static int getServerMaxProtocolVersion() {
+        return serverMaxProtocolVersion;
+    }
+
+    public static int getSelectedProtocolVersion() {
+        return selectedProtocolVersion;
     }
 
     public record ClientModDetectionQueryPayload(

@@ -26,6 +26,9 @@ ordering = "NONE"
 side = "CLIENT"
 
 [[mixins]]
+config = "spoutcraft.spout.clientui.command.mixins.json"
+
+[[mixins]]
 config = "spoutcraft.spout.clientui.resourcepack.loadingoverlay.mixins.json"
 
 [[mixins]]

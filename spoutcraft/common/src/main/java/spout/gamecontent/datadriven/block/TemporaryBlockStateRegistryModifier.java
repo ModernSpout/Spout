@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
-import spout.gamecontent.datadriven.common.registry.temporarymodification.mixin.IdMapperAccessor;
+import spout.clientview.clientmod.protocol.CurrentLoadedContentDiagnosticSummary;import spout.gamecontent.datadriven.common.registry.temporarymodification.mixin.IdMapperAccessor;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -20,6 +20,7 @@ public final class TemporaryBlockStateRegistryModifier {
 
     public void add(List<Pair<ResourceKey<Block>, Supplier<Block>>> blocksToAdd) {
         IdMapper<BlockState> blockStateRegistry = Block.BLOCK_STATE_REGISTRY;
+        int addedBlockStatesCount = 0;
         for (var blockToAdd : blocksToAdd) {
             Block block = BuiltInRegistries.BLOCK.get(blockToAdd.first().identifier()).orElseThrow().value();
             for (BlockState state : block.getStateDefinition().getPossibleStates()) {
@@ -27,8 +28,10 @@ public final class TemporaryBlockStateRegistryModifier {
                 if (blockStateRegistry.getId(state) == -1) {
                     blockStateRegistry.add(state);
                 }
+                addedBlockStatesCount++;
             }
         }
+        CurrentLoadedContentDiagnosticSummary.INSTANCE.setBlockStates(addedBlockStatesCount);
     }
 
     public void remove() {

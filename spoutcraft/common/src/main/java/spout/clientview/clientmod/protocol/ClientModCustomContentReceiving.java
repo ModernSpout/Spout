@@ -94,6 +94,9 @@ public final class ClientModCustomContentReceiving {
                             }
                         }
                     }
+                    // Store the diagnostic summary
+                    CurrentLoadedContentDiagnosticSummary.INSTANCE.setRegistryEntryIdLists(receivedContent.getRegistryEntryIdLists().size());
+                    CurrentLoadedContentDiagnosticSummary.INSTANCE.setBlockStateRegistryEntryIdLists(receivedContent.getBlockStateRegistryEntryIdLists().size());
                     // Change the state
                     SpoutProtocol.changeState(ClientModState.RECEIVED_CUSTOM_CONTENT, ClientModState.ADDED_CUSTOM_CONTENT);
                     receivedContent = null;
@@ -110,11 +113,11 @@ public final class ClientModCustomContentReceiving {
         }
     }
 
-    /**
-     * Clear the received content, to reclaim memory.
-     */
     static void clear() {
+        // Clear the received content, to reclaim memory
         receivedContent = null;
+        // Reset the diagnostic summary
+        CurrentLoadedContentDiagnosticSummary.INSTANCE.reset();
     }
 
 }
