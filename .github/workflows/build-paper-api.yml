@@ -1,12 +1,10 @@
-# Builds the API JAR
+# Builds the plugin API JAR
 name: build-paper-api
 on:
   push:
     branches: [ "master" ]
 jobs:
   build-paper-api:
-    # Only runs if the last commit does not start with [ci-skip]
-    if: ${{ !contains(github.event.commits[0].message, '[ci-skip]') }}
     runs-on: ubuntu-latest
     strategy:
       matrix:

@@ -2,7 +2,7 @@
 
   <!--<img src="logo.png" alt="Spout logo" width="21%" align="right">-->
   <h1>
-    Spout server / Spoutcraft client<br>(Paper,  Fabric)
+    Spout server + Spoutcraft client<br>(Paper, Fabric, NeoForge)
   </h1>
   <h3>
     Vanilla-compatible server + client
@@ -54,7 +54,7 @@ When players join, the new blocks and items will be added client-side too.
 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;✓&nbsp;&nbsp;Support for all Bukkit / Spigot / Paper plugins
 
-A Fabric server mod is planned.
+A Fabric and NeoForge server mod is planned.
 Please let us know on [Discord](https://discord.gg/EduvcVmKS7) if you are interested.
 
 ## Downloads
@@ -302,11 +302,12 @@ or ask to join the project as a developer.
 This project is heavily inspired by the original
 [Spoutcraft / BukkitContrib](https://github.com/spoutcraft) project.
 This project would not exist without the ideas and work that those who worked on it put forward.
-Additionally, this project builds on top of the work of the contributors to
-[Paper](https://github.com/PaperMC/Paper) and [Spigot](https://www.spigotmc.org/), and
-[Fabric](https://fabricmc.net/) and [Sponge](https://spongepowered.org/).
+Additionally, this project directly builds on top of the work of the contributors to
+[Paper](https://github.com/PaperMC/Paper), [Spigot](https://www.spigotmc.org/),
+[Fabric](https://fabricmc.net/), [NeoForge](https://neoforged.net/) and [Sponge](https://spongepowered.org/).
 
 Also, thanks go out to
+[Nora](https://github.com/noramibu),
 [Alvinn8](https://github.com/Alvinn8/),
 [SoSeDiK](https://github.com/SoSeDiK) and
 [zoumath19](https://github.com/zoumath19)

@@ -1,11 +1,10 @@
+# Builds the client mod JAR
 name: build-client
 on:
   push:
     branches: [ "master" ]
 jobs:
-  build-fabric-client:
-    # Only runs if the last commit does not start with [ci-skip]
-    if: ${{ !contains(github.event.commits[0].message, '[ci-skip]') }}
+  build-client:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
@@ -26,7 +25,7 @@ jobs:
         run: chmod +x ./gradlew
       - name: Install AdvanceCOMP (for advzip)
         run: sudo apt-get update && sudo apt-get install -y advancecomp
-      - name: Compress
+      - name: Build and compress
         run: ./gradlew :spoutcraft-multiloader:recompressJar
       - name: Upload JAR
         uses: actions/upload-artifact@v7
