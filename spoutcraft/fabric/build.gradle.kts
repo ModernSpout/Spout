@@ -67,16 +67,6 @@ tasks.jar {
     }
 }
 
-tasks.register<Exec>("recompressJar") {
-    group = "build"
-    dependsOn(tasks.jar)
-    val input = tasks.jar.get().archiveFile.get().asFile
-    commandLine(
-        "sh", "-c",
-        "advzip -z -4 ${input.absolutePath}"
-    )
-}
-
 publishing {
     publications {
         register<MavenPublication>("mavenJava") {

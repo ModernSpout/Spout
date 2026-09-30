@@ -1,4 +1,4 @@
-name: build-fabric-client
+name: build-client
 on:
   push:
     branches: [ "master" ]
@@ -24,17 +24,15 @@ jobs:
         continue-on-error: true
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
-      - name: Build
-        run: ./gradlew :spoutcraft-multiloader:fabric:build
       - name: Install AdvanceCOMP (for advzip)
         run: sudo apt-get update && sudo apt-get install -y advancecomp
       - name: Compress
-        run: ./gradlew :spoutcraft:fabric:recompressJar
+        run: ./gradlew :spoutcraft-multiloader:recompressJar
       - name: Upload JAR
         uses: actions/upload-artifact@v7
         with:
           name: Spoutcraft JAR
           path: |
-            spoutcraft/fabric/build/libs/spoutcraft-*.jar
-            !spoutcraft/fabric/build/libs/spoutcraft-*-sources.jar
+            spoutcraft/build/libs/spoutcraft-*.jar
+            !spoutcraft/build/libs/spoutcraft-*-sources.jar
           archive: false
