@@ -1,7 +1,32 @@
 --- a/paper-api/build.gradle.kts
 +++ b/paper-api/build.gradle.kts
-@@ -94,7 +_,7 @@
+@@ -17,10 +_,12 @@
+     JavadocTag("apiNote", "a", "API Note:"),
+ )
+ 
+-paperCheckstyle {
+-    customJavadocTags = projectCustomJavadocTags
+-    directoriesToSkipFile = layout.projectDirectory.file(".checkstyle/ignored_directories.txt")
+-}
++// Spout start - Project setup - Remove Checkstyle
++// paperCheckstyle {
++//     customJavadocTags = projectCustomJavadocTags
++//     directoriesToSkipFile = layout.projectDirectory.file(".checkstyle/ignored_directories.txt")
++// }
++// Spout end - Project setup - Remove Checkstyle
+ 
+ val annotationsVersion = "26.0.2"
+ val adventureVersion = "5.2.0"
+@@ -104,11 +_,13 @@
+     mockitoAgent("org.mockito:mockito-core:5.22.0") { isTransitive = false } // configure mockito agent that is needed in newer java versions
      testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.3")
+ 
+-    // checkstyle
+-    checkstyle(project(":paper-checkstyle"))
++    // Spout start - Project setup - Remove Checkstyle
++    // // checkstyle
++    // checkstyle(project(":paper-checkstyle"))
++    // Spout end - Project setup - Remove Checkstyle
  }
  
 -val generatedDir: java.nio.file.Path = layout.projectDirectory.dir("src/generated/java").asFile.toPath()
@@ -9,7 +34,7 @@
  idea {
      module {
          generatedSourceDirs.add(generatedDir.toFile())
-@@ -104,6 +_,26 @@
+@@ -118,6 +_,26 @@
      main {
          java {
              srcDir(generatedDir)
@@ -36,7 +61,7 @@
          }
      }
  }
-@@ -119,10 +_,27 @@
+@@ -133,10 +_,27 @@
              }
              outgoing {
                  capability(mainCapability)
@@ -64,7 +89,7 @@
                  capability("com.destroystokyo.paper:paper-api:${project.version}")
                  capability("org.spigotmc:spigot-api:${project.version}")
                  capability("org.bukkit:bukkit:${project.version}")
-@@ -182,11 +_,18 @@
+@@ -196,11 +_,18 @@
      @get:Inject
      abstract val fileSystemOperations: FileSystemOperations
  }
@@ -84,7 +109,7 @@
      options.use()
      options.isDocFilesSubDirs = true
      options.links(
-@@ -208,16 +_,18 @@
+@@ -222,16 +_,18 @@
      doFirst {
          options.addStringOption(
              "sourcepath",
@@ -106,7 +131,7 @@
                  include("**/doc-files/**")
              }
              into("build/docs/javadoc")
-@@ -247,3 +_,16 @@
+@@ -261,3 +_,16 @@
  tasks.check {
      dependsOn(scanJarForBadCalls)
  }

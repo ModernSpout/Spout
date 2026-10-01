@@ -80,16 +80,16 @@
  dependencies {
 -    implementation(project(":paper-api"))
 +    implementation(project(":spout-api")) // Spout - Project setup - Set up Gradle project
-     implementation("ca.spottedleaf:leafpile:1.0.0")
+     implementation("ca.spottedleaf:leafpile:1.2.0")
      implementation("org.jline:jline-terminal-ffm:3.27.1") // use ffm on java 22+
      implementation("org.jline:jline-terminal-jni:3.27.1") // fall back to jni on java 21
 @@ -159,26 +_,37 @@
-     implementation("me.lucko:spark-paper:1.10.152")
+     implementation("me.lucko:spark-paper:1.10.180")
  }
  
 +// Spout start - Project setup - Explicitly include specific files that appear multiple times in sources
 +tasks.processResources {
-+    filesMatching("META-INF/services/spout.gamecontent.datadriven.common.registry.bootstrap.SpoutBuiltInDataDrivenRegistryBootstrap\$Provider") {
++    filesMatching($$"META-INF/services/spout.gamecontent.datadriven.common.registry.bootstrap.SpoutBuiltInDataDrivenRegistryBootstrap$Provider") {
 +        duplicatesStrategy = DuplicatesStrategy.INCLUDE
 +    }
 +}
@@ -143,7 +143,7 @@
 @@ -276,6 +_,10 @@
          // vendor.set(JvmVendorSpec.JETBRAINS)
      })
-     //jvmArgs("-XX:+AllowEnhancedClassRedefinition")
+     jvmArgs(/*"-XX:+AllowEnhancedClassRedefinition", */"--enable-native-access=ALL-UNNAMED")
 +    jvmArgs("--add-opens", "java.base/java.lang=ALL-UNNAMED") // Spout - Synchronize Bukkit enums - Add module opens to dev server runs
 +    // jvmArgs("--enable-final-field-mutation", "ALL-UNNAMED") // Spout - Synchronize Bukkit enums - Add enable final field mutation to dev server runs
 +    jvmArgs("-Dcom.mojang.eula.agree=true") // Spout - Accept EULA for dev server runs

@@ -1,6 +1,6 @@
 package spout.clientview.packetmapping.blockstate.apply.chunk;
 
-import ca.spottedleaf.dataconverter.util.IntegerUtil;
+import ca.spottedleaf.common.util.IntegerUtil;
 import io.papermc.paper.antixray.ChunkPacketInfo;
 import net.minecraft.network.protocol.game.ClientboundLevelChunkPacketData;
 import net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket;

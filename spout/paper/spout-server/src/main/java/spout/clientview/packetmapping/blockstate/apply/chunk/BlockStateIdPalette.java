@@ -1,6 +1,6 @@
 package spout.clientview.packetmapping.blockstate.apply.chunk;
 
-import ca.spottedleaf.dataconverter.util.IntegerUtil;
+import ca.spottedleaf.common.util.IntegerUtil;
 import net.minecraft.network.VarInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;

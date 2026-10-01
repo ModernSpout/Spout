@@ -62,14 +62,14 @@ Please let us know on [Discord](https://discord.gg/EduvcVmKS7) if you are intere
 
 ## Downloads
 
-[![Download from GitHub](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/2.2/spout-26.2-R2.2.jar)
+[![Download from GitHub](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/2.4/spout-26.2-R2.4.jar)
 
 ## Installation
 
 The `.jar` file is a drop-in replacement for the Paper JAR, and you can run it the same:
 
 ```sh
-java -jar spout-26.2-R2.2.jar
+java -jar spout-26.2-R2.4.jar
 ```
 
 Please report any issues you encounter.
