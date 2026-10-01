@@ -188,8 +188,8 @@ val multiloaderJar by tasks.registering {
                 .filter { it != manifestPath }
                 .sorted()
             for (name in allEntries) {
-                val contents = fabricEntries[name]
-                    ?: neoforgeEntries.getValue(name)
+                val contents = neoforgeEntries[name]
+                    ?: fabricEntries.getValue(name)
                 jar.putNextEntry(JarEntry(name))
                 jar.write(contents)
                 jar.closeEntry()
