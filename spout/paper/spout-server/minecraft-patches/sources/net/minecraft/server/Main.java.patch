@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/Main.java
 +++ b/net/minecraft/server/Main.java
-@@ -107,6 +_,18 @@
+@@ -110,6 +_,18 @@
                  JvmProfiler.INSTANCE.start(Environment.SERVER);
              }
  
@@ -19,7 +19,7 @@
              io.papermc.paper.plugin.PluginInitializerManager.load(options); // Paper
              Bootstrap.bootStrap();
              Bootstrap.validate();
-@@ -121,8 +_,12 @@
+@@ -130,8 +_,12 @@
              }
              // Paper end
              RegionFileVersion.configure(settings.getProperties().regionFileComression);

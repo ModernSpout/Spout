@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/Entity.java
 +++ b/net/minecraft/world/entity/Entity.java
-@@ -4889,7 +_,13 @@
+@@ -4896,7 +_,13 @@
      }
  
      public Packet<ClientGamePacketListener> getAddEntityPacket(final ServerEntity serverEntity) {

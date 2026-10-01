@@ -43,7 +43,7 @@ public final class BlockRegistry extends DefaultedMappedRegistry<Block> {
      * which in turns requires the static initialization of some {@link Block} instances
      * in {@link Blocks} to have finished,
      * this only becomes true after all the {@link Block} instances in
-     * {@link Blocks} have been  initialized.
+     * {@link Blocks} have been initialized.
      * </p>
      */
     public boolean canInitializeBlockStateCaches;

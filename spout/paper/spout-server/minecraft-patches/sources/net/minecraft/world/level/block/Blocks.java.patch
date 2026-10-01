@@ -82,15 +82,19 @@
          return Registry.register(BuiltInRegistries.BLOCK, id, block);
      }
  
-@@ -5998,9 +_,10 @@
-     static {
+@@ -6002,7 +_,7 @@
          for (Block block : BuiltInRegistries.BLOCK) {
+             boolean first = true;
              for (BlockState state : block.getStateDefinition().getPossibleStates()) {
 -                Block.BLOCK_STATE_REGISTRY.add(state);
-+                // Block.BLOCK_STATE_REGISTRY.add(blockState); // Spout - More data-driven - Minecraft registries - Register block states in BlockRegistry#register
-                 state.initCache();
-             }
-         }
++                // Block.BLOCK_STATE_REGISTRY.add(state); // Spout - More data-driven - Minecraft registries - Register block states in BlockRegistry#register
+                 if (first) {
+                     first = false;
+                     state.initCache();
+@@ -6014,5 +_,6 @@
+         // Make sure this stays as a method reference, else the synthetic lambda method makes this blow up
+         statesToInit.parallelStream().forEach(BlockBehaviour.BlockStateBase::initCache);
+         // Paper end - Perf: Optimize block state cache initialization
 +        spout.gamecontent.datadriven.block.registry.BlockRegistry.get().canInitializeBlockStateCaches = true; // Spout - More data-driven - Minecraft registries - Initialize block state caches for non-vanilla blocks in BlockRegistry#register
      }
  }
