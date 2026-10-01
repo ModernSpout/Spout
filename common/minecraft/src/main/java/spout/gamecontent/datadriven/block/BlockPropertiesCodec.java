@@ -48,6 +48,7 @@ public class BlockPropertiesCodec {
             builder.add("friction", ops.createFloat(input.friction));
             builder.add("speed_factor", ops.createFloat(input.speedFactor));
             builder.add("jump_factor", ops.createFloat(input.jumpFactor));
+            builder.add("bounce_restitution", ops.createFloat(input.bounceRestitution));
             if (input.id != null) {
                 builder.add("id", input.id.identifier(), Identifier.CODEC);
             }
@@ -65,7 +66,7 @@ public class BlockPropertiesCodec {
             builder.add("is_suffocating", input.isSuffocating, KnownStatePredicate.CODEC);
             builder.add("is_view_blocking", input.isViewBlocking, KnownStatePredicate.CODEC);
             builder.add("post_process", input.postProcess, SubtypeCodecs.POST_PROCESS_CODEC);
-            builder.add("emissive_rendering", input.emissiveRendering, KnownStatePredicate.CODEC);
+            builder.add("emissive_rendering", BlockStateFunction.wrap(block, input.emissiveRendering), SubtypeCodecs.EMISSIVE_RENDERING_CODEC);
             builder.add("dynamic_shape", ops.createBoolean(input.dynamicShape));
             builder.add("required_features", input.requiredFeatures, SubtypeCodecs.FEATURE_FLAG_SET_CODEC);
             if (input.offsetFunction != null) {
@@ -165,6 +166,14 @@ public class BlockPropertiesCodec {
                         return jumpFactor.map($ -> null);
                     }
                     properties.jumpFactor = jumpFactor.getOrThrow().floatValue();
+                }
+                T bounceRestitutionInput = mapLike.get("bounce_restitution");
+                if (bounceRestitutionInput != null) {
+                    DataResult<Number> bounceRestitution = ops.getNumberValue(bounceRestitutionInput);
+                    if (bounceRestitution.isError()) {
+                        return bounceRestitution.map($ -> null);
+                    }
+                    properties.bounceRestitution = bounceRestitution.getOrThrow().floatValue();
                 }
                 T idInput = mapLike.get("id");
                 if (idInput != null) {
@@ -288,11 +297,11 @@ public class BlockPropertiesCodec {
                 }
                 T emissiveRenderingInput = mapLike.get("emissive_rendering");
                 if (emissiveRenderingInput != null) {
-                    DataResult<BlockBehaviour.StatePredicate> emissiveRendering = KnownStatePredicate.CODEC.decode(ops, emissiveRenderingInput).map(Pair::getFirst);
+                    DataResult<BlockStateFunction<Boolean>> emissiveRendering = SubtypeCodecs.EMISSIVE_RENDERING_CODEC.decode(ops, emissiveRenderingInput).map(Pair::getFirst);
                     if (emissiveRendering.isError()) {
                         return emissiveRendering.map($ -> null);
                     }
-                    properties.emissiveRendering = emissiveRendering.getOrThrow();
+                    properties.emissiveRendering = BlockStateFunction.asPredicate(emissiveRendering.getOrThrow());
                 }
                 T dynamicShapeInput = mapLike.get("dynamic_shape");
                 if (dynamicShapeInput != null) {

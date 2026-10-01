@@ -5,6 +5,8 @@ import java.util.List;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.WeatheringCopper;
+import net.minecraft.world.level.block.WeatheringCopperCollection;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SlabType;
@@ -43,49 +45,30 @@ public class FullBlockStateRequestProcessor extends FilledArrayResultProcessor<F
         List.of(
             // Beehive and bee nest
             Blocks.BEEHIVE,
-            Blocks.BEE_NEST,
-            // Copper
+            Blocks.BEE_NEST
+        ).forEach(block -> states.addAll(block.getStateDefinition().getPossibleStates()));
+        // Copper
+        List<WeatheringCopperCollection<Block>> copper = List.of(
             Blocks.CHISELED_COPPER,
             Blocks.COPPER_BLOCK,
             Blocks.COPPER_GRATE,
-            Blocks.CUT_COPPER,
-            Blocks.EXPOSED_CHISELED_COPPER,
-            Blocks.EXPOSED_COPPER,
-            Blocks.EXPOSED_COPPER_GRATE,
-            Blocks.EXPOSED_CUT_COPPER,
-            Blocks.OXIDIZED_CHISELED_COPPER,
-            Blocks.OXIDIZED_COPPER,
-            Blocks.OXIDIZED_COPPER_GRATE,
-            Blocks.OXIDIZED_CUT_COPPER,
-            Blocks.WEATHERED_CHISELED_COPPER,
-            Blocks.WEATHERED_COPPER,
-            Blocks.WEATHERED_COPPER_GRATE,
-            Blocks.WEATHERED_CUT_COPPER,
-            Blocks.WAXED_CHISELED_COPPER,
-            Blocks.WAXED_COPPER_BLOCK,
-            Blocks.WAXED_COPPER_GRATE,
-            Blocks.WAXED_CUT_COPPER,
-            Blocks.WAXED_EXPOSED_CHISELED_COPPER,
-            Blocks.WAXED_EXPOSED_COPPER,
-            Blocks.WAXED_EXPOSED_COPPER_GRATE,
-            Blocks.WAXED_EXPOSED_CUT_COPPER,
-            Blocks.WAXED_OXIDIZED_CHISELED_COPPER,
-            Blocks.WAXED_OXIDIZED_COPPER,
-            Blocks.WAXED_OXIDIZED_COPPER_GRATE,
-            Blocks.WAXED_OXIDIZED_CUT_COPPER,
-            Blocks.WAXED_WEATHERED_CHISELED_COPPER,
-            Blocks.WAXED_WEATHERED_COPPER,
-            Blocks.WAXED_WEATHERED_COPPER_GRATE,
-            Blocks.WAXED_WEATHERED_CUT_COPPER,
-            // Copper bulb
-            Blocks.COPPER_BULB,
-            Blocks.EXPOSED_COPPER_BULB,
-            Blocks.OXIDIZED_COPPER_BULB,
-            Blocks.WEATHERED_COPPER_BULB,
-            Blocks.WAXED_COPPER_BULB,
-            Blocks.WAXED_EXPOSED_COPPER_BULB,
-            Blocks.WAXED_OXIDIZED_COPPER_BULB,
-            Blocks.WAXED_WEATHERED_COPPER_BULB,
+            Blocks.CUT_COPPER
+        );
+        for (boolean waxed : new boolean[]{false, true}) {
+            for (WeatheringCopper.WeatherState weatherState : WeatheringCopper.WeatherState.values()) {
+                copper.forEach(collection -> {
+                    states.addAll((waxed ? collection.waxed() : collection.weathering()).pick(weatherState).getStateDefinition().getPossibleStates());
+                });
+            }
+        }
+        // Copper bulb
+        for (boolean waxed : new boolean[]{false, true}) {
+            for (WeatheringCopper.WeatherState weatherState : WeatheringCopper.WeatherState.values()) {
+                states.addAll((waxed ? Blocks.COPPER_BULB.waxed() : Blocks.COPPER_BULB.weathering()).pick(weatherState).getStateDefinition().getPossibleStates());
+            }
+        }
+        // More blocks for which every block state is a full block
+        List.of(
             // Creaking heart
             Blocks.CREAKING_HEART,
             // Dispenser and dropper
@@ -117,7 +100,7 @@ public class FullBlockStateRequestProcessor extends FilledArrayResultProcessor<F
             Blocks.PODZOL
         ).forEach(block -> states.addAll(block.getStateDefinition().getPossibleStates()));
         // Slabs
-        List.of(
+        List<Block> slabs = new ArrayList<>(List.of(
             Blocks.ACACIA_SLAB,
             Blocks.ANDESITE_SLAB,
             Blocks.BAMBOO_MOSAIC_SLAB,
@@ -129,7 +112,6 @@ public class FullBlockStateRequestProcessor extends FilledArrayResultProcessor<F
             Blocks.COBBLED_DEEPSLATE_SLAB,
             Blocks.COBBLESTONE_SLAB,
             Blocks.CRIMSON_SLAB,
-            Blocks.CUT_COPPER_SLAB,
             Blocks.CUT_RED_SANDSTONE_SLAB,
             Blocks.CUT_SANDSTONE_SLAB,
             Blocks.DARK_OAK_SLAB,
@@ -138,7 +120,6 @@ public class FullBlockStateRequestProcessor extends FilledArrayResultProcessor<F
             Blocks.DEEPSLATE_TILE_SLAB,
             Blocks.DIORITE_SLAB,
             Blocks.END_STONE_BRICK_SLAB,
-            Blocks.EXPOSED_CUT_COPPER_SLAB,
             Blocks.GRANITE_SLAB,
             Blocks.JUNGLE_SLAB,
             Blocks.MANGROVE_SLAB,
@@ -147,7 +128,6 @@ public class FullBlockStateRequestProcessor extends FilledArrayResultProcessor<F
             Blocks.MUD_BRICK_SLAB,
             Blocks.NETHER_BRICK_SLAB,
             Blocks.OAK_SLAB,
-            Blocks.OXIDIZED_CUT_COPPER_SLAB,
             Blocks.PALE_OAK_SLAB,
             Blocks.PETRIFIED_OAK_SLAB,
             Blocks.POLISHED_ANDESITE_SLAB,
@@ -173,13 +153,10 @@ public class FullBlockStateRequestProcessor extends FilledArrayResultProcessor<F
             Blocks.STONE_SLAB,
             Blocks.TUFF_BRICK_SLAB,
             Blocks.TUFF_SLAB,
-            Blocks.WARPED_SLAB,
-            Blocks.WAXED_CUT_COPPER_SLAB,
-            Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB,
-            Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB,
-            Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB,
-            Blocks.WEATHERED_CUT_COPPER_SLAB
-        ).forEach(block -> states.add(block.defaultBlockState().setValue(BlockStateProperties.SLAB_TYPE, SlabType.DOUBLE)));
+            Blocks.WARPED_SLAB
+        ));
+        Blocks.CUT_COPPER_SLAB.forEach(slabs::add);
+        slabs.forEach(block -> states.add(block.defaultBlockState().setValue(BlockStateProperties.SLAB_TYPE, SlabType.DOUBLE)));
         return states;
     });
 

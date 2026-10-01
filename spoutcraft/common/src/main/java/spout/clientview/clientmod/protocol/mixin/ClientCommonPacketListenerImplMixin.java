@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import spout.clientview.clientmod.protocol.ClientModCustomContentPacketPayload;
-import spout.clientview.clientmod.protocol.ClientModCustomContentReceiving;
+import spout.clientview.clientmod.protocol.ClientModStateHandler;
 
 @Mixin(ClientCommonPacketListenerImpl.class)
 public abstract class ClientCommonPacketListenerImplMixin {
@@ -20,9 +20,9 @@ public abstract class ClientCommonPacketListenerImplMixin {
         if (payload instanceof ClientModCustomContentPacketPayload spoutPayload) {
             Minecraft client = Minecraft.getInstance();
             if (client.isSameThread()) {
-                ClientModCustomContentReceiving.handlePacket(spoutPayload);
+                ClientModStateHandler.onReceiveClientModCustomContentPacket(spoutPayload);
             } else {
-                client.submit(() -> ClientModCustomContentReceiving.handlePacket(spoutPayload)).join();
+                client.execute(() -> ClientModStateHandler.onReceiveClientModCustomContentPacket(spoutPayload));
             }
             ci.cancel();
         }

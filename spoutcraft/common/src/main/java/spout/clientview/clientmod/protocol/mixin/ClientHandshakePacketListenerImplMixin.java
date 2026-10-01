@@ -11,7 +11,6 @@ import net.minecraft.client.multiplayer.TransferState;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.login.ClientboundCustomQueryPacket;
-import net.minecraft.network.protocol.login.ServerboundCustomQueryAnswerPacket;
 import net.minecraft.network.protocol.login.custom.CustomQueryPayload;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +18,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import spout.clientview.clientmod.protocol.SpoutProtocol;
+import spout.clientview.clientmod.protocol.ClientModDetectionQueryPayload;
+import spout.clientview.clientmod.protocol.ClientModStateHandler;
 
 @Mixin(ClientHandshakePacketListenerImpl.class)
 public abstract class ClientHandshakePacketListenerImplMixin {
@@ -45,22 +45,17 @@ public abstract class ClientHandshakePacketListenerImplMixin {
         TransferState transferState,
         CallbackInfo ci
     ) {
-        SpoutProtocol.onLoginStart();
+        ClientModStateHandler.onLoginStart();
     }
 
     @Inject(method = "handleCustomQuery", at = @At("HEAD"), cancellable = true)
     private void handleSpoutCustomQuery(ClientboundCustomQueryPacket packet, CallbackInfo ci) {
         CustomQueryPayload payload = packet.payload();
-        if (!SpoutProtocol.CLIENT_MOD_DETECTION_PACKET_ID.equals(payload.id())) {
+        if (!ClientModDetectionQueryPayload.CLIENT_MOD_DETECTION_PACKET_ID.equals(payload.id())) {
             return;
         }
         this.updateStatus.accept(Component.translatable("connect.negotiating"));
-        this.connection.send(
-            new ServerboundCustomQueryAnswerPacket(
-                packet.transactionId(),
-                SpoutProtocol.createClientModDetectionAnswer(payload)
-            )
-        );
+        ClientModStateHandler.onReceiveClientModDetectionPacket(packet, this.connection);
         ci.cancel();
     }
 

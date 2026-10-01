@@ -102,7 +102,13 @@ public final class ResourcePackBlockStateClaims {
 
         @Override
         public void onRegistryHookEvent(SpoutRegistryHookEvents.EventType type, WritableRegistry<BlockStateMapping> registry) {
-            processRequests();
+            try {
+                processRequests();
+            } catch (Throwable t) {
+                System.err.println("Exception while processing block state claim requests:");
+                t.printStackTrace();
+                throw t;
+            }
         }
 
     }

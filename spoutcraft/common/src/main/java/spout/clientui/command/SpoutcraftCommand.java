@@ -6,8 +6,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.multiplayer.ClientSuggestionProvider;
 import net.minecraft.network.chat.Component;
-import spout.clientview.clientmod.protocol.CurrentLoadedContentDiagnosticSummary;
-import spout.clientview.clientmod.protocol.SpoutProtocol;
+import spout.clientview.clientmod.protocol.ClientModStateHandler;
 import spout.util.minecraft.chat.SendSystemChatUtil;
 
 /**
@@ -41,22 +40,22 @@ public final class SpoutcraftCommand {
     }
 
     private static void showInfo() {
-        CurrentLoadedContentDiagnosticSummary summary = CurrentLoadedContentDiagnosticSummary.INSTANCE;
+        ClientModStateHandler.Summary summary = ClientModStateHandler.getSummary();
 
         SendSystemChatUtil.send(Component.literal("- ").withStyle(ChatFormatting.GRAY).append(Component.literal("Spoutcraft diagnostics").withStyle(ChatFormatting.BOLD, ChatFormatting.WHITE)).append(Component.literal(" -").withStyle(ChatFormatting.GRAY)));
-        SendSystemChatUtil.send(Component.literal("State: ").withStyle(ChatFormatting.GRAY).append(Component.literal("" + SpoutProtocol.getState()).withStyle(ChatFormatting.WHITE)));
-        SendSystemChatUtil.send(Component.literal("Server protocol: ").withStyle(ChatFormatting.GRAY).append(Component.literal(protocolRange()).withStyle(ChatFormatting.WHITE)));
-        SendSystemChatUtil.send(Component.literal("Negotiated protocol: ").withStyle(ChatFormatting.GRAY).append(Component.literal(unknownIfNegative(SpoutProtocol.getSelectedProtocolVersion())).withStyle(ChatFormatting.WHITE)));
-        SendSystemChatUtil.send(Component.literal("Loaded blocks: ").withStyle(ChatFormatting.GRAY).append(Component.literal("" + summary.getBlocks()).withStyle(ChatFormatting.WHITE)));
-        SendSystemChatUtil.send(Component.literal("Loaded block states: ").withStyle(ChatFormatting.GRAY).append(Component.literal("" + summary.getBlockStates()).withStyle(ChatFormatting.WHITE)));
-        SendSystemChatUtil.send(Component.literal("Loaded items: ").withStyle(ChatFormatting.GRAY).append(Component.literal("" + summary.getItems()).withStyle(ChatFormatting.WHITE)));
-        SendSystemChatUtil.send(Component.literal("Received registry id lists: ").withStyle(ChatFormatting.GRAY).append(Component.literal("" + summary.getRegistryEntryIdLists()).withStyle(ChatFormatting.WHITE)));
-        SendSystemChatUtil.send(Component.literal("Received block state id lists: ").withStyle(ChatFormatting.GRAY).append(Component.literal("" + summary.getBlockStateRegistryEntryIdLists()).withStyle(ChatFormatting.WHITE)));
+        SendSystemChatUtil.send(Component.literal("State: ").withStyle(ChatFormatting.GRAY).append(Component.literal("" + summary.state()).withStyle(ChatFormatting.WHITE)));
+        SendSystemChatUtil.send(Component.literal("Server protocol: ").withStyle(ChatFormatting.GRAY).append(Component.literal(protocolRange(summary)).withStyle(ChatFormatting.WHITE)));
+        SendSystemChatUtil.send(Component.literal("Negotiated protocol: ").withStyle(ChatFormatting.GRAY).append(Component.literal(unknownIfNegative(summary.selectedProtocolVersion())).withStyle(ChatFormatting.WHITE)));
+        SendSystemChatUtil.send(Component.literal("Loaded blocks: ").withStyle(ChatFormatting.GRAY).append(Component.literal("" + summary.loadedContent().getBlocks()).withStyle(ChatFormatting.WHITE)));
+        SendSystemChatUtil.send(Component.literal("Loaded block states: ").withStyle(ChatFormatting.GRAY).append(Component.literal("" + summary.loadedContent().getBlockStates()).withStyle(ChatFormatting.WHITE)));
+        SendSystemChatUtil.send(Component.literal("Loaded items: ").withStyle(ChatFormatting.GRAY).append(Component.literal("" + summary.loadedContent().getItems()).withStyle(ChatFormatting.WHITE)));
+        SendSystemChatUtil.send(Component.literal("Received registry id lists: ").withStyle(ChatFormatting.GRAY).append(Component.literal("" + summary.loadedContent().getRegistryEntryIdLists()).withStyle(ChatFormatting.WHITE)));
+        SendSystemChatUtil.send(Component.literal("Received block state id lists: ").withStyle(ChatFormatting.GRAY).append(Component.literal("" + summary.loadedContent().getBlockStateRegistryEntryIdLists()).withStyle(ChatFormatting.WHITE)));
     }
 
-    private static String protocolRange() {
-        int min = SpoutProtocol.getServerMinProtocolVersion();
-        int max = SpoutProtocol.getServerMaxProtocolVersion();
+    private static String protocolRange(ClientModStateHandler.Summary summary) {
+        int min = summary.serverMinProtocolVersion();
+        int max = summary.serverMaxProtocolVersion();
         if (min < 0 || max < 0) {
             return UNKNOWN;
         }

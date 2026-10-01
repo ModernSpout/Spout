@@ -7,21 +7,21 @@ issueTrackerURL = "https://github.com/ModernSpout/Spout/issues"
 modId = "spoutcraft"
 version = "${version}"
 displayName = "Spoutcraft"
-logoFile = "assets/spout/icon.png"
+iconFile = "assets/spout/icon.png"
 description = "Automatically downloads and installs modded content when joining Spout servers"
 authors = "Martijn Muijsers & Spoutcraft authors and contributors"
 
 [[dependencies."spoutcraft"]]
 modId = "neoforge"
 type = "required"
-versionRange = "[26.1.2,)"
+versionRange = "[26.2,)"
 ordering = "NONE"
 side = "CLIENT"
 
 [[dependencies."spoutcraft"]]
 modId = "minecraft"
 type = "required"
-versionRange = "[26.1.2,26.2)"
+versionRange = "[26.2,26.3)"
 ordering = "NONE"
 side = "CLIENT"
 

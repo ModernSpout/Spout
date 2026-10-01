@@ -1,8 +1,8 @@
 --- a/net/minecraft/world/level/block/entity/BlockEntityType.java
 +++ b/net/minecraft/world/level/block/entity/BlockEntityType.java
-@@ -273,15 +_,28 @@
-     );
-     private static final Set<BlockEntityType<?>> OP_ONLY_CUSTOM_DATA = Set.of(COMMAND_BLOCK, LECTERN, SIGN, HANGING_SIGN, MOB_SPAWNER, TRIAL_SPAWNER);
+@@ -11,7 +_,18 @@
+ 
+ public class BlockEntityType<T extends BlockEntity> {
      private final BlockEntityType.BlockEntitySupplier<? extends T> factory;
 -    public final Set<Block> validBlocks;
 +    // Spout start - More data-driven - Minecraft registries - Block entities - Also allow data-driven valid blocks
@@ -19,21 +19,8 @@
 +    // Spout end - More data-driven - Minecraft registries - Block entities - Also allow data-driven valid blocks
      private final Holder.Reference<BlockEntityType<?>> builtInRegistryHolder = BuiltInRegistries.BLOCK_ENTITY_TYPE.createIntrusiveHolder(this);
  
-     private static <T extends BlockEntity> BlockEntityType<T> register(
-         final String name, final BlockEntityType.BlockEntitySupplier<? extends T> factory, final Block... validBlocks
-     ) {
--        if (validBlocks.length == 0) {
--            LOGGER.warn("Block entity type {} requires at least one valid block to be defined!", name);
--        }
-+        // Spout start - More data-driven - Minecraft registries - Block entities - Don't warn if no valid blocks were hard-coded
-+        // if (validBlocks.length == 0) {
-+        //     LOGGER.warn("Block entity type {} requires at least one valid block to be defined!", name);
-+        // }
-+        // Spout end - More data-driven - Minecraft registries - Block entities - Don't warn if no valid blocks were hard-coded
- 
-         Util.fetchChoiceType(References.BLOCK_ENTITY, name);
-         return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, name, new BlockEntityType<>(factory, Set.of(validBlocks)));
-@@ -297,6 +_,7 @@
+     public BlockEntityType(final BlockEntityType.BlockEntitySupplier<? extends T> factory, final Set<Block> validBlocks) {
+@@ -24,6 +_,7 @@
      }
  
      public boolean isValid(final BlockState state) {

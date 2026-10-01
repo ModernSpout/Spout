@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/level/ServerEntity.java
 +++ b/net/minecraft/server/level/ServerEntity.java
-@@ -321,7 +_,7 @@
+@@ -326,7 +_,7 @@
              // CraftBukkit end
          }
  
@@ -9,23 +9,22 @@
          broadcast.accept(packet);
          if (this.trackedDataValues != null) {
              broadcast.accept(new ClientboundSetEntityDataPacket(this.entity.getId(), this.trackedDataValues));
-@@ -330,12 +_,14 @@
-         if (this.entity instanceof LivingEntity livingEntity) {
+@@ -336,11 +_,13 @@
              Collection<AttributeInstance> attributes = livingEntity.getAttributes().getSyncableAttributes();
-             // CraftBukkit start - If sending own attributes send scaled health instead of current maximum health
-+            @Nullable ServerPlayer selfPlayer = null; // Spout - Client view / Packet mapping / Block states / Apply / Breaking speed - Pass self player to attributes packet
-             if (this.entity.getId() == player.getId()) {
-+                selfPlayer = player; // Spout - Client view / Packet mapping / Block states / Apply / Breaking speed - Pass self player to attributes packet
-                 ((ServerPlayer) this.entity).getBukkitEntity().injectScaledMaxHealth(attributes, false);
-             }
-             // CraftBukkit end
              if (!attributes.isEmpty()) {
+                 // CraftBukkit start - If sending own attributes send scaled health instead of current maximum health
++                @Nullable ServerPlayer selfPlayer = null; // Spout - Client view / Packet mapping / Block states / Apply / Breaking speed - Pass self player to attributes packet
+                 if (this.entity.getId() == player.getId()) {
++                    selfPlayer = player; // Spout - Client view / Packet mapping / Block states / Apply / Breaking speed - Pass self player to attributes packet
+                     ((ServerPlayer) this.entity).getBukkitEntity().injectScaledMaxHealth(attributes, false);
+                 }
+                 // CraftBukkit end
 -                broadcast.accept(new ClientboundUpdateAttributesPacket(this.entity.getId(), attributes));
 +                broadcast.accept(new ClientboundUpdateAttributesPacket(this.entity.getId(), attributes, selfPlayer)); // Spout - Client view / Packet mapping / Block states / Apply / Breaking speed - Pass self player to attributes packet
              }
          }
  
-@@ -404,7 +_,12 @@
+@@ -409,7 +_,12 @@
                      serverPlayer.getBukkitEntity().injectScaledMaxHealth(attributes, false);
                  }
                  // CraftBukkit end

@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/item/ItemStack.java
 +++ b/net/minecraft/world/item/ItemStack.java
-@@ -46,7 +_,6 @@
+@@ -45,7 +_,6 @@
  import net.minecraft.stats.Stats;
  import net.minecraft.util.ExtraCodecs;
  import net.minecraft.util.Mth;
@@ -8,7 +8,7 @@
  import net.minecraft.util.StringUtil;
  import net.minecraft.util.Unit;
  import net.minecraft.world.InteractionHand;
-@@ -99,6 +_,7 @@
+@@ -98,6 +_,7 @@
  import org.apache.commons.lang3.mutable.MutableBoolean;
  import org.jspecify.annotations.Nullable;
  import org.slf4j.Logger;
@@ -16,7 +16,7 @@
  
  public final class ItemStack implements DataComponentHolder, ItemInstance {
      private static final List<Component> OP_NBT_WARNING = List.of(
-@@ -175,6 +_,12 @@
+@@ -174,6 +_,12 @@
          return new StreamCodec<RegistryFriendlyByteBuf, ItemStack>() {
              @Override
              public ItemStack decode(final RegistryFriendlyByteBuf input) {
@@ -29,7 +29,7 @@
                  int count = input.readVarInt();
                  if (count <= 0) {
                      return ItemStack.EMPTY;
-@@ -182,16 +_,59 @@
+@@ -181,16 +_,59 @@
  
                  Holder<Item> item = Item.STREAM_CODEC.decode(input);
                  DataComponentPatch patch = patchCodec.decode(input);
@@ -82,7 +82,7 @@
 +
 +            private void encodeUnmapped(RegistryFriendlyByteBuf output, ItemStack itemStack) {
 +                // Spout end - Item mapping - Implementation part - Apply at ItemStack encoding
-                 if (itemStack.isEmpty() || itemStack.getItem() == null) { // CraftBukkit - NPE fix itemstack.getItem()
+                 if (itemStack.isEmpty()) {
                      output.writeVarInt(0);
                  } else {
                      output.writeVarInt(io.papermc.paper.util.sanitizer.ItemComponentSanitizer.sanitizeCount(io.papermc.paper.util.sanitizer.ItemObfuscationSession.currentSession(), itemStack, itemStack.getCount())); // Paper - potentially sanitize count

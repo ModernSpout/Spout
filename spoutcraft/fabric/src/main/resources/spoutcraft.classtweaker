@@ -9,9 +9,10 @@ accessible field net/minecraft/world/level/block/Blocks NOT_EXTENDED_PISTON Lnet
 accessible field net/minecraft/world/level/block/Blocks NOT_CLOSED_SHULKER Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
 accessible field net/minecraft/world/level/block/StairBlock baseState Lnet/minecraft/world/level/block/state/BlockState;
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties canOcclude Z
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties bounceRestitution F
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties destroyTime F
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties dynamicShape Z
-accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties emissiveRendering Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties emissiveRendering Ljava/util/function/Predicate;
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties explosionResistance F
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties friction F
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties forceSolidOff Z

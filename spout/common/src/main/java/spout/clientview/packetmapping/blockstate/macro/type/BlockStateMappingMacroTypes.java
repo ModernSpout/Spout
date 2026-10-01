@@ -2,6 +2,7 @@ package spout.clientview.packetmapping.blockstate.macro.type;
 
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.FenceBlock;
@@ -49,7 +50,7 @@ public final class BlockStateMappingMacroTypes {
     public static final BlockStateMappingMacroType FLOWER_POT = register("flower_pot", new TypedConstructorBlockStateMappingMacroType(StandardBlockTypeRequestProcessor.withFallbackBlocks(Blocks.FLOWER_POT, FlowerPotBlock.class), FromToBlockMacro.codecConstructor(Blocks.FLOWER_POT)));
     public static final BlockStateMappingMacroType FULL_BLOCK = register("full_block", new TypedConstructorBlockStateMappingMacroType(FullBlockStateRequestProcessor::new, FromToBlockStateMacro.codecConstructor(Blocks.STONE.defaultBlockState())));
     public static final BlockStateMappingMacroType FURNACE = register("furnace", new TypedConstructorBlockStateMappingMacroType(FullBlockRequestProcessor::new, FromToBlockMacro.codecConstructor(Blocks.FURNACE)));
-    public static final BlockStateMappingMacroType GLAZED_TERRACOTTA = register("glazed_terracotta", new TypedConstructorBlockStateMappingMacroType(FullBlockRequestProcessor::new, FromToBlockMacro.codecConstructor(Blocks.WHITE_GLAZED_TERRACOTTA)));
+    public static final BlockStateMappingMacroType GLAZED_TERRACOTTA = register("glazed_terracotta", new TypedConstructorBlockStateMappingMacroType(FullBlockRequestProcessor::new, FromToBlockMacro.codecConstructor(Blocks.GLAZED_TERRACOTTA.pick(DyeColor.WHITE))));
     public static final BlockStateMappingMacroType LADDER = register("ladder", new TypedConstructorBlockStateMappingMacroType(StandardBlockTypeRequestProcessor.withFallbackBlocks(Blocks.LADDER, LadderBlock.class), FromToBlockMacro.codecConstructor(Blocks.LADDER)));
     public static final BlockStateMappingMacroType LEAVES = register("leaves", new TypedConstructorBlockStateMappingMacroType(LeavesRequestProcessor::new, LeavesMacro.codecConstructor(Blocks.OAK_LEAVES)));
     public static final BlockStateMappingMacroType LOOM = register("loom", new TypedConstructorBlockStateMappingMacroType(FullBlockRequestProcessor::new, FromToBlockMacro.codecConstructor(Blocks.LOOM)));

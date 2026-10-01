@@ -28,8 +28,7 @@ public enum KnownStatePredicate implements BlockBehaviour.StatePredicate {
     BLOCKS_MOTION_AND_IS_COLLISION_SHAPE_FULL_BLOCK((state, level, pos) -> state.blocksMotion() && state.isCollisionShapeFullBlock(level, pos)),
     NOT_CLOSED_SHULKER(Blocks.NOT_CLOSED_SHULKER),
     NOT_EXTENDED_PISTON(Blocks.NOT_EXTENDED_PISTON),
-    MAX_SNOW_LAYERS((state, level, pos) -> state.getValue(SnowLayerBlock.LAYERS) >= 8),
-    SCULK_PHASE_ACTIVE((state, level, pos) -> SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE);
+    MAX_SNOW_LAYERS((state, level, pos) -> state.getValue(SnowLayerBlock.LAYERS) >= 8);
 
     public final BlockBehaviour.StatePredicate predicate;
 

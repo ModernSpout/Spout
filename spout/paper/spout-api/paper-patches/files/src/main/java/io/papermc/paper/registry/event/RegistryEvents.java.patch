@@ -1,27 +1,16 @@
 --- a/src/main/java/io/papermc/paper/registry/event/RegistryEvents.java
 +++ b/src/main/java/io/papermc/paper/registry/event/RegistryEvents.java
-@@ -31,6 +_,10 @@
- import org.bukkit.entity.Pig;
- import org.bukkit.entity.Wolf;
- import org.bukkit.entity.ZombieNautilus;
-+import spout.api.gamecontent.datadriven.block.registry.BlockTypeRegistryEntry;
-+import spout.api.gamecontent.datadriven.blocktype.registry.BlockTypeTypeRegistryEntry;
-+import spout.api.gamecontent.datadriven.item.registry.ItemTypeRegistryEntry;
-+import spout.api.gamecontent.datadriven.itemtype.registry.ItemTypeTypeRegistryEntry;
- 
- import static io.papermc.paper.registry.event.RegistryEventProviderImpl.create;
- 
-@@ -57,6 +_,14 @@
-     public static final RegistryEventProvider<ZombieNautilus.Variant, ZombieNautilusVariantRegistryEntry.Builder> ZOMBIE_NAUTILUS_VARIANT = create(RegistryKey.ZOMBIE_NAUTILUS_VARIANT);
+@@ -60,6 +_,14 @@
+     public static final RegistryEventProvider<SulfurCube.Archetype, SulfurCubeArchetypeRegistryEntry.Builder> SULFUR_CUBE_ARCHETYPE = create(RegistryKey.SULFUR_CUBE_ARCHETYPE);
      public static final RegistryEventProvider<Dialog, DialogRegistryEntry.Builder> DIALOG = create(RegistryKey.DIALOG);
      // End generate - RegistryEvents
 +    // Spout start - More data-driven - Paper registry API - Types - API part - Add event providers
-+    public static final RegistryEventProvider<?, BlockTypeTypeRegistryEntry.Builder> BLOCK_TYPE_TYPE = RegistryEventProviderImpl.create(RegistryKey.BLOCK_TYPE_TYPE);
-+    public static final RegistryEventProvider<?, ItemTypeTypeRegistryEntry.Builder> ITEM_TYPE_TYPE = RegistryEventProviderImpl.create(RegistryKey.ITEM_TYPE_TYPE);
++    public static final RegistryEventProvider<?, spout.api.gamecontent.datadriven.blocktype.registry.BlockTypeTypeRegistryEntry.Builder> BLOCK_TYPE_TYPE = RegistryEventProviderImpl.create(RegistryKey.BLOCK_TYPE_TYPE);
++    public static final RegistryEventProvider<?, spout.api.gamecontent.datadriven.itemtype.registry.ItemTypeTypeRegistryEntry.Builder> ITEM_TYPE_TYPE = RegistryEventProviderImpl.create(RegistryKey.ITEM_TYPE_TYPE);
 +    // Spout end - More data-driven - Paper registry API - Types - API part - Add event providers
 +    // Spout start - More data-driven - Paper registry API - API part - Add event providers
-+    public static final RegistryEventProvider<org.bukkit.block.BlockType, BlockTypeRegistryEntry.Builder> BLOCK_TYPE = RegistryEventProviderImpl.create(RegistryKey.BLOCK);
-+    public static final RegistryEventProvider<org.bukkit.inventory.ItemType, ItemTypeRegistryEntry.Builder> ITEM_TYPE = RegistryEventProviderImpl.create(RegistryKey.ITEM);
++    public static final RegistryEventProvider<org.bukkit.block.BlockType, spout.api.gamecontent.datadriven.block.registry.BlockTypeRegistryEntry.Builder> BLOCK_TYPE = RegistryEventProviderImpl.create(RegistryKey.BLOCK);
++    public static final RegistryEventProvider<org.bukkit.inventory.ItemType, spout.api.gamecontent.datadriven.item.registry.ItemTypeRegistryEntry.Builder> ITEM_TYPE = RegistryEventProviderImpl.create(RegistryKey.ITEM);
 +    // Spout end - More data-driven - Paper registry API - API part - Add event providers
  
      private RegistryEvents() {

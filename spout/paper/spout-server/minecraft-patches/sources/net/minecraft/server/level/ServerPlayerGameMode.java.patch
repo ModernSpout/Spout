@@ -21,7 +21,7 @@
 -    private int gameTicks;
 +    public int gameTicks;
 +    // Spout end - Client view / Packet mapping / Block states / Apply / Breaking speed - Keep ratio history for compensation - Make fields public
-     private boolean hasDelayedDestroy;
+     public boolean hasDelayedDestroy;
      private BlockPos delayedDestroyPos = BlockPos.ZERO;
      private int delayedTickStart;
 @@ -283,6 +_,7 @@

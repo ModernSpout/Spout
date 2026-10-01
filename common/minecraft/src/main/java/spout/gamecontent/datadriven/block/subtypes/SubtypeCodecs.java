@@ -40,6 +40,7 @@ public final class SubtypeCodecs {
     public static final Codec<BlockStateFunction<MapColor>> MAP_COLOR_FUNCTION_CODEC = BlockStateFunction.codec(MAP_COLOR_CODEC);
     public static final Codec<SoundType> SOUND_TYPE_CODEC = new StaticFieldViaIdentifierCodec<>(SoundType.class);
     public static final Codec<BlockStateFunction<Integer>> LIGHT_EMISSION_CODEC = BlockStateFunction.codec(Codec.INT);
+    public static final Codec<BlockStateFunction<Boolean>> EMISSIVE_RENDERING_CODEC = BlockStateFunction.codec(Codec.BOOL);
     public static final Codec<PushReaction> PUSH_REACTION_CODEC = new EnumViaIdentifierCodec<>(PushReaction.class);
     public static final Codec<NoteBlockInstrument> NOTE_BLOCK_INSTRUMENT_CODEC = new EnumViaIdentifierCodec<>(NoteBlockInstrument.class);
     public static final Codec<BlockBehaviour.OffsetType> OFFSET_TYPE_CODEC = new EnumViaIdentifierCodec<>(BlockBehaviour.OffsetType.class);

@@ -1,14 +1,6 @@
 --- a/net/minecraft/network/Connection.java
 +++ b/net/minecraft/network/Connection.java
-@@ -28,7 +_,6 @@
- import java.util.Queue;
- import java.util.concurrent.RejectedExecutionException;
- import java.util.function.Consumer;
--import javax.crypto.Cipher;
- import net.minecraft.SharedConstants;
- import net.minecraft.network.chat.Component;
- import net.minecraft.network.protocol.BundlerInfo;
-@@ -54,7 +_,16 @@
+@@ -55,7 +_,16 @@
  import org.slf4j.Marker;
  import org.slf4j.MarkerFactory;
  
@@ -26,7 +18,7 @@
      private static final float AVERAGE_PACKETS_SMOOTHING = 0.75F;
      private static final Logger LOGGER = LogUtils.getLogger();
      public static final Marker ROOT_MARKER = MarkerFactory.getMarker("NETWORK");
-@@ -130,12 +_,15 @@
+@@ -131,12 +_,15 @@
  
      public Connection(final PacketFlow receiving) {
          this.receiving = receiving;

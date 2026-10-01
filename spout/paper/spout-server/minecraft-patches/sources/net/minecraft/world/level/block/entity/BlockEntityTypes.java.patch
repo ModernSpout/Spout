@@ -1,0 +1,17 @@
+--- a/net/minecraft/world/level/block/entity/BlockEntityTypes.java
++++ b/net/minecraft/world/level/block/entity/BlockEntityTypes.java
+@@ -216,9 +_,11 @@
+         final ResourceKey<BlockEntityType<?>> key, final BlockEntityType.BlockEntitySupplier<? extends T> factory, final Block... validBlocks
+     ) {
+         Identifier id = key.identifier();
+-        if (validBlocks.length == 0) {
+-            LOGGER.warn("Block entity type {} requires at least one valid block to be defined!", id);
+-        }
++        // Spout start - More data-driven - Minecraft registries - Block entities - Don't warn if no valid blocks were hard-coded
++        // if (validBlocks.length == 0) {
++        //     LOGGER.warn("Block entity type {} requires at least one valid block to be defined!", id);
++        // }
++        // Spout end - More data-driven - Minecraft registries - Block entities - Don't warn if no valid blocks were hard-coded
+ 
+         if (id.getNamespace().equals("minecraft")) {
+             Util.fetchChoiceType(References.BLOCK_ENTITY, id.getPath());

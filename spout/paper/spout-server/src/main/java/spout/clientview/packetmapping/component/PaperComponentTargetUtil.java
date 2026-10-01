@@ -35,7 +35,7 @@ public final class PaperComponentTargetUtil extends NMSComponentTargetUtil {
                 return ComponentTarget.SELECTOR;
             } else if (adventureComponent instanceof KeybindComponent) {
                 return ComponentTarget.KEYBIND;
-            } else if (adventureComponent instanceof NBTComponent<?, ?>) {
+            } else if (adventureComponent instanceof NBTComponent<?>) {
                 if (adventureComponent instanceof BlockNBTComponent) {
                     return ComponentTarget.NBT_BLOCK;
                 } else if (adventureComponent instanceof EntityNBTComponent) {

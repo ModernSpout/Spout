@@ -1,6 +1,6 @@
 --- a/src/main/java/io/papermc/paper/registry/RegistryKey.java
 +++ b/src/main/java/io/papermc/paper/registry/RegistryKey.java
-@@ -41,6 +_,8 @@
+@@ -42,6 +_,8 @@
  import org.bukkit.potion.PotionEffectType;
  import org.bukkit.potion.PotionType;
  import org.jspecify.annotations.NullMarked;
@@ -9,7 +9,7 @@
  
  import static io.papermc.paper.registry.RegistryKeyImpl.create;
  
-@@ -78,6 +_,16 @@
+@@ -79,6 +_,16 @@
       * @see io.papermc.paper.registry.keys.MobEffectKeys
       */
      RegistryKey<PotionEffectType> MOB_EFFECT = create("mob_effect");

@@ -1,12 +1,13 @@
 package spout.clientview.packetmapping.blockstate.macro.processor;
 
-import java.util.List;
+import java.util.Arrays;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WeatheringCopper;
 import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.clientview.packetmapping.blockstate.macro.FromToBlockMacro;
 import spout.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroTypes;
@@ -37,17 +38,10 @@ public class StairsRequestProcessor extends FilledArrayResultProcessor<FromToBlo
      * A new {@link DynamicClaimableStates} instance,
      * for {@link Block}s that can be attempted to be claimed as stairs proxies.
      */
-    public static final DynamicClaimableStates STAIRS_PROXY_BLOCKS = BlockDynamicClaimableStates.forProxy(() -> List.of(
+    public static final DynamicClaimableStates STAIRS_PROXY_BLOCKS = BlockDynamicClaimableStates.forProxy(() ->
         // Copper
-        Blocks.CUT_COPPER_STAIRS,
-        Blocks.EXPOSED_CUT_COPPER_STAIRS,
-        Blocks.OXIDIZED_CUT_COPPER_STAIRS,
-        Blocks.WEATHERED_CUT_COPPER_STAIRS,
-        Blocks.WAXED_CUT_COPPER_STAIRS,
-        Blocks.WAXED_EXPOSED_CUT_COPPER_STAIRS,
-        Blocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS,
-        Blocks.WAXED_WEATHERED_CUT_COPPER_STAIRS
-    ));
+        Stream.of(false, true).flatMap(waxed -> Arrays.stream(WeatheringCopper.WeatherState.values()).map(weatherState -> (waxed ? Blocks.CUT_COPPER_STAIRS.waxed() : Blocks.CUT_COPPER_STAIRS.weathering()).pick(weatherState))).toList()
+    );
 
     public static final FillPromiseGetter<FromToBlockMacro, RequestBasedResult> CLAIM_FALLBACK_PROMISE_GETTER = claimFallbackStatesForAllStatesAtOnceByBlock(
         Stream.concat(Stream.of(Blocks.STONE_STAIRS), StreamSupport.stream(VanillaOnlyBlockRegistry.get().spliterator(), false).filter(block -> block instanceof StairBlock)).distinct().toList()

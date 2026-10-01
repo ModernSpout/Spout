@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/level/ServerPlayer.java
 +++ b/net/minecraft/server/level/ServerPlayer.java
-@@ -201,6 +_,7 @@
+@@ -205,6 +_,7 @@
  import net.minecraft.world.scores.criteria.ObjectiveCriteria;
  import org.jspecify.annotations.Nullable;
  import org.slf4j.Logger;
@@ -8,7 +8,7 @@
  
  public class ServerPlayer extends Player implements ca.spottedleaf.moonrise.patches.chunk_system.player.ChunkSystemServerPlayer { // Paper - rewrite chunk system
      private static final Logger LOGGER = LogUtils.getLogger();
-@@ -227,6 +_,10 @@
+@@ -231,6 +_,10 @@
      private static final boolean DEFAULT_SEEN_CREDITS = false;
      private static final boolean DEFAULT_SPAWN_EXTRA_PARTICLES_ON_FALL = false;
      public ServerGamePacketListenerImpl connection;
@@ -19,7 +19,7 @@
      private final MinecraftServer server;
      public final ServerPlayerGameMode gameMode;
      private final PlayerAdvancements advancements;
-@@ -273,12 +_,20 @@
+@@ -279,12 +_,20 @@
      private long timeEntitySatOnShoulder;
      private CompoundTag shoulderEntityLeft = new CompoundTag();
      private CompoundTag shoulderEntityRight = new CompoundTag();
@@ -44,7 +44,7 @@
  
                      @Override
                      public Integer load(final TypedDataComponent<?> component) {
-@@ -288,7 +_,12 @@
+@@ -294,7 +_,12 @@
                      }
                  }
              );

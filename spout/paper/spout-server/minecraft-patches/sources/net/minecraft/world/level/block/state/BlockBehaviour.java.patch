@@ -12,7 +12,7 @@
      protected static final Direction[] UPDATE_SHAPE_ORDER = new Direction[]{
          Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH, Direction.DOWN, Direction.UP
      };
-@@ -121,8 +_,8 @@
+@@ -123,8 +_,8 @@
  
      protected abstract MapCodec<? extends Block> codec();
  
@@ -23,7 +23,7 @@
      }
  
      public static <B extends Block> MapCodec<B> simpleCodec(final Function<BlockBehaviour.Properties, B> constructor) {
-@@ -363,13 +_,21 @@
+@@ -357,13 +_,21 @@
      }
  
      protected float getDestroyProgress(final BlockState state, final Player player, final BlockGetter level, final BlockPos pos) {
@@ -47,7 +47,16 @@
      }
  
      protected void spawnAfterBreak(final BlockState state, final ServerLevel level, final BlockPos pos, final ItemStack tool, final boolean dropExperience) {
-@@ -777,7 +_,13 @@
+@@ -451,7 +_,7 @@
+         private boolean legacySolid;
+         private final PushReaction pushReaction;
+         private final MapColor mapColor;
+-        private final float destroySpeed;
++        public final float destroySpeed; // Spout - Client view / Packet mapping / Block states / Macros / Processor - Valid proxy candidate function - Make public
+         private final boolean requiresCorrectToolForDrops;
+         private final boolean canOcclude;
+         private final BlockBehaviour.StatePredicate isRedstoneConductor;
+@@ -784,7 +_,13 @@
          }
  
          public float getDestroyProgress(final Player player, final BlockGetter level, final BlockPos pos) {
@@ -62,20 +71,7 @@
          }
  
          public int getDirectSignal(final BlockGetter level, final BlockPos pos, final Direction direction) {
-@@ -1106,53 +_,60 @@
-         XYZ;
-     }
- 
-+    // Spout start - More data-driven - Minecraft registries - Types - Properties serialization - Make offset function property serializable
-+    // @FunctionalInterface
-+    // public interface OffsetFunction {
-+    //     Vec3 evaluate(BlockState state, BlockPos pos);
-+    // }
-+    // Spout end - More data-driven - Minecraft registries - Types - Properties serialization - Make offset function property serializable
-+
-     @FunctionalInterface
-     public interface PostProcess {
-         @Nullable BlockPos getPostProcessPos(BlockState state, BlockGetter level, BlockPos pos);
+@@ -1119,48 +_,48 @@
      }
  
      public static class Properties {
@@ -91,6 +87,7 @@
 -        private float friction = 0.6F;
 -        private float speedFactor = 1.0F;
 -        private float jumpFactor = 1.0F;
+-        private float bounceRestitution;
 -        private @Nullable ResourceKey<Block> id;
 +        public static final Codec<BlockBehaviour.Properties> CODEC = spout.gamecontent.datadriven.block.BlockPropertiesCodec.CODEC; // Spout - More data-driven - Minecraft registries - Block - Add missing properties codec implementation
 +        public Function<BlockState, MapColor> mapColor = state -> MapColor.NONE; // Spout - Common class tweakers - Make accessible
@@ -104,6 +101,7 @@
 +        public float friction = 0.6F; // Spout - Common class tweakers - Make accessible
 +        public float speedFactor = 1.0F; // Spout - Common class tweakers - Make accessible
 +        public float jumpFactor = 1.0F; // Spout - Common class tweakers - Make accessible
++        public float bounceRestitution; // Spout - Common class tweakers - Make accessible
 +        public @Nullable ResourceKey<Block> id; // Spout - Common class tweakers - Make accessible
          private DependantName<Block, Optional<ResourceKey<LootTable>>> drops = id -> Optional.of(
              ResourceKey.create(Registries.LOOT_TABLE, id.identifier().withPrefix("blocks/"))
@@ -141,7 +139,7 @@
 -        private BlockBehaviour.StatePredicate isSuffocating = (state, level, pos) -> state.blocksMotion() && state.isCollisionShapeFullBlock(level, pos);
 -        private BlockBehaviour.StatePredicate isViewBlocking = this.isSuffocating;
 -        private BlockBehaviour.PostProcess postProcess = (state, level, pos) -> null;
--        private BlockBehaviour.StatePredicate emissiveRendering = (state, level, pos) -> false;
+-        private Predicate<BlockState> emissiveRendering = var0 -> false;
 -        private boolean dynamicShape;
 -        private FeatureFlagSet requiredFeatures = FeatureFlags.VANILLA_SET;
 -        private BlockBehaviour.@Nullable OffsetFunction offsetFunction;
@@ -149,14 +147,14 @@
 +        public BlockBehaviour.StatePredicate isSuffocating = spout.gamecontent.datadriven.block.subtypes.KnownStatePredicate.BLOCKS_MOTION_AND_IS_COLLISION_SHAPE_FULL_BLOCK; // Spout - Common class tweakers - Make accessible // Spout - More data-driven - Minecraft registries - Types - Properties serialization - Make block state predicate properties serializable
 +        public BlockBehaviour.StatePredicate isViewBlocking = this.isSuffocating; // Spout - Common class tweakers - Make accessible
 +        public BlockBehaviour.PostProcess postProcess = (state, level, pos) -> null; // Spout - Common class tweakers - Make accessible
-+        public BlockBehaviour.StatePredicate emissiveRendering = spout.gamecontent.datadriven.block.subtypes.KnownStatePredicate.NEVER; // Spout - Common class tweakers - Make accessible // Spout - More data-driven - Minecraft registries - Types - Properties serialization - Make block state predicate properties serializable
++        public Predicate<BlockState> emissiveRendering = var0 -> false; // Spout - Common class tweakers - Make accessible // Spout - More data-driven - Minecraft registries - Types - Properties serialization - Make block state predicate properties serializable
 +        public boolean dynamicShape; // Spout - Common class tweakers - Make accessible
 +        public FeatureFlagSet requiredFeatures = FeatureFlags.VANILLA_SET; // Spout - Common class tweakers - Make accessible
 +        public BlockBehaviour.@Nullable OffsetFunction offsetFunction; // Spout - Common class tweakers - Make accessible
  
          private Properties() {
          }
-@@ -1435,7 +_,7 @@
+@@ -1449,7 +_,7 @@
      }
  
      @FunctionalInterface

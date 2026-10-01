@@ -27,7 +27,7 @@
      private static final LoadingCache<VoxelShape, Boolean> SHAPE_FULL_BLOCK_CACHE = CacheBuilder.newBuilder()
          .maximumSize(512L)
          .weakKeys()
-@@ -145,6 +_,71 @@
+@@ -142,6 +_,71 @@
      protected MapCodec<? extends Block> codec() {
          return CODEC;
      }

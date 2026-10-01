@@ -13,7 +13,7 @@ Generally, stick to the good practices that you know.
 It's even better to briefly describe their purpose in their `package-info.java`.
 
 For Fabric:
-* To stay agile, we try to keep mixin usage   to a minimum where possible
+* To stay agile, we try to keep mixin usage to a minimum where possible
 
 For Paper:
 * Changes to Minecraft/Paper files should have a `Spout - <module name> - <reason for this code change>` comment

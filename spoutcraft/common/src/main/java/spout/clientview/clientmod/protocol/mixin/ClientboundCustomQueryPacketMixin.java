@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import spout.clientview.clientmod.protocol.SpoutProtocol;
+import spout.clientview.clientmod.protocol.ClientModDetectionQueryPayload;
 
 @Mixin(ClientboundCustomQueryPacket.class)
 public abstract class ClientboundCustomQueryPacketMixin {
@@ -19,8 +19,8 @@ public abstract class ClientboundCustomQueryPacketMixin {
         FriendlyByteBuf input,
         CallbackInfoReturnable<CustomQueryPayload> cir
     ) {
-        if (SpoutProtocol.CLIENT_MOD_DETECTION_PACKET_ID.equals(identifier)) {
-            cir.setReturnValue(SpoutProtocol.readClientModDetectionQuery(input));
+        if (ClientModDetectionQueryPayload.CLIENT_MOD_DETECTION_PACKET_ID.equals(identifier)) {
+            cir.setReturnValue(ClientModDetectionQueryPayload.readClientModDetectionQuery(input));
         }
     }
 

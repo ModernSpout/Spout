@@ -23,8 +23,19 @@ public final class ClientViewSetter {
     private static final int CLIENT_MOD_DETECTION_PACKET_TRANSACTION_ID = -721055663;
     private static final int CLIENT_MOD_DETECTION_PACKET_NONCE = 345890285;
     private static final Identifier CLIENT_MOD_DETECTION_PACKET_ID = Identifier.fromNamespaceAndPath(SpoutNamespace.SPOUT, "detect_client_mod");
+
+    /*
+    VERSION CHANGES:
+    1 - 1.21.11 - Initial version
+    2 - Split payload into multiple packets
+    3 - 26.1.2 - Changes to BlockParticleOption.streamCodec, amongst others
+    4 - Pair blocks and items with their registry key
+    5 - Send registry entry id lists and block state registry entry id lists
+    6 - 26.2 - Add emissive_rendering to BlockPropertiesCodec
+     */
     private static final int MIN_CLIENT_MOD_PROTOCOL_VERSION = 5;
-    private static final int MAX_CLIENT_MOD_PROTOCOL_VERSION = 5;
+    private static final int MAX_CLIENT_MOD_PROTOCOL_VERSION = 6;
+
     private static final ClientboundCustomQueryPacket CLIENT_MOD_DETECTION_PACKET = new ClientboundCustomQueryPacket(CLIENT_MOD_DETECTION_PACKET_TRANSACTION_ID, new CustomQueryPayload() {
 
         @Override

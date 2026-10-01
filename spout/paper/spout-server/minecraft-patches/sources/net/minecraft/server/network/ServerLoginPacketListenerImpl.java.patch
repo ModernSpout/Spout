@@ -1,14 +1,14 @@
 --- a/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-@@ -235,6 +_,7 @@
+@@ -237,6 +_,7 @@
  
      private void finishLoginAndWaitForClient(final GameProfile gameProfile) {
          this.state = ServerLoginPacketListenerImpl.State.PROTOCOL_SWITCHING;
 +        this.connection.clientViewSetter.sendClientModDetectionPacket(); // Spout - Client view - Set - Detect client mod
-         this.connection.send(new ClientboundLoginFinishedPacket(gameProfile));
+         this.connection.send(new ClientboundLoginFinishedPacket(gameProfile, this.server.getConnection().getSessionId()));
          this.server.services().paper().filledProfileCache().add(gameProfile); // Paper - update profile cache
      }
-@@ -366,6 +_,7 @@
+@@ -368,6 +_,7 @@
  
      @Override
      public void handleCustomQueryPacket(final ServerboundCustomQueryAnswerPacket packet) {

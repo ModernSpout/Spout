@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import spout.clientview.clientmod.protocol.SpoutProtocol;
+import spout.clientview.clientmod.protocol.ClientModStateHandler;
 
 @Mixin(ClientConfigurationPacketListenerImpl.class)
 public abstract class ClientConfigurationPacketListenerImplMixin {
@@ -21,7 +21,7 @@ public abstract class ClientConfigurationPacketListenerImplMixin {
         CommonListenerCookie cookie,
         CallbackInfo ci
     ) {
-        SpoutProtocol.onConfigurationStart((ClientCommonPacketListenerImpl) (Object) this);
+        ClientModStateHandler.onConfigurationStart((ClientCommonPacketListenerImpl) (Object) this);
     }
 
 }

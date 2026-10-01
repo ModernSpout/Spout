@@ -37,7 +37,7 @@
 +    // Spout end - Project setup - Set up Paperweight
 +
      updatingMinecraft {
-         // oldPaperCommit = "711c5de2b05df39b72c44ff54e9f9381f8d153cb"
+         // oldPaperCommit = "d4fe85375af18bfa88f44d7c1e6a61904ae550cc"
      }
 @@ -86,7 +_,33 @@
      }
@@ -80,7 +80,7 @@
  dependencies {
 -    implementation(project(":paper-api"))
 +    implementation(project(":spout-api")) // Spout - Project setup - Set up Gradle project
-     implementation("ca.spottedleaf:concurrentutil:0.0.10")
+     implementation("ca.spottedleaf:leafpile:1.0.0")
      implementation("org.jline:jline-terminal-ffm:3.27.1") // use ffm on java 22+
      implementation("org.jline:jline-terminal-jni:3.27.1") // fall back to jni on java 21
 @@ -159,26 +_,37 @@

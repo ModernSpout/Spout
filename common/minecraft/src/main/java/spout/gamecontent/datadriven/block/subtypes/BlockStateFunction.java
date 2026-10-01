@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,8 +25,18 @@ import java.util.stream.Stream;
 /**
  * A replacement for {@link Function}, as a type for {@link BlockBehaviour.Properties#mapColor}
  * and {@link BlockBehaviour.Properties#lightEmission}.
+ *
+ * <p>
+ * It also implements {@link Predicate},
+ * but calling {@link #test} is only valid if {@link T} is a boolean.
+ * </p>
  */
-public sealed interface BlockStateFunction<T> extends Function<BlockState, T> permits BlockStateFunction.Single, BlockStateFunction.ByProperties {
+public sealed interface BlockStateFunction<T> extends Function<BlockState, T>, Predicate<BlockState> permits BlockStateFunction.Single, BlockStateFunction.ByProperties {
+
+    @Override
+    default boolean test(BlockState state) {
+        return (boolean) this.apply(state);
+    }
 
     record Single<T>(T value) implements BlockStateFunction<T> {
 
@@ -201,6 +212,10 @@ public sealed interface BlockStateFunction<T> extends Function<BlockState, T> pe
         return function::apply;
     }
 
+    static Predicate<BlockState> asPredicate(BlockStateFunction<Boolean> function) {
+        return function::apply;
+    }
+
     static <T> BlockStateFunction<T> wrap(Block block, Function<BlockState, T> function) {
         // Return the function itself if it is already a BlockStateFunction
         if (function instanceof BlockStateFunction<T> blockStateFunction) {
@@ -237,6 +252,10 @@ public sealed interface BlockStateFunction<T> extends Function<BlockState, T> pe
 
     static BlockStateFunction<Integer> wrap(Block block, ToIntFunction<BlockState> function) {
         return wrap(block, (Function<BlockState, Integer>) function::applyAsInt);
+    }
+
+    static BlockStateFunction<Boolean> wrap(Block block, Predicate<BlockState> function) {
+        return wrap(block, (Function<BlockState, Boolean>) function::test);
     }
 
 }

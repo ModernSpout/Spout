@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.ShelfBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -221,54 +222,27 @@ public final class VisualDuplicates {
         // Chorus flower
         unionFind.mergeAllStatesWithOtherValuesOfProperties(getStatesWhereFulfills(Blocks.CHORUS_FLOWER, BlockStateProperties.AGE_5, age -> !age.equals(5)), BlockStateProperties.AGE_5);
         // Copper
-        unionFind.mergeStateByState(Blocks.WAXED_CHISELED_COPPER, Blocks.CHISELED_COPPER);
-        unionFind.mergeStateByState(Blocks.WAXED_COPPER_BLOCK, Blocks.COPPER_BLOCK);
-        unionFind.mergeStateByState(Blocks.WAXED_COPPER_BULB, Blocks.COPPER_BULB);
-        unionFind.mergeStateByState(Blocks.WAXED_COPPER_CHEST, Blocks.COPPER_CHEST);
-        unionFind.mergeStateByState(Blocks.WAXED_COPPER_DOOR, Blocks.COPPER_DOOR);
-        unionFind.mergeStateByState(Blocks.WAXED_COPPER_GOLEM_STATUE, Blocks.COPPER_GOLEM_STATUE);
-        unionFind.mergeStateByState(Blocks.WAXED_COPPER_GRATE, Blocks.COPPER_GRATE);
-        unionFind.mergeStateByState(Blocks.WAXED_COPPER_TRAPDOOR, Blocks.COPPER_TRAPDOOR);
-        unionFind.mergeStateByState(Blocks.WAXED_CUT_COPPER, Blocks.CUT_COPPER);
-        unionFind.mergeStateByState(Blocks.WAXED_CUT_COPPER_SLAB, Blocks.CUT_COPPER_SLAB);
-        unionFind.mergeStateByState(Blocks.WAXED_CUT_COPPER_STAIRS, Blocks.CUT_COPPER_STAIRS);
-        unionFind.mergeStateByState(Blocks.WAXED_EXPOSED_CHISELED_COPPER, Blocks.EXPOSED_CHISELED_COPPER);
-        unionFind.mergeStateByState(Blocks.WAXED_EXPOSED_COPPER, Blocks.EXPOSED_COPPER);
-        unionFind.mergeStateByState(Blocks.WAXED_EXPOSED_COPPER_BULB, Blocks.EXPOSED_COPPER_BULB);
-        unionFind.mergeStateByState(Blocks.WAXED_EXPOSED_COPPER_CHEST, Blocks.EXPOSED_COPPER_CHEST);
-        unionFind.mergeStateByState(Blocks.WAXED_EXPOSED_COPPER_DOOR, Blocks.EXPOSED_COPPER_DOOR);
-        unionFind.mergeStateByState(Blocks.WAXED_EXPOSED_COPPER_GOLEM_STATUE, Blocks.EXPOSED_COPPER_GOLEM_STATUE);
-        unionFind.mergeStateByState(Blocks.WAXED_EXPOSED_COPPER_GRATE, Blocks.EXPOSED_COPPER_GRATE);
-        unionFind.mergeStateByState(Blocks.WAXED_EXPOSED_COPPER_TRAPDOOR, Blocks.EXPOSED_COPPER_TRAPDOOR);
-        unionFind.mergeStateByState(Blocks.WAXED_EXPOSED_CUT_COPPER, Blocks.EXPOSED_CUT_COPPER);
-        unionFind.mergeStateByState(Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB, Blocks.EXPOSED_CUT_COPPER_SLAB);
-        unionFind.mergeStateByState(Blocks.WAXED_EXPOSED_CUT_COPPER_STAIRS, Blocks.EXPOSED_CUT_COPPER_STAIRS);
-        unionFind.mergeStateByState(Blocks.WAXED_EXPOSED_LIGHTNING_ROD, Blocks.EXPOSED_LIGHTNING_ROD);
-        unionFind.mergeStateByState(Blocks.WAXED_LIGHTNING_ROD, Blocks.LIGHTNING_ROD);
-        unionFind.mergeStateByState(Blocks.WAXED_OXIDIZED_CHISELED_COPPER, Blocks.OXIDIZED_CHISELED_COPPER);
-        unionFind.mergeStateByState(Blocks.WAXED_OXIDIZED_COPPER, Blocks.OXIDIZED_COPPER);
-        unionFind.mergeStateByState(Blocks.WAXED_OXIDIZED_COPPER_BULB, Blocks.OXIDIZED_COPPER_BULB);
-        unionFind.mergeStateByState(Blocks.WAXED_OXIDIZED_COPPER_CHEST, Blocks.OXIDIZED_COPPER_CHEST);
-        unionFind.mergeStateByState(Blocks.WAXED_OXIDIZED_COPPER_DOOR, Blocks.OXIDIZED_COPPER_DOOR);
-        unionFind.mergeStateByState(Blocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE, Blocks.OXIDIZED_COPPER_GOLEM_STATUE);
-        unionFind.mergeStateByState(Blocks.WAXED_OXIDIZED_COPPER_GRATE, Blocks.OXIDIZED_COPPER_GRATE);
-        unionFind.mergeStateByState(Blocks.WAXED_OXIDIZED_COPPER_TRAPDOOR, Blocks.OXIDIZED_COPPER_TRAPDOOR);
-        unionFind.mergeStateByState(Blocks.WAXED_OXIDIZED_CUT_COPPER, Blocks.OXIDIZED_CUT_COPPER);
-        unionFind.mergeStateByState(Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB, Blocks.OXIDIZED_CUT_COPPER_SLAB);
-        unionFind.mergeStateByState(Blocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS, Blocks.OXIDIZED_CUT_COPPER_STAIRS);
-        unionFind.mergeStateByState(Blocks.WAXED_OXIDIZED_LIGHTNING_ROD, Blocks.OXIDIZED_LIGHTNING_ROD);
-        unionFind.mergeStateByState(Blocks.WAXED_WEATHERED_CHISELED_COPPER, Blocks.WEATHERED_CHISELED_COPPER);
-        unionFind.mergeStateByState(Blocks.WAXED_WEATHERED_COPPER, Blocks.WEATHERED_COPPER);
-        unionFind.mergeStateByState(Blocks.WAXED_WEATHERED_COPPER_BULB, Blocks.WEATHERED_COPPER_BULB);
-        unionFind.mergeStateByState(Blocks.WAXED_WEATHERED_COPPER_CHEST, Blocks.WEATHERED_COPPER_CHEST);
-        unionFind.mergeStateByState(Blocks.WAXED_WEATHERED_COPPER_DOOR, Blocks.WEATHERED_COPPER_DOOR);
-        unionFind.mergeStateByState(Blocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE, Blocks.WEATHERED_COPPER_GOLEM_STATUE);
-        unionFind.mergeStateByState(Blocks.WAXED_WEATHERED_COPPER_GRATE, Blocks.WEATHERED_COPPER_GRATE);
-        unionFind.mergeStateByState(Blocks.WAXED_WEATHERED_COPPER_TRAPDOOR, Blocks.WEATHERED_COPPER_TRAPDOOR);
-        unionFind.mergeStateByState(Blocks.WAXED_WEATHERED_CUT_COPPER, Blocks.WEATHERED_CUT_COPPER);
-        unionFind.mergeStateByState(Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB, Blocks.WEATHERED_CUT_COPPER_SLAB);
-        unionFind.mergeStateByState(Blocks.WAXED_WEATHERED_CUT_COPPER_STAIRS, Blocks.WEATHERED_CUT_COPPER_STAIRS);
-        unionFind.mergeStateByState(Blocks.WAXED_WEATHERED_LIGHTNING_ROD, Blocks.WEATHERED_LIGHTNING_ROD);
+        Stream.of(
+            Blocks.CHISELED_COPPER,
+            Blocks.COPPER_BARS,
+            Blocks.COPPER_BLOCK,
+            Blocks.COPPER_BULB,
+            Blocks.COPPER_CHAIN,
+            Blocks.COPPER_CHEST,
+            Blocks.COPPER_DOOR,
+            Blocks.COPPER_GOLEM_STATUE,
+            Blocks.COPPER_GRATE,
+            Blocks.COPPER_LANTERN,
+            Blocks.COPPER_TRAPDOOR,
+            Blocks.CUT_COPPER,
+            Blocks.CUT_COPPER_SLAB,
+            Blocks.CUT_COPPER_STAIRS,
+            Blocks.LIGHTNING_ROD
+        ).forEach(collection -> {
+            Arrays.stream(WeatheringCopper.WeatherState.values()).forEach(weatherState -> {
+                unionFind.mergeStateByState(collection.waxed().pick(weatherState), collection.weathering().pick(weatherState));
+            });
+        });
         // Creaking heart
         unionFind.mergeAllStatesWithOtherValuesOfProperties(Blocks.CREAKING_HEART, BlockStateProperties.NATURAL);
         // Crop
@@ -300,7 +274,6 @@ public final class VisualDuplicates {
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.COBBLED_DEEPSLATE_SLAB, Blocks.COBBLED_DEEPSLATE);
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.COBBLESTONE_SLAB, Blocks.COBBLESTONE);
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.CRIMSON_SLAB, Blocks.CRIMSON_PLANKS);
-        unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.CUT_COPPER_SLAB, Blocks.CUT_COPPER);
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.CUT_RED_SANDSTONE_SLAB, Blocks.CUT_RED_SANDSTONE);
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.CUT_SANDSTONE_SLAB, Blocks.CUT_SANDSTONE);
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.DARK_OAK_SLAB, Blocks.DARK_OAK_PLANKS);
@@ -309,7 +282,6 @@ public final class VisualDuplicates {
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.DEEPSLATE_TILE_SLAB, Blocks.DEEPSLATE_TILES);
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.DIORITE_SLAB, Blocks.DIORITE);
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.END_STONE_BRICK_SLAB, Blocks.END_STONE_BRICKS);
-        unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.EXPOSED_CUT_COPPER_SLAB, Blocks.EXPOSED_CUT_COPPER);
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.GRANITE_SLAB, Blocks.GRANITE);
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.JUNGLE_SLAB, Blocks.JUNGLE_PLANKS);
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.MANGROVE_SLAB, Blocks.MANGROVE_PLANKS);
@@ -318,7 +290,6 @@ public final class VisualDuplicates {
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.MUD_BRICK_SLAB, Blocks.MUD_BRICKS);
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.NETHER_BRICK_SLAB, Blocks.NETHER_BRICKS);
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.OAK_SLAB, Blocks.OAK_PLANKS);
-        unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.OXIDIZED_CUT_COPPER_SLAB, Blocks.OXIDIZED_CUT_COPPER);
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.PALE_OAK_SLAB, Blocks.PALE_OAK_PLANKS);
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.PETRIFIED_OAK_SLAB, Blocks.OAK_PLANKS);
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.POLISHED_ANDESITE_SLAB, Blocks.POLISHED_ANDESITE);
@@ -345,11 +316,11 @@ public final class VisualDuplicates {
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.TUFF_BRICK_SLAB, Blocks.TUFF_BRICKS);
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.TUFF_SLAB, Blocks.TUFF);
         unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.WARPED_SLAB, Blocks.WARPED_PLANKS);
-        unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.WAXED_CUT_COPPER_SLAB, Blocks.CUT_COPPER);
-        unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB, Blocks.EXPOSED_CUT_COPPER);
-        unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB, Blocks.OXIDIZED_CUT_COPPER);
-        unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB, Blocks.WEATHERED_CUT_COPPER);
-        unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.WEATHERED_CUT_COPPER_SLAB, Blocks.WEATHERED_CUT_COPPER);
+        // Copper double slab
+        Arrays.stream(WeatheringCopper.WeatherState.values()).forEach(weatherState -> {
+            unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.CUT_COPPER_SLAB.weathering().pick(weatherState), Blocks.CUT_COPPER.weathering().pick(weatherState));
+            unionFind.mergeDoubleSlabStateToFullBlockDefaultState(Blocks.CUT_COPPER_SLAB.waxed().pick(weatherState), Blocks.CUT_COPPER.weathering().pick(weatherState));
+        });
         // End portal frame
         getStatesWhere(Blocks.END_PORTAL_FRAME, BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH).forEach(state -> unionFind.merge(state, state.setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)));
         getStatesWhere(Blocks.END_PORTAL_FRAME, BlockStateProperties.HORIZONTAL_FACING, Direction.WEST).forEach(state -> unionFind.merge(state, state.setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)));

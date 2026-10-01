@@ -47,6 +47,7 @@ public final class AddDerivedItemStackMappingsRegistryListener implements SpoutR
     @Override
     public void onRegistryHookEvent(final SpoutRegistryHookEvents.EventType type, final WritableRegistry<ItemStackMapping> registry) {
         // Wait for the macros to be processed
+        int i = 0;
         while (!blockStateMappingsAreFrozen) {
             Thread.onSpinWait();
         }

@@ -5,11 +5,11 @@
  
              final Boolean shouldModify = chunk.getLevel().chunkPacketBlockController.shouldModify(player, chunk);
 -            player.connection.send(refreshPackets.computeIfAbsent(shouldModify, s -> { // Use connection to prevent creating firing event
--                return new ClientboundLevelChunkWithLightPacket(chunk, chunk.level.getLightEngine(), null, null, (Boolean) s);
+-                return new ClientboundLevelChunkWithLightPacket(chunk, chunk.getLevel().getLightEngine(), null, null, (Boolean) s);
 -            }));
 +            // Spout start - Client view / Packet mapping / Block states / Apply / Chunk packets - Pass the player
 +            player.connection.send( // Use connection to prevent creating firing event
-+                new ClientboundLevelChunkWithLightPacket(chunk, chunk.level.getLightEngine(), null, null, (Boolean) shouldModify, player)
++                new ClientboundLevelChunkWithLightPacket(chunk, chunk.getLevel().getLightEngine(), null, null, (Boolean) shouldModify, player)
 +            );
 +            // Spout end - Client view / Packet mapping / Block states / Apply / Chunk packets - Pass the player
              // Paper end - Anti-Xray

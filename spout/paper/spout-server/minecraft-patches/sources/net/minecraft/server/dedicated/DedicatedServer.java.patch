@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/dedicated/DedicatedServer.java
 +++ b/net/minecraft/server/dedicated/DedicatedServer.java
-@@ -277,6 +_,7 @@
+@@ -238,6 +_,7 @@
          this.paperConfigurations.initializeGlobalConfiguration(this.registryAccess());
          this.paperConfigurations.initializeWorldDefaultsConfiguration(this.registryAccess());
          // Paper end - initialize global and world-defaults configuration
@@ -8,7 +8,7 @@
          this.server.spark.enableEarlyIfRequested(); // Paper - spark
          // Paper start - fix converting txt to json file; convert old users earlier after PlayerList creation but before file load/save
          if (this.convertOldUsers()) {
-@@ -291,6 +_,13 @@
+@@ -252,6 +_,13 @@
          com.destroystokyo.paper.Metrics.PaperMetrics.startMetrics(); // Paper - start metrics
          com.destroystokyo.paper.VersionHistoryManager.INSTANCE.getClass(); // Paper - load version history now
  
@@ -22,7 +22,7 @@
          // this.worldData.setGameType(properties.gameMode.get()); // CraftBukkit - moved to world loading
          LOGGER.info("Default game type: {}", properties.gameMode.get());
          // Paper start - Unix domain socket support
-@@ -331,6 +_,8 @@
+@@ -292,6 +_,8 @@
              if (true) throw new IllegalStateException("Failed to bind to port", e); // Paper - Propagate failed to bind to port error
              return false;
          }

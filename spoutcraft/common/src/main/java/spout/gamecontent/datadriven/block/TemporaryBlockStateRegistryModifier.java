@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
-import spout.clientview.clientmod.protocol.CurrentLoadedContentDiagnosticSummary;import spout.gamecontent.datadriven.common.registry.temporarymodification.mixin.IdMapperAccessor;
+import spout.clientview.clientmod.protocol.ClientModStateHandler;import spout.gamecontent.datadriven.common.registry.temporarymodification.mixin.IdMapperAccessor;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -31,7 +31,8 @@ public final class TemporaryBlockStateRegistryModifier {
                 addedBlockStatesCount++;
             }
         }
-        CurrentLoadedContentDiagnosticSummary.INSTANCE.setBlockStates(addedBlockStatesCount);
+        final int finalAddedBlockStatesCount = addedBlockStatesCount;
+        ClientModStateHandler.updateLoadedContentSummary(summary -> summary.setBlockStates(finalAddedBlockStatesCount));
     }
 
     public void remove() {

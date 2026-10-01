@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/level/chunk/LevelChunkSection.java
 +++ b/net/minecraft/world/level/chunk/LevelChunkSection.java
-@@ -300,6 +_,7 @@
+@@ -297,6 +_,7 @@
          buffer.writeShort(this.fluidCount);
          this.states.write(buffer, chunkPacketInfo, chunkSectionIndex); // Paper - Anti-Xray
          this.biomes.write(buffer, null, chunkSectionIndex); // Paper - Anti-Xray

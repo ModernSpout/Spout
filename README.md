@@ -2,13 +2,16 @@
 
   <!--<img src="logo.png" alt="Spout logo" width="21%" align="right">-->
   <h1>
-    Spout server + Spoutcraft client<br>(Paper, Fabric, NeoForge)
+    Spout and Spoutcraft
   </h1>
   <h3>
-    Vanilla-compatible server + client
+    Vanilla-compatible server and client
     <br>
     that automatically sends modded content from server to client
   </h3>
+  <h4>
+    for Paper and Fabric / NeoForge / Quilt
+  </h4>
 
 [![Discord](https://img.shields.io/discord/1091830813240348732?color=5865F2&label=discord&style=for-the-badge)](https://discord.gg/EduvcVmKS7)
 [![Latest version](https://img.shields.io/badge/Latest_version-26.1.2-4fa31a?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases)
@@ -59,14 +62,14 @@ Please let us know on [Discord](https://discord.gg/EduvcVmKS7) if you are intere
 
 ## Downloads
 
-[![Download from GitHub](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/2.1/spout-26.1.2-R2.1.jar)
+[![Download from GitHub](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/2.2/spout-26.2-R2.2.jar)
 
 ## Installation
 
 The `.jar` file is a drop-in replacement for the Paper JAR, and you can run it the same:
 
 ```sh
-java -jar spout-26.1.2-R2.1.jar
+java -jar spout-26.2-R2.2.jar
 ```
 
 Please report any issues you encounter.
@@ -120,7 +123,7 @@ All custom content is automatically removed the moment you leave a server.
 
 ## Downloads
 
-[![Download from GitHub](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/2.1/spoutcraft-2.1.jar)
+[![Download from GitHub](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/2.2/spoutcraft-2.2.jar)
 [![Download from Modrinth](https://img.shields.io/badge/⬇-modrinth-2c9448?style=for-the-badge)](https://modrinth.com/mod/spout-client)
 [![Download from CurseForge](https://img.shields.io/badge/⬇-curseforge-ba5c3d?style=for-the-badge)](https://www.curseforge.com/minecraft/mc-mods/spout)
 
@@ -308,7 +311,7 @@ Additionally, this project directly builds on top of the work of the contributor
 
 Also, thanks go out to
 [Nora](https://github.com/noramibu),
-[Alvinn8](https://github.com/Alvinn8/),
+[Alvin](https://github.com/Alvinn8/),
 [SoSeDiK](https://github.com/SoSeDiK) and
 [zoumath19](https://github.com/zoumath19)
 for their contributions to this project.

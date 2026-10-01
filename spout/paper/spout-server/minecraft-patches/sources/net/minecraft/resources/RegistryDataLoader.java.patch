@@ -1,6 +1,6 @@
 --- a/net/minecraft/resources/RegistryDataLoader.java
 +++ b/net/minecraft/resources/RegistryDataLoader.java
-@@ -126,6 +_,15 @@
+@@ -128,6 +_,15 @@
          new RegistryDataLoader.RegistryData<>(Registries.TIMELINE, Timeline.DIRECT_CODEC, Timeline::validateRegistry),
          new RegistryDataLoader.RegistryData<>(Registries.VILLAGER_TRADE, VillagerTrade.CODEC),
          new RegistryDataLoader.RegistryData<>(Registries.TRADE_SET, TradeSet.CODEC)

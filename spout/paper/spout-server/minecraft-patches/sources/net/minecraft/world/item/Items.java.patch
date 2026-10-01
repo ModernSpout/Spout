@@ -1,9 +1,9 @@
 --- a/net/minecraft/world/item/Items.java
 +++ b/net/minecraft/world/item/Items.java
-@@ -2401,10 +_,13 @@
+@@ -2140,10 +_,13 @@
  
-     private static Item registerItem(final ResourceKey<Item> key, final Function<Item.Properties, Item> itemFactory, final Item.Properties properties) {
-         Item item = itemFactory.apply(properties.setId(key));
+     private static Item registerItem(final ResourceKey<Item> id, final Function<Item.Properties, Item> itemFactory, final Item.Properties properties) {
+         Item item = itemFactory.apply(properties.setId(id));
 -        if (item instanceof BlockItem blockItem) {
 -            blockItem.registerBlocks(Item.BY_BLOCK, item);
 -        }
@@ -14,6 +14,6 @@
 +        // Spout end - More data-driven - Minecraft registries - Register block items in ItemRegistry#register
  
 +        item.markAsVanilla(); // Spout - More data-driven - Vanilla flag - Implementation part
-         return Registry.register(BuiltInRegistries.ITEM, key, item);
+         return Registry.register(BuiltInRegistries.ITEM, id, item);
      }
  }

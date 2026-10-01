@@ -2,6 +2,6 @@
   "pack": {
     "description": "A data pack for the Spout test plugin",
     "min_format": [101, 1],
-    "max_format": [101, 1]
+    "max_format": [107, 1]
   }
 }

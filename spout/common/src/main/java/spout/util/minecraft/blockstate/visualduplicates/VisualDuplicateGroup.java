@@ -11,6 +11,7 @@ import org.jspecify.annotations.Nullable;
 import spout.gamecontent.datadriven.block.registry.VanillaOnlyBlockStateRegistry;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -82,58 +83,9 @@ public final class VisualDuplicateGroup {
 
     public static IntSet getMoreCommonBlocks() {
         if (moreCommonBlocks == null) {
-            moreCommonBlocks = IntSet.of(Set.of(
+            Set<Block> set = new HashSet<>(Set.of(
                 // Air
                 Blocks.AIR,
-                // Copper
-                Blocks.WAXED_CHISELED_COPPER,
-                Blocks.WAXED_COPPER_BLOCK,
-                Blocks.WAXED_COPPER_BULB,
-                Blocks.WAXED_COPPER_CHEST,
-                Blocks.WAXED_COPPER_DOOR,
-                Blocks.WAXED_COPPER_GOLEM_STATUE,
-                Blocks.WAXED_COPPER_GRATE,
-                Blocks.WAXED_COPPER_TRAPDOOR,
-                Blocks.WAXED_CUT_COPPER,
-                Blocks.WAXED_CUT_COPPER_SLAB,
-                Blocks.WAXED_CUT_COPPER_STAIRS,
-                Blocks.WAXED_EXPOSED_CHISELED_COPPER,
-                Blocks.WAXED_EXPOSED_COPPER,
-                Blocks.WAXED_EXPOSED_COPPER_BULB,
-                Blocks.WAXED_EXPOSED_COPPER_CHEST,
-                Blocks.WAXED_EXPOSED_COPPER_DOOR,
-                Blocks.WAXED_EXPOSED_COPPER_GOLEM_STATUE,
-                Blocks.WAXED_EXPOSED_COPPER_GRATE,
-                Blocks.WAXED_EXPOSED_COPPER_TRAPDOOR,
-                Blocks.WAXED_EXPOSED_CUT_COPPER,
-                Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB,
-                Blocks.WAXED_EXPOSED_CUT_COPPER_STAIRS,
-                Blocks.WAXED_EXPOSED_LIGHTNING_ROD,
-                Blocks.WAXED_LIGHTNING_ROD,
-                Blocks.WAXED_OXIDIZED_CHISELED_COPPER,
-                Blocks.WAXED_OXIDIZED_COPPER,
-                Blocks.WAXED_OXIDIZED_COPPER_BULB,
-                Blocks.WAXED_OXIDIZED_COPPER_CHEST,
-                Blocks.WAXED_OXIDIZED_COPPER_DOOR,
-                Blocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE,
-                Blocks.WAXED_OXIDIZED_COPPER_GRATE,
-                Blocks.WAXED_OXIDIZED_COPPER_TRAPDOOR,
-                Blocks.WAXED_OXIDIZED_CUT_COPPER,
-                Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB,
-                Blocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS,
-                Blocks.WAXED_OXIDIZED_LIGHTNING_ROD,
-                Blocks.WAXED_WEATHERED_CHISELED_COPPER,
-                Blocks.WAXED_WEATHERED_COPPER,
-                Blocks.WAXED_WEATHERED_COPPER_BULB,
-                Blocks.WAXED_WEATHERED_COPPER_CHEST,
-                Blocks.WAXED_WEATHERED_COPPER_DOOR,
-                Blocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE,
-                Blocks.WAXED_WEATHERED_COPPER_GRATE,
-                Blocks.WAXED_WEATHERED_COPPER_TRAPDOOR,
-                Blocks.WAXED_WEATHERED_CUT_COPPER,
-                Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB,
-                Blocks.WAXED_WEATHERED_CUT_COPPER_STAIRS,
-                Blocks.WAXED_WEATHERED_LIGHTNING_ROD,
                 // Infested block
                 Blocks.CHISELED_STONE_BRICKS,
                 Blocks.COBBLESTONE,
@@ -146,7 +98,28 @@ public final class VisualDuplicateGroup {
                 Blocks.OAK_SLAB,
                 // Snowy mycelium and podzol
                 Blocks.GRASS_BLOCK
-            ).stream().mapToInt(block -> block.indexInVanillaOnlyBlockRegistry).toArray());
+            ));
+            // Copper
+            List.of(
+                Blocks.CHISELED_COPPER,
+                Blocks.COPPER_BARS,
+                Blocks.COPPER_BLOCK,
+                Blocks.COPPER_BULB,
+                Blocks.COPPER_CHAIN,
+                Blocks.COPPER_CHEST,
+                Blocks.COPPER_DOOR,
+                Blocks.COPPER_GOLEM_STATUE,
+                Blocks.COPPER_GRATE,
+                Blocks.COPPER_LANTERN,
+                Blocks.COPPER_TRAPDOOR,
+                Blocks.CUT_COPPER,
+                Blocks.CUT_COPPER_SLAB,
+                Blocks.CUT_COPPER_STAIRS,
+                Blocks.LIGHTNING_ROD
+            ).forEach(collection -> {
+                collection.waxed().forEach(set::add);
+            });
+            moreCommonBlocks = IntSet.of(set.stream().mapToInt(block -> block.indexInVanillaOnlyBlockRegistry).toArray());
         }
         return moreCommonBlocks;
     }
