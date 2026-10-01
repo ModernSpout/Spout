@@ -22,9 +22,9 @@
 +    public void continueConfigurationAfterOfferingSpoutResourcePack() {
 +        // Spout end - Client view - Set - Offer resource pack
          ServerLinks serverLinks = this.server.serverLinks();
-         if (!serverLinks.isEmpty()) {
-             // Paper start
-@@ -165,6 +_,19 @@
+         // Paper start
+         org.bukkit.craftbukkit.CraftServerLinks links = new org.bukkit.craftbukkit.CraftServerLinks(serverLinks);
+@@ -174,6 +_,19 @@
          if (packet.action().isTerminal() && packet.id().equals(this.server.getServerResourcePack().map(MinecraftServer.ServerResourcePackInfo::id).orElse(null))) { // Paper - Ignore resource pack requests that are not vanilla
              this.finishCurrentTask(ServerResourcePackConfigurationTask.TYPE);
          }

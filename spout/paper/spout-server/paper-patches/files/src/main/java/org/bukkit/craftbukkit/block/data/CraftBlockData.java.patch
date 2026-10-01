@@ -15,7 +15,7 @@
          register(net.minecraft.world.level.block.AmethystClusterBlock.class, org.bukkit.craftbukkit.block.impl.CraftAmethystCluster::new);
          register(net.minecraft.world.level.block.AnvilBlock.class, org.bukkit.craftbukkit.block.impl.CraftAnvil::new);
          register(net.minecraft.world.level.block.AttachedStemBlock.class, org.bukkit.craftbukkit.block.impl.CraftAttachedStem::new);
-@@ -655,4 +_,11 @@
+@@ -656,4 +_,11 @@
      public boolean isReplaceable() {
          return this.state.canBeReplaced();
      }
