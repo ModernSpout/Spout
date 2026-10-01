@@ -174,9 +174,9 @@ val multiloaderJar by tasks.registering {
             }
             .sorted()
         if (conflicts.isNotEmpty()) {
-            throw GradleException(
+            logger.warn(
                 buildString {
-                    appendLine("Cannot create multiloader JAR: conflicting files found:")
+                    appendLine("Warning: conflicting files found when creating multitloader JAR:")
                     conflicts.forEach { appendLine("  $it") }
                 }
             )
