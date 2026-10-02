@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/BigDripleafBlock.java
++++ b/net/minecraft/world/level/block/BigDripleafBlock.java
+@@ -68,7 +_,7 @@
+     );
+     private final Function<BlockState, VoxelShape> shapes;
+ 
+-    protected BigDripleafBlock(final BlockBehaviour.Properties properties) {
++    public BigDripleafBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false).setValue(FACING, Direction.NORTH).setValue(TILT, Tilt.NONE));
+         this.shapes = this.makeShapes();

@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/EndGatewayBlock.java
++++ b/net/minecraft/world/level/block/EndGatewayBlock.java
+@@ -25,7 +_,7 @@
+ import org.jspecify.annotations.Nullable;
+ 
+ public class EndGatewayBlock extends BaseEntityBlock implements Portal {
+-    protected EndGatewayBlock(final BlockBehaviour.Properties properties) {
++    public EndGatewayBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+     }
+ 

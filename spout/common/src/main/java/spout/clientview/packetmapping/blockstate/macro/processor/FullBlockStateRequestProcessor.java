@@ -97,7 +97,9 @@ public class FullBlockStateRequestProcessor extends FilledArrayResultProcessor<F
             // Snowy mycelium and podzol
             Blocks.GRASS_BLOCK,
             Blocks.MYCELIUM,
-            Blocks.PODZOL
+            Blocks.PODZOL,
+            // Potent sulfur
+            Blocks.POTENT_SULFUR
         ).forEach(block -> states.addAll(block.getStateDefinition().getPossibleStates()));
         // Slabs
         List<Block> slabs = new ArrayList<>(List.of(

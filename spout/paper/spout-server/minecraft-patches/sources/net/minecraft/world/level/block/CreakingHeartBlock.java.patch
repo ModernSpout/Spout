@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/CreakingHeartBlock.java
++++ b/net/minecraft/world/level/block/CreakingHeartBlock.java
+@@ -38,7 +_,7 @@
+     public static final EnumProperty<CreakingHeartState> STATE = BlockStateProperties.CREAKING_HEART_STATE;
+     public static final BooleanProperty NATURAL = BlockStateProperties.NATURAL;
+ 
+-    protected CreakingHeartBlock(final BlockBehaviour.Properties properties) {
++    public CreakingHeartBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(
+             this.defaultBlockState().setValue(AXIS, Direction.Axis.Y).setValue(STATE, CreakingHeartState.UPROOTED).setValue(NATURAL, false)

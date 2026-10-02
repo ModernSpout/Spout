@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/RepeaterBlock.java
++++ b/net/minecraft/world/level/block/RepeaterBlock.java
+@@ -24,7 +_,7 @@
+     public static final BooleanProperty LOCKED = BlockStateProperties.LOCKED;
+     public static final IntegerProperty DELAY = BlockStateProperties.DELAY;
+ 
+-    protected RepeaterBlock(final BlockBehaviour.Properties properties) {
++    public RepeaterBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(
+             this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(DELAY, 1).setValue(LOCKED, false).setValue(POWERED, false)

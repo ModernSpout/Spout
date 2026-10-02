@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "more_vanilla_shapes:stone_brick_quad_from_stone_brick_vertical_slab_stonecutting"
+        "recipes": "more_vanilla_shapes:stone_brick_quad_from_stone_brick_vertical_slab_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

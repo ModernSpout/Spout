@@ -13,7 +13,7 @@
  import net.minecraft.network.protocol.game.ClientboundSoundPacket;
  import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
  import net.minecraft.network.protocol.game.ClientboundUpdateRecipesPacket;
-@@ -101,6 +_,7 @@
+@@ -103,6 +_,7 @@
  import net.minecraft.world.scores.Team;
  import org.jspecify.annotations.Nullable;
  import org.slf4j.Logger;
@@ -21,7 +21,7 @@
  
  public abstract class PlayerList {
      public static final File USERBANLIST_FILE = new File("banned-players.json");
-@@ -236,7 +_,7 @@
+@@ -238,7 +_,7 @@
          // CraftBukkit start
          org.bukkit.craftbukkit.entity.CraftPlayer bukkitPlayer = player.getBukkitEntity();
  
@@ -30,7 +30,7 @@
          player.containerMenu.transferTo(player.containerMenu, bukkitPlayer);
  
          org.bukkit.event.player.PlayerJoinEvent playerJoinEvent = new org.bukkit.event.player.PlayerJoinEvent(bukkitPlayer, io.papermc.paper.adventure.PaperAdventure.asAdventure(component)); // Paper - Adventure
-@@ -331,7 +_,7 @@
+@@ -334,7 +_,7 @@
                  .getOrThrow(net.minecraft.world.level.biome.Biomes.PLAINS);
              player.connection.send(new net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket(
                  new net.minecraft.world.level.chunk.EmptyLevelChunk(level, player.chunkPosition(), plains),
@@ -39,7 +39,7 @@
              );
          }
          // Paper end - Send empty chunk
-@@ -743,6 +_,7 @@
+@@ -751,6 +_,7 @@
              // CraftBukkit end
              this.sendAllPlayerInfoIn = 0;
          }
@@ -47,7 +47,7 @@
      }
  
      // CraftBukkit start - add a world/entity limited version
-@@ -1021,7 +_,7 @@
+@@ -1028,7 +_,7 @@
          // needs to be done because the ServerPlayer instance is being reused on respawn instead of getting replaced like on vanilla
          java.util.Collection<net.minecraft.world.entity.ai.attributes.AttributeInstance> syncableAttributes = player.getAttributes().getSyncableAttributes();
          player.getBukkitEntity().injectScaledMaxHealth(syncableAttributes, true);

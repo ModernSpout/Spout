@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/SeaPickleBlock.java
++++ b/net/minecraft/world/level/block/SeaPickleBlock.java
+@@ -32,7 +_,7 @@
+     private static final VoxelShape SHAPE_THREE = Block.column(12.0, 0.0, 6.0);
+     private static final VoxelShape SHAPE_FOUR = Block.column(12.0, 0.0, 7.0);
+ 
+-    protected SeaPickleBlock(final BlockBehaviour.Properties properties) {
++    public SeaPickleBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(PICKLES, 1).setValue(WATERLOGGED, true));
+     }

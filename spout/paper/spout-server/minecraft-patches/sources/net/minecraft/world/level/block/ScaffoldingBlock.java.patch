@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/ScaffoldingBlock.java
++++ b/net/minecraft/world/level/block/ScaffoldingBlock.java
+@@ -37,7 +_,7 @@
+     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+     public static final BooleanProperty BOTTOM = BlockStateProperties.BOTTOM;
+ 
+-    protected ScaffoldingBlock(final BlockBehaviour.Properties properties) {
++    public ScaffoldingBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(DISTANCE, 7).setValue(WATERLOGGED, false).setValue(BOTTOM, false));
+     }

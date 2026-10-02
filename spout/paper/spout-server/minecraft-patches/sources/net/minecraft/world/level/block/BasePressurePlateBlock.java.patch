@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/BasePressurePlateBlock.java
++++ b/net/minecraft/world/level/block/BasePressurePlateBlock.java
+@@ -26,7 +_,7 @@
+     private static final VoxelShape SHAPE_PRESSED = Block.column(14.0, 0.0, 0.5);
+     private static final VoxelShape SHAPE = Block.column(14.0, 0.0, 1.0);
+     protected static final AABB TOUCH_AABB = Block.column(14.0, 0.0, 4.0).toAabbs().getFirst();
+-    protected final BlockSetType type;
++    public final BlockSetType type; // Spout - Common class tweakers - Make accessible
+ 
+     protected BasePressurePlateBlock(final BlockBehaviour.Properties properties, final BlockSetType type) {
+         super(properties.sound(type.soundType()));

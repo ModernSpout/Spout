@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/WeatheringCopperTrapDoorBlock.java
++++ b/net/minecraft/world/level/block/WeatheringCopperTrapDoorBlock.java
+@@ -10,7 +_,7 @@
+ public class WeatheringCopperTrapDoorBlock extends TrapDoorBlock implements WeatheringCopper {
+     private final WeatheringCopper.WeatherState weatherState;
+ 
+-    protected WeatheringCopperTrapDoorBlock(
++    public WeatheringCopperTrapDoorBlock( // Spout - Common class tweakers - Make accessible
+         final BlockSetType type, final WeatheringCopper.WeatherState weatherState, final BlockBehaviour.Properties properties
+     ) {
+         super(type, properties);

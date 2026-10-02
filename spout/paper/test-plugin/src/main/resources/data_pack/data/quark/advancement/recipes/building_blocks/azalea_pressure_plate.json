@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "quark:azalea_pressure_plate"
+        "recipes": "quark:azalea_pressure_plate"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

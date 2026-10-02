@@ -1,0 +1,17 @@
+--- a/net/minecraft/world/level/block/ButtonBlock.java
++++ b/net/minecraft/world/level/block/ButtonBlock.java
+@@ -39,11 +_,11 @@
+ 
+ public class ButtonBlock extends FaceAttachedHorizontalDirectionalBlock {
+     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+-    private final BlockSetType type;
+-    private final int ticksToStayPressed;
++    public final BlockSetType type; // Spout - Common class tweakers - Make accessible
++    public final int ticksToStayPressed; // Spout - Common class tweakers - Make accessible
+     private final Function<BlockState, VoxelShape> shapes;
+ 
+-    protected ButtonBlock(final BlockSetType type, final int ticksToStayPressed, final BlockBehaviour.Properties properties) {
++    public ButtonBlock(final BlockSetType type, final int ticksToStayPressed, final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties.sound(type.soundType()));
+         this.type = type;
+         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false).setValue(FACE, AttachFace.WALL));

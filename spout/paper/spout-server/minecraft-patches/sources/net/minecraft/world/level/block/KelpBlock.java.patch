@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/KelpBlock.java
++++ b/net/minecraft/world/level/block/KelpBlock.java
+@@ -21,7 +_,7 @@
+     private static final double GROW_PER_TICK_PROBABILITY = 0.14;
+     private static final VoxelShape SHAPE = Block.column(16.0, 0.0, 9.0);
+ 
+-    protected KelpBlock(final BlockBehaviour.Properties properties) {
++    public KelpBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties, Direction.UP, SHAPE, true, 0.14);
+     }
+ 

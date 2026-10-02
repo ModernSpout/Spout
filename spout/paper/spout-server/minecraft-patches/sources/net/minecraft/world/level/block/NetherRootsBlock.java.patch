@@ -1,0 +1,14 @@
+--- a/net/minecraft/world/level/block/NetherRootsBlock.java
++++ b/net/minecraft/world/level/block/NetherRootsBlock.java
+@@ -10,9 +_,9 @@
+ 
+ public class NetherRootsBlock extends VegetationBlock {
+     private static final VoxelShape SHAPE = Block.column(12.0, 0.0, 13.0);
+-    private final TagKey<Block> supportBlocks;
++    public final TagKey<Block> supportBlocks; // Spout - Common class tweakers - Make accessible
+ 
+-    protected NetherRootsBlock(final TagKey<Block> supportBlocks, final BlockBehaviour.Properties properties) {
++    public NetherRootsBlock(final TagKey<Block> supportBlocks, final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.supportBlocks = supportBlocks;
+     }

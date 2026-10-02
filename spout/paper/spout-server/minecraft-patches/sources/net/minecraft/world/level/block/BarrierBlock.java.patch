@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/BarrierBlock.java
++++ b/net/minecraft/world/level/block/BarrierBlock.java
+@@ -24,7 +_,7 @@
+ public class BarrierBlock extends Block implements SimpleWaterloggedBlock {
+     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+ 
+-    protected BarrierBlock(final BlockBehaviour.Properties properties) {
++    public BarrierBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
+     }

@@ -4,11 +4,7 @@
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "DataComponentInitializersAccessor",
-    "ItemPropertiesSerializationDecoratorItemPropertiesMixin",
-    "ItemTypeDecoratorBlockItemMixin",
-    "ItemTypeDecoratorDoubleHighBlockItemMixin",
-    "ItemTypeDecoratorEggItemMixin",
-    "ItemTypeDecoratorItemMixin"
+    "ItemPropertiesSerializationDecoratorItemPropertiesMixin"
   ],
   "injectors": {
     "defaultRequire": 1

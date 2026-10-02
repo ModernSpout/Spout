@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "quark:azalea_trapdoor"
+        "recipes": "quark:azalea_trapdoor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

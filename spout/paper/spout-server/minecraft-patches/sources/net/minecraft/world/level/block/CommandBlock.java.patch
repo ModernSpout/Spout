@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/CommandBlock.java
++++ b/net/minecraft/world/level/block/CommandBlock.java
+@@ -32,7 +_,7 @@
+     private static final Logger LOGGER = LogUtils.getLogger();
+     public static final EnumProperty<Direction> FACING = DirectionalBlock.FACING;
+     public static final BooleanProperty CONDITIONAL = BlockStateProperties.CONDITIONAL;
+-    private final boolean automatic;
++    public final boolean automatic; // Spout - Common class tweakers - Make accessible
+ 
+     public CommandBlock(final boolean automatic, final BlockBehaviour.Properties properties) {
+         super(properties);

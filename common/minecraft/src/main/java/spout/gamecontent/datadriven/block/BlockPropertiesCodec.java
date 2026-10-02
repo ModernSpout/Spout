@@ -16,6 +16,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.AABB;
+import spout.gamecontent.datadriven.block.subtypes.KnownStateAABBPredicate;
 import spout.gamecontent.datadriven.block.subtypes.SubtypeCodecs;
 import spout.gamecontent.datadriven.block.subtypes.BlockStateFunction;
 import spout.gamecontent.datadriven.block.subtypes.KnownStatePredicate;
@@ -64,7 +66,7 @@ public class BlockPropertiesCodec {
             builder.add("replaceable", ops.createBoolean(input.replaceable));
             builder.add("is_redstone_conductor", input.isRedstoneConductor, KnownStatePredicate.CODEC);
             builder.add("is_suffocating", input.isSuffocating, KnownStatePredicate.CODEC);
-            builder.add("is_view_blocking", input.isViewBlocking, KnownStatePredicate.CODEC);
+            builder.add("is_view_blocking", input.isViewBlocking, KnownStateAABBPredicate.CODEC);
             builder.add("post_process", input.postProcess, SubtypeCodecs.POST_PROCESS_CODEC);
             builder.add("emissive_rendering", BlockStateFunction.wrap(block, input.emissiveRendering), SubtypeCodecs.EMISSIVE_RENDERING_CODEC);
             builder.add("dynamic_shape", ops.createBoolean(input.dynamicShape));
@@ -72,6 +74,7 @@ public class BlockPropertiesCodec {
             if (input.offsetFunction != null) {
                 builder.add("offset_function", input.offsetFunction, SubtypeCodecs.OFFSET_FUNCTION_CODEC);
             }
+            builder.add("fall_distance_reduction", ops.createFloat(input.fallDistanceReduction));
             return builder.build(prefix);
         }
 
@@ -281,7 +284,7 @@ public class BlockPropertiesCodec {
                 }
                 T isViewBlockingInput = mapLike.get("is_view_blocking");
                 if (isViewBlockingInput != null) {
-                    DataResult<BlockBehaviour.StatePredicate> isViewBlocking = KnownStatePredicate.CODEC.decode(ops, isViewBlockingInput).map(Pair::getFirst);
+                    DataResult<BlockBehaviour.StateArgumentPredicate<AABB>> isViewBlocking = KnownStateAABBPredicate.CODEC.decode(ops, isViewBlockingInput).map(Pair::getFirst);
                     if (isViewBlocking.isError()) {
                         return isViewBlocking.map($ -> null);
                     }
@@ -326,6 +329,14 @@ public class BlockPropertiesCodec {
                         return offsetFunction.map($ -> null);
                     }
                     properties.offsetFunction = offsetFunction.getOrThrow();
+                }
+                T fallDistanceReductionInput = mapLike.get("fall_distance_reduction");
+                if (fallDistanceReductionInput != null) {
+                    DataResult<Number> fallDistanceReduction = ops.getNumberValue(fallDistanceReductionInput);
+                    if (fallDistanceReduction.isError()) {
+                        return fallDistanceReduction.map($ -> null);
+                    }
+                    properties.fallDistanceReduction = fallDistanceReduction.getOrThrow().floatValue();
                 }
                 return DataResult.success(Pair.of(properties, input));
             });

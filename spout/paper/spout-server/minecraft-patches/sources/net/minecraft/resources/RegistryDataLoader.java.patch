@@ -1,9 +1,9 @@
 --- a/net/minecraft/resources/RegistryDataLoader.java
 +++ b/net/minecraft/resources/RegistryDataLoader.java
-@@ -128,6 +_,15 @@
-         new RegistryDataLoader.RegistryData<>(Registries.TIMELINE, Timeline.DIRECT_CODEC, Timeline::validateRegistry),
-         new RegistryDataLoader.RegistryData<>(Registries.VILLAGER_TRADE, VillagerTrade.CODEC),
-         new RegistryDataLoader.RegistryData<>(Registries.TRADE_SET, TradeSet.CODEC)
+@@ -147,6 +_,15 @@
+         new RegistryDataLoader.RegistryData<>(Registries.DECORATED_POT_PATTERN, DecoratedPotPattern.CODEC),
+         new RegistryDataLoader.RegistryData<>(Registries.BLOCK_TRANSFORMER, BlockTransformer.DIRECT_CODEC),
+         new RegistryDataLoader.RegistryData<>(Registries.BLOCK_STATE_PROVIDER, BlockStateProvider.DIRECT_CODEC)
 +        // Spout start - Load additional registries
 +        ,
 +        new RegistryDataLoader.RegistryData<>(spout.gamecontent.datadriven.material.enuminjection.rewrite.registry.MaterialNameRewriterRegistryKey.MATERIAL_NAME_REWRITER, spout.gamecontent.datadriven.common.enuminjection.rewrite.EnumNameRewriter.codec()),

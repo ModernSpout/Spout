@@ -13,6 +13,7 @@ import spout.gamecontent.datadriven.blocktype.SpoutBlockType;
 import spout.gamecontent.datadriven.common.nonbuiltin.SpoutNonBuiltInResource;
 import spout.util.mojang.codec.CodecUtil;
 import spout.util.mojang.codec.MapInputAndOps;
+import java.util.Optional;
 
 /**
  * A {@link SpoutNonBuiltInResource} for {@link Block}.
@@ -56,7 +57,15 @@ public class SpoutNonBuiltInBlock extends SpoutNonBuiltInResource<Block, SpoutBl
 
     @Override
     protected SpoutBlockType valueToType(Block value) {
-        return ((BlockTypeDecorator) value).spout$getBlockType();
+        Class<? extends Block> valueClass = value.getClass();
+        while (true) {
+            final Class<? extends Block> finalValueClass = valueClass;
+            Optional<SpoutBlockType> matchingType = BuiltInBlockTypeRegistry.BLOCK_TYPE.stream().filter(type -> type.getBaseClass() == finalValueClass).findFirst();
+            if (matchingType.isPresent()) {
+                return matchingType.get();
+            }
+            valueClass = (Class<? extends Block>) valueClass.getSuperclass();
+        }
     }
 
     @Override

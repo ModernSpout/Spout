@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/ShulkerBoxBlock.java
++++ b/net/minecraft/world/level/block/ShulkerBoxBlock.java
+@@ -42,7 +_,7 @@
+     public static final Map<Direction, VoxelShape> SHAPES_OPEN_SUPPORT = Shapes.rotateAll(Block.boxZ(16.0, 0.0, 1.0));
+     public static final EnumProperty<Direction> FACING = DirectionalBlock.FACING;
+     public static final Identifier CONTENTS = Identifier.withDefaultNamespace("contents");
+-    private final @Nullable DyeColor color;
++    public final @Nullable DyeColor color; // Spout - Common class tweakers - Make accessible
+ 
+     public ShulkerBoxBlock(final @Nullable DyeColor color, final BlockBehaviour.Properties properties) {
+         super(properties);

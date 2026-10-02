@@ -9,7 +9,7 @@
     "destroy_time": -1.0,
     "is_randomly_ticking": true,
     "can_occlude": false,
-    "push_reaction": "minecraft:block"
+    "push_reaction": "minecraft:immoveable"
   },
   "mappings": [
     {

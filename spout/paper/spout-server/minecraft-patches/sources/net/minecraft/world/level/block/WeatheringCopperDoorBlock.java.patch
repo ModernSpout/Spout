@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/WeatheringCopperDoorBlock.java
++++ b/net/minecraft/world/level/block/WeatheringCopperDoorBlock.java
+@@ -11,7 +_,7 @@
+ public class WeatheringCopperDoorBlock extends DoorBlock implements WeatheringCopper {
+     private final WeatheringCopper.WeatherState weatherState;
+ 
+-    protected WeatheringCopperDoorBlock(final BlockSetType type, final WeatheringCopper.WeatherState weatherState, final BlockBehaviour.Properties properties) {
++    public WeatheringCopperDoorBlock(final BlockSetType type, final WeatheringCopper.WeatherState weatherState, final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(type, properties);
+         this.weatherState = weatherState;
+     }

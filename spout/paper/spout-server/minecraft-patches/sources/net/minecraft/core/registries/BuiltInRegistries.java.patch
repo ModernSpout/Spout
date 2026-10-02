@@ -1,6 +1,6 @@
 --- a/net/minecraft/core/registries/BuiltInRegistries.java
 +++ b/net/minecraft/core/registries/BuiltInRegistries.java
-@@ -88,7 +_,6 @@
+@@ -89,7 +_,6 @@
  import net.minecraft.world.inventory.MenuType;
  import net.minecraft.world.item.CreativeModeTab;
  import net.minecraft.world.item.CreativeModeTabs;
@@ -8,7 +8,7 @@
  import net.minecraft.world.item.Items;
  import net.minecraft.world.item.alchemy.Potion;
  import net.minecraft.world.item.alchemy.Potions;
-@@ -172,8 +_,8 @@
+@@ -180,8 +_,8 @@
  
  public class BuiltInRegistries {
      private static final Logger LOGGER = LogUtils.getLogger();
@@ -19,22 +19,22 @@
          ResourceKey.createRegistryKey(Registries.ROOT_REGISTRY_NAME), Lifecycle.stable()
      );
      public static final DataComponentInitializers DATA_COMPONENT_INITIALIZERS = new DataComponentInitializers();
-@@ -181,12 +_,12 @@
-     public static final Registry<SoundEvent> SOUND_EVENT = registerSimple(Registries.SOUND_EVENT, registry -> SoundEvents.ITEM_PICKUP);
-     public static final DefaultedRegistry<Fluid> FLUID = registerDefaultedWithIntrusiveHolders(Registries.FLUID, "empty", registry -> Fluids.EMPTY);
+@@ -189,12 +_,12 @@
+     public static final Registry<SoundEvent> SOUND_EVENT = registerSimple(Registries.SOUND_EVENT, var0 -> SoundEvents.ITEM_PICKUP);
+     public static final DefaultedRegistry<Fluid> FLUID = registerDefaultedWithIntrusiveHolders(Registries.FLUID, "empty", var0 -> Fluids.EMPTY);
      public static final Registry<MobEffect> MOB_EFFECT = registerSimple(Registries.MOB_EFFECT, MobEffects::bootstrap);
--    public static final DefaultedRegistry<Block> BLOCK = registerDefaultedWithIntrusiveHolders(Registries.BLOCK, "air", registry -> Blocks.AIR);
-+    public static final spout.gamecontent.datadriven.block.registry.BlockRegistry BLOCK = internalRegister(Registries.BLOCK, spout.gamecontent.datadriven.block.registry.BlockRegistry.get(), registry -> Blocks.AIR); // Spout - More data-driven - Minecraft registries - Use custom class
+-    public static final DefaultedRegistry<Block> BLOCK = registerDefaultedWithIntrusiveHolders(Registries.BLOCK, "air", var0 -> Blocks.AIR);
++    public static final spout.gamecontent.datadriven.block.registry.BlockRegistry BLOCK = internalRegister(Registries.BLOCK, spout.gamecontent.datadriven.block.registry.BlockRegistry.get(), var0 -> Blocks.AIR); // Spout - More data-driven - Minecraft registries - Use custom class
      public static final Registry<DebugSubscription<?>> DEBUG_SUBSCRIPTION = registerSimple(Registries.DEBUG_SUBSCRIPTION, DebugSubscriptions::bootstrap);
      public static final DefaultedRegistry<EntityType<?>> ENTITY_TYPE = registerDefaultedWithIntrusiveHolders(
-         Registries.ENTITY_TYPE, "pig", registry -> EntityTypes.PIG
+         Registries.ENTITY_TYPE, "pig", var0 -> EntityTypes.PIG
      );
--    public static final DefaultedRegistry<Item> ITEM = registerDefaultedWithIntrusiveHolders(Registries.ITEM, "air", registry -> Items.AIR);
-+    public static final spout.gamecontent.datadriven.item.registry.ItemRegistry ITEM = internalRegister(Registries.ITEM, spout.gamecontent.datadriven.item.registry.ItemRegistry.get(), registry -> Items.AIR); // Spout - More data-driven - Minecraft registries - Use custom class
+-    public static final DefaultedRegistry<Item> ITEM = registerDefaultedWithIntrusiveHolders(Registries.ITEM, "air", var0 -> Items.AIR);
++    public static final spout.gamecontent.datadriven.item.registry.ItemRegistry ITEM = internalRegister(Registries.ITEM, spout.gamecontent.datadriven.item.registry.ItemRegistry.get(), var0 -> Items.AIR); // Spout - More data-driven - Minecraft registries - Use custom class
      public static final Registry<Potion> POTION = registerSimple(Registries.POTION, Potions::bootstrap);
-     public static final Registry<ParticleType<?>> PARTICLE_TYPE = registerSimple(Registries.PARTICLE_TYPE, registry -> ParticleTypes.BLOCK);
+     public static final Registry<ParticleType<?>> PARTICLE_TYPE = registerSimple(Registries.PARTICLE_TYPE, var0 -> ParticleTypes.BLOCK);
      public static final Registry<BlockEntityType<?>> BLOCK_ENTITY_TYPE = registerSimpleWithIntrusiveHolders(
-@@ -371,7 +_,7 @@
+@@ -373,7 +_,7 @@
      );
      // Paper end - add built-in registry conversions
  
@@ -43,7 +43,7 @@
          return internalRegister(name, new MappedRegistry<>(name, Lifecycle.stable(), false), loader);
      }
  
-@@ -393,7 +_,7 @@
+@@ -395,7 +_,7 @@
          return internalRegister(name, new DefaultedMappedRegistry<>(defaultKey, name, Lifecycle.stable(), true), loader);
      }
  
@@ -52,7 +52,7 @@
          final ResourceKey<? extends Registry<T>> name, final R registry, final BuiltInRegistries.RegistryBootstrap<T> loader
      ) {
          Bootstrap.checkBootstrapCalled(() -> "registry " + name.identifier());
-@@ -409,6 +_,7 @@
+@@ -411,6 +_,7 @@
          bootStrap(() -> {});
      }
      public static void bootStrap(Runnable runnable) {
@@ -60,7 +60,7 @@
          // Paper end
          REGISTRY.freeze(); // Paper - freeze main registry early
          createContents();
-@@ -468,7 +_,7 @@
+@@ -470,7 +_,7 @@
      }
  
      @FunctionalInterface

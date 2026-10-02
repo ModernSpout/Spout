@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/LecternBlock.java
++++ b/net/minecraft/world/level/block/LecternBlock.java
+@@ -56,7 +_,7 @@
+     );
+     private static final int PAGE_CHANGE_IMPULSE_TICKS = 2;
+ 
+-    protected LecternBlock(final BlockBehaviour.Properties properties) {
++    public LecternBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false).setValue(HAS_BOOK, false));
+     }

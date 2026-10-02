@@ -1,0 +1,14 @@
+--- a/net/minecraft/world/level/block/CoralFanBlock.java
++++ b/net/minecraft/world/level/block/CoralFanBlock.java
+@@ -12,9 +_,9 @@
+ import net.minecraft.world.level.material.Fluids;
+ 
+ public class CoralFanBlock extends BaseCoralFanBlock {
+-    private final Block deadBlock;
++    public final Block deadBlock; // Spout - Common class tweakers - Make accessible
+ 
+-    protected CoralFanBlock(final Block deadBlock, final BlockBehaviour.Properties properties) {
++    public CoralFanBlock(final Block deadBlock, final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.deadBlock = deadBlock;
+     }

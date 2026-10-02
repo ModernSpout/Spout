@@ -22,8 +22,8 @@ import java.util.Map;
  */
 public final class CodecSpoutBlockType extends ExplicitTypeWithCodec<Block, SpoutNonBuiltInBlock> implements SpoutBlockType {
 
-    public CodecSpoutBlockType(Identifier identifier, MapCodec<? extends Block> minecraftCodec) {
-        super(identifier, minecraftCodec);
+    public CodecSpoutBlockType(Identifier identifier, MapCodec<? extends Block> minecraftCodec, Class<? extends Block> baseClass) {
+        super(identifier, minecraftCodec, baseClass);
     }
 
     @Override
@@ -34,11 +34,6 @@ public final class CodecSpoutBlockType extends ExplicitTypeWithCodec<Block, Spou
     @Override
     protected Map<Codec<?>, Decoder<Identifier>> getRequiredResourceFieldCodecs() {
         return getTypeRequiredResourceFieldCodecs();
-    }
-
-    @Override
-    public MapCodec<? extends Block> getBlockClassCodec() {
-        return this.minecraftCodec;
     }
 
     /**

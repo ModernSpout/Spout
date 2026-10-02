@@ -1,8 +1,17 @@
 --- a/net/minecraft/network/protocol/game/ClientboundLevelChunkPacketData.java
 +++ b/net/minecraft/network/protocol/game/ClientboundLevelChunkPacketData.java
-@@ -30,7 +_,8 @@
+@@ -32,14 +_,15 @@
+     public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundLevelChunkPacketData> STREAM_CODEC = StreamCodec.composite(
+         HEIGHTMAPS_STREAM_CODEC,
+         p -> p.heightmaps,
+-        ByteBufCodecs.byteArray(TWO_MEGABYTES),
+-        p -> p.buffer,
++        spout.util.mojang.codec.ExplicitLengthByteArrayStreamCodec.INSTANCE,
++        p -> it.unimi.dsi.fastutil.Pair.of(p.buffer, p.bufferLength),
+         ClientboundLevelChunkPacketData.BlockEntityInfo.STREAM_CODEC.apply(ByteBufCodecs.list()),
+         p -> p.blockEntitiesData,
+         ClientboundLevelChunkPacketData::new
      );
-     private static final int TWO_MEGABYTES = 2097152; // Paper - diff on change - if this changes, update PacketEncoder
      private final Map<Heightmap.Types, long[]> heightmaps;
 -    private final byte[] buffer;
 +    public byte[] buffer; // Spout - Client view / Packet mapping / Block states / Apply / Chunk packets - Expose buffer
@@ -10,7 +19,49 @@
      private final List<ClientboundLevelChunkPacketData.BlockEntityInfo> blockEntitiesData;
      // Paper start - Handle oversized block entities in chunks
      private final java.util.List<net.minecraft.network.protocol.Packet<?>> extraPackets = new java.util.ArrayList<>();
-@@ -53,6 +_,7 @@
+@@ -49,15 +_,39 @@
+         return this.extraPackets;
+     }
+     // Paper end - Handle oversized block entities in chunks
++    // Spout start - Client view / Packet mapping / Block states / Apply / Chunk packets - Call
++    public spout.clientview.packetmapping.blockstate.apply.chunk.@Nullable BlockStateInChunkPacketMapper spoutBlockStateInChunkPacketMapper;
++    private final java.util.concurrent.atomic.AtomicBoolean startedMappingBlocks = new java.util.concurrent.atomic.AtomicBoolean();
++    public volatile boolean readyMappingBlocks;
++    // Spout end - Client view / Packet mapping / Block states / Apply / Chunk packets - Call
+     // Paper start - Async-Anti-Xray - Ready flag for the connection
+     private volatile boolean ready = true;
+ 
+     public boolean isReady() {
+-        return this.ready;
++        // Spout start - Client view / Packet mapping / Block states / Apply / Chunk packets - Call after x-ray
++        if (!this.ready) {
++            return false;
++        }
++        if (!this.readyMappingBlocks) {
++            this.startMappingBlocksIfNecessary();
++        }
++        return this.readyMappingBlocks;
++    }
++
++    private void startMappingBlocksIfNecessary() {
++        if (!this.startedMappingBlocks.compareAndExchange(false, true)) {
++            this.spoutBlockStateInChunkPacketMapper.applyMappings();
++        }
+     }
+ 
+     public void setReady(final boolean ready) {
+-        this.ready = ready;
++        if (!this.ready) {
++            this.ready = ready;
++            if (!org.bukkit.Bukkit.isPrimaryThread()) {
++                this.startMappingBlocksIfNecessary();
++            }
++        }
++        // Spout end - Client view / Packet mapping / Block states / Apply / Chunk packets - Call after x-ray
+     }
+     // Paper end - Async-Anti-Xray - Ready flag for the connection
+ 
+@@ -73,6 +_,7 @@
              .filter(entryx -> ((Heightmap.Types)entryx.getKey()).sendToClient())
              .collect(Collectors.toMap(Entry::getKey, entryx -> (long[])((Heightmap)entryx.getValue()).getRawData().clone()));
          this.buffer = new byte[calculateChunkSize(levelChunk)];
@@ -18,23 +69,24 @@
          // Paper start - Anti-Xray - Add chunk packet info
          if (chunkPacketInfo != null) {
              chunkPacketInfo.setBuffer(this.buffer);
-@@ -83,14 +_,17 @@
+@@ -95,11 +_,20 @@
          }
- 
-         this.buffer = new byte[size];
-+        this.bufferLength = this.buffer.length; // Spout - Client view / Packet mapping / Block states / Apply / Chunk packets - Make buffer length explicit
-         input.readBytes(this.buffer);
-         this.blockEntitiesData = ClientboundLevelChunkPacketData.BlockEntityInfo.LIST_STREAM_CODEC.decode(input);
      }
  
-     public void write(final RegistryFriendlyByteBuf output) {
-         HEIGHTMAPS_STREAM_CODEC.encode(output, this.heightmaps);
--        output.writeVarInt(this.buffer.length);
--        output.writeBytes(this.buffer);
-+        // Spout start - Client view / Packet mapping / Block states / Apply / Chunk packets - Make buffer length explicit
-+        output.writeVarInt(this.bufferLength);
-+        output.writeBytes(this.buffer, 0, this.bufferLength);
-+        // Spout end - Client view / Packet mapping / Block states / Apply / Chunk packets - Make buffer length explicit
-         ClientboundLevelChunkPacketData.BlockEntityInfo.LIST_STREAM_CODEC.encode(output, this.blockEntitiesData);
++    // Spout start - Client view / Packet mapping / Block states / Apply / Chunk packets - Make buffer length explicit
++    private ClientboundLevelChunkPacketData(
++        final Map<Heightmap.Types, long[]> heightmaps, final it.unimi.dsi.fastutil.Pair<byte[], Integer> buffer, final List<ClientboundLevelChunkPacketData.BlockEntityInfo> blockEntitiesData
++    ) {
++        this(heightmaps, buffer.first(), blockEntitiesData);
++    }
++    // Spout end - Client view / Packet mapping / Block states / Apply / Chunk packets - Make buffer length explicit
++
+     private ClientboundLevelChunkPacketData(
+         final Map<Heightmap.Types, long[]> heightmaps, final byte[] buffer, final List<ClientboundLevelChunkPacketData.BlockEntityInfo> blockEntitiesData
+     ) {
+         this.heightmaps = heightmaps;
+         this.buffer = buffer;
++        this.bufferLength = this.buffer.length; // Spout - Client view / Packet mapping / Block states / Apply / Chunk packets - Make buffer length explicit
+         this.blockEntitiesData = blockEntitiesData;
      }
  

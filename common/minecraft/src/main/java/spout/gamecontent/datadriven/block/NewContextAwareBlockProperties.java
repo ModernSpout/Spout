@@ -9,6 +9,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import org.jspecify.annotations.Nullable;
+import spout.gamecontent.datadriven.block.subtypes.KnownStateAABBPredicate;
+import spout.gamecontent.datadriven.block.subtypes.KnownStatePredicate;
 import spout.gamecontent.datadriven.blocktype.SpoutBlockType;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,16 +52,16 @@ public final class NewContextAwareBlockProperties {
                 properties.noCollision()
                     .strength(0.5f)
                     .forceSolidOn()
-                    .pushReaction(PushReaction.DESTROY);
+                    .pushReaction(PushReaction.POPPED);
             });
             addInitializer("button", properties -> {
                 properties.noCollision()
                     .strength(0.5f)
-                    .pushReaction(PushReaction.DESTROY);
+                    .pushReaction(PushReaction.POPPED);
             });
             addInitializer("door", properties -> {
                 properties.noOcclusion()
-                    .pushReaction(PushReaction.DESTROY);
+                    .pushReaction(PushReaction.POPPED);
             });
             addInitializer("fence", properties -> {
                 properties.forceSolidOn();
@@ -70,7 +72,7 @@ public final class NewContextAwareBlockProperties {
             addInitializer("flower_pot", properties -> {
                 properties.instabreak()
                     .noOcclusion()
-                    .pushReaction(PushReaction.DESTROY);
+                    .pushReaction(PushReaction.POPPED);
             });
             addInitializer("ladder", properties -> {
                 properties.sound(SoundType.LADDER)
@@ -85,11 +87,11 @@ public final class NewContextAwareBlockProperties {
                     .randomTicks()
                     .noOcclusion()
                     .ignitedByLava()
-                    .pushReaction(PushReaction.DESTROY)
+                    .pushReaction(PushReaction.POPPED)
                     .isValidSpawn(Blocks::ocelotOrParrot) // TODO document on wiki (currently not possible to define in data-driven JSON)
                     .isRedstoneConductor(Blocks::never)
                     .isSuffocating(Blocks::never)
-                    .isViewBlocking(Blocks::never);
+                    .isViewBlocking(new KnownStateAABBPredicate.Via(KnownStatePredicate.NEVER));
             });
             addInitializer("mangrove_leaves", properties -> {
                 getInitializer("leaves").accept(properties);
@@ -107,7 +109,7 @@ public final class NewContextAwareBlockProperties {
                     .sound(SoundType.GRASS)
                     .instabreak()
                     .randomTicks()
-                    .pushReaction(PushReaction.DESTROY);
+                    .pushReaction(PushReaction.POPPED);
             });
             addInitializer("tinted_particle_leaves", properties -> {
                 getInitializer("leaves").accept(properties);
@@ -137,7 +139,7 @@ public final class NewContextAwareBlockProperties {
                     .isValidSpawn(Blocks::never)
                     .isRedstoneConductor(Blocks::never)
                     .isSuffocating(Blocks::never)
-                    .isViewBlocking(Blocks::never);
+                    .isViewBlocking(new KnownStateAABBPredicate.Via(KnownStatePredicate.NEVER));
             });
             addInitializer("weathering_copper_trap_door", properties -> {
                 getInitializer("trapdoor").accept(properties);

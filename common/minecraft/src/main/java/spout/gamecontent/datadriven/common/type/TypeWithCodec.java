@@ -18,6 +18,8 @@ public interface TypeWithCodec<V, R extends SpoutNonBuiltInResource<V, ?>> {
 
     MapCodec<R> getCodec();
 
+    Class<? extends V> getBaseClass();
+
     <T> DataResult<? extends V> decodeValueFromInput(DynamicOps<T> dynamicOps, MapLike<T> mapLike);
 
     List<Identifier> decodeRequiredResources(MapInputAndOps<?> input);

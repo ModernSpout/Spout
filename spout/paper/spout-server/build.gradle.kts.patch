@@ -15,8 +15,8 @@
      `maven-publish`
      idea
      id("io.papermc.paperweight.core")
--    id("io.papermc.fill.gradle") version "1.0.12"
-+    // id("io.papermc.fill.gradle") version "1.0.12" // Spout - Project setup - Remove Fill
+-    id("io.papermc.fill.gradle") version "1.0.14"
++    // id("io.papermc.fill.gradle") version "1.0.14" // Spout - Project setup - Remove Fill
  }
  
  val paperMavenPublicUrl = "https://repo.papermc.io/repository/maven-public/"
@@ -37,7 +37,7 @@
 +    // Spout end - Project setup - Set up Paperweight
 +
      updatingMinecraft {
-         // oldPaperCommit = "d4fe85375af18bfa88f44d7c1e6a61904ae550cc"
+         //oldPaperCommit = "e5fe71723e2ffde7cc9fafc085ac3bb73e63175e"
      }
 @@ -86,7 +_,33 @@
      }
@@ -80,10 +80,10 @@
  dependencies {
 -    implementation(project(":paper-api"))
 +    implementation(project(":spout-api")) // Spout - Project setup - Set up Gradle project
-     implementation("ca.spottedleaf:leafpile:1.2.0")
-     implementation("org.jline:jline-terminal-ffm:3.27.1") // use ffm on java 22+
-     implementation("org.jline:jline-terminal-jni:3.27.1") // fall back to jni on java 21
-@@ -159,26 +_,37 @@
+     implementation(platform("ca.spottedleaf.leafpile:bom:1.2.4"))
+     implementation("ca.spottedleaf.leafpile:common")
+     implementation("ca.spottedleaf.leafpile:concurrentutil")
+@@ -162,26 +_,37 @@
      implementation("me.lucko:spark-paper:1.10.180")
  }
  
@@ -128,7 +128,7 @@
              "Build-Number" to (build ?: ""),
              "Build-Time" to buildTime.toString(),
              "Git-Branch" to gitBranch,
-@@ -246,7 +_,10 @@
+@@ -249,7 +_,10 @@
      jvmArgumentProviders.add(provider)
  }
  
@@ -140,7 +140,7 @@
  idea {
      module {
          generatedSourceDirs.add(generatedDir.toFile())
-@@ -276,6 +_,10 @@
+@@ -279,6 +_,10 @@
          // vendor.set(JvmVendorSpec.JETBRAINS)
      })
      jvmArgs(/*"-XX:+AllowEnhancedClassRedefinition", */"--enable-native-access=ALL-UNNAMED")
@@ -151,7 +151,7 @@
  
      if (rootProject.childProjects["test-plugin"] != null) {
          val testPluginJar = rootProject.project(":test-plugin").tasks.jar.flatMap { it.archiveFile }
-@@ -326,6 +_,21 @@
+@@ -330,6 +_,21 @@
      mainClass.set(null as String?)
  }
  
@@ -173,7 +173,7 @@
  fill {
      project("paper")
      versionFamily(paperweight.minecraftVersion.map { it.split(".", "-").takeWhile { part -> part.toIntOrNull() != null }.take(2).joinToString(".") })
-@@ -342,3 +_,83 @@
+@@ -346,3 +_,83 @@
          }
      }
  }

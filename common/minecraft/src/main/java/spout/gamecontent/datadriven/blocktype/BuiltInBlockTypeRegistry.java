@@ -28,12 +28,7 @@ public final class BuiltInBlockTypeRegistry {
 
     /**
      * A registry for block types.
-     *
-     * <p>
-     * This registry is synchronized with {@link BuiltInRegistries#BLOCK_TYPE}:
-     * entries added to either are added to the other.
-     * </p>
      */
-    public static final SpoutBlockTypeRegistry BLOCK_TYPE = BuiltInRegistries.internalRegister(BuiltInBlockTypeRegistryKey.BLOCK_TYPE, new SpoutBlockTypeRegistry(), SpoutBlockTypes::bootstrap);
+    public static final Registry<SpoutBlockType> BLOCK_TYPE = BuiltInRegistries.registerSimple(BuiltInBlockTypeRegistryKey.BLOCK_TYPE, SpoutBlockTypes::bootstrap);
 
 }

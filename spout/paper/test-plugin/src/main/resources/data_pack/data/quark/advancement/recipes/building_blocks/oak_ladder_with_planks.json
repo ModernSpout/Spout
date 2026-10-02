@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "quark:oak_ladder_with_planks"
+        "recipes": "quark:oak_ladder_with_planks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

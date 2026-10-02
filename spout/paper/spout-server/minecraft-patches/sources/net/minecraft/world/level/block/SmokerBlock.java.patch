@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/SmokerBlock.java
++++ b/net/minecraft/world/level/block/SmokerBlock.java
+@@ -19,7 +_,7 @@
+ import org.jspecify.annotations.Nullable;
+ 
+ public class SmokerBlock extends AbstractFurnaceBlock {
+-    protected SmokerBlock(final BlockBehaviour.Properties properties) {
++    public SmokerBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+     }
+ 

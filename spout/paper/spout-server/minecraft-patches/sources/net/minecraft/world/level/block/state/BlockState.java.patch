@@ -1,19 +1,9 @@
 --- a/net/minecraft/world/level/block/state/BlockState.java
 +++ b/net/minecraft/world/level/block/state/BlockState.java
-@@ -4,6 +_,8 @@
- import net.minecraft.core.registries.BuiltInRegistries;
- import net.minecraft.world.level.block.Block;
- import net.minecraft.world.level.block.state.properties.Property;
-+import spout.gamecontent.datadriven.block.registry.BlockStateRegistry;
-+import spout.gamecontent.datadriven.block.registry.VanillaOnlyBlockStateRegistry;
- 
- public class BlockState extends BlockBehaviour.BlockStateBase {
-     public static final Codec<BlockState> CODEC = codec(BuiltInRegistries.BLOCK.byNameCodec(), Block::defaultBlockState, Block::getStateDefinition).stable();
-@@ -22,6 +_,60 @@
-     public BlockState(final Block owner, final Property<?>[] propertyKeys, final Comparable<?>[] propertyValues) {
+@@ -30,6 +_,60 @@
          super(owner, propertyKeys, propertyValues);
      }
-+
+ 
 +    // Spout start - More data-driven - Minecraft registries - Cache block and item values
 +    /**
 +     * The {@linkplain net.minecraft.core.Registry#getId index} at which this block state is registered in
@@ -21,18 +11,18 @@
 +     *
 +     * <p>
 +     * This will be -1 until initialized in
-+     * {@link BlockStateRegistry#add}.
++     * {@link spout.gamecontent.datadriven.block.registry.BlockStateRegistry#add}.
 +     * </p>
 +     */
 +    public int indexInBlockStateRegistry = -1;
 +
 +    /**
 +     * The {@linkplain net.minecraft.core.Registry#getId index} at which this block state is registered in
-+     * {@link VanillaOnlyBlockStateRegistry}.
++     * {@link spout.gamecontent.datadriven.block.registry.VanillaOnlyBlockStateRegistry}.
 +     *
 +     * <p>
 +     * This will be -1 until initialized in
-+     * {@link VanillaOnlyBlockStateRegistry#add}.
++     * {@link spout.gamecontent.datadriven.block.registry.VanillaOnlyBlockStateRegistry#add}.
 +     * </p>
 +     */
 +    public int indexInVanillaOnlyBlockStateRegistry = -1;
@@ -67,6 +57,7 @@
 +        this.isVanilla = true;
 +    }
 +    // Spout end - More data-driven - Vanilla flag - Implementation part
- 
++
      @Override
      protected BlockState asState() {
+         return this;

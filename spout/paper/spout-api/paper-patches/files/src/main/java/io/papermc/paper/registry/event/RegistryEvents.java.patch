@@ -1,6 +1,6 @@
 --- a/src/main/java/io/papermc/paper/registry/event/RegistryEvents.java
 +++ b/src/main/java/io/papermc/paper/registry/event/RegistryEvents.java
-@@ -66,6 +_,14 @@
+@@ -69,6 +_,14 @@
      public static final RegistryEventProvider<SulfurCube.Archetype, SulfurCubeArchetypeRegistryEntry.Builder> SULFUR_CUBE_ARCHETYPE = create(RegistryKey.SULFUR_CUBE_ARCHETYPE);
      public static final RegistryEventProvider<Dialog, DialogRegistryEntry.Builder> DIALOG = create(RegistryKey.DIALOG);
      // End generate - RegistryEvents

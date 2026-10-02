@@ -1,6 +1,7 @@
 package spout.util.minecraft.blockstate.visualduplicates;
 
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.AbstractBedBlock;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -207,8 +208,8 @@ public final class VisualDuplicates {
         unionFind.mergeAll(Blocks.AIR.defaultBlockState(), Blocks.CAVE_AIR.defaultBlockState(), Blocks.VOID_AIR.defaultBlockState());
         // Bamboo
         unionFind.mergeAllStatesWithOtherValuesOfProperties(Blocks.BAMBOO, BlockStateProperties.STAGE);
-        // Bed
-        getBlocksOfType(BedBlock.class).forEach(block -> unionFind.mergeAllStatesWithOtherValuesOfProperties(block, BlockStateProperties.OCCUPIED));
+        // Bed and straw bed
+        getBlocksOfType(AbstractBedBlock.class).forEach(block -> unionFind.mergeAllStatesWithOtherValuesOfProperties(block, BlockStateProperties.OCCUPIED));
         // Beehive and bee nest
         for (Block block : new Block[]{Blocks.BEEHIVE, Blocks.BEE_NEST}) {
             unionFind.mergeAllStatesWithOtherValuesOfProperties(getStatesWhereFulfills(block, BlockStateProperties.LEVEL_HONEY, honeyLevel -> !honeyLevel.equals(5)), BlockStateProperties.LEVEL_HONEY);
@@ -328,6 +329,7 @@ public final class VisualDuplicates {
         unionFind.mergeAllStatesOf(Blocks.CACTUS);
         unionFind.mergeAllStatesOf(Blocks.JUKEBOX);
         unionFind.mergeAllStatesOf(Blocks.NOTE_BLOCK);
+        unionFind.mergeAllStatesOf(Blocks.POTENT_SULFUR);
         unionFind.mergeAllStatesOf(Blocks.SUGAR_CANE);
         unionFind.mergeAllStatesOf(Blocks.TARGET);
         unionFind.mergeAllStatesOf(Blocks.TNT);

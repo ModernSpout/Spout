@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/BonemealableFeaturePlacerBlock.java
++++ b/net/minecraft/world/level/block/BonemealableFeaturePlacerBlock.java
+@@ -12,7 +_,7 @@
+ import net.minecraft.world.level.levelgen.feature.Feature;
+ 
+ public class BonemealableFeaturePlacerBlock extends Block implements BonemealableBlock {
+-    private final ResourceKey<Feature> feature;
++    public final ResourceKey<Feature> feature; // Spout - Common class tweakers - Make accessible
+ 
+     public BonemealableFeaturePlacerBlock(final ResourceKey<Feature> feature, final BlockBehaviour.Properties properties) {
+         super(properties);

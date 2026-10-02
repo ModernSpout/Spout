@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/SpongeBlock.java
++++ b/net/minecraft/world/level/block/SpongeBlock.java
+@@ -18,7 +_,7 @@
+     public static final int MAX_COUNT = 64;
+     private static final Direction[] ALL_DIRECTIONS = Direction.values();
+ 
+-    protected SpongeBlock(final BlockBehaviour.Properties properties) {
++    public SpongeBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+     }
+ 

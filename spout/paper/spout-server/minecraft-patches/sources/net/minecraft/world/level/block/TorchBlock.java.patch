@@ -1,0 +1,14 @@
+--- a/net/minecraft/world/level/block/TorchBlock.java
++++ b/net/minecraft/world/level/block/TorchBlock.java
+@@ -20,9 +_,9 @@
+             type -> (ParticleType<?>)type
+         )
+         .fieldOf("particle_options");
+-    protected final SimpleParticleType flameParticle;
++    public final SimpleParticleType flameParticle; // Spout - Common class tweakers - Make accessible
+ 
+-    protected TorchBlock(final SimpleParticleType flameParticle, final BlockBehaviour.Properties properties) {
++    public TorchBlock(final SimpleParticleType flameParticle, final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.flameParticle = flameParticle;
+     }

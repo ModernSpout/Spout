@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/DecoratedPotBlock.java
++++ b/net/minecraft/world/level/block/DecoratedPotBlock.java
+@@ -52,7 +_,7 @@
+     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+     private static final VoxelShape SHAPE = Block.column(14.0, 0.0, 16.0);
+ 
+-    protected DecoratedPotBlock(final BlockBehaviour.Properties properties) {
++    public DecoratedPotBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(CRACKED, false));
+     }

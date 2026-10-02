@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/DryVegetationBlock.java
++++ b/net/minecraft/world/level/block/DryVegetationBlock.java
+@@ -14,7 +_,7 @@
+ public class DryVegetationBlock extends VegetationBlock {
+     private static final VoxelShape SHAPE = Block.column(12.0, 0.0, 13.0);
+ 
+-    protected DryVegetationBlock(final BlockBehaviour.Properties properties) {
++    public DryVegetationBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+     }
+ 

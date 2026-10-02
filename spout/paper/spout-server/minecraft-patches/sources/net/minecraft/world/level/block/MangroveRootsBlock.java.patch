@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/MangroveRootsBlock.java
++++ b/net/minecraft/world/level/block/MangroveRootsBlock.java
+@@ -18,7 +_,7 @@
+ public class MangroveRootsBlock extends Block implements SimpleWaterloggedBlock {
+     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+ 
+-    protected MangroveRootsBlock(final BlockBehaviour.Properties properties) {
++    public MangroveRootsBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
+     }

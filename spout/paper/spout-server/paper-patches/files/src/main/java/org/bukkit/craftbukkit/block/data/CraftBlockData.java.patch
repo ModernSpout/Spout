@@ -1,6 +1,6 @@
 --- a/src/main/java/org/bukkit/craftbukkit/block/data/CraftBlockData.java
 +++ b/src/main/java/org/bukkit/craftbukkit/block/data/CraftBlockData.java
-@@ -246,6 +_,14 @@
+@@ -242,6 +_,14 @@
      static {
          //<editor-fold desc="CraftBlockData Registration" defaultstate="collapsed">
          // Start generate - CraftBlockData#INSTANCE_CREATOR
@@ -15,7 +15,7 @@
          register(net.minecraft.world.level.block.AmethystClusterBlock.class, org.bukkit.craftbukkit.block.impl.CraftAmethystCluster::new);
          register(net.minecraft.world.level.block.AnvilBlock.class, org.bukkit.craftbukkit.block.impl.CraftAnvil::new);
          register(net.minecraft.world.level.block.AttachedStemBlock.class, org.bukkit.craftbukkit.block.impl.CraftAttachedStem::new);
-@@ -656,4 +_,11 @@
+@@ -653,4 +_,11 @@
      public boolean isReplaceable() {
          return this.state.canBeReplaced();
      }

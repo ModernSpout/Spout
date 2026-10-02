@@ -49,10 +49,6 @@
       "environment": "client"
     },
     {
-      "config": "spoutcraft.spout.gamecontent.datadriven.blocktype.mixins.json",
-      "environment": "client"
-    },
-    {
       "config": "spoutcraft.spout.gamecontent.datadriven.common.registry.codec.mixins.json",
       "environment": "client"
     },
@@ -71,7 +67,7 @@
   ],
   "depends": {
     "fabricloader": ">=0.19.5",
-    "minecraft": "~26.2",
+    "minecraft": "~26.3",
     "java": ">=25"
   }
 }

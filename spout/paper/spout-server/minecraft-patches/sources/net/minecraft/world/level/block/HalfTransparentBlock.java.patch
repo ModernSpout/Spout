@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/HalfTransparentBlock.java
++++ b/net/minecraft/world/level/block/HalfTransparentBlock.java
+@@ -5,7 +_,7 @@
+ import net.minecraft.world.level.block.state.BlockState;
+ 
+ public class HalfTransparentBlock extends Block {
+-    protected HalfTransparentBlock(final BlockBehaviour.Properties properties) {
++    public HalfTransparentBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+     }
+ 

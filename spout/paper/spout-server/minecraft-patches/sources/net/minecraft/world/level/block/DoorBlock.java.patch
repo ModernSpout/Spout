@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/DoorBlock.java
++++ b/net/minecraft/world/level/block/DoorBlock.java
+@@ -47,7 +_,7 @@
+     private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(Block.boxZ(16.0, 13.0, 16.0));
+     private final BlockSetType type;
+ 
+-    protected DoorBlock(final BlockSetType type, final BlockBehaviour.Properties properties) {
++    public DoorBlock(final BlockSetType type, final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties.sound(type.soundType()));
+         this.type = type;
+         this.registerDefaultState(

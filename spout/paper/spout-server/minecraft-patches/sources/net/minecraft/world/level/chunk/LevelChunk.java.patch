@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/level/chunk/LevelChunk.java
 +++ b/net/minecraft/world/level/chunk/LevelChunk.java
-@@ -62,6 +_,8 @@
+@@ -61,6 +_,8 @@
  import net.minecraft.world.ticks.TickContainerAccess;
  import org.jspecify.annotations.Nullable;
  import org.slf4j.Logger;
@@ -9,7 +9,7 @@
  
  public class LevelChunk extends ChunkAccess implements DebugValueSource, ca.spottedleaf.moonrise.patches.chunk_system.level.chunk.ChunkSystemLevelChunk, ca.spottedleaf.moonrise.patches.starlight.chunk.StarlightChunk, ca.spottedleaf.moonrise.patches.getblock.GetBlockChunk { // Paper - rewrite chunk system // Paper - get block chunk optimisation
      private static final Logger LOGGER = LogUtils.getLogger();
-@@ -387,7 +_,12 @@
+@@ -386,7 +_,12 @@
          this.heightmaps.get(Heightmap.Types.WORLD_SURFACE).update(localX, y, localZ, state);
          boolean isEmpty = section.hasOnlyAir();
          if (wasEmpty != isEmpty) {
@@ -22,7 +22,7 @@
              this.level.getChunkSource().onSectionEmptinessChanged(this.chunkPos.x(), SectionPos.blockToSectionCoord(y), this.chunkPos.z(), isEmpty);
          }
  
-@@ -396,7 +_,12 @@
+@@ -395,7 +_,12 @@
              profiler.push("updateSkyLightSources");
              // Paper - rewrite chunk system
              profiler.popPush("queueCheckLight");

@@ -21,9 +21,6 @@ public final class ItemCodecs {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * Based on {@link BlockBehaviour#simpleCodec}.
-     */
     public static <I extends Item> MapCodec<I> simpleCodec(
         Function<Item.Properties, I> factory
     ) {

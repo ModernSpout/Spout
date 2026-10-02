@@ -15,9 +15,9 @@
 +// }
 +// Spout end - Project setup - Remove Checkstyle
  
- val annotationsVersion = "26.0.2"
+ val annotationsVersion = "26.1.0"
  val adventureVersion = "5.2.0"
-@@ -104,11 +_,13 @@
+@@ -102,11 +_,13 @@
      mockitoAgent("org.mockito:mockito-core:5.22.0") { isTransitive = false } // configure mockito agent that is needed in newer java versions
      testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.3")
  
@@ -34,7 +34,7 @@
  idea {
      module {
          generatedSourceDirs.add(generatedDir.toFile())
-@@ -118,6 +_,26 @@
+@@ -116,6 +_,26 @@
      main {
          java {
              srcDir(generatedDir)
@@ -61,7 +61,7 @@
          }
      }
  }
-@@ -133,10 +_,27 @@
+@@ -131,10 +_,27 @@
              }
              outgoing {
                  capability(mainCapability)
@@ -89,7 +89,7 @@
                  capability("com.destroystokyo.paper:paper-api:${project.version}")
                  capability("org.spigotmc:spigot-api:${project.version}")
                  capability("org.bukkit:bukkit:${project.version}")
-@@ -196,11 +_,18 @@
+@@ -194,11 +_,18 @@
      @get:Inject
      abstract val fileSystemOperations: FileSystemOperations
  }
@@ -109,7 +109,7 @@
      options.use()
      options.isDocFilesSubDirs = true
      options.links(
-@@ -222,16 +_,18 @@
+@@ -220,16 +_,18 @@
      doFirst {
          options.addStringOption(
              "sourcepath",
@@ -131,7 +131,7 @@
                  include("**/doc-files/**")
              }
              into("build/docs/javadoc")
-@@ -261,3 +_,16 @@
+@@ -259,3 +_,16 @@
  tasks.check {
      dependsOn(scanJarForBadCalls)
  }

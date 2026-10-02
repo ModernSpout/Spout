@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/GrindstoneBlock.java
++++ b/net/minecraft/world/level/block/GrindstoneBlock.java
+@@ -30,7 +_,7 @@
+     private static final Component CONTAINER_TITLE = Component.translatable("container.grindstone_title");
+     private final Function<BlockState, VoxelShape> shapes;
+ 
+-    protected GrindstoneBlock(final BlockBehaviour.Properties properties) {
++    public GrindstoneBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FACE, AttachFace.WALL));
+         this.shapes = this.makeShapes();

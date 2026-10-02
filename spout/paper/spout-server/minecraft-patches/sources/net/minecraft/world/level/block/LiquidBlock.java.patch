@@ -1,0 +1,19 @@
+--- a/net/minecraft/world/level/block/LiquidBlock.java
++++ b/net/minecraft/world/level/block/LiquidBlock.java
+@@ -37,14 +_,14 @@
+ 
+ public class LiquidBlock extends Block implements BucketPickup {
+     public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL;
+-    protected final FlowingFluid fluid;
++    public final FlowingFluid fluid; // Spout - Common class tweakers - Make accessible
+     private final List<FluidState> stateCache;
+     public static final ImmutableList<Direction> POSSIBLE_FLOW_DIRECTIONS = ImmutableList.of(
+         Direction.DOWN, Direction.SOUTH, Direction.NORTH, Direction.EAST, Direction.WEST
+     );
+     private static final int BUBBLE_COLUMN_CHECK_DELAY = 20;
+ 
+-    protected LiquidBlock(final FlowingFluid fluid, final BlockBehaviour.Properties properties) {
++    public LiquidBlock(final FlowingFluid fluid, final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.fluid = fluid;
+         this.stateCache = Lists.newArrayList();

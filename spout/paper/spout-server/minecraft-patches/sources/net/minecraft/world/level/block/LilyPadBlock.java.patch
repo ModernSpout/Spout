@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/LilyPadBlock.java
++++ b/net/minecraft/world/level/block/LilyPadBlock.java
+@@ -19,7 +_,7 @@
+ public class LilyPadBlock extends VegetationBlock {
+     private static final VoxelShape SHAPE = Block.column(14.0, 0.0, 1.5);
+ 
+-    protected LilyPadBlock(final BlockBehaviour.Properties properties) {
++    public LilyPadBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+     }
+ 

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "quark:diorite_brick_stairs_from_polished_diorite_stonecutting"
+        "recipes": "quark:diorite_brick_stairs_from_polished_diorite_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

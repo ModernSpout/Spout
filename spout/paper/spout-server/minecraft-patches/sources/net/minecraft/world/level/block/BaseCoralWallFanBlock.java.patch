@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/BaseCoralWallFanBlock.java
++++ b/net/minecraft/world/level/block/BaseCoralWallFanBlock.java
+@@ -22,7 +_,7 @@
+     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
+     private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(Block.boxZ(16.0, 8.0, 5.0, 16.0));
+ 
+-    protected BaseCoralWallFanBlock(final BlockBehaviour.Properties properties) {
++    public BaseCoralWallFanBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, true));
+     }

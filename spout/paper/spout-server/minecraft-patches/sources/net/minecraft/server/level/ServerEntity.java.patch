@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/level/ServerEntity.java
 +++ b/net/minecraft/server/level/ServerEntity.java
-@@ -326,7 +_,7 @@
+@@ -362,7 +_,7 @@
              // CraftBukkit end
          }
  
@@ -9,7 +9,7 @@
          broadcast.accept(packet);
          if (this.trackedDataValues != null) {
              broadcast.accept(new ClientboundSetEntityDataPacket(this.entity.getId(), this.trackedDataValues));
-@@ -336,11 +_,13 @@
+@@ -372,11 +_,13 @@
              Collection<AttributeInstance> attributes = livingEntity.getAttributes().getSyncableAttributes();
              if (!attributes.isEmpty()) {
                  // CraftBukkit start - If sending own attributes send scaled health instead of current maximum health
@@ -24,7 +24,7 @@
              }
          }
  
-@@ -409,7 +_,12 @@
+@@ -445,7 +_,12 @@
                      serverPlayer.getBukkitEntity().injectScaledMaxHealth(attributes, false);
                  }
                  // CraftBukkit end

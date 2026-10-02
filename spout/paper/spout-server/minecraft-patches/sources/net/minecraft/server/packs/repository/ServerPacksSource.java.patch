@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/packs/repository/ServerPacksSource.java
 +++ b/net/minecraft/server/packs/repository/ServerPacksSource.java
-@@ -69,7 +_,7 @@
+@@ -68,7 +_,7 @@
          // Paper start - custom built-in pack
          final PackLocationInfo info;
          final PackSelectionConfig packConfig;

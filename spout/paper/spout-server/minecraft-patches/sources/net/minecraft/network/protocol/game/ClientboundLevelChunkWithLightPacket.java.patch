@@ -1,48 +1,6 @@
 --- a/net/minecraft/network/protocol/game/ClientboundLevelChunkWithLightPacket.java
 +++ b/net/minecraft/network/protocol/game/ClientboundLevelChunkWithLightPacket.java
-@@ -18,15 +_,39 @@
-     private final int z;
-     private final ClientboundLevelChunkPacketData chunkData;
-     private final ClientboundLightUpdatePacketData lightData;
-+    // Spout start - Client view / Packet mapping / Block states / Apply / Chunk packets - Call
-+    public spout.clientview.packetmapping.blockstate.apply.chunk.@Nullable BlockStateInChunkPacketMapper spoutBlockStateInChunkPacketMapper;
-+    private final java.util.concurrent.atomic.AtomicBoolean startedMappingBlocks = new java.util.concurrent.atomic.AtomicBoolean();
-+    public volatile boolean readyMappingBlocks;
-+    // Spout end - Client view / Packet mapping / Block states / Apply / Chunk packets - Call
-     // Paper start - Async-Anti-Xray - Ready flag for the connection, add chunk packet info
-     private volatile boolean ready;
-     @Override
-     public boolean isReady() {
--        return this.ready;
-+        // Spout start - Client view / Packet mapping / Block states / Apply / Chunk packets - Call after x-ray
-+        if (!this.ready) {
-+            return false;
-+        }
-+        if (!this.readyMappingBlocks) {
-+            this.startMappingBlocksIfNecessary();
-+        }
-+        return this.readyMappingBlocks;
-+    }
-+
-+    private void startMappingBlocksIfNecessary() {
-+        if (!this.startedMappingBlocks.compareAndExchange(false, true)) {
-+            this.spoutBlockStateInChunkPacketMapper.applyMappings();
-+        }
-     }
- 
-     public void setReady(final boolean ready) {
--        this.ready = ready;
-+        if (!this.ready) {
-+            this.ready = ready;
-+            if (!org.bukkit.Bukkit.isPrimaryThread()) {
-+                this.startMappingBlocksIfNecessary();
-+            }
-+        }
-+        // Spout end - Client view / Packet mapping / Block states / Apply / Chunk packets - Call after x-ray
-     }
-     // Paper end - Async-Anti-Xray - Ready flag for the connection, add chunk packet info
- 
-@@ -36,9 +_,10 @@
+@@ -41,9 +_,10 @@
          final LevelLightEngine lightEngine,
          final @Nullable BitSet skyChangedLightSectionFilter,
          final @Nullable BitSet blockChangedLightSectionFilter
@@ -54,7 +12,7 @@
      }
      public ClientboundLevelChunkWithLightPacket(
          final LevelChunk levelChunk,
-@@ -46,15 +_,17 @@
+@@ -51,10 +_,11 @@
          final @Nullable BitSet skyChangedLightSectionFilter,
          final @Nullable BitSet blockChangedLightSectionFilter,
          final boolean modifyBlocks
@@ -62,14 +20,16 @@
      ) {
          // Paper end - Anti-Xray
          ChunkPos chunkPos = levelChunk.getPos();
-         this.x = chunkPos.x();
-         this.z = chunkPos.z();
--        io.papermc.paper.antixray.ChunkPacketInfo<net.minecraft.world.level.block.state.BlockState> chunkPacketInfo = modifyBlocks ? levelChunk.getLevel().chunkPacketBlockController.getChunkPacketInfo(this, levelChunk) : null; // Paper - Anti-Xray
-+        io.papermc.paper.antixray.ChunkPacketInfo<net.minecraft.world.level.block.state.BlockState> chunkPacketInfo = modifyBlocks ? levelChunk.getLevel().chunkPacketBlockController.getChunkPacketInfo(this, levelChunk) : new io.papermc.paper.antixray.ChunkPacketInfo<>(this, levelChunk); // Paper - Ant-Xray // Spout - Client view / Packet mapping / Block states / Apply / Chunk packets - Always create ChunkPacketInfo
-         this.chunkData = new ClientboundLevelChunkPacketData(levelChunk, chunkPacketInfo); // Paper - Anti-Xray
-         this.lightData = new ClientboundLightUpdatePacketData(chunkPos, lightEngine, skyChangedLightSectionFilter, blockChangedLightSectionFilter);
-         levelChunk.getLevel().chunkPacketBlockController.modifyBlocks(this, chunkPacketInfo); // Paper - Anti-Xray - Modify blocks
-+        this.spoutBlockStateInChunkPacketMapper = new spout.clientview.packetmapping.blockstate.apply.chunk.BlockStateInChunkPacketMapper(this, levelChunk, player, chunkPacketInfo);
+-        io.papermc.paper.antixray.ChunkPacketInfo<net.minecraft.world.level.block.state.BlockState> chunkPacketInfo = modifyBlocks ? levelChunk.getLevel().chunkPacketBlockController.getChunkPacketInfo(levelChunk) : null; // Paper - Anti-Xray
++        io.papermc.paper.antixray.ChunkPacketInfo<net.minecraft.world.level.block.state.BlockState> chunkPacketInfo = modifyBlocks ? levelChunk.getLevel().chunkPacketBlockController.getChunkPacketInfo(levelChunk) : new io.papermc.paper.antixray.ChunkPacketInfo<>(levelChunk); // Paper - Ant-Xray // Spout - Client view / Packet mapping / Block states / Apply / Chunk packets - Always create ChunkPacketInfo
+         this(
+             chunkPos.x(),
+             chunkPos.z(),
+@@ -67,6 +_,7 @@
+             this.setReady(false);
+         }
+         levelChunk.getLevel().chunkPacketBlockController.modifyBlocks(this, chunkPacketInfo);
++        this.chunkData.spoutBlockStateInChunkPacketMapper = new spout.clientview.packetmapping.blockstate.apply.chunk.BlockStateInChunkPacketMapper(this, levelChunk, player, chunkPacketInfo);
+         // Paper end - Anti-Xray - Modify blocks
      }
  
-     private ClientboundLevelChunkWithLightPacket(final RegistryFriendlyByteBuf input) {

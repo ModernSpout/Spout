@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/AzaleaBlock.java
++++ b/net/minecraft/world/level/block/AzaleaBlock.java
+@@ -18,7 +_,7 @@
+ public class AzaleaBlock extends VegetationBlock implements BonemealableBlock {
+     private static final VoxelShape SHAPE = Shapes.or(Block.column(16.0, 8.0, 16.0), Block.column(4.0, 0.0, 8.0));
+ 
+-    protected AzaleaBlock(final BlockBehaviour.Properties properties) {
++    public AzaleaBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+     }
+ 

@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/LadderBlock.java
++++ b/net/minecraft/world/level/block/LadderBlock.java
+@@ -26,7 +_,7 @@
+     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+     public static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(Block.boxZ(16.0, 13.0, 16.0));
+ 
+-    protected LadderBlock(final BlockBehaviour.Properties properties) {
++    public LadderBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
+     }

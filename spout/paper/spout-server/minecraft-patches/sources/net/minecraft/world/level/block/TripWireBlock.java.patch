@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/TripWireBlock.java
++++ b/net/minecraft/world/level/block/TripWireBlock.java
+@@ -36,7 +_,7 @@
+     private static final VoxelShape SHAPE_ATTACHED = Block.column(16.0, 1.0, 2.5);
+     private static final VoxelShape SHAPE_NOT_ATTACHED = Block.column(16.0, 0.0, 8.0);
+     private static final int RECHECK_PERIOD = 10;
+-    private final Block hook;
++    public final Block hook; // Spout - Common class tweakers - Make accessible
+ 
+     public TripWireBlock(final Block hook, final BlockBehaviour.Properties properties) {
+         super(properties);

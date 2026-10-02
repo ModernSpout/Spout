@@ -1,38 +1,31 @@
 --- a/net/minecraft/world/level/block/Blocks.java
 +++ b/net/minecraft/world/level/block/Blocks.java
-@@ -46,11 +_,11 @@
- import net.minecraft.world.level.material.PushReaction;
+@@ -49,12 +_,12 @@
+ import net.minecraft.world.phys.AABB;
  
  public class Blocks {
--    private static final BlockBehaviour.StatePredicate NOT_CLOSED_SHULKER = (statex, level, pos) -> !(
-+    public static final BlockBehaviour.StatePredicate NOT_CLOSED_SHULKER = (statex, level, pos) -> !( // Spout - Common class tweakers - Make accessible
+-    private static final BlockBehaviour.StatePredicate NOT_CLOSED_SHULKER = (state, level, pos) -> !(
++    public static final BlockBehaviour.StatePredicate NOT_CLOSED_SHULKER = (state, level, pos) -> !( // Spout - Common class tweakers - Make accessible
              level.getBlockEntity(pos) instanceof ShulkerBoxBlockEntity shulkerBoxBlockEntity
          )
          || shulkerBoxBlockEntity.isClosed();
--    private static final BlockBehaviour.StatePredicate NOT_EXTENDED_PISTON = (statex, level, pos) -> !statex.getValue(PistonBaseBlock.EXTENDED);
-+    public static final BlockBehaviour.StatePredicate NOT_EXTENDED_PISTON = (statex, level, pos) -> !statex.getValue(PistonBaseBlock.EXTENDED); // Spout - Common class tweakers - Make accessible
-     public static final Block AIR = register(BlockItemIds.AIR, AirBlock::new, BlockBehaviour.Properties.of().replaceable().noCollision().noLootTable().air());
-     public static final Block STONE = register(
-         BlockItemIds.STONE,
-@@ -1963,7 +_,7 @@
+-    private static final BlockBehaviour.StatePredicate NOT_EXTENDED_PISTON = (state, level, pos) -> !state.getValue(PistonBaseBlock.EXTENDED);
+-    private static final BlockBehaviour.StateArgumentPredicate<AABB> NEAR_PLANE_INTERSECTS_OUTLINE = (state, level, blockPos, nearPlaneBox) -> {
++    public static final BlockBehaviour.StatePredicate NOT_EXTENDED_PISTON = (state, level, pos) -> !state.getValue(PistonBaseBlock.EXTENDED); // Spout - Common class tweakers - Make accessible
++    public static final BlockBehaviour.StateArgumentPredicate<AABB> NEAR_PLANE_INTERSECTS_OUTLINE = (state, level, blockPos, nearPlaneBox) -> { // Spout - Common class tweakers - Make accessible
+         for (AABB outlineBox : state.getOcclusionShape().toAabbs()) {
+             if (outlineBox.move(blockPos).intersects(nearPlaneBox)) {
+                 return true;
+@@ -2138,7 +_,7 @@
              .strength(0.1F)
              .requiresCorrectToolForDrops()
              .sound(SoundType.SNOW)
--            .isViewBlocking((statex, level, pos) -> statex.getValue(SnowLayerBlock.LAYERS) >= 8)
-+            .isViewBlocking(spout.gamecontent.datadriven.block.subtypes.KnownStatePredicate.MAX_SNOW_LAYERS) // Spout - More data-driven - Minecraft registries - Types - Properties serialization - Make block state predicate properties serializable
-             .pushReaction(PushReaction.DESTROY)
+-            .isViewBlocking((state, level, pos, aabb) -> state.getValue(SnowLayerBlock.LAYERS) >= 8)
++            .isViewBlocking(new spout.gamecontent.datadriven.block.subtypes.KnownStateAABBPredicate.Via(spout.gamecontent.datadriven.block.subtypes.KnownStatePredicate.MAX_SNOW_LAYERS)) // Spout - More data-driven - Minecraft registries - Types - Properties serialization - Make block state predicate properties serializable
+             .pushReaction(PushReaction.POPPED)
      );
      public static final Block ICE = register(
-@@ -5847,7 +_,7 @@
-             .pushReaction(PushReaction.DESTROY)
-     );
- 
--    private static ToIntFunction<BlockState> litBlockEmission(final int lightEmission) {
-+    private static ToIntFunction<net.minecraft.world.level.block.state.BlockState> litBlockEmission(final int lightEmission) {
-         return state -> state.getValue(BlockStateProperties.LIT) ? lightEmission : 0;
-     }
- 
-@@ -5855,7 +_,7 @@
+@@ -5780,7 +_,7 @@
          return blockState -> blockState.getValue(BlockStateProperties.WATERLOGGED) ? MapColor.WATER : mapColor;
      }
  
@@ -41,7 +34,7 @@
          return false;
      }
  
-@@ -5863,7 +_,7 @@
+@@ -5788,7 +_,7 @@
          return true;
      }
  
@@ -50,7 +43,7 @@
          return entityType == EntityTypes.OCELOT || entityType == EntityTypes.PARROT;
      }
  
-@@ -5877,14 +_,14 @@
+@@ -5802,14 +_,14 @@
      }
  
      private static BlockBehaviour.Properties netherStemProperties(final MapColor mapColor) {
@@ -68,7 +61,7 @@
          return false;
      }
  
-@@ -5984,6 +_,13 @@
+@@ -5924,6 +_,13 @@
          final ResourceKey<Block> id, final Function<BlockBehaviour.Properties, Block> factory, final BlockBehaviour.Properties properties
      ) {
          Block block = factory.apply(properties.setId(id));
@@ -82,19 +75,20 @@
          return Registry.register(BuiltInRegistries.BLOCK, id, block);
      }
  
-@@ -6002,7 +_,7 @@
-         for (Block block : BuiltInRegistries.BLOCK) {
-             boolean first = true;
-             for (BlockState state : block.getStateDefinition().getPossibleStates()) {
--                Block.BLOCK_STATE_REGISTRY.add(state);
-+                // Block.BLOCK_STATE_REGISTRY.add(state); // Spout - More data-driven - Minecraft registries - Register block states in BlockRegistry#register
-                 if (first) {
-                     first = false;
-                     state.initCache();
-@@ -6014,5 +_,6 @@
-         // Make sure this stays as a method reference, else the synthetic lambda method makes this blow up
-         statesToInit.parallelStream().forEach(BlockBehaviour.BlockStateBase::initCache);
-         // Paper end - Perf: Optimize block state cache initialization
-+        spout.gamecontent.datadriven.block.registry.BlockRegistry.get().canInitializeBlockStateCaches = true; // Spout - More data-driven - Minecraft registries - Initialize block state caches for non-vanilla blocks in BlockRegistry#register
+@@ -5943,7 +_,7 @@
+             for (Block block : BuiltInRegistries.BLOCK) {
+                 boolean first = true;
+                 for (BlockState state : block.getStateDefinition().getPossibleStates()) {
+-                    Block.BLOCK_STATE_REGISTRY.add(state);
++                    // Block.BLOCK_STATE_REGISTRY.add(state); // Spout - More data-driven - Minecraft registries - Register block states in BlockRegistry#register
+                     if (first) {
+                         first = false;
+                         state.initCache();
+@@ -5955,6 +_,7 @@
+             // Make sure this stays as a method reference, else the synthetic lambda method makes this blow up
+             statesToInit.parallelStream().forEach(BlockBehaviour.BlockStateBase::initCache);
+             // Paper end - Perf: Optimize block state cache initialization
++            spout.gamecontent.datadriven.block.registry.BlockRegistry.get().canInitializeBlockStateCaches = true; // Spout - More data-driven - Minecraft registries - Initialize block state caches for non-vanilla blocks in BlockRegistry#register
+         });
      }
  }

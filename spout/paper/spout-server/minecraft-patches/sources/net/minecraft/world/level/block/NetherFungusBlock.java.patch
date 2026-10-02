@@ -1,0 +1,18 @@
+--- a/net/minecraft/world/level/block/NetherFungusBlock.java
++++ b/net/minecraft/world/level/block/NetherFungusBlock.java
+@@ -20,11 +_,11 @@
+ public class NetherFungusBlock extends VegetationBlock implements BonemealableBlock {
+     private static final double BONEMEAL_SUCCESS_PROBABILITY = 0.4;
+     private static final VoxelShape SHAPE = Block.column(8.0, 0.0, 9.0);
+-    private final Block requiredBlock;
+-    private final ResourceKey<Feature> feature;
+-    private final TagKey<Block> supportBlocks;
++    public final Block requiredBlock; // Spout - Common class tweakers - Make accessible
++    public final ResourceKey<Feature> feature; // Spout - Common class tweakers - Make accessible
++    public final TagKey<Block> supportBlocks; // Spout - Common class tweakers - Make accessible
+ 
+-    protected NetherFungusBlock(
++    public NetherFungusBlock( // Spout - Common class tweakers - Make accessible
+         final ResourceKey<Feature> feature, final Block requiredBlock, final TagKey<Block> supportBlocks, final BlockBehaviour.Properties properties
+     ) {
+         super(properties);

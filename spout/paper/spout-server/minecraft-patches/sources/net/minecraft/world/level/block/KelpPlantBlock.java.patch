@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/KelpPlantBlock.java
++++ b/net/minecraft/world/level/block/KelpPlantBlock.java
+@@ -14,7 +_,7 @@
+ import org.jspecify.annotations.Nullable;
+ 
+ public class KelpPlantBlock extends GrowingPlantBodyBlock implements LiquidBlockContainer {
+-    protected KelpPlantBlock(final BlockBehaviour.Properties properties) {
++    public KelpPlantBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties, Direction.UP, Shapes.block(), true);
+     }
+ 

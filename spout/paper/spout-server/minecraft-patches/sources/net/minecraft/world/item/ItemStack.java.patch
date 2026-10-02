@@ -8,7 +8,7 @@
  import net.minecraft.util.StringUtil;
  import net.minecraft.util.Unit;
  import net.minecraft.world.InteractionHand;
-@@ -98,6 +_,7 @@
+@@ -99,6 +_,7 @@
  import org.apache.commons.lang3.mutable.MutableBoolean;
  import org.jspecify.annotations.Nullable;
  import org.slf4j.Logger;
@@ -16,7 +16,7 @@
  
  public final class ItemStack implements DataComponentHolder, ItemInstance {
      private static final List<Component> OP_NBT_WARNING = List.of(
-@@ -174,6 +_,12 @@
+@@ -175,6 +_,12 @@
          return new StreamCodec<RegistryFriendlyByteBuf, ItemStack>() {
              @Override
              public ItemStack decode(final RegistryFriendlyByteBuf input) {
@@ -29,7 +29,7 @@
                  int count = input.readVarInt();
                  if (count <= 0) {
                      return ItemStack.EMPTY;
-@@ -181,16 +_,59 @@
+@@ -182,16 +_,59 @@
  
                  Holder<Item> item = Item.STREAM_CODEC.decode(input);
                  DataComponentPatch patch = patchCodec.decode(input);
@@ -87,7 +87,7 @@
                  } else {
                      output.writeVarInt(io.papermc.paper.util.sanitizer.ItemComponentSanitizer.sanitizeCount(io.papermc.paper.util.sanitizer.ItemObfuscationSession.currentSession(), itemStack, itemStack.getCount())); // Paper - potentially sanitize count
 -                    Item.STREAM_CODEC.encode(output, itemStack.typeHolder());
-+                    Item.UNMAPPED_STREAM_CODEC.encode(output, itemStack.typeHolder()); // Spout - Item mapping - Wrap codec for items - Use original for unmapped item stacks
++                    Item.STREAM_CODEC.unmapped.encode(output, itemStack.typeHolder()); // Spout - Item mapping - Wrap codec for items - Use original for unmapped item stacks
                      // Paper start - adventure; conditionally render translatable components
                      boolean prev = net.minecraft.network.chat.ComponentSerialization.DONT_RENDER_TRANSLATABLES.get();
                      try (final io.papermc.paper.util.SafeAutoClosable ignored = io.papermc.paper.util.sanitizer.ItemObfuscationSession.withContext(c -> c.itemStack(itemStack))) { // pass the itemstack as context to the obfuscation session

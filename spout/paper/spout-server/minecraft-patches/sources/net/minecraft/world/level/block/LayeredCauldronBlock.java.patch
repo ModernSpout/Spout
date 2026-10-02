@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/LayeredCauldronBlock.java
++++ b/net/minecraft/world/level/block/LayeredCauldronBlock.java
+@@ -31,7 +_,7 @@
+     private static final VoxelShape[] FILLED_SHAPES = Util.make(
+         () -> Block.boxes(2, level -> Shapes.or(AbstractCauldronBlock.SHAPE, Block.column(12.0, 4.0, getPixelContentHeight(level + 1))))
+     );
+-    private final Biome.Precipitation precipitationType;
++    public final Biome.Precipitation precipitationType; // Spout - Common class tweakers - Make accessible
+ 
+     public LayeredCauldronBlock(
+         final Biome.Precipitation precipitationType, final CauldronInteraction.Dispatcher interactionMap, final BlockBehaviour.Properties properties

@@ -1,0 +1,15 @@
+--- a/net/minecraft/world/level/block/SaplingBlock.java
++++ b/net/minecraft/world/level/block/SaplingBlock.java
+@@ -20,10 +_,10 @@
+     public static final int BRIGHTNESS_FOR_SAPLING_GROWTH = 9;
+     public static final int TICK_CHANCE_FOR_SAPLING_GROWTH = 7;
+     private static final VoxelShape SHAPE = Block.column(12.0, 0.0, 12.0);
+-    protected final TreeGrower treeGrower;
++    public final TreeGrower treeGrower; // Spout - Common class tweakers - Make accessible
+     public static org.bukkit.@org.jspecify.annotations.Nullable TreeType treeType; // CraftBukkit
+ 
+-    protected SaplingBlock(final TreeGrower treeGrower, final BlockBehaviour.Properties properties) {
++    public SaplingBlock(final TreeGrower treeGrower, final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.treeGrower = treeGrower;
+         this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0));

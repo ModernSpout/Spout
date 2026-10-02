@@ -2,7 +2,6 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
@@ -18,7 +17,7 @@
                   }
                 }
               ],
-              "count": 2.0,
+              "count": 2,
               "function": "minecraft:set_count"
             },
             {
@@ -28,7 +27,7 @@
           "name": "quark:diorite_brick_slab"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "quark:blocks/diorite_brick_slab"

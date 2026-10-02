@@ -1,48 +1,20 @@
 --- a/net/minecraft/world/item/Item.java
 +++ b/net/minecraft/world/item/Item.java
-@@ -95,17 +_,39 @@
- import net.minecraft.world.phys.Vec3;
+@@ -109,11 +_,11 @@
  import org.jspecify.annotations.Nullable;
  import org.slf4j.Logger;
-+import spout.gamecontent.datadriven.item.registry.ItemRegistry;
-+import spout.gamecontent.datadriven.item.registry.VanillaOnlyItemRegistry;
  
 -public class Item implements ItemLike, FeatureElement {
-+// Spout start - More data-driven - Minecraft registries - Block - Implement interfaces
-+public class Item implements FeatureElement, ItemLike, spout.gamecontent.datadriven.item.ItemTypeDecorator {
-+    @Override public spout.gamecontent.datadriven.itemtype.SpoutItemType spout$getItemType() { return spout.gamecontent.datadriven.itemtype.SpoutItemTypes.ITEM; }
-+    // Spout end - More data-driven - Minecraft registries - Block - Implement interfaces
++public class Item implements FeatureElement, ItemLike {
      public static final Codec<Holder<Item>> CODEC = BuiltInRegistries.ITEM
          .holderByNameCodec()
          .validate(item -> item.is(Items.AIR.builtInRegistryHolder()) ? DataResult.error(() -> "Item must not be minecraft:air") : DataResult.success(item));
 -    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Item>> STREAM_CODEC = ByteBufCodecs.holderRegistry(Registries.ITEM);
++    public static final spout.clientview.packetmapping.itemstack.ItemHolderRegistryCodec STREAM_CODEC = (spout.clientview.packetmapping.itemstack.ItemHolderRegistryCodec) ByteBufCodecs.holderRegistry(Registries.ITEM); // Spout - Item mapping - Wrap codec for items
      public static final Codec<Holder<Item>> CODEC_WITH_BOUND_COMPONENTS = CODEC.validate(
          item -> !item.areComponentsBound()
              ? DataResult.error(() -> "Item " + item.getRegisteredName() + " does not have components yet")
-             : DataResult.success(item)
-     );
-+    // Spout start - Item mapping - Wrap codec for items
-+    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Item>> STREAM_CODEC = new net.minecraft.network.codec.StreamCodec<>() {
-+
-+        @Override
-+        public Holder<Item> decode(final RegistryFriendlyByteBuf buffer) {
-+            return UNMAPPED_STREAM_CODEC.decode(buffer);
-+        }
-+
-+        @Override
-+        public void encode(final RegistryFriendlyByteBuf buffer, final Holder<Item> value) {
-+            Item item = value.value();
-+            Item mappedItem = spout.clientview.packetmapping.itemstack.apply.ItemInPacketMappers.ITEM.apply(item);
-+            UNMAPPED_STREAM_CODEC.encode(buffer, mappedItem == item ? value : Holder.direct(mappedItem));
-+        }
-+
-+    };
-+    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Item>> UNMAPPED_STREAM_CODEC = ByteBufCodecs.holderRegistry(Registries.ITEM);
-+    // Spout end - Item mapping - Wrap codec for items
-     private static final Logger LOGGER = LogUtils.getLogger();
-     public static final Map<Block, Item> BY_BLOCK = Maps.newHashMap();
-     public static final Identifier BASE_ATTACK_DAMAGE_ID = Identifier.withDefaultNamespace("base_attack_damage");
-@@ -123,6 +_,71 @@
+@@ -136,6 +_,71 @@
          return item == null ? 0 : BuiltInRegistries.ITEM.getId(item);
      }
  
@@ -53,7 +25,7 @@
 +     *
 +     * <p>
 +     * This will be null until initialized in
-+     * {@link ItemRegistry#register}.
++     * {@link spout.gamecontent.datadriven.item.registry.ItemRegistry#register}.
 +     * </p>
 +     */
 +    public net.minecraft.resources.Identifier keyInItemRegistry = null;
@@ -64,18 +36,18 @@
 +     *
 +     * <p>
 +     * This will be -1 until initialized in
-+     * {@link ItemRegistry#register}.
++     * {@link spout.gamecontent.datadriven.item.registry.ItemRegistry#register}.
 +     * </p>
 +     */
 +    public int indexInItemRegistry = -1;
 +
 +    /**
 +     * The {@linkplain net.minecraft.core.Registry#getId index} at which this item is registered in
-+     * {@link VanillaOnlyItemRegistry}.
++     * {@link spout.gamecontent.datadriven.item.registry.VanillaOnlyItemRegistry}.
 +     *
 +     * <p>
 +     * This will be -1 until initialized in
-+     * {@link VanillaOnlyItemRegistry#add}.
++     * {@link spout.gamecontent.datadriven.item.registry.VanillaOnlyItemRegistry#add}.
 +     * </p>
 +     */
 +    public int indexInVanillaOnlyItemRegistry = -1;
@@ -114,7 +86,7 @@
      public static Item byId(final int id) {
          return BuiltInRegistries.ITEM.byId(id);
      }
-@@ -374,15 +_,20 @@
+@@ -389,15 +_,20 @@
          return false;
      }
  
@@ -127,8 +99,8 @@
 +        // Spout end - More data-driven - Minecraft registries - Item - Implement interfaces
          private static final DependantName<Item, String> BLOCK_DESCRIPTION_ID = id -> Util.makeDescriptionId("block", id.identifier());
          private static final DependantName<Item, String> ITEM_DESCRIPTION_ID = id -> Util.makeDescriptionId("item", id.identifier());
--        private DataComponentInitializers.Initializer<Item> componentInitializer = (builder, context, id) -> builder.addAll(
-+        public DataComponentInitializers.Initializer<Item> componentInitializer = (builder, context, id) -> builder.addAll( // Spout - Common class tweakers - Make accessible
+-        private DataComponentInitializers.Initializer<Item> componentInitializer = (builder, var1, var2) -> builder.addAll(
++        public DataComponentInitializers.Initializer<Item> componentInitializer = (builder, var1, var2) -> builder.addAll( // Spout - Common class tweakers - Make accessible
              DataComponents.COMMON_ITEM_COMPONENTS
          );
          private @Nullable ItemStackTemplate craftingRemainingItem;

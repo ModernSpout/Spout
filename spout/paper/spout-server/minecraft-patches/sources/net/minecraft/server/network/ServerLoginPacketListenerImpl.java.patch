@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-@@ -241,6 +_,7 @@
+@@ -238,6 +_,7 @@
  
      private void finishLoginAndWaitForClient(final GameProfile gameProfile) {
          this.state = ServerLoginPacketListenerImpl.State.PROTOCOL_SWITCHING;
@@ -8,7 +8,7 @@
          this.connection.send(new ClientboundLoginFinishedPacket(gameProfile, this.server.getConnection().getSessionId()));
          this.server.services().paper().filledProfileCache().add(gameProfile); // Paper - update profile cache
      }
-@@ -372,6 +_,7 @@
+@@ -369,6 +_,7 @@
  
      @Override
      public void handleCustomQueryPacket(final ServerboundCustomQueryAnswerPacket packet) {

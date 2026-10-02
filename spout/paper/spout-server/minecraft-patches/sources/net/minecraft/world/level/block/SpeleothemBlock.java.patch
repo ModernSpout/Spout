@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/SpeleothemBlock.java
++++ b/net/minecraft/world/level/block/SpeleothemBlock.java
+@@ -55,7 +_,7 @@
+     private static final float GROWTH_PROBABILITY_PER_RANDOM_TICK = 0.011377778F;
+     private static final int MAX_GROWTH_LENGTH = 7;
+     private static final int MAX_STALAGMITE_SEARCH_RANGE_WHEN_GROWING = 10;
+-    protected final BlockState blockToGrowOn;
++    public final BlockState blockToGrowOn; // Spout - Common class tweakers - Make accessible
+ 
+     public SpeleothemBlock(final BlockState blockToGrowOn, final BlockBehaviour.Properties properties) {
+         super(properties);

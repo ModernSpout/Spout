@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "quark:glass_from_shard"
+        "recipes": "quark:glass_from_shard"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

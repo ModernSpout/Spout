@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/CraftingTableBlock.java
++++ b/net/minecraft/world/level/block/CraftingTableBlock.java
+@@ -17,7 +_,7 @@
+ public class CraftingTableBlock extends Block {
+     private static final Component CONTAINER_TITLE = Component.translatable("container.crafting");
+ 
+-    protected CraftingTableBlock(final BlockBehaviour.Properties properties) {
++    public CraftingTableBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+     }
+ 

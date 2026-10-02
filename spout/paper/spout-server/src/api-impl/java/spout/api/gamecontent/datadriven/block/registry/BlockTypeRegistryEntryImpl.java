@@ -89,8 +89,7 @@ public abstract class BlockTypeRegistryEntryImpl implements BlockTypeRegistryEnt
 
         @Override
         public Builder inheritsFromCactus() {
-            return this.factoryNMS(properties -> new CactusBlock(properties) {
-            });
+            return this.factoryNMS(CactusBlock::new);
         }
 
         @Override
@@ -100,8 +99,7 @@ public abstract class BlockTypeRegistryEntryImpl implements BlockTypeRegistryEnt
 
         @Override
         public Builder inheritsFromCake() {
-            return this.factoryNMS(properties -> new CakeBlock(properties) {
-            });
+            return this.factoryNMS(CakeBlock::new);
         }
 
         @Override
@@ -116,8 +114,7 @@ public abstract class BlockTypeRegistryEntryImpl implements BlockTypeRegistryEnt
 
         @Override
         public Builder inheritsFromCandleCake(BlockType candleBlock) {
-            return this.factoryNMS(properties -> new CandleCakeBlock(CraftBlockType.bukkitToMinecraftNew(candleBlock), properties) {
-            });
+            return this.factoryNMS(properties -> new CandleCakeBlock(CraftBlockType.bukkitToMinecraftNew(candleBlock), properties));
         }
 
         @Override
@@ -127,8 +124,7 @@ public abstract class BlockTypeRegistryEntryImpl implements BlockTypeRegistryEnt
 
         @Override
         public Builder inheritsFromCarvedPumpkin() {
-            return this.factoryNMS(properties -> new CarvedPumpkinBlock(properties) {
-            });
+            return this.factoryNMS(CarvedPumpkinBlock::new);
         }
 
         @Override
@@ -153,8 +149,7 @@ public abstract class BlockTypeRegistryEntryImpl implements BlockTypeRegistryEnt
 
         @Override
         public Builder inheritsFromStairs(BlockData baseState) {
-            return this.factoryNMS(properties -> new StairBlock(((CraftBlockData) baseState).getState(), properties) {
-            });
+            return this.factoryNMS(properties -> new StairBlock(((CraftBlockData) baseState).getState(), properties));
         }
 
         @Override

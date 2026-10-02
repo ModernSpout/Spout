@@ -25,11 +25,13 @@ public abstract class ExplicitTypeWithCodec<V, R extends SpoutNonBuiltInResource
     protected final Identifier identifier;
     protected final MapCodec<? extends V> minecraftCodec;
     protected final MapCodec<R> codec;
+    protected final Class<? extends V> baseClass;
     protected @Nullable List<RequiredResourceField> requiredResourceFields;
 
-    public ExplicitTypeWithCodec(Identifier identifier, MapCodec<? extends V> minecraftCodec) {
+    public ExplicitTypeWithCodec(Identifier identifier, MapCodec<? extends V> minecraftCodec, Class<? extends V> baseClass) {
         this.identifier = identifier;
         this.minecraftCodec = minecraftCodec;
+        this.baseClass = baseClass;
         this.codec = new MapCodec<>() {
 
             @Override
@@ -60,6 +62,11 @@ public abstract class ExplicitTypeWithCodec<V, R extends SpoutNonBuiltInResource
     @Override
     public MapCodec<R> getCodec() {
         return this.codec;
+    }
+
+    @Override
+    public Class<? extends V> getBaseClass() {
+        return this.baseClass;
     }
 
     @Override

@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/level/ServerPlayerGameMode.java
 +++ b/net/minecraft/server/level/ServerPlayerGameMode.java
-@@ -30,6 +_,7 @@
+@@ -35,6 +_,7 @@
  import net.minecraft.world.phys.shapes.VoxelShape;
  import org.jspecify.annotations.Nullable;
  import org.slf4j.Logger;
@@ -8,7 +8,7 @@
  
  public class ServerPlayerGameMode {
      private static final double FLIGHT_DISABLE_RANGE = 1.0;
-@@ -38,10 +_,12 @@
+@@ -43,11 +_,13 @@
      protected final ServerPlayer player;
      private GameType gameModeForPlayer = GameType.DEFAULT_MODE;
      private @Nullable GameType previousGameModeForPlayer;
@@ -18,13 +18,14 @@
 +    public boolean isDestroyingBlock;
 +    public int destroyProgressStart;
      private BlockPos destroyPos = BlockPos.ZERO;
+     private Direction destroyDirection = Direction.DOWN;
 -    private int gameTicks;
 +    public int gameTicks;
 +    // Spout end - Client view / Packet mapping / Block states / Apply / Breaking speed - Keep ratio history for compensation - Make fields public
      public boolean hasDelayedDestroy;
      private BlockPos delayedDestroyPos = BlockPos.ZERO;
      private int delayedTickStart;
-@@ -283,6 +_,7 @@
+@@ -305,6 +_,7 @@
                      BlockState state = this.level.getBlockState(pos);
                      if (!state.isAir()) {
                          float destroyProgress = state.getDestroyProgress(this.player, this.player.level(), pos) * (ticksSpentDestroying + 1);

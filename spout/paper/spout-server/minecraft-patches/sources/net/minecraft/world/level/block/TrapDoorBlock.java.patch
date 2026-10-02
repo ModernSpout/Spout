@@ -1,0 +1,14 @@
+--- a/net/minecraft/world/level/block/TrapDoorBlock.java
++++ b/net/minecraft/world/level/block/TrapDoorBlock.java
+@@ -41,9 +_,9 @@
+     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+     private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateAll(Block.boxZ(16.0, 13.0, 16.0));
+-    private final BlockSetType type;
++    public final BlockSetType type; // Spout - Common class tweakers - Make accessible
+ 
+-    protected TrapDoorBlock(final BlockSetType type, final BlockBehaviour.Properties properties) {
++    public TrapDoorBlock(final BlockSetType type, final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties.sound(type.soundType()));
+         this.type = type;
+         this.registerDefaultState(

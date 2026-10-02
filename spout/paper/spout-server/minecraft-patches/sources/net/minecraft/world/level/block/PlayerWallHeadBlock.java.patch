@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/PlayerWallHeadBlock.java
++++ b/net/minecraft/world/level/block/PlayerWallHeadBlock.java
+@@ -3,7 +_,7 @@
+ import net.minecraft.world.level.block.state.BlockBehaviour;
+ 
+ public class PlayerWallHeadBlock extends WallSkullBlock {
+-    protected PlayerWallHeadBlock(final BlockBehaviour.Properties properties) {
++    public PlayerWallHeadBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(SkullBlock.Types.PLAYER, properties);
+     }
+ }

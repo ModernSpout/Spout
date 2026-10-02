@@ -1,0 +1,13 @@
+--- a/net/minecraft/world/level/block/CampfireBlock.java
++++ b/net/minecraft/world/level/block/CampfireBlock.java
+@@ -60,8 +_,8 @@
+     private static final VoxelShape SHAPE = Block.column(16.0, 0.0, 7.0);
+     private static final VoxelShape SHAPE_VIRTUAL_POST = Block.column(4.0, 0.0, 16.0);
+     private static final int SMOKE_DISTANCE = 5;
+-    private final boolean spawnParticles;
+-    private final int fireDamage;
++    public final boolean spawnParticles; // Spout - Common class tweakers - Make accessible
++    public final int fireDamage; // Spout - Common class tweakers - Make accessible
+ 
+     public CampfireBlock(final boolean spawnParticles, final int fireDamage, final BlockBehaviour.Properties properties) {
+         super(properties);

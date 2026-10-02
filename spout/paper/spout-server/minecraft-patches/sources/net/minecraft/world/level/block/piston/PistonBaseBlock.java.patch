@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/piston/PistonBaseBlock.java
++++ b/net/minecraft/world/level/block/piston/PistonBaseBlock.java
+@@ -48,7 +_,7 @@
+     public static final int TRIGGER_DROP = 2;
+     public static final int PLATFORM_THICKNESS = 4;
+     private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateAll(Block.boxZ(16.0, 4.0, 16.0));
+-    private final boolean isSticky;
++    public final boolean isSticky; // Spout - Common class tweakers - Make accessible
+ 
+     public PistonBaseBlock(final boolean isSticky, final BlockBehaviour.Properties properties) {
+         super(properties);

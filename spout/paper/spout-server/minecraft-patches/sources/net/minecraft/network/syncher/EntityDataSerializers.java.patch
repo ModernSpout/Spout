@@ -1,6 +1,6 @@
 --- a/net/minecraft/network/syncher/EntityDataSerializers.java
 +++ b/net/minecraft/network/syncher/EntityDataSerializers.java
-@@ -47,6 +_,7 @@
+@@ -48,6 +_,7 @@
  import org.joml.Quaternionfc;
  import org.joml.Vector3fc;
  import org.jspecify.annotations.Nullable;
@@ -8,7 +8,7 @@
  
  public class EntityDataSerializers {
      private static final CrudeIncrementalIntIdentityHashBiMap<EntityDataSerializer<?>> SERIALIZERS = CrudeIncrementalIntIdentityHashBiMap.create(16);
-@@ -87,12 +_,12 @@
+@@ -88,12 +_,12 @@
              return value.copy();
          }
      };

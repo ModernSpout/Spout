@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/ColoredFallingBlock.java
++++ b/net/minecraft/world/level/block/ColoredFallingBlock.java
+@@ -7,7 +_,7 @@
+ import net.minecraft.world.level.block.state.BlockState;
+ 
+ public class ColoredFallingBlock extends FallingBlock {
+-    protected final ColorRGBA dustColor;
++    public final ColorRGBA dustColor; // Spout - Common class tweakers - Make accessible
+ 
+     public ColoredFallingBlock(final ColorRGBA dustColor, final BlockBehaviour.Properties properties) {
+         super(properties);

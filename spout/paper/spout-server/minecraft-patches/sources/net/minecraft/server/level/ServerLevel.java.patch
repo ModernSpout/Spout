@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
-@@ -634,7 +_,7 @@
+@@ -636,7 +_,7 @@
          savedDataStorage.set(io.papermc.paper.world.saveddata.PaperWorldPDC.TYPE, loadedWorldData.pdc() == null ? io.papermc.paper.world.saveddata.PaperWorldPDC.TYPE.constructor().get() : loadedWorldData.pdc());
          final GameRules gameRules = new GameRules(server.getWorldData().enabledFeatures(), savedDataStorage.computeIfAbsent(net.minecraft.world.level.gamerules.GameRuleMap.TYPE));
          this.gameRules = gameRules;
@@ -9,7 +9,7 @@
          this.weatherData = savedDataStorage.computeIfAbsent(WeatherData.TYPE);
          this.weatherData.setLevel(this);
          this.typeKey = typeKey;
-@@ -1856,6 +_,10 @@
+@@ -1860,6 +_,10 @@
          if (this.isUpdatingNavigations) {
              String message = "recursive call to sendBlockUpdated";
              Util.logAndPauseIfInIde("recursive call to sendBlockUpdated", new IllegalStateException("recursive call to sendBlockUpdated"));

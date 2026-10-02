@@ -14,14 +14,14 @@ authors = "Martijn Muijsers & Spoutcraft authors and contributors"
 [[dependencies."spoutcraft"]]
 modId = "neoforge"
 type = "required"
-versionRange = "[26.2,)"
+versionRange = "[26.3,)"
 ordering = "NONE"
 side = "CLIENT"
 
 [[dependencies."spoutcraft"]]
 modId = "minecraft"
 type = "required"
-versionRange = "[26.2,26.3)"
+versionRange = "[26.3,26.4)"
 ordering = "NONE"
 side = "CLIENT"
 
@@ -48,9 +48,6 @@ config = "spoutcraft.spout.gamecontent.datadriven.block.subtypes.mixins.json"
 
 [[mixins]]
 config = "spoutcraft.spout.gamecontent.datadriven.blockentity.mixins.json"
-
-[[mixins]]
-config = "spoutcraft.spout.gamecontent.datadriven.blocktype.mixins.json"
 
 [[mixins]]
 config = "spoutcraft.spout.gamecontent.datadriven.common.registry.codec.mixins.json"

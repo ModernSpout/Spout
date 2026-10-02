@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/level/block/MultifaceBlock.java
 +++ b/net/minecraft/world/level/block/MultifaceBlock.java
-@@ -242,7 +_,7 @@
+@@ -235,7 +_,7 @@
          return newState;
      }
  

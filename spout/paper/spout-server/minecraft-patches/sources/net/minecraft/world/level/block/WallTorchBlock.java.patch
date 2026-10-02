@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/WallTorchBlock.java
++++ b/net/minecraft/world/level/block/WallTorchBlock.java
+@@ -24,7 +_,7 @@
+     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
+     private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(Block.boxZ(5.0, 3.0, 13.0, 11.0, 16.0));
+ 
+-    protected WallTorchBlock(final SimpleParticleType flameParticle, final BlockBehaviour.Properties properties) {
++    public WallTorchBlock(final SimpleParticleType flameParticle, final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(flameParticle, properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+     }

@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/TransparentBlock.java
++++ b/net/minecraft/world/level/block/TransparentBlock.java
+@@ -9,7 +_,7 @@
+ import net.minecraft.world.phys.shapes.VoxelShape;
+ 
+ public class TransparentBlock extends HalfTransparentBlock {
+-    protected TransparentBlock(final BlockBehaviour.Properties properties) {
++    public TransparentBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+     }
+ 

@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/WallSkullBlock.java
++++ b/net/minecraft/world/level/block/WallSkullBlock.java
+@@ -17,7 +_,7 @@
+     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
+     private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(Block.boxZ(8.0, 8.0, 16.0));
+ 
+-    protected WallSkullBlock(final SkullBlock.Type type, final BlockBehaviour.Properties properties) {
++    public WallSkullBlock(final SkullBlock.Type type, final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(type, properties);
+         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
+     }

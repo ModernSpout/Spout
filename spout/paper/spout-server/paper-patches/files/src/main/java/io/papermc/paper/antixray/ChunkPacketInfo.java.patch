@@ -1,7 +1,7 @@
 --- a/src/main/java/io/papermc/paper/antixray/ChunkPacketInfo.java
 +++ b/src/main/java/io/papermc/paper/antixray/ChunkPacketInfo.java
 @@ -9,7 +_,8 @@
-     private final ClientboundLevelChunkWithLightPacket chunkPacket;
+     private ClientboundLevelChunkWithLightPacket chunkPacket;
      private final LevelChunk chunk;
      private final int[] bits;
 -    private final Object[] palettes;
@@ -10,7 +10,7 @@
      private final int[] indexes;
      private final Object[][] presetValues;
      private byte[] buffer;
-@@ -20,6 +_,7 @@
+@@ -19,6 +_,7 @@
          int sections = chunk.getSectionsCount();
          bits = new int[sections];
          palettes = new Object[sections];

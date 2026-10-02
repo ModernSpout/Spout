@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/item/Items.java
 +++ b/net/minecraft/world/item/Items.java
-@@ -2140,10 +_,13 @@
+@@ -3027,10 +_,13 @@
  
      private static Item registerItem(final ResourceKey<Item> id, final Function<Item.Properties, Item> itemFactory, final Item.Properties properties) {
          Item item = itemFactory.apply(properties.setId(id));

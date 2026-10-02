@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/PoweredRailBlock.java
++++ b/net/minecraft/world/level/block/PoweredRailBlock.java
+@@ -15,7 +_,7 @@
+     public static final EnumProperty<RailShape> SHAPE = BlockStateProperties.RAIL_SHAPE_STRAIGHT;
+     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+ 
+-    protected PoweredRailBlock(final BlockBehaviour.Properties properties) {
++    public PoweredRailBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(true, properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(SHAPE, RailShape.NORTH_SOUTH).setValue(POWERED, false).setValue(WATERLOGGED, false));
+     }

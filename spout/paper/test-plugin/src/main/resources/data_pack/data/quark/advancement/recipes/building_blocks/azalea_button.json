@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "quark:azalea_button"
+        "recipes": "quark:azalea_button"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/LoomBlock.java
++++ b/net/minecraft/world/level/block/LoomBlock.java
+@@ -19,7 +_,7 @@
+ public class LoomBlock extends HorizontalDirectionalBlock {
+     private static final Component CONTAINER_TITLE = Component.translatable("container.loom");
+ 
+-    protected LoomBlock(final BlockBehaviour.Properties properties) {
++    public LoomBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+     }
+ 

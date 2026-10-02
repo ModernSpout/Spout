@@ -18,7 +18,7 @@ public final class ItemStackMappingHandleImpl extends CrossMappedWithContextMuta
 
     @Override
     protected ItemStack mapInternalToAPI(final net.minecraft.world.item.ItemStack data) {
-        return CraftItemStack.asCraftMirror(data);
+        return CraftItemStack.asBukkitMirror(data);
     }
 
     @Override

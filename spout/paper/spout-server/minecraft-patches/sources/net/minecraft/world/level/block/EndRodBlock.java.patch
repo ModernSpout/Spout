@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/EndRodBlock.java
++++ b/net/minecraft/world/level/block/EndRodBlock.java
+@@ -11,7 +_,7 @@
+ import net.minecraft.world.level.block.state.StateDefinition;
+ 
+ public class EndRodBlock extends RodBlock {
+-    protected EndRodBlock(final BlockBehaviour.Properties properties) {
++    public EndRodBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
+     }

@@ -1,0 +1,22 @@
+--- a/net/minecraft/world/level/block/StemBlock.java
++++ b/net/minecraft/world/level/block/StemBlock.java
+@@ -28,13 +_,13 @@
+     public static final int MAX_AGE = 7;
+     public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
+     private static final VoxelShape[] SHAPES = Block.boxes(7, age -> Block.column(2.0, 0.0, 2 + age * 2));
+-    private final ResourceKey<Block> fruit;
+-    private final ResourceKey<Block> attachedStem;
+-    private final ResourceKey<Item> seed;
+-    private final TagKey<Block> stemSupportBlocks;
+-    private final TagKey<Block> fruitSupportBlocks;
++    public final ResourceKey<Block> fruit; // Spout - Common class tweakers - Make accessible
++    public final ResourceKey<Block> attachedStem; // Spout - Common class tweakers - Make accessible
++    public final ResourceKey<Item> seed; // Spout - Common class tweakers - Make accessible
++    public final TagKey<Block> stemSupportBlocks; // Spout - Common class tweakers - Make accessible
++    public final TagKey<Block> fruitSupportBlocks; // Spout - Common class tweakers - Make accessible
+ 
+-    protected StemBlock(
++    public StemBlock( // Spout - Common class tweakers - Make accessible
+         final ResourceKey<Block> fruit,
+         final ResourceKey<Block> attachedStem,
+         final ResourceKey<Item> seed,

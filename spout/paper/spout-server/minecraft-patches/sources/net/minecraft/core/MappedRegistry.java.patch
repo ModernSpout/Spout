@@ -29,14 +29,6 @@
      private @Nullable Map<T, Holder.Reference<T>> unregisteredIntrusiveHolders;
      // Paper start - support pre-filling in registry mod API
      private final Map<Identifier, T> temporaryUnfrozenMap = new HashMap<>();
-@@ -107,6 +_,7 @@
- 
-     @Override
-     public Holder.Reference<T> register(final ResourceKey<T> key, final T value, final RegistrationInfo registrationInfo) {
-+        spout.gamecontent.datadriven.blocktype.MirrorMinecraftBlockTypeRegistry.mirrorFromMinecraftToSpoutIfNecessary(this, key, value, registrationInfo); // Spout - Minecraft registries - Block type - Adapt existing block type registry
-         this.validateWrite(key);
-         Objects.requireNonNull(key);
-         Objects.requireNonNull(value);
 @@ -296,10 +_,11 @@
  
      @Override

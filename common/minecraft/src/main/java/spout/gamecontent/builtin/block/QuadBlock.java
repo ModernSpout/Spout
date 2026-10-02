@@ -1,6 +1,5 @@
 package spout.gamecontent.builtin.block;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
@@ -36,7 +35,6 @@ import java.util.Arrays;
  */
 public class QuadBlock extends Block implements SimpleWaterloggedBlock {
 
-    public static final MapCodec<QuadBlock> CODEC = simpleCodec(QuadBlock::new);
     public static final BooleanProperty NORTH_WEST_BOTTOM = SpoutBlockStateProperties.NORTH_WEST_BOTTOM;
     public static final BooleanProperty SOUTH_WEST_BOTTOM = SpoutBlockStateProperties.SOUTH_WEST_BOTTOM;
     public static final BooleanProperty NORTH_WEST_TOP = SpoutBlockStateProperties.NORTH_WEST_TOP;
@@ -217,11 +215,6 @@ public class QuadBlock extends Block implements SimpleWaterloggedBlock {
                 .setValue(SOUTH_EAST_TOP, false)
                 .setValue(WATERLOGGED, false)
         );
-    }
-
-    @Override
-    public MapCodec<? extends QuadBlock> codec() {
-        return CODEC;
     }
 
     /**

@@ -1,0 +1,14 @@
+--- a/net/minecraft/world/level/block/ChorusFlowerBlock.java
++++ b/net/minecraft/world/level/block/ChorusFlowerBlock.java
+@@ -24,9 +_,9 @@
+     public static final int DEAD_AGE = 5;
+     public static final IntegerProperty AGE = BlockStateProperties.AGE_5;
+     private static final VoxelShape SHAPE_BLOCK_SUPPORT = Block.column(14.0, 0.0, 15.0);
+-    private final Block plant;
++    public final Block plant; // Spout - Common class tweakers - Make accessible
+ 
+-    protected ChorusFlowerBlock(final Block plant, final BlockBehaviour.Properties properties) {
++    public ChorusFlowerBlock(final Block plant, final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.plant = plant;
+         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));

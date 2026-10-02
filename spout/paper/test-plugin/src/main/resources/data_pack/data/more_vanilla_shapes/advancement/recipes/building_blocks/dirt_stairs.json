@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "more_vanilla_shapes:dirt_stairs"
+        "recipes": "more_vanilla_shapes:dirt_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

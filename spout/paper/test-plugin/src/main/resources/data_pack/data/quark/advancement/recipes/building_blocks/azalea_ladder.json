@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "quark:azalea_ladder"
+        "recipes": "quark:azalea_ladder"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

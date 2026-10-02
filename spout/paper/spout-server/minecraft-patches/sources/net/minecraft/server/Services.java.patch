@@ -9,7 +9,7 @@
          io.papermc.paper.profile.PaperFilledProfileCache filledProfileCache
      ) {}
  
-@@ -44,8 +_,8 @@
+@@ -45,8 +_,8 @@
          UserNameToIdResolver profileCache = new CachedUserNameToIdResolver(profileRepository, userCacheFile); // Paper
          // Paper start - load paper config files from cli options
          final java.nio.file.Path legacyConfigPath = ((File) options.valueOf("paper-settings")).toPath();
@@ -20,7 +20,7 @@
          PaperServices paperServices = new PaperServices(
              paperConfigurations,
              new io.papermc.paper.profile.PaperFilledProfileCache()
-@@ -62,4 +_,10 @@
+@@ -63,4 +_,10 @@
      public boolean canValidateProfileKeys() {
          return !this.servicesKeySet.keys(ServicesKeyType.PROFILE_KEY).isEmpty();
      }

@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/CoralBlock.java
++++ b/net/minecraft/world/level/block/CoralBlock.java
+@@ -15,7 +_,7 @@
+ import org.jspecify.annotations.Nullable;
+ 
+ public class CoralBlock extends Block {
+-    private final Block deadBlock;
++    public final Block deadBlock; // Spout - Common class tweakers - Make accessible
+ 
+     public CoralBlock(final Block deadBlock, final BlockBehaviour.Properties properties) {
+         super(properties);

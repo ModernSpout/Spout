@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/BaseCoralFanBlock.java
++++ b/net/minecraft/world/level/block/BaseCoralFanBlock.java
+@@ -10,7 +_,7 @@
+ public class BaseCoralFanBlock extends BaseCoralPlantTypeBlock {
+     private static final VoxelShape SHAPE = Block.column(12.0, 0.0, 4.0);
+ 
+-    protected BaseCoralFanBlock(final BlockBehaviour.Properties properties) {
++    public BaseCoralFanBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+     }
+ 

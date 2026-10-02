@@ -1,6 +1,5 @@
 package spout.gamecontent.builtin.block;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
@@ -33,8 +32,6 @@ import org.jspecify.annotations.Nullable;
  */
 public class VerticalSlabBlock extends Block implements SimpleWaterloggedBlock {
 
-    public static final MapCodec<VerticalSlabBlock> CODEC = simpleCodec(VerticalSlabBlock::new);
-
     public static final EnumProperty<VerticalSlabType> TYPE = SpoutBlockStateProperties.VERTICAL_SLAB_TYPE;
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.HORIZONTAL_AXIS;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -62,11 +59,6 @@ public class VerticalSlabBlock extends Block implements SimpleWaterloggedBlock {
                 .setValue(AXIS, Direction.Axis.X)
                 .setValue(WATERLOGGED, false)
         );
-    }
-
-    @Override
-    public MapCodec<? extends VerticalSlabBlock> codec() {
-        return CODEC;
     }
 
     /**

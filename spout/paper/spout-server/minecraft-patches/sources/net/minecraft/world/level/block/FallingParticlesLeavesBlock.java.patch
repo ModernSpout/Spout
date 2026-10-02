@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/FallingParticlesLeavesBlock.java
++++ b/net/minecraft/world/level/block/FallingParticlesLeavesBlock.java
+@@ -9,7 +_,7 @@
+ import net.minecraft.world.level.block.state.BlockState;
+ 
+ public abstract class FallingParticlesLeavesBlock extends LeavesBlock {
+-    protected final float leafParticleChance;
++    public final float leafParticleChance; // Spout - Common class tweakers - Make accessible
+ 
+     public FallingParticlesLeavesBlock(
+         final float leafParticleChance, final AmbientLeavesBlockSoundPlayer ambientLeavesBlockSoundPlayer, final BlockBehaviour.Properties properties

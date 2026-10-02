@@ -1,0 +1,17 @@
+--- a/net/minecraft/network/codec/ByteBufCodecs.java
++++ b/net/minecraft/network/codec/ByteBufCodecs.java
+@@ -779,7 +_,13 @@
+     }
+ 
+     static <T> StreamCodec<RegistryFriendlyByteBuf, Holder<T>> holderRegistry(final ResourceKey<? extends Registry<T>> registryKey) {
+-        return registry(registryKey, Registry::asHolderIdMap);
++        // Spout start - Item mapping - Wrap codec for items
++        StreamCodec<RegistryFriendlyByteBuf, Holder<T>> unmappedRegistry = registry(registryKey, Registry::asHolderIdMap);
++        if (registryKey.equals(net.minecraft.core.registries.Registries.ITEM)) {
++            return (StreamCodec<RegistryFriendlyByteBuf, Holder<T>>) (StreamCodec) new spout.clientview.packetmapping.itemstack.ItemHolderRegistryCodec((StreamCodec<RegistryFriendlyByteBuf, Holder<net.minecraft.world.item.Item>>) (StreamCodec) unmappedRegistry);
++        }
++        return unmappedRegistry;
++        // Spout end - Item mapping - Wrap codec for items
+     }
+ 
+     static <T> StreamCodec<RegistryFriendlyByteBuf, Holder<T>> holder(

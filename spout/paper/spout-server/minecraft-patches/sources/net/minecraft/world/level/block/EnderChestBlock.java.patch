@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/EnderChestBlock.java
++++ b/net/minecraft/world/level/block/EnderChestBlock.java
+@@ -44,7 +_,7 @@
+     private static final VoxelShape SHAPE = Block.column(14.0, 0.0, 14.0);
+     private static final Component CONTAINER_TITLE = Component.translatable("container.enderchest");
+ 
+-    protected EnderChestBlock(final BlockBehaviour.Properties properties) {
++    public EnderChestBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties, () -> BlockEntityTypes.ENDER_CHEST);
+         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
+     }

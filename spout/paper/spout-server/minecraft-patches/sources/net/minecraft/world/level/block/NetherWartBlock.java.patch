@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/NetherWartBlock.java
++++ b/net/minecraft/world/level/block/NetherWartBlock.java
+@@ -21,7 +_,7 @@
+     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
+     private static final VoxelShape[] SHAPES = Block.boxes(3, age -> Block.column(16.0, 0.0, 5 + age * 3));
+ 
+-    protected NetherWartBlock(final BlockBehaviour.Properties properties) {
++    public NetherWartBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
+     }

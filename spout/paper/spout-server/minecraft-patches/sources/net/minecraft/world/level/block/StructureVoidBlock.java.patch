@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/StructureVoidBlock.java
++++ b/net/minecraft/world/level/block/StructureVoidBlock.java
+@@ -10,7 +_,7 @@
+ public class StructureVoidBlock extends Block {
+     private static final VoxelShape SHAPE = Block.cube(6.0);
+ 
+-    protected StructureVoidBlock(final BlockBehaviour.Properties properties) {
++    public StructureVoidBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+     }
+ 

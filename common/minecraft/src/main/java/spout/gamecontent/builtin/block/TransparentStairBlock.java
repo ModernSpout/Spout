@@ -1,6 +1,5 @@
 package spout.gamecontent.builtin.block;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.StairBlock;
@@ -9,22 +8,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import spout.gamecontent.datadriven.block.BlockCodecs;
 
 /**
  * A union of {@link StairBlock} and {@link TransparentBlock}.
  */
 public class TransparentStairBlock extends HalfTransparentStairBlock {
 
-    public static final MapCodec<TransparentStairBlock> CODEC = BlockCodecs.stairCodec(TransparentStairBlock::new);
-
-    protected TransparentStairBlock(BlockState baseState, Properties properties) {
+    public TransparentStairBlock(BlockState baseState, Properties properties) {
         super(baseState, properties);
-    }
-
-    @Override
-    public MapCodec<? extends TransparentStairBlock> codec() {
-        return CODEC;
     }
 
     @Override

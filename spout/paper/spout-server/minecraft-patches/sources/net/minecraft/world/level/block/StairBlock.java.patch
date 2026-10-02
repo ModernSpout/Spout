@@ -1,22 +1,14 @@
 --- a/net/minecraft/world/level/block/StairBlock.java
 +++ b/net/minecraft/world/level/block/StairBlock.java
-@@ -27,9 +_,7 @@
- import net.minecraft.world.phys.shapes.VoxelShape;
- 
- public class StairBlock extends Block implements SimpleWaterloggedBlock {
--    public static final MapCodec<StairBlock> CODEC = RecordCodecBuilder.mapCodec(
--        i -> i.group(BlockState.CODEC.fieldOf("base_state").forGetter(b -> b.baseState), propertiesCodec()).apply(i, StairBlock::new)
--    );
-+    public static final MapCodec<StairBlock> CODEC = spout.gamecontent.datadriven.block.BlockCodecs.stairCodec(StairBlock::new); // Spout - More data-driven - Minecraft registries - Block - Use formatted block state codec
-     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
-     public static final EnumProperty<Half> HALF = BlockStateProperties.HALF;
-     public static final EnumProperty<StairsShape> SHAPE = BlockStateProperties.STAIRS_SHAPE;
-@@ -44,7 +_,7 @@
+@@ -39,9 +_,9 @@
      private static final Map<Direction, VoxelShape> SHAPE_TOP_STRAIGHT = Shapes.rotateHorizontal(SHAPE_STRAIGHT, OctahedralGroup.INVERT_Y);
      private static final Map<Direction, VoxelShape> SHAPE_TOP_INNER = Shapes.rotateHorizontal(SHAPE_INNER, OctahedralGroup.INVERT_Y);
      private final Block base;
 -    protected final BlockState baseState;
 +    public final BlockState baseState; // Spout - Common class tweakers - Make accessible
  
-     @Override
-     public MapCodec<? extends StairBlock> codec() {
+-    protected StairBlock(final BlockState baseState, final BlockBehaviour.Properties properties) {
++    public StairBlock(final BlockState baseState, final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(
+             this.stateDefinition

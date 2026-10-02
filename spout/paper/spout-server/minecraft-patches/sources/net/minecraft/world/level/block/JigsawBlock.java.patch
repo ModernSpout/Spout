@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/JigsawBlock.java
++++ b/net/minecraft/world/level/block/JigsawBlock.java
+@@ -20,7 +_,7 @@
+ public class JigsawBlock extends Block implements EntityBlock, GameMasterBlock {
+     public static final EnumProperty<FrontAndTop> ORIENTATION = BlockStateProperties.ORIENTATION;
+ 
+-    protected JigsawBlock(final BlockBehaviour.Properties properties) {
++    public JigsawBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(ORIENTATION, FrontAndTop.NORTH_UP));
+     }

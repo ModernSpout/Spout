@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/CropBlock.java
++++ b/net/minecraft/world/level/block/CropBlock.java
+@@ -28,7 +_,7 @@
+     public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
+     private static final VoxelShape[] SHAPES = Block.boxes(7, age -> Block.column(16.0, 0.0, 2 + age * 2));
+ 
+-    protected CropBlock(final BlockBehaviour.Properties properties) {
++    public CropBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(this.getAgeProperty(), 0));
+     }

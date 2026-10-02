@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/MushroomBlock.java
++++ b/net/minecraft/world/level/block/MushroomBlock.java
+@@ -22,7 +_,7 @@
+     private static final int SEARCH_RADIUS = 4;
+     private static final int MAX_NEIGHBORS_TO_GROW = 4;
+     private static final VoxelShape SHAPE = Block.column(6.0, 0.0, 6.0);
+-    private final ResourceKey<Feature> feature;
++    public final ResourceKey<Feature> feature; // Spout - Common class tweakers - Make accessible
+ 
+     public MushroomBlock(final ResourceKey<Feature> feature, final BlockBehaviour.Properties properties) {
+         super(properties);

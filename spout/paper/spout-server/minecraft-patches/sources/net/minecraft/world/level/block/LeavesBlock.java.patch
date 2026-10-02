@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/LeavesBlock.java
++++ b/net/minecraft/world/level/block/LeavesBlock.java
+@@ -31,7 +_,7 @@
+     public static final IntegerProperty DISTANCE = BlockStateProperties.DISTANCE;
+     public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
+     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+-    protected final AmbientLeavesBlockSoundPlayer ambientLeavesBlockSoundPlayer;
++    public final AmbientLeavesBlockSoundPlayer ambientLeavesBlockSoundPlayer; // Spout - Common class tweakers - Make accessible
+     private static final int TICK_DELAY = 1;
+     private static volatile boolean cutoutLeaves = true;
+ 

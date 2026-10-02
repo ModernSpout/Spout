@@ -2,14 +2,13 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "functions": [
             {
               "add": false,
-              "count": 0.0,
+              "count": 0,
               "function": "minecraft:set_count"
             },
             {
@@ -23,7 +22,7 @@
                   }
                 }
               ],
-              "count": 1.0,
+              "count": 1,
               "function": "minecraft:set_count"
             },
             {
@@ -37,7 +36,7 @@
                   }
                 }
               ],
-              "count": 1.0,
+              "count": 1,
               "function": "minecraft:set_count"
             },
             {
@@ -51,7 +50,7 @@
                   }
                 }
               ],
-              "count": 1.0,
+              "count": 1,
               "function": "minecraft:set_count"
             },
             {
@@ -65,7 +64,7 @@
                   }
                 }
               ],
-              "count": 1.0,
+              "count": 1,
               "function": "minecraft:set_count"
             },
             {
@@ -79,7 +78,7 @@
                   }
                 }
               ],
-              "count": 1.0,
+              "count": 1,
               "function": "minecraft:set_count"
             },
             {
@@ -93,7 +92,7 @@
                   }
                 }
               ],
-              "count": 1.0,
+              "count": 1,
               "function": "minecraft:set_count"
             },
             {
@@ -107,7 +106,7 @@
                   }
                 }
               ],
-              "count": 1.0,
+              "count": 1,
               "function": "minecraft:set_count"
             },
             {
@@ -121,7 +120,7 @@
                   }
                 }
               ],
-              "count": 1.0,
+              "count": 1,
               "function": "minecraft:set_count"
             },
             {
@@ -131,7 +130,7 @@
           "name": "more_vanilla_shapes:stone_brick_quad"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "more_vanilla_shapes:blocks/stone_brick_quad"

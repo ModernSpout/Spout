@@ -1,0 +1,13 @@
+--- a/net/minecraft/world/level/block/AmethystClusterBlock.java
++++ b/net/minecraft/world/level/block/AmethystClusterBlock.java
+@@ -25,8 +_,8 @@
+ public class AmethystClusterBlock extends AmethystBlock implements SimpleWaterloggedBlock {
+     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+     public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
+-    private final float height;
+-    private final float width;
++    public final float height; // Spout - Common class tweakers - Make accessible
++    public final float width; // Spout - Common class tweakers - Make accessible
+     private final Map<Direction, VoxelShape> shapes;
+ 
+     public AmethystClusterBlock(final float height, final float width, final BlockBehaviour.Properties props) {

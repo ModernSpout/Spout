@@ -7,6 +7,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.EggItem;
 import net.minecraft.world.item.Item;
+import spout.branding.SpoutNamespace;
 import spout.gamecontent.datadriven.item.ItemCodecs;
 
 /**
@@ -18,18 +19,22 @@ public class SpoutItemTypes {
         throw new UnsupportedOperationException();
     }
 
-    public static final SpoutItemType ITEM = register("item", ItemCodecs.simpleCodec(Item::new));
-    public static final SpoutItemType BLOCK = register("block", ItemCodecs.blockCodec(BlockItem::new));
-    public static final SpoutItemType DOUBLE_HIGH_BLOCK = register("double_high_block", ItemCodecs.blockCodec(DoubleHighBlockItem::new));
-    public static final SpoutItemType EGG = register("egg", ItemCodecs.simpleCodec(EggItem::new));
+    public static final SpoutItemType ITEM = register("item", ItemCodecs.simpleCodec(Item::new), Item.class);
+    public static final SpoutItemType BLOCK = register("block", ItemCodecs.blockCodec(BlockItem::new), BlockItem.class);
+    public static final SpoutItemType DOUBLE_HIGH_BLOCK = register("double_high_block", ItemCodecs.blockCodec(DoubleHighBlockItem::new), DoubleHighBlockItem.class);
+    public static final SpoutItemType EGG = register("egg", ItemCodecs.simpleCodec(EggItem::new), EggItem.class);
     // TODO others
 
-    private static SpoutItemType register(String id, MapCodec<? extends Item> codec) {
-        return register(Identifier.parse(id), codec);
+    private static SpoutItemType register(String id, MapCodec<? extends Item> codec, Class<? extends Item> baseClass) {
+        return register(Identifier.parse(id), codec, baseClass);
     }
 
-    private static SpoutItemType register(Identifier id, MapCodec<? extends Item> codec) {
-        return register(id, new CodecSpoutItemType(id, codec));
+    private static SpoutItemType registerSpout(String path, MapCodec<? extends Item> codec, Class<? extends Item> baseClass) {
+        return register(Identifier.fromNamespaceAndPath(SpoutNamespace.SPOUT, path), codec, baseClass);
+    }
+
+    private static SpoutItemType register(Identifier id, MapCodec<? extends Item> codec, Class<? extends Item> baseClass) {
+        return register(id, new CodecSpoutItemType(id, codec, baseClass));
     }
 
     private static SpoutItemType register(Identifier id, SpoutItemType itemType) {

@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/AbstractCauldronBlock.java
++++ b/net/minecraft/world/level/block/AbstractCauldronBlock.java
+@@ -37,7 +_,7 @@
+             );
+         }
+     );
+-    protected final CauldronInteraction.Dispatcher interactions;
++    public final CauldronInteraction.Dispatcher interactions; // Spout - Common class tweakers - Make accessible
+ 
+     public AbstractCauldronBlock(final BlockBehaviour.Properties properties, final CauldronInteraction.Dispatcher interactions) {
+         super(properties);

@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/PumpkinBlock.java
++++ b/net/minecraft/world/level/block/PumpkinBlock.java
+@@ -21,7 +_,7 @@
+ import net.minecraft.world.phys.BlockHitResult;
+ 
+ public class PumpkinBlock extends Block {
+-    protected PumpkinBlock(final BlockBehaviour.Properties properties) {
++    public PumpkinBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+     }
+ 

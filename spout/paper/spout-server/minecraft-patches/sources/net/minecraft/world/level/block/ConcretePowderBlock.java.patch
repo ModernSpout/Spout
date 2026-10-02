@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/ConcretePowderBlock.java
++++ b/net/minecraft/world/level/block/ConcretePowderBlock.java
+@@ -14,7 +_,7 @@
+ import net.minecraft.world.level.block.state.BlockState;
+ 
+ public class ConcretePowderBlock extends FallingBlock {
+-    private final Block concrete;
++    public final Block concrete; // Spout - Common class tweakers - Make accessible
+ 
+     public ConcretePowderBlock(final Block concrete, final BlockBehaviour.Properties properties) {
+         super(properties);

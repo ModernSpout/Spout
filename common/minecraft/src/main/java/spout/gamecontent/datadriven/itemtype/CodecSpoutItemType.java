@@ -18,8 +18,8 @@ import java.util.Map;
  */
 public final class CodecSpoutItemType extends ExplicitTypeWithCodec<Item, SpoutNonBuiltInItem> implements SpoutItemType {
 
-    public CodecSpoutItemType(Identifier identifier, MapCodec<? extends Item> minecraftCodec) {
-        super(identifier, minecraftCodec);
+    public CodecSpoutItemType(Identifier identifier, MapCodec<? extends Item> minecraftCodec, Class<? extends Item> baseClass) {
+        super(identifier, minecraftCodec, baseClass);
     }
 
     @Override

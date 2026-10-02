@@ -1,0 +1,14 @@
+--- a/net/minecraft/world/level/block/PathBlock.java
++++ b/net/minecraft/world/level/block/PathBlock.java
+@@ -20,9 +_,9 @@
+ 
+ public class PathBlock extends Block {
+     private static final VoxelShape SHAPE = Block.column(16.0, 0.0, 15.0);
+-    private final Block baseBlock;
++    public final Block baseBlock; // Spout - Common class tweakers - Make accessible
+ 
+-    protected PathBlock(final Block baseBlock, final BlockBehaviour.Properties properties) {
++    public PathBlock(final Block baseBlock, final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.baseBlock = baseBlock;
+     }

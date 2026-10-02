@@ -17,7 +17,7 @@
  
  public class ServerChunkCache extends ChunkSource implements ca.spottedleaf.moonrise.patches.chunk_system.world.ChunkSystemServerChunkCache { // Paper - rewrite chunk system
      private static final Logger LOGGER = LogUtils.getLogger();
-@@ -669,11 +_,14 @@
+@@ -679,11 +_,14 @@
  
      @Override
      public void onLightUpdate(final LightLayer layer, final SectionPos pos) {

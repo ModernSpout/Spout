@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/SnowyBlock.java
++++ b/net/minecraft/world/level/block/SnowyBlock.java
+@@ -16,7 +_,7 @@
+ public class SnowyBlock extends Block {
+     public static final BooleanProperty SNOWY = BlockStateProperties.SNOWY;
+ 
+-    protected SnowyBlock(final BlockBehaviour.Properties properties) {
++    public SnowyBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(SNOWY, false));
+     }

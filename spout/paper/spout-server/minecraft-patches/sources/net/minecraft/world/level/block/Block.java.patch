@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/level/block/Block.java
 +++ b/net/minecraft/world/level/block/Block.java
-@@ -25,7 +_,6 @@
+@@ -24,7 +_,6 @@
  import net.minecraft.core.BlockPos;
  import net.minecraft.core.Direction;
  import net.minecraft.core.Holder;
@@ -8,29 +8,19 @@
  import net.minecraft.core.registries.BuiltInRegistries;
  import net.minecraft.network.chat.Component;
  import net.minecraft.network.chat.MutableComponent;
-@@ -74,12 +_,16 @@
- import net.minecraft.world.phys.shapes.VoxelShape;
- import org.jspecify.annotations.Nullable;
- import org.slf4j.Logger;
-+import spout.gamecontent.datadriven.block.registry.BlockStateRegistry;
- 
--public class Block extends BlockBehaviour implements ItemLike {
-+// Spout start - More data-driven - Minecraft registries - Block - Implement interfaces
-+public class Block extends BlockBehaviour implements ItemLike, spout.gamecontent.datadriven.block.BlockCodecAccessor, spout.gamecontent.datadriven.block.BlockTypeDecorator {
-+    @Override public MapCodec<? extends Block> spout$codec() { return this.codec(); }
-+    // Spout end - More data-driven - Minecraft registries - Block - Implement interfaces
-     public static final MapCodec<Block> CODEC = simpleCodec(Block::new);
+@@ -78,7 +_,7 @@
+ public class Block extends BlockBehaviour implements ItemLike {
      private static final Logger LOGGER = LogUtils.getLogger();
      private final Holder.Reference<Block> builtInRegistryHolder = BuiltInRegistries.BLOCK.createIntrusiveHolder(this);
 -    public static final IdMapper<BlockState> BLOCK_STATE_REGISTRY = new IdMapper<>();
-+    public static final BlockStateRegistry BLOCK_STATE_REGISTRY = BlockStateRegistry.get(); // Spout - More data-driven - Minecraft registries - Custom registries for blocks and items
++    public static final spout.gamecontent.datadriven.block.registry.BlockStateRegistry BLOCK_STATE_REGISTRY = spout.gamecontent.datadriven.block.registry.BlockStateRegistry.get(); // Spout - More data-driven - Minecraft registries - Custom registries for blocks and items
      private static final LoadingCache<VoxelShape, Boolean> SHAPE_FULL_BLOCK_CACHE = CacheBuilder.newBuilder()
          .maximumSize(512L)
          .weakKeys()
-@@ -142,6 +_,71 @@
-     protected MapCodec<? extends Block> codec() {
-         return CODEC;
-     }
+@@ -136,6 +_,71 @@
+         map.defaultReturnValue((byte)127);
+         return map;
+     });
 +
 +    // Spout start - More data-driven - Minecraft registries - Cache block and item values
 +    /**
@@ -39,7 +29,7 @@
 +     *
 +     * <p>
 +     * This will be null until initialized in
-+     * {@link BlockRegistry#register}.
++     * {@link spout.gamecontent.datadriven.block.registry.BlockRegistry#register}.
 +     * </p>
 +     */
 +    public net.minecraft.resources.Identifier keyInBlockRegistry = null;
@@ -50,18 +40,18 @@
 +     *
 +     * <p>
 +     * This will be -1 until initialized in
-+     * {@link BlockRegistry#register}.
++     * {@link spout.gamecontent.datadriven.block.registry.BlockRegistry#register}.
 +     * </p>
 +     */
 +    public int indexInBlockRegistry = -1;
 +
 +    /**
 +     * The {@linkplain net.minecraft.core.Registry#getId index} at which this block is registered in
-+     * {@link VanillaOnlyBlockRegistry}.
++     * {@link spout.gamecontent.datadriven.block.registry.VanillaOnlyBlockRegistry}.
 +     *
 +     * <p>
 +     * This will be -1 until initialized in
-+     * {@link VanillaOnlyBlockRegistry#add}.
++     * {@link spout.gamecontent.datadriven.block.registry.VanillaOnlyBlockRegistry#add}.
 +     * </p>
 +     */
 +    public int indexInVanillaOnlyBlockRegistry = -1;

@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/IronBarsBlock.java
++++ b/net/minecraft/world/level/block/IronBarsBlock.java
+@@ -18,7 +_,7 @@
+ import net.minecraft.world.phys.shapes.VoxelShape;
+ 
+ public class IronBarsBlock extends CrossCollisionBlock {
+-    protected IronBarsBlock(final BlockBehaviour.Properties properties) {
++    public IronBarsBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(2.0F, 16.0F, 2.0F, 16.0F, 16.0F, properties);
+         this.registerDefaultState(
+             this.stateDefinition.any().setValue(NORTH, false).setValue(EAST, false).setValue(SOUTH, false).setValue(WEST, false).setValue(WATERLOGGED, false)

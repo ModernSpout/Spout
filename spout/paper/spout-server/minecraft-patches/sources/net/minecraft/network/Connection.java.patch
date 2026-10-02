@@ -1,6 +1,6 @@
 --- a/net/minecraft/network/Connection.java
 +++ b/net/minecraft/network/Connection.java
-@@ -55,7 +_,16 @@
+@@ -54,7 +_,16 @@
  import org.slf4j.Marker;
  import org.slf4j.MarkerFactory;
  
@@ -18,7 +18,7 @@
      private static final float AVERAGE_PACKETS_SMOOTHING = 0.75F;
      private static final Logger LOGGER = LogUtils.getLogger();
      public static final Marker ROOT_MARKER = MarkerFactory.getMarker("NETWORK");
-@@ -131,12 +_,15 @@
+@@ -129,12 +_,15 @@
  
      public Connection(final PacketFlow receiving) {
          this.receiving = receiving;

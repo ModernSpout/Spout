@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/BushBlock.java
++++ b/net/minecraft/world/level/block/BushBlock.java
+@@ -16,7 +_,7 @@
+     private final VoxelShape shape;
+     private final int shapeHeight;
+ 
+-    protected BushBlock(final BlockBehaviour.Properties properties) {
++    public BushBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         this(properties, 13);
+     }
+ 

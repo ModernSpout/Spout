@@ -8,7 +8,7 @@
     "sound_type": "minecraft:suspicious_sand",
     "explosion_resistance": 0.25,
     "destroy_time": 0.25,
-    "push_reaction": "minecraft:destroy",
+    "push_reaction": "minecraft:popped",
     "instrument": "minecraft:snare"
   },
   "mappings": [

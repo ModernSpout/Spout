@@ -1,0 +1,15 @@
+--- a/net/minecraft/world/level/block/CoralPlantBlock.java
++++ b/net/minecraft/world/level/block/CoralPlantBlock.java
+@@ -15,10 +_,10 @@
+ import net.minecraft.world.phys.shapes.VoxelShape;
+ 
+ public class CoralPlantBlock extends BaseCoralPlantTypeBlock {
+-    private final Block deadBlock;
++    public final Block deadBlock; // Spout - Common class tweakers - Make accessible
+     private static final VoxelShape SHAPE = Block.column(12.0, 0.0, 15.0);
+ 
+-    protected CoralPlantBlock(final Block deadBlock, final BlockBehaviour.Properties properties) {
++    public CoralPlantBlock(final Block deadBlock, final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.deadBlock = deadBlock;
+     }

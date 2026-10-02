@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/BigDripleafStemBlock.java
++++ b/net/minecraft/world/level/block/BigDripleafStemBlock.java
+@@ -29,7 +_,7 @@
+     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+     private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(Block.column(6.0, 0.0, 16.0).move(0.0, 0.0, 0.25).optimize());
+ 
+-    protected BigDripleafStemBlock(final BlockBehaviour.Properties properties) {
++    public BigDripleafStemBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false).setValue(FACING, Direction.NORTH));
+     }

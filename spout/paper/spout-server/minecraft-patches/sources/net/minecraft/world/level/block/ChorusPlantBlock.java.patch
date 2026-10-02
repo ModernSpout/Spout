@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/ChorusPlantBlock.java
++++ b/net/minecraft/world/level/block/ChorusPlantBlock.java
+@@ -15,7 +_,7 @@
+ import net.minecraft.world.level.pathfinder.PathComputationType;
+ 
+ public class ChorusPlantBlock extends PipeBlock {
+-    protected ChorusPlantBlock(final BlockBehaviour.Properties properties) {
++    public ChorusPlantBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(10.0F, properties);
+         this.registerDefaultState(
+             this.stateDefinition

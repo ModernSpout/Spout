@@ -91,23 +91,23 @@ public final class BlockStateInChunkPacketMapper {
 
     public BlockStateInChunkPacketMapper(ClientboundLevelChunkWithLightPacket packet, LevelChunk chunk, ServerPlayer player, ChunkPacketInfo<BlockState> chunkPacketInfo) {
         this.packet = packet;
-        this.chunkStartX = packet.getX() << 4;
+        this.chunkStartX = packet.x() << 4;
         this.chunkStartY = chunk.getMinY();
-        this.chunkStartZ = packet.getZ() << 4;
+        this.chunkStartZ = packet.z() << 4;
         this.clientView = player.getClientViewOrFallback();
         this.clientViewAwarenessLevelId = this.clientView.getAwarenessLevel().getId();
         this.globalPaletteBitsPerEntry = (byte) IntegerUtil.ceilLog2((this.clientView.understandsAllServerSideBlocks() ? Block.BLOCK_STATE_REGISTRY : VanillaOnlyBlockStateRegistry.get()).size());
         this.chunkPacketInfo = chunkPacketInfo;
-        ClientboundLevelChunkPacketData chunkData = packet.getChunkData();
+        ClientboundLevelChunkPacketData chunkData = packet.chunkData();
         this.reader = new ChunkPacketBlockMapperReader(chunkData.buffer);
         this.writer = new ChunkPacketBlockMapperWriter(chunkData.buffer, this.reader);
     }
 
     private void setDone() {
         // Mark the packet as ready
-        this.packet.readyMappingBlocks = true;
+        this.packet.chunkData().readyMappingBlocks = true;
         // Remove the reference to this mapper to reclaim memory
-        this.packet.spoutBlockStateInChunkPacketMapper = null;
+        this.packet.chunkData().spoutBlockStateInChunkPacketMapper = null;
     }
 
     /**
@@ -121,7 +121,7 @@ public final class BlockStateInChunkPacketMapper {
             return;
         }
         // Process the sections one by one
-        this.applyMappingsToSection(0, this.packet.getChunkData());
+        this.applyMappingsToSection(0, this.packet.chunkData());
     }
 
     private static boolean requiresMapping(ChunkPacketInfo<BlockState> chunkPacketInfo, BlockStateInPacketMapper pipeline, int clientViewAwarenessLevelI, ChunkPacketBlockMapperReader reader) {

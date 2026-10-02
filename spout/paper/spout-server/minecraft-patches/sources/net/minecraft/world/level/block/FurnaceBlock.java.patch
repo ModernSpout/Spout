@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/FurnaceBlock.java
++++ b/net/minecraft/world/level/block/FurnaceBlock.java
+@@ -20,7 +_,7 @@
+ import org.jspecify.annotations.Nullable;
+ 
+ public class FurnaceBlock extends AbstractFurnaceBlock {
+-    protected FurnaceBlock(final BlockBehaviour.Properties properties) {
++    public FurnaceBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+     }
+ 

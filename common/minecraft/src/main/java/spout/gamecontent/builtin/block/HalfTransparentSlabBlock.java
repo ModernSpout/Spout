@@ -1,6 +1,5 @@
 package spout.gamecontent.builtin.block;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.HalfTransparentBlock;
 import net.minecraft.world.level.block.SlabBlock;
@@ -11,15 +10,8 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 public class HalfTransparentSlabBlock extends SlabBlock {
 
-    public static final MapCodec<HalfTransparentSlabBlock> CODEC = simpleCodec(HalfTransparentSlabBlock::new);
-
     public HalfTransparentSlabBlock(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    public MapCodec<? extends HalfTransparentSlabBlock> codec() {
-        return CODEC;
     }
 
     @Override

@@ -82,9 +82,9 @@
 +        return String.format("""
          This is a world configuration file for Paper.
          This file may start empty but can be filled with settings to override ones in the %s/%s
-         
+ 
 @@ -137,9 +_,17 @@
-         
+ 
          World: %s""",
          PaperConfigurations.CONFIG_DIR,
 -        PaperConfigurations.WORLD_DEFAULTS_CONFIG_FILE_NAME,

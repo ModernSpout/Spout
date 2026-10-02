@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft_dungeons:snowed_stone_bricks"
+        "recipes": "minecraft_dungeons:snowed_stone_bricks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

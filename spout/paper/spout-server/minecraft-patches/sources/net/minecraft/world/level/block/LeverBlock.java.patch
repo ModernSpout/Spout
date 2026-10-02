@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/LeverBlock.java
++++ b/net/minecraft/world/level/block/LeverBlock.java
+@@ -37,7 +_,7 @@
+     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+     private final Function<BlockState, VoxelShape> shapes;
+ 
+-    protected LeverBlock(final BlockBehaviour.Properties properties) {
++    public LeverBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false).setValue(FACE, AttachFace.WALL));
+         this.shapes = this.makeShapes();

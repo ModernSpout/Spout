@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/ChestBlock.java
++++ b/net/minecraft/world/level/block/ChestBlock.java
+@@ -126,7 +_,7 @@
+         }
+     };
+ 
+-    protected ChestBlock(
++    public ChestBlock( // Spout - Common class tweakers - Make accessible
+         final Supplier<BlockEntityType<? extends ChestBlockEntity>> blockEntityType,
+         final SoundEvent openSound,
+         final SoundEvent closeSound,

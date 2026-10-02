@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/TallDryGrassBlock.java
++++ b/net/minecraft/world/level/block/TallDryGrassBlock.java
+@@ -15,7 +_,7 @@
+ public class TallDryGrassBlock extends DryVegetationBlock implements BonemealableBlock {
+     private static final VoxelShape SHAPE = Block.column(14.0, 0.0, 16.0);
+ 
+-    protected TallDryGrassBlock(final BlockBehaviour.Properties properties) {
++    public TallDryGrassBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+     }
+ 

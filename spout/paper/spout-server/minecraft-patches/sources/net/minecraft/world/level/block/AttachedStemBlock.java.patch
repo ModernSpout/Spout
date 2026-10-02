@@ -1,0 +1,20 @@
+--- a/net/minecraft/world/level/block/AttachedStemBlock.java
++++ b/net/minecraft/world/level/block/AttachedStemBlock.java
+@@ -25,12 +_,12 @@
+ public class AttachedStemBlock extends VegetationBlock {
+     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
+     private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(Block.boxZ(4.0, 0.0, 10.0, 0.0, 10.0));
+-    private final ResourceKey<Block> fruit;
+-    private final ResourceKey<Block> stem;
+-    private final ResourceKey<Item> seed;
+-    private final TagKey<Block> supportBlocks;
++    public final ResourceKey<Block> fruit; // Spout - Common class tweakers - Make accessible
++    public final ResourceKey<Block> stem; // Spout - Common class tweakers - Make accessible
++    public final ResourceKey<Item> seed; // Spout - Common class tweakers - Make accessible
++    public final TagKey<Block> supportBlocks; // Spout - Common class tweakers - Make accessible
+ 
+-    protected AttachedStemBlock(
++    public AttachedStemBlock( // Spout - Common class tweakers - Make accessible
+         final ResourceKey<Block> stem,
+         final ResourceKey<Block> fruit,
+         final ResourceKey<Item> seed,

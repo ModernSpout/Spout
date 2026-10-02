@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/RailBlock.java
++++ b/net/minecraft/world/level/block/RailBlock.java
+@@ -13,7 +_,7 @@
+ public class RailBlock extends BaseRailBlock {
+     public static final EnumProperty<RailShape> SHAPE = BlockStateProperties.RAIL_SHAPE;
+ 
+-    protected RailBlock(final BlockBehaviour.Properties properties) {
++    public RailBlock(final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(false, properties);
+         this.registerDefaultState(this.stateDefinition.any().setValue(SHAPE, RailShape.NORTH_SOUTH).setValue(WATERLOGGED, false));
+     }

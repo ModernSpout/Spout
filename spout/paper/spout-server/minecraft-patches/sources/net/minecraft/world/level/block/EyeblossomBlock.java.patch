@@ -1,0 +1,20 @@
+--- a/net/minecraft/world/level/block/EyeblossomBlock.java
++++ b/net/minecraft/world/level/block/EyeblossomBlock.java
+@@ -25,7 +_,7 @@
+ public class EyeblossomBlock extends FlowerBlock {
+     private static final int EYEBLOSSOM_XZ_RANGE = 3;
+     private static final int EYEBLOSSOM_Y_RANGE = 2;
+-    private final EyeblossomBlock.Type type;
++    public final EyeblossomBlock.Type type; // Spout - Common class tweakers - Make accessible
+ 
+     public EyeblossomBlock(final EyeblossomBlock.Type type, final BlockBehaviour.Properties properties) {
+         super(type.effect, type.effectDuration, properties);
+@@ -113,7 +_,7 @@
+         OPEN(true, MobEffects.BLINDNESS, 11.0F, SoundEvents.EYEBLOSSOM_OPEN_LONG, SoundEvents.EYEBLOSSOM_OPEN, 16545810),
+         CLOSED(false, MobEffects.NAUSEA, 7.0F, SoundEvents.EYEBLOSSOM_CLOSE_LONG, SoundEvents.EYEBLOSSOM_CLOSE, 6250335);
+ 
+-        private final boolean open;
++        public final boolean open; // Spout - Common class tweakers - Make accessible
+         private final Holder<MobEffect> effect;
+         private final float effectDuration;
+         private final SoundEvent longSwitchSound;

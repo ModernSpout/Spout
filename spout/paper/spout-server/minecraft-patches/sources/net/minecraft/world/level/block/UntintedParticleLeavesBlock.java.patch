@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/UntintedParticleLeavesBlock.java
++++ b/net/minecraft/world/level/block/UntintedParticleLeavesBlock.java
+@@ -9,7 +_,7 @@
+ import net.minecraft.world.level.block.state.BlockBehaviour;
+ 
+ public class UntintedParticleLeavesBlock extends FallingParticlesLeavesBlock {
+-    protected final ParticleOptions leafParticle;
++    public final ParticleOptions leafParticle; // Spout - Common class tweakers - Make accessible
+ 
+     public UntintedParticleLeavesBlock(
+         final float leafParticleChance,

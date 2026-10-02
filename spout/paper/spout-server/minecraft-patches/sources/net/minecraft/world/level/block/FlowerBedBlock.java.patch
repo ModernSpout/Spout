@@ -1,0 +1,15 @@
+--- a/net/minecraft/world/level/block/FlowerBedBlock.java
++++ b/net/minecraft/world/level/block/FlowerBedBlock.java
+@@ -22,10 +_,10 @@
+ public class FlowerBedBlock extends VegetationBlock implements BonemealableBlock, SegmentableBlock {
+     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
+     public static final IntegerProperty AMOUNT = BlockStateProperties.FLOWER_AMOUNT;
+-    private final int shapeHeight;
++    public final int shapeHeight; // Spout - Common class tweakers - Make accessible
+     private final Function<BlockState, VoxelShape> shapes;
+ 
+-    protected FlowerBedBlock(final BlockBehaviour.Properties properties, final int shapeHeight) {
++    public FlowerBedBlock(final BlockBehaviour.Properties properties, final int shapeHeight) { // Spout - Common class tweakers - Make accessible
+         super(properties);
+         this.shapeHeight = shapeHeight;
+         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(AMOUNT, 1));

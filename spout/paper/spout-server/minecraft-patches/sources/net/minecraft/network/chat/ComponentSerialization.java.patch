@@ -1,6 +1,6 @@
 --- a/net/minecraft/network/chat/ComponentSerialization.java
 +++ b/net/minecraft/network/chat/ComponentSerialization.java
-@@ -173,6 +_,7 @@
+@@ -174,6 +_,7 @@
              }
          };
          // Paper end - adventure; create separate codec for each locale

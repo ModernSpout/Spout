@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "quark:azalea_fence_gate"
+        "recipes": "quark:azalea_fence_gate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

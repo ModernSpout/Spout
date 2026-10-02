@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "chinese_mythology_mashup:lit_paper_lamp_from_paper_lamp"
+        "recipes": "chinese_mythology_mashup:lit_paper_lamp_from_paper_lamp"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

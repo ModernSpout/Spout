@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "quark:diorite_brick_stairs"
+        "recipes": "quark:diorite_brick_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

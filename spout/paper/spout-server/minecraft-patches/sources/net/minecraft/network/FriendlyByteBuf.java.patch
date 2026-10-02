@@ -1,6 +1,6 @@
 --- a/net/minecraft/network/FriendlyByteBuf.java
 +++ b/net/minecraft/network/FriendlyByteBuf.java
-@@ -68,9 +_,19 @@
+@@ -54,9 +_,19 @@
  import org.joml.Vector3fc;
  import org.jspecify.annotations.Nullable;
  
@@ -20,8 +20,8 @@
 +    public boolean isEncodingItemFrameItem; // Spout - Client view / Packet mapping / Item stacks / Apply / Detect item frame - Store in FriendlyByteBuf
      public static final short MAX_STRING_LENGTH = 32767;
      public static final int MAX_COMPONENT_STRING_LENGTH = 262144;
-     private static final int PUBLIC_KEY_SIZE = 256;
-@@ -84,6 +_,7 @@
+     private static final Gson GSON = new Gson();
+@@ -67,6 +_,7 @@
  
      public FriendlyByteBuf(final ByteBuf source) {
          this.adventure$locale = PacketEncoder.ADVENTURE_LOCALE.get(); // Paper - track player's locale for server-side translations

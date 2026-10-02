@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/level/block/entity/BlockEntityTypes.java
 +++ b/net/minecraft/world/level/block/entity/BlockEntityTypes.java
-@@ -216,9 +_,11 @@
+@@ -221,9 +_,11 @@
          final ResourceKey<BlockEntityType<?>> key, final BlockEntityType.BlockEntitySupplier<? extends T> factory, final Block... validBlocks
      ) {
          Identifier id = key.identifier();

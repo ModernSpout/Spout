@@ -1,0 +1,14 @@
+--- a/net/minecraft/world/level/block/WeightedPressurePlateBlock.java
++++ b/net/minecraft/world/level/block/WeightedPressurePlateBlock.java
+@@ -13,9 +_,9 @@
+ 
+ public class WeightedPressurePlateBlock extends BasePressurePlateBlock {
+     public static final IntegerProperty POWER = BlockStateProperties.POWER;
+-    private final int maxWeight;
++    public final int maxWeight; // Spout - Common class tweakers - Make accessible
+ 
+-    protected WeightedPressurePlateBlock(final int maxWeight, final BlockSetType type, final BlockBehaviour.Properties properties) {
++    public WeightedPressurePlateBlock(final int maxWeight, final BlockSetType type, final BlockBehaviour.Properties properties) { // Spout - Common class tweakers - Make accessible
+         super(properties, type);
+         this.registerDefaultState(this.stateDefinition.any().setValue(POWER, 0));
+         this.maxWeight = maxWeight;

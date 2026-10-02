@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/DropExperienceBlock.java
++++ b/net/minecraft/world/level/block/DropExperienceBlock.java
+@@ -8,7 +_,7 @@
+ import net.minecraft.world.level.block.state.BlockState;
+ 
+ public class DropExperienceBlock extends Block {
+-    private final IntProvider xpRange;
++    public final IntProvider xpRange; // Spout - Common class tweakers - Make accessible
+ 
+     public DropExperienceBlock(final IntProvider xpRange, final BlockBehaviour.Properties properties) {
+         super(properties);
