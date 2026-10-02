@@ -2,6 +2,11 @@ plugins {
     id("net.neoforged.moddev")
 }
 
+sourceSets.main {
+    java.srcDir("../common/forgelike/src/main/java")
+    resources.srcDir("../common/forgelike/src/main/resources")
+}
+
 base {
     archivesName = providers.gradleProperty("archives_base_name").map { "$it-neoforge" }
 }

@@ -292,6 +292,7 @@ import spout.gamecontent.builtin.block.TransparentSlabBlock;
 import spout.gamecontent.builtin.block.TransparentStairBlock;
 import spout.gamecontent.builtin.block.VerticalSlabBlock;
 import spout.gamecontent.datadriven.block.BlockCodecs;
+import spout.gamecontent.datadriven.block.LiquidBlockFluidDecorator;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -526,7 +527,7 @@ public final class SpoutBlockTypes {
             .comapFlatMap(
                 fluid -> fluid instanceof FlowingFluid flowing ? DataResult.success(flowing) : DataResult.error(() -> "Not a flowing fluid: " + fluid),
                 Function.identity()
-            ).fieldOf("fluid").forGetter(b -> b.fluid),
+            ).fieldOf("fluid").forGetter(b -> ((LiquidBlockFluidDecorator) b).spout$getFluid()),
         LiquidBlock::new
     ), LiquidBlock.class);
     public static final SpoutBlockType LOOM = register("loom", BlockCodecs.simpleCodec(LoomBlock::new), LoomBlock.class);

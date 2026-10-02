@@ -33,7 +33,6 @@ accessible field net/minecraft/world/level/block/EyeblossomBlock$Type open Z
 accessible field net/minecraft/world/level/block/FenceGateBlock type Lnet/minecraft/world/level/block/state/properties/WoodType;
 accessible field net/minecraft/world/level/block/LayeredCauldronBlock precipitationType Lnet/minecraft/world/level/biome/Biome$Precipitation;
 accessible field net/minecraft/world/level/block/AbstractCauldronBlock interactions Lnet/minecraft/core/cauldron/CauldronInteraction$Dispatcher;
-accessible field net/minecraft/world/level/block/LiquidBlock fluid Lnet/minecraft/world/level/material/FlowingFluid;
 accessible field net/minecraft/world/level/block/MushroomBlock feature Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/world/level/block/NetherFungusBlock feature Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/world/level/block/NetherFungusBlock requiredBlock Lnet/minecraft/world/level/block/Block;

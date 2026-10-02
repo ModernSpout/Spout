@@ -3,6 +3,7 @@
   "package": "spout.gamecontent.datadriven.block.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "FluidDecoratorLiquidBlockMixin",
     "MapBlockStateRegistryIdsIdMapperMixin"
   ],
   "injectors": {

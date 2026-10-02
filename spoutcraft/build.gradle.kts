@@ -70,13 +70,15 @@ subprojects {
 tasks.named("build") {
     dependsOn(":fabric:build")
     dependsOn(":neoforge:build")
+    dependsOn(":forge:build")
 }
 
 val multiloaderJar by tasks.registering {
     group = "build"
-    dependsOn(":fabric:jar", ":neoforge:jar")
+    dependsOn(":fabric:jar", ":neoforge:jar", ":forge:jar")
     val fabricJar = project(":fabric").tasks.named<Jar>("jar")
     val neoforgeJar = project(":neoforge").tasks.named<Jar>("jar")
+    val forgeJar = project(":forge").tasks.named<Jar>("jar")
     val fabricFile = fabricJar.get().archiveFile.get().asFile
     val outputFile = layout.buildDirectory.file("libs/${fabricFile.name.replace("-fabric", "")}")
     outputs.file(outputFile)
@@ -84,6 +86,7 @@ val multiloaderJar by tasks.registering {
     doLast {
         val fabricFile = fabricJar.get().archiveFile.get().asFile
         val neoforgeFile = neoforgeJar.get().archiveFile.get().asFile
+        val forgeFile = forgeJar.get().archiveFile.get().asFile // TODO use
         val output = outputFile.get().asFile
 
         fun readJar(file: File): Map<String, ByteArray> {
