@@ -57,7 +57,7 @@ When players join, the new blocks and items will be added client-side too.
 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;✓&nbsp;&nbsp;Support for all Bukkit / Spigot / Paper plugins
 
-A Fabric and NeoForge server mod is planned.
+A Fabric and NeoForge server mod, and Sponge plugin, are planned.
 Please let us know on [Discord](https://discord.gg/EduvcVmKS7) if you are interested.
 
 ## Downloads

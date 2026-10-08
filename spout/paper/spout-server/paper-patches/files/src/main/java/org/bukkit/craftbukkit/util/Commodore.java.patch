@@ -1,0 +1,41 @@
+--- a/src/main/java/org/bukkit/craftbukkit/util/Commodore.java
++++ b/src/main/java/org/bukkit/craftbukkit/util/Commodore.java
+@@ -226,7 +_,7 @@
+             renames.put("org/bukkit/entity/Slime", "org/bukkit/entity/AbstractCubeMob");
+         }
+ 
+-        cr.accept(new ClassRemapper(new ClassVisitor(Opcodes.ASM9, cw) {
++        ClassVisitor remapperVisitor = new ClassRemapper(new ClassVisitor(Opcodes.ASM9, cw) { // Spout - Game content / Data-driven / Enum injection / Plugin bytecode - Apply enum switch guard
+             final Set<RerouteMethodData> rerouteMethodData = new HashSet<>();
+             String className;
+             boolean isInterface;
+@@ -301,6 +_,7 @@
+ 
+                     @Override
+                     public void visitFrame(int type, int nLocal, Object[] local, int nStack, Object[] stack) {
++                        if (local != null) // Spout - Game content / Data-driven / Enum injection / Plugin bytecode - Apply enum switch guard
+                         for (int i = 0; i < local.length; i++)
+                         {
+                             if (!(local[i] instanceof String)) { continue; }
+@@ -308,6 +_,7 @@
+                             local[i] = getOriginalOrRewrite((String) local[i]);
+                         }
+ 
++                        if (stack != null) // Spout - Game content / Data-driven / Enum injection / Plugin bytecode - Apply enum switch guard
+                         for (int i = 0; i < stack.length; i++)
+                         {
+                             if (!(stack[i] instanceof String)) { continue; }
+@@ -704,7 +_,12 @@
+                     }
+                 };
+             }
+-        }, new SimpleRemapper(renames)), 0);
++            // Spout start - Game content / Data-driven / Enum injection / Plugin bytecode - Apply enum switch guard
++        }, new SimpleRemapper(renames));
++
++        ClassVisitor guardVisitor = new spout.gamecontent.datadriven.common.enuminjection.pluginbytecode.EnumSwitchGuard(remapperVisitor);
++        cr.accept(guardVisitor, 0);
++        // Spout end - Game content / Data-driven / Enum injection / Plugin bytecode - Apply enum switch guard
+ 
+         return cw.toByteArray();
+     }

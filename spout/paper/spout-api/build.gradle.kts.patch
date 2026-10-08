@@ -109,7 +109,7 @@
      options.use()
      options.isDocFilesSubDirs = true
      options.links(
-@@ -220,16 +_,18 @@
+@@ -220,16 +_,20 @@
      doFirst {
          options.addStringOption(
              "sourcepath",
@@ -121,13 +121,15 @@
  
      // workaround for https://github.com/gradle/gradle/issues/4046
 -    inputs.dir("src/main/javadoc").withPropertyName("javadoc-sourceset")
++    // Spout start - Project setup - Update fix to fork directory
 +    inputs.dir("../spout-api/src/main/javadoc")
-+        .withPropertyName("javadoc-sourceset") // Spout start - Project setup - Update fix to fork directory
++        .withPropertyName("javadoc-sourceset")
++    // Spout end - Project setup - Update fix to fork directory
      val fsOps = services.fileSystemOperations
      doLast {
          fsOps.copy {
 -            from("src/main/javadoc") {
-+            from("../spout-api/src/main/javadoc") { // Spout start - Project setup - Update fix to fork directory
++            from("../spout-api/src/main/javadoc") { // Spout - Project setup - Update fix to fork directory
                  include("**/doc-files/**")
              }
              into("build/docs/javadoc")
