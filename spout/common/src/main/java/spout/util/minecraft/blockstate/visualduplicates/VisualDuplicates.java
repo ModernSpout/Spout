@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.PotentSulfurState;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.block.state.properties.WallSide;
@@ -329,7 +330,6 @@ public final class VisualDuplicates {
         unionFind.mergeAllStatesOf(Blocks.CACTUS);
         unionFind.mergeAllStatesOf(Blocks.JUKEBOX);
         unionFind.mergeAllStatesOf(Blocks.NOTE_BLOCK);
-        unionFind.mergeAllStatesOf(Blocks.POTENT_SULFUR);
         unionFind.mergeAllStatesOf(Blocks.SUGAR_CANE);
         unionFind.mergeAllStatesOf(Blocks.TARGET);
         unionFind.mergeAllStatesOf(Blocks.TNT);
@@ -350,6 +350,8 @@ public final class VisualDuplicates {
                 unionFind.merge(normalFormState, state);
             }
         });
+        // Fire
+        unionFind.mergeAllStatesWithOtherValuesOfProperties(Blocks.FIRE, BlockStateProperties.AGE_15);
         // Hopper
         unionFind.mergeAllStatesWithOtherValuesOfProperties(Blocks.HOPPER, BlockStateProperties.ENABLED);
         // Growing plant head
@@ -371,6 +373,18 @@ public final class VisualDuplicates {
         unionFind.mergeAllStatesWithOtherValuesOfProperties(getStatesWhere(Blocks.MANGROVE_PROPAGULE, BlockStateProperties.HANGING, false), BlockStateProperties.STAGE, BlockStateProperties.HANGING);
         // Petrified oak slab
         unionFind.mergeStateByState(Blocks.PETRIFIED_OAK_SLAB, Blocks.OAK_SLAB);
+        // Potent sulfur
+        BlockState potentSulfurDefaultState = Blocks.POTENT_SULFUR.defaultBlockState();
+        unionFind.mergeAll(
+            potentSulfurDefaultState.setValue(BlockStateProperties.POTENT_SULFUR_STATE, PotentSulfurState.DRY),
+            potentSulfurDefaultState.setValue(BlockStateProperties.POTENT_SULFUR_STATE, PotentSulfurState.WET),
+            potentSulfurDefaultState.setValue(BlockStateProperties.POTENT_SULFUR_STATE, PotentSulfurState.DORMANT)
+        );
+        unionFind.merge(
+            potentSulfurDefaultState.setValue(BlockStateProperties.POTENT_SULFUR_STATE, PotentSulfurState.ERUPTING),
+            potentSulfurDefaultState.setValue(BlockStateProperties.POTENT_SULFUR_STATE, PotentSulfurState.CONTINUOUS)
+        );
+        unionFind.mergeAllStatesOf(Blocks.POTENT_SULFUR);
         // Sapling
         getBlocksOfType(SaplingBlock.class).filter(block -> !(block instanceof MangrovePropaguleBlock)).forEach(block -> unionFind.mergeAllStatesWithOtherValuesOfProperties(block, BlockStateProperties.STAGE));
         // Scaffolding

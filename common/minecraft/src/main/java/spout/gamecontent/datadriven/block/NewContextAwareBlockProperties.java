@@ -111,6 +111,15 @@ public final class NewContextAwareBlockProperties {
                     .randomTicks()
                     .pushReaction(PushReaction.POPPED);
             });
+            addInitializer("soul_fire", properties -> {
+                properties.mapColor(MapColor.COLOR_LIGHT_BLUE)
+                    .replaceable()
+                    .noCollision()
+                    .sound(SoundType.WOOL)
+                    .lightLevel(_ -> 10)
+                    .instabreak()
+                    .pushReaction(PushReaction.POPPED);
+            });
             addInitializer("tinted_particle_leaves", properties -> {
                 getInitializer("leaves").accept(properties);
             });

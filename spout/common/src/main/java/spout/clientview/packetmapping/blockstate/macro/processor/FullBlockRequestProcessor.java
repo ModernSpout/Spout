@@ -12,7 +12,7 @@ import spout.clientview.packetmapping.blockstate.BlockStateMapping;
  * A {@link BlockStateMappingMacroProcessor} for {@link BlockStateMappingMacro}s
  * that are fulfilled using full blocks but backed by a block rather than a block state.
  */
-public class FullBlockRequestProcessor extends StandardBlockTypeRequestProcessor {
+public class FullBlockRequestProcessor extends StandardBlockRequestProcessor {
 
     public FullBlockRequestProcessor(FromToBlockMacro macro, Registry<BlockStateMappingMacro> sourceRegistry, Registry<BlockStateMapping> targetRegistry) {
         super(macro, sourceRegistry, targetRegistry);

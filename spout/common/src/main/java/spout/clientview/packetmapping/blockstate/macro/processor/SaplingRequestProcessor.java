@@ -19,7 +19,7 @@ import spout.clientview.packetmapping.blockstate.macro.processor.claimablestates
 /**
  * A {@link BlockStateMappingMacroProcessor} for {@link BlockStateMappingMacroTypes#SAPLING}.
  */
-public class SaplingRequestProcessor extends StandardBlockTypeRequestProcessor {
+public class SaplingRequestProcessor extends StandardBlockRequestProcessor {
 
     public SaplingRequestProcessor(FromToBlockMacro macro, Registry<BlockStateMappingMacro> sourceRegistry, Registry<BlockStateMapping> targetRegistry) {
         super(macro, sourceRegistry, targetRegistry);

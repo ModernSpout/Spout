@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:soul_fire",
+  "properties": {
+    "map_color": "minecraft:color_brown"
+  },
+  "mappings": [
+    {
+      "type": "soul_fire",
+      "fallback": "minecraft:fire"
+    }
+  ]
+}

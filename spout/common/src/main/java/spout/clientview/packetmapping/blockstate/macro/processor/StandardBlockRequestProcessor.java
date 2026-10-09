@@ -19,9 +19,9 @@ import spout.clientview.packetmapping.blockstate.macro.processor.claimablestates
  * A {@link BlockStateMappingMacroProcessor} for {@link BlockStateMappingMacro}s
  * that are backed by a block.
  */
-public abstract class StandardBlockTypeRequestProcessor extends FilledArrayResultProcessor<FromToBlockMacro, ArrayResultProcessor.RequestBasedResult> {
+public abstract class StandardBlockRequestProcessor extends FilledArrayResultProcessor<FromToBlockMacro, ArrayResultProcessor.RequestBasedResult> {
 
-    public StandardBlockTypeRequestProcessor(FromToBlockMacro macro, Registry<BlockStateMappingMacro> sourceRegistry, Registry<BlockStateMapping> targetRegistry) {
+    public StandardBlockRequestProcessor(FromToBlockMacro macro, Registry<BlockStateMappingMacro> sourceRegistry, Registry<BlockStateMapping> targetRegistry) {
         super(macro, sourceRegistry, targetRegistry);
     }
 
@@ -44,12 +44,12 @@ public abstract class StandardBlockTypeRequestProcessor extends FilledArrayResul
         return this.attemptToClaimStatesFillPromiseForAllStatesAtOnceForBlock(state -> SortedClaimableStates.concat(preferredDynamicClaimableStates.get(state), defaultDynamicClaimableStates.get(state)), this.getReferenceBlock(),true);
     }
 
-    public static TriFunction<FromToBlockMacro, Registry<BlockStateMappingMacro>, Registry<BlockStateMapping>, StandardBlockTypeRequestProcessor> withFallbackBlocks(Block... fallbackBlocks) {
+    public static TriFunction<FromToBlockMacro, Registry<BlockStateMappingMacro>, Registry<BlockStateMapping>, StandardBlockRequestProcessor> withFallbackBlocks(Block... fallbackBlocks) {
         return withFallbackBlocks(Arrays.asList(fallbackBlocks));
     }
 
-    public static TriFunction<FromToBlockMacro, Registry<BlockStateMappingMacro>, Registry<BlockStateMapping>, StandardBlockTypeRequestProcessor> withFallbackBlocks(List<Block> fallbackBlocks) {
-        class WithGivenFallbackBlocks extends StandardBlockTypeRequestProcessor {
+    public static TriFunction<FromToBlockMacro, Registry<BlockStateMappingMacro>, Registry<BlockStateMapping>, StandardBlockRequestProcessor> withFallbackBlocks(List<Block> fallbackBlocks) {
+        class WithGivenFallbackBlocks extends StandardBlockRequestProcessor {
 
             public WithGivenFallbackBlocks(FromToBlockMacro macro, Registry<BlockStateMappingMacro> sourceRegistry, Registry<BlockStateMapping> targetRegistry) {
                 super(macro, sourceRegistry, targetRegistry);
@@ -64,7 +64,7 @@ public abstract class StandardBlockTypeRequestProcessor extends FilledArrayResul
         return WithGivenFallbackBlocks::new;
     }
 
-    public static TriFunction<FromToBlockMacro, Registry<BlockStateMappingMacro>, Registry<BlockStateMapping>, StandardBlockTypeRequestProcessor> withFallbackBlocks(Block initialBlock, Class<? extends Block> type) {
+    public static TriFunction<FromToBlockMacro, Registry<BlockStateMappingMacro>, Registry<BlockStateMapping>, StandardBlockRequestProcessor> withFallbackBlocks(Block initialBlock, Class<? extends Block> type) {
         return withFallbackBlocks(Stream.concat(Stream.of(initialBlock), StreamSupport.stream(VanillaOnlyBlockRegistry.get().spliterator(), false).filter(type::isInstance)).distinct().toList());
     }
 

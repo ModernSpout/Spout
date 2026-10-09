@@ -3,6 +3,7 @@ package spout.util.minecraft.blockstate.visualduplicates;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -116,9 +117,7 @@ public final class VisualDuplicateGroup {
                 Blocks.CUT_COPPER_SLAB,
                 Blocks.CUT_COPPER_STAIRS,
                 Blocks.LIGHTNING_ROD
-            ).forEach(collection -> {
-                collection.waxed().forEach(set::add);
-            });
+            ).forEach(collection -> collection.waxed().forEach(set::add));
             moreCommonBlocks = IntSet.of(set.stream().mapToInt(block -> block.indexInVanillaOnlyBlockRegistry).toArray());
         }
         return moreCommonBlocks;
@@ -170,6 +169,12 @@ public final class VisualDuplicateGroup {
         .thenComparing(state -> !state.getValueOrElse(BlockStateProperties.PERSISTENT, true))
         // Prefer stable TNT
         .thenComparing(state -> state.getValueOrElse(BlockStateProperties.UNSTABLE, false))
+        // For fire: prefer a standing state first, otherwise prefer a state not including up
+        .thenComparing( state -> state.getBlock() instanceof FireBlock && (state.getValue(BlockStateProperties.UP) || state.getValue(BlockStateProperties.EAST) || state.getValue(BlockStateProperties.WEST) || state.getValue(BlockStateProperties.SOUTH) || state.getValue(BlockStateProperties.NORTH)))
+        .thenComparing( state -> state.getBlock() instanceof FireBlock && state.getValue(BlockStateProperties.UP))
+        // For fire: prefer a non-max age first, otherwise prefer a non-zero age
+        .thenComparing(state -> state.getBlock() instanceof FireBlock && state.getValue(BlockStateProperties.AGE_15) == 15)
+        .thenComparing(state -> state.getBlock() instanceof FireBlock && state.getValue(BlockStateProperties.AGE_15) == 0)
         // Prefer low age
         .thenComparing(state -> state.getValueOrElse(BlockStateProperties.AGE_1, 0))
         .thenComparing(state -> state.getValueOrElse(BlockStateProperties.AGE_2, 0))
@@ -179,6 +184,8 @@ public final class VisualDuplicateGroup {
         .thenComparing(state -> state.getValueOrElse(BlockStateProperties.AGE_7, 0))
         .thenComparing(state -> state.getValueOrElse(BlockStateProperties.AGE_15, 0))
         .thenComparing(state -> state.getValueOrElse(BlockStateProperties.AGE_25, 0))
+        // Prefer higher sulfur states
+        .thenComparing(state -> -state.getOptionalValue(BlockStateProperties.POTENT_SULFUR_STATE).map(Enum::ordinal).orElse(Integer.MAX_VALUE))
         // Prefer honey (or not applicable) over no honey
         .thenComparing(state -> state.getValueOrElse(BlockStateProperties.LEVEL_HONEY, 1) == 0);
 

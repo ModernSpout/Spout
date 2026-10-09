@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.WeatheringCopperCollection;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.PotentSulfurState;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
 import spout.clientview.packetmapping.blockstate.macro.FromToBlockStateMacro;
@@ -20,7 +21,7 @@ import spout.clientview.packetmapping.blockstate.macro.processor.claimablestates
 /**
  * A {@link BlockStateMappingMacroProcessor} for {@link BlockStateMappingMacroTypes#FULL_BLOCK}.
  */
-public class FullBlockStateRequestProcessor extends FilledArrayResultProcessor<FromToBlockStateMacro, ArrayResultProcessor.RequestBasedResult> {
+public class FullBlockStateRequestProcessor extends StandardBlockStateRequestProcessor {
 
     public FullBlockStateRequestProcessor(FromToBlockStateMacro macro, Registry<BlockStateMappingMacro> sourceRegistry, Registry<BlockStateMapping> targetRegistry) {
         super(macro, sourceRegistry, targetRegistry);
@@ -28,10 +29,15 @@ public class FullBlockStateRequestProcessor extends FilledArrayResultProcessor<F
 
     @Override
     protected FilledArrayResultProcessor<FromToBlockStateMacro, RequestBasedResult>.FillPromise constructFillPromise(FilledArrayResultProcessor<FromToBlockStateMacro, RequestBasedResult>.FillPromise kickoff) {
-        return kickoff
-            .then(this.attemptToClaimStatesFillPromiseStateByState(FULL_BLOCK_PROXY_STATES::get, false))
-            .then(CLAIM_FALLBACK_PROMISE_GETTER.get(this))
-            .then(new StateFallbackFillPromise(this.macro.fallbackState));
+        return super.constructFillPromise(
+            kickoff
+                .then(this.attemptToClaimStatesFillPromiseStateByState(FULL_BLOCK_PROXY_STATES::get, false))
+        );
+    }
+
+    @Override
+    protected FillPromise getSafeFallbackFillPromise() {
+        return CLAIM_FALLBACK_PROMISE_GETTER.get(this);
     }
 
     /**
@@ -51,7 +57,6 @@ public class FullBlockStateRequestProcessor extends FilledArrayResultProcessor<F
         List<WeatheringCopperCollection<Block>> copper = List.of(
             Blocks.CHISELED_COPPER,
             Blocks.COPPER_BLOCK,
-            Blocks.COPPER_GRATE,
             Blocks.CUT_COPPER
         );
         for (boolean waxed : new boolean[]{false, true}) {
@@ -97,10 +102,12 @@ public class FullBlockStateRequestProcessor extends FilledArrayResultProcessor<F
             // Snowy mycelium and podzol
             Blocks.GRASS_BLOCK,
             Blocks.MYCELIUM,
-            Blocks.PODZOL,
-            // Potent sulfur
-            Blocks.POTENT_SULFUR
+            Blocks.PODZOL
         ).forEach(block -> states.addAll(block.getStateDefinition().getPossibleStates()));
+        // Potent sulfur
+        for (PotentSulfurState state : List.of(PotentSulfurState.DRY, PotentSulfurState.WET, PotentSulfurState.DORMANT)) {
+            states.add(Blocks.POTENT_SULFUR.defaultBlockState().setValue(BlockStateProperties.POTENT_SULFUR_STATE, state));
+        }
         // Slabs
         List<Block> slabs = new ArrayList<>(List.of(
             Blocks.ACACIA_SLAB,

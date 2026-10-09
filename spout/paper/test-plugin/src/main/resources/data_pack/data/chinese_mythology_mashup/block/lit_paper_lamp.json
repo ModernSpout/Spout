@@ -10,7 +10,7 @@
   },
   "mappings": [
     {
-      "type": "full_block",
+      "type": "full_block_state",
       "fallback": "minecraft:redstone_lamp[lit=true]"
     }
   ]

@@ -1,9 +1,12 @@
 package spout.clientview.packetmapping.blockstate.macro.processor;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectBooleanPair;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -319,13 +322,27 @@ public abstract class ArrayResultProcessor<M extends BlockStateMappingMacro, Re 
                         BlockstatesResourcePackPath path = resourcePackEvent.asset(CraftAwarenessLevel.toBukkit(AwarenessLevels.RESOURCE_PACK), "blockstates", resourcePackToState.getBlock().keyInBlockRegistry, "json").asBlockstates();
                         path.update(blockstates -> {
                             if (blockstates == null) {
-                                blockstates = Blockstates.create();
+                                // Start with an existing file if the original is a multipart definition
+                                try (InputStream inputStream = ArrayResultProcessor.class.getClassLoader().getResourceAsStream("vanilla_client_assets/" + resourcePackToState.getBlock().keyInBlockRegistry.getNamespace() + "/blockstates/" + resourcePackToState.getBlock().keyInBlockRegistry.getPath() + ".json")) {
+                                    if (inputStream != null) {
+                                        Blockstates readBlockstates = Blockstates.ofMutable(JsonParser.parseString(new String(inputStream.readAllBytes(), StandardCharsets.UTF_8)).getAsJsonObject());
+                                        if (readBlockstates.hasMultipart()) {
+                                            blockstates = readBlockstates;
+                                        }
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                if (blockstates == null) {
+                                    blockstates = Blockstates.create();
+                                }
                             }
                             Blockstates fromBlockBlockstates = PluginResourcePackDiscoveryImpl.get().getResourcePackBlockstates(fromState.getBlock().keyInBlockRegistry);
                             if (fromBlockBlockstates.hasVariants()) {
                                 blockstates.setVariant(resourcePackToState.asBlockData(), Objects.requireNonNull(fromBlockBlockstates.getVariant(fromState.asBlockData()), "Missing blockstates variants entry for " + fromState));
                             } else if (fromBlockBlockstates.hasMultipart()) {
                                 BlockData resourcePackToStateBukkit = resourcePackToState.asBlockData();
+                                blockstates.removeMultipartApplies(resourcePackToStateBukkit);
                                 for (JsonObject multipart : fromBlockBlockstates.getMultipartApplies(fromState.asBlockData())) {
                                     blockstates.addMultipartApply(multipart, resourcePackToStateBukkit);
                                 }

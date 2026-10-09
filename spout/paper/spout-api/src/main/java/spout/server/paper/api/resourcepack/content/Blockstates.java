@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.stream.Stream;
 
 /**
  * The contents of a {@code blockstates} file in a resource pack.
@@ -52,8 +53,36 @@ public final class Blockstates {
         return multipart.asList().stream()
             .map(JsonElement::getAsJsonObject)
             .filter(multipartElement -> multipartWhenMatches(multipartElement.getAsJsonObject("when"), state))
-            .map(multipartElement -> multipartElement.getAsJsonObject("apply"))
+            .flatMap(multipartElement -> {
+                JsonElement apply = multipartElement.get("apply");
+                if (apply.isJsonArray()) {
+                    return apply.getAsJsonArray().asList().stream().map(JsonElement::getAsJsonObject);
+                }
+                return Stream.of(apply.getAsJsonObject());
+            })
             .toList();
+    }
+
+    public void removeMultipartApplies(BlockData state) {
+        @Nullable JsonArray multipart = this.getMultipartJsonOrNull();
+        if (multipart == null || multipart.isEmpty()) {
+            return;
+        }
+        multipart.asList().stream()
+            .map(JsonElement::getAsJsonObject)
+            .forEach(multipartElement -> {
+                @Nullable JsonObject when = multipartElement.getAsJsonObject("when");
+                if (!multipartWhenMatches(when, state)) {
+                    return;
+                }
+                JsonObject newWhen = new JsonObject();
+                JsonArray newOr = new JsonArray();
+                state.getMaterial().asBlockType().createBlockDataStates().stream()
+                    .filter(otherState -> !otherState.equals(state) && multipartWhenMatches(when, otherState))
+                    .forEach(otherState -> newOr.add(getMultipartWhenElement(otherState)));
+                newWhen.add("OR", newOr);
+                multipartElement.add("when", newWhen);
+            });
     }
 
     public void addMultipartApply(JsonObject multipartApply, BlockData state) {
@@ -61,7 +90,8 @@ public final class Blockstates {
         JsonObject multipartElement = null;
         for (JsonElement multipartElementCandidate : multipart) {
             JsonObject multipartElementCandidateObject = multipartElementCandidate.getAsJsonObject();
-            if (multipartElementCandidateObject.getAsJsonObject("apply").equals(multipartApply)) {
+            JsonElement apply = multipartElementCandidateObject.get("apply");
+            if (apply.isJsonObject() && apply.getAsJsonObject().equals(multipartApply) || apply.isJsonArray() && apply.getAsJsonArray().size() == 1 && apply.getAsJsonArray().get(0).getAsJsonObject().equals(multipartApply)) {
                 multipartElement = multipartElementCandidateObject;
                 break;
             }
@@ -232,7 +262,10 @@ public final class Blockstates {
         return map;
     }
 
-    private static boolean multipartWhenMatches(JsonObject multipartWhen, BlockData state) {
+    private static boolean multipartWhenMatches(@Nullable JsonObject multipartWhen, BlockData state) {
+        if (multipartWhen == null) {
+            return true;
+        }
         JsonElement or = multipartWhen.get("OR");
         if (or != null) {
             return or.getAsJsonArray().asList().stream().anyMatch(listElement -> multipartWhenMatches(listElement.getAsJsonObject(), state));

@@ -13,6 +13,7 @@ public final class PluginBlockTypes {
 
     public static Supplier<BlockType> LIT_PAPER_LAMP = blockType("chinese_mythology_mashup:lit_paper_lamp");
     public static Supplier<BlockType> PAPER_LAMP = blockType("chinese_mythology_mashup:paper_lamp");
+    public static Supplier<BlockType> BROWN_FIRE = blockType("colored_fire:brown_fire");
     public static Supplier<BlockType> YELLOW_MAPLE_LEAVES = blockType("maple_delight:yellow_maple_leaves");
     public static Supplier<BlockType> SNOWED_STONE_BRICKS = blockType("minecraft_dungeons:snowed_stone_bricks");
     public static Supplier<BlockType> DIRT_SLAB = blockType("more_vanilla_shapes:dirt_slab");

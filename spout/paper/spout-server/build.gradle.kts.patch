@@ -1,11 +1,15 @@
 --- a/paper-server/build.gradle.kts
 +++ b/paper-server/build.gradle.kts
-@@ -1,14 +_,17 @@
+@@ -1,14 +_,21 @@
 -import io.papermc.fill.model.BuildChannel
 +// import io.papermc.fill.model.BuildChannel // Spout - Project setup - Remove Fill
  import io.papermc.paperweight.attribute.DevBundleOutput
  import io.papermc.paperweight.util.*
++import java.net.URL
++import java.nio.file.Files
++import java.nio.file.StandardCopyOption
  import java.time.Instant
++import java.util.zip.ZipFile
 +import kotlin.io.path.deleteRecursively
 +import kotlin.io.path.readLines
 +import kotlin.io.path.writeLines
@@ -173,7 +177,7 @@
  fill {
      project("paper")
      versionFamily(paperweight.minecraftVersion.map { it.split(".", "-").takeWhile { part -> part.toIntOrNull() != null }.take(2).joinToString(".") })
-@@ -346,3 +_,83 @@
+@@ -346,3 +_,154 @@
          }
      }
  }
@@ -257,3 +261,74 @@
 +    }
 +}
 +// Spout end - Built-in content - Include Fabric API conventional tags
++
++// Spout start - Include vanilla client assets
++val vanillaClientURL = providers.gradleProperty("vanillaClientURL").get()
++val vanillaClientDownloadFolder = layout.buildDirectory.dir("vanilla-client/downloads").get()
++val vanillaClientDownloadFile = vanillaClientDownloadFolder.file("${providers.gradleProperty("mcVersion").get()}.jar")
++val vanillaClientExtractsFolder = layout.buildDirectory.dir("resources/main/vanilla_client_assets").get()
++
++val downloadMinecraftClient: TaskProvider<Task> = tasks.register("downloadMinecraftClient") {
++    group = "vanilla client assets"
++
++    outputs.dir(vanillaClientDownloadFolder)
++    doLast {
++        val url = vanillaClientURL
++            ?: throw IllegalArgumentException("No vanillaClientURL configured; skipping direct download.")
++        vanillaClientDownloadFolder.asFile.mkdirs()
++        val target = vanillaClientDownloadFile.asFile
++        if (!target.exists()) {
++            logger.lifecycle("Downloading Minecraft client from $url -> $target")
++            URL(url).openStream().use { input ->
++                Files.copy(input, target.toPath(), StandardCopyOption.REPLACE_EXISTING)
++            }
++        }
++    }
++}
++
++val extractVanillaAssets: TaskProvider<Task> = tasks.register("extractVanillaAssets") {
++    group = "vanilla client assets"
++
++    dependsOn(downloadMinecraftClient, "processResources")
++    outputs.dir(vanillaClientExtractsFolder)
++
++    doLast {
++        val folder = vanillaClientExtractsFolder.asFile
++        if (folder.exists() && !folder.listFiles().isNullOrEmpty()) {
++            return@doLast
++        }
++        folder.mkdirs()
++        val sourceJar: File = vanillaClientDownloadFile.asFile
++
++        logger.lifecycle("Extracting assets from ${sourceJar.absolutePath}")
++
++        ZipFile(sourceJar).use { zip ->
++            val entries = zip.entries()
++            while (entries.hasMoreElements()) {
++                val entry = entries.nextElement()
++                // We only want entries under "assets/"
++                if (!entry.name.startsWith("assets/")) continue
++                // Currently we only include JSON files
++                if (!entry.name.endsWith(".json")) continue
++
++                val outFile = folder.resolve(entry.name.removePrefix("assets/"))
++                if (entry.isDirectory) {
++                    outFile.mkdirs()
++                } else {
++                    outFile.parentFile?.mkdirs()
++                    zip.getInputStream(entry).use { input ->
++                        Files.copy(input, outFile.toPath(), StandardCopyOption.REPLACE_EXISTING)
++                    }
++                }
++            }
++        }
++    }
++}
++
++tasks.named("jar") {
++    dependsOn(extractVanillaAssets)
++}
++tasks.named("runDevServer") {
++    dependsOn(extractVanillaAssets)
++}
++// Spout end - Include vanilla client assets
