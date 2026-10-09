@@ -30,6 +30,11 @@ public final class SpoutRegistryEvents {
         throw new UnsupportedOperationException();
     }
 
+    static {
+        // Initialize the Paper registry events before initializing any of Spout
+        RegistryEvents.GAME_EVENT.compose();
+    }
+
     /**
      * Events for {@link SpoutRegistryKey#MATERIAL_NAME_REWRITER}.
      */
