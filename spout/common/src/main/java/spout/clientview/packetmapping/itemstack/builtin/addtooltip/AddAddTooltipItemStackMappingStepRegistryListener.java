@@ -12,7 +12,7 @@ import spout.branding.SpoutNamespace;
 import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.clientview.packetmapping.itemstack.ItemStackMapping;
 import spout.clientview.packetmapping.itemstack.registry.ItemStackMappingRegistryKey;
-import spout.server.paper.impl.configuration.SpoutGlobalConfiguration;
+import spout.configuration.SpoutGlobalConfiguration;
 import spout.util.minecraft.registry.SpoutRegistryHookEvents;
 
 public final class AddAddTooltipItemStackMappingStepRegistryListener implements SpoutRegistryHookEvents.Listener<ItemStackMapping> {

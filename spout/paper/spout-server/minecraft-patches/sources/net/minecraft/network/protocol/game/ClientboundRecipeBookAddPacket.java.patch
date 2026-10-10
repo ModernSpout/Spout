@@ -1,0 +1,11 @@
+--- a/net/minecraft/network/protocol/game/ClientboundRecipeBookAddPacket.java
++++ b/net/minecraft/network/protocol/game/ClientboundRecipeBookAddPacket.java
+@@ -11,7 +_,7 @@
+ public record ClientboundRecipeBookAddPacket(List<ClientboundRecipeBookAddPacket.Entry> entries, boolean replace) implements Packet<ClientGamePacketListener> {
+     public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundRecipeBookAddPacket> STREAM_CODEC = StreamCodec.composite(
+         ClientboundRecipeBookAddPacket.Entry.STREAM_CODEC.apply(ByteBufCodecs.list()),
+-        ClientboundRecipeBookAddPacket::entries,
++        packet -> packet.entries.stream().filter(entry -> entry.contents.display().type() != net.minecraft.world.item.crafting.display.StonecutterRecipeDisplay.TYPE).toList(), // Spout - Client view / Packet mapping / Item stacks / Apply / Send only applicable stonecutter recipes - Do not send stonecutter recipes
+         ByteBufCodecs.BOOL,
+         ClientboundRecipeBookAddPacket::replace,
+         ClientboundRecipeBookAddPacket::new

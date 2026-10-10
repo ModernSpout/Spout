@@ -1,7 +1,7 @@
 package spout.server.paper.impl.confirmpermanence;
 
 import org.slf4j.Logger;
-import spout.server.paper.impl.configuration.SpoutGlobalConfiguration;
+import spout.configuration.SpoutGlobalConfiguration;
 
 /**
  * Utility class that checks whether the user has understood

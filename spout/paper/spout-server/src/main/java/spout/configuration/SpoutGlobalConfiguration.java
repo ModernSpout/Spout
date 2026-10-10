@@ -1,4 +1,4 @@
-package spout.server.paper.impl.configuration;
+package spout.configuration;
 
 import com.mojang.logging.LogUtils;
 import io.papermc.paper.configuration.Configuration;
@@ -102,6 +102,23 @@ public class SpoutGlobalConfiguration extends ConfigurationPart {
             public boolean blockStateCount = false;
             public boolean items = false;
             public boolean itemCount = true;
+
+        }
+
+    }
+
+    public Recipes recipes;
+
+    public class Recipes extends ConfigurationPart {
+
+        public Stonecutting stonecutting;
+
+        public class Stonecutting extends ConfigurationPart {
+
+            /**
+             * Whether to add any missing transitive recipes automatically.
+             */
+            public boolean addMissingTransitiveRecipes = false;
 
         }
 

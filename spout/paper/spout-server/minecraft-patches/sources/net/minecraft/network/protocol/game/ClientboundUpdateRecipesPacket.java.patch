@@ -1,0 +1,11 @@
+--- a/net/minecraft/network/protocol/game/ClientboundUpdateRecipesPacket.java
++++ b/net/minecraft/network/protocol/game/ClientboundUpdateRecipesPacket.java
+@@ -19,7 +_,7 @@
+         ByteBufCodecs.map(HashMap::new, ResourceKey.streamCodec(RecipePropertySet.TYPE_KEY), RecipePropertySet.STREAM_CODEC),
+         ClientboundUpdateRecipesPacket::itemSets,
+         SelectableRecipe.SingleInputSet.noRecipeCodec(),
+-        ClientboundUpdateRecipesPacket::stonecutterRecipes,
++        packet -> spout.clientview.packetmapping.itemstack.apply.onlyapplicablestonecuttingrecipes.UpdateRecipesPacketFilter.filter(packet.stonecutterRecipes), // Spout - Client view / Packet mapping / Item stacks / Apply / Send only applicable stonecutter recipes - Filter applicable recipes
+         ClientboundUpdateRecipesPacket::new
+     );
+ 

@@ -3,7 +3,7 @@ package spout.server.paper.impl.resourcepack.serve;
 import io.papermc.paper.configuration.type.number.IntOr;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.dedicated.DedicatedServer;
-import spout.server.paper.impl.configuration.SpoutGlobalConfiguration;
+import spout.configuration.SpoutGlobalConfiguration;
 import spout.server.paper.impl.resourcepack.construct.ConstructedResourcePackImpl;
 import spout.server.paper.impl.resourcepack.construct.ResourcePackConstructionImpl;
 import org.jspecify.annotations.Nullable;

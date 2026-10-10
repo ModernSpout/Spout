@@ -13,7 +13,7 @@ import spout.gamecontent.datadriven.serversidetranslation.ServersideTranslation;
 import spout.gamecontent.datadriven.serversidetranslation.ServersideTranslationFallbackScope;
 import spout.gamecontent.datadriven.serversidetranslation.registry.ServersideTranslationRegistryKey;
 import spout.server.paper.api.resourcepack.content.Lang;
-import spout.server.paper.impl.configuration.SpoutGlobalConfiguration;
+import spout.configuration.SpoutGlobalConfiguration;
 import spout.util.minecraft.locale.MinecraftLocaleUtil;
 import spout.clientview.resourcepack.plugindiscovery.PluginResourcePackDiscoveryImpl;
 import spout.util.minecraft.registry.SpoutRegistryHookEvents;

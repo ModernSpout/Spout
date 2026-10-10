@@ -8,7 +8,7 @@
  
  public class ServerPlayer extends Player implements ca.spottedleaf.moonrise.patches.chunk_system.player.ChunkSystemServerPlayer { // Paper - rewrite chunk system
      private static final Logger LOGGER = LogUtils.getLogger();
-@@ -235,6 +_,10 @@
+@@ -235,6 +_,11 @@
      private static final boolean DEFAULT_SEEN_CREDITS = false;
      private static final boolean DEFAULT_SPAWN_EXTRA_PARTICLES_ON_FALL = false;
      public ServerGamePacketListenerImpl connection;
@@ -16,6 +16,7 @@
 +    public float serverToClientSideBlockBreakSpeedFactor = 1;
 +    public BlockBreakSpeedFactorHistory serverToClientSideBlockBreakSpeedFactorHistory = new BlockBreakSpeedFactorHistory();
 +    // Spout end - Client view / Packet mapping / Block states / Apply / Breaking speed - Store factor in player
++    public @Nullable ItemStack spout$lastStonecutterInput; // Spout - Client view / Packet mapping / Item stacks / Apply / Send only applicable stonecutter recipes - Store last stonecutter input and hashing cache
      private final MinecraftServer server;
      public final ServerPlayerGameMode gameMode;
      private final PlayerAdvancements advancements;

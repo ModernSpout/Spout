@@ -5,8 +5,8 @@
      }
      // Paper end - add paper world config
 +    // Spout start - Configuration - World configuration
-+    private final spout.server.paper.impl.configuration.SpoutWorldConfiguration spoutConfig;
-+    public spout.server.paper.impl.configuration.SpoutWorldConfiguration spoutConfig() {
++    private final SpoutWorldConfiguration spoutConfig;
++    public SpoutWorldConfiguration spoutConfig() {
 +        return this.spoutConfig;
 +    }
 +    // Spout end - Configuration - World configuration

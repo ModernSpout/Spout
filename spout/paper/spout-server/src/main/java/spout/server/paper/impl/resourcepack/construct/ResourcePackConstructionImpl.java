@@ -16,7 +16,7 @@ import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstructEvent;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstructFinishEvent;
 import spout.server.paper.api.resourcepack.construct.ResourcePackConstruction;
-import spout.server.paper.impl.configuration.SpoutGlobalConfiguration;
+import spout.configuration.SpoutGlobalConfiguration;
 import spout.gamecontent.datadriven.block.registry.BlockRegistry;
 import spout.clientview.resourcepack.plugindiscovery.PluginResourcePackDiscoveryImpl;
 import spout.server.paper.impl.resourcepack.send.ResourcePackSending;

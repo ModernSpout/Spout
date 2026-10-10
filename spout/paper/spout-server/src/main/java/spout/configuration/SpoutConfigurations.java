@@ -1,4 +1,4 @@
-package spout.server.paper.impl.configuration;
+package spout.configuration;
 
 import com.mojang.logging.LogUtils;
 import io.leangen.geantyref.TypeToken;
@@ -61,13 +61,13 @@ public final class SpoutConfigurations extends PaperConfigurations<SpoutGlobalCo
 
     private static final String SPOUT_GLOBAL_HEADER = String.format("""
         This is the global configuration file for Spout.
-        
+
         If you need help with the configuration or have any questions related to Spout,
         join us in our Discord, or check the GitHub Wiki pages.
-        
+
         The world configuration options are inside
         their respective world folder. The files are named %s
-        
+
         Wiki: https://github.com/ModernSpout/Spout/wiki
         Discord: https://discord.gg/EduvcVmKS7""", SPOUT_WORLD_CONFIG_FILE_NAME);
 
@@ -75,13 +75,13 @@ public final class SpoutConfigurations extends PaperConfigurations<SpoutGlobalCo
     protected String getWorldDefaultsHeader() {
         return """
             This is the world defaults configuration file for Spout.
-            
+
             If you need help with the configuration or have any questions related to Spout,
             join us in our Discord, or check the GitHub Wiki pages.
-            
+
             Configuration options here apply to all worlds, unless you specify overrides inside
             the world-specific config file inside each world folder.
-            
+
             Wiki: https://github.com/ModernSpout/Spout/wiki
             Discord: https://discord.gg/EduvcVmKS7""";
     }
@@ -91,7 +91,7 @@ public final class SpoutConfigurations extends PaperConfigurations<SpoutGlobalCo
         return String.format("""
                 This is a world configuration file for Spout.
                 This file may start empty but can be filled with settings to override ones in the %s/%s
-                
+
                 World: %s""",
             PaperConfigurations.CONFIG_DIR,
             this.defaultWorldConfigFileName,

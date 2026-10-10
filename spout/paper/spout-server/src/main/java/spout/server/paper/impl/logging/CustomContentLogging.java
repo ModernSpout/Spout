@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import spout.server.paper.impl.configuration.SpoutGlobalConfiguration;
+import spout.configuration.SpoutGlobalConfiguration;
 import spout.gamecontent.datadriven.block.registry.BlockRegistry;
 import spout.gamecontent.datadriven.block.registry.BlockStateRegistry;
 import spout.gamecontent.datadriven.item.registry.ItemRegistry;

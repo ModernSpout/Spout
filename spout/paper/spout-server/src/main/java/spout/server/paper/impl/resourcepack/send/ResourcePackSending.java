@@ -4,7 +4,7 @@ import com.google.common.hash.Hashing;
 import com.google.common.io.ByteSource;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.ClientboundResourcePackPushPacket;
-import spout.server.paper.impl.configuration.SpoutGlobalConfiguration;
+import spout.configuration.SpoutGlobalConfiguration;
 import spout.server.paper.impl.resourcepack.construct.ConstructedResourcePackImpl;
 import spout.server.paper.impl.resourcepack.construct.ResourcePackConstructionImpl;
 import spout.server.paper.impl.resourcepack.serve.ResourcePackServing;

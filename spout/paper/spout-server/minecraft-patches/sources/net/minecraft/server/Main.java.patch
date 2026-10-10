@@ -10,7 +10,7 @@
 +            // Spout end - EULA before bootstrap - Add before bootstrap
 +
 +            // Spout start - Configuration - Load global configuration before bootstrap
-+            var spoutConfigurations = spout.server.paper.impl.configuration.SpoutConfigurations.get(options);
++            var spoutConfigurations = spout.configuration.SpoutConfigurations.get(options);
 +            spoutConfigurations.initializeGlobalConfiguration(null);
 +            // Spout end - Configuration - Load global configuration before bootstrap
 +

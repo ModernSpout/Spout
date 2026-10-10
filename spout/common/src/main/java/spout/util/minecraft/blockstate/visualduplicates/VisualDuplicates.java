@@ -384,7 +384,6 @@ public final class VisualDuplicates {
             potentSulfurDefaultState.setValue(BlockStateProperties.POTENT_SULFUR_STATE, PotentSulfurState.ERUPTING),
             potentSulfurDefaultState.setValue(BlockStateProperties.POTENT_SULFUR_STATE, PotentSulfurState.CONTINUOUS)
         );
-        unionFind.mergeAllStatesOf(Blocks.POTENT_SULFUR);
         // Sapling
         getBlocksOfType(SaplingBlock.class).filter(block -> !(block instanceof MangrovePropaguleBlock)).forEach(block -> unionFind.mergeAllStatesWithOtherValuesOfProperties(block, BlockStateProperties.STAGE));
         // Scaffolding

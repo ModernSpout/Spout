@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft_dungeons:snowed_stone_bricks",
+  "result": {
+    "id": "minecraft:stone_bricks"
+  }
+}

@@ -1,4 +1,4 @@
-package spout.server.paper.impl.configuration;
+package spout.configuration;
 
 import com.mojang.logging.LogUtils;
 import io.papermc.paper.configuration.Configuration;
