@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/item/crafting/display/SlotDisplay.java
++++ b/net/minecraft/world/item/crafting/display/SlotDisplay.java
+@@ -37,7 +_,7 @@
+ public interface SlotDisplay {
+     Codec<SlotDisplay> CODEC = BuiltInRegistries.SLOT_DISPLAY.byNameCodec().dispatch(SlotDisplay::type, SlotDisplay.Type::codec);
+     StreamCodec<RegistryFriendlyByteBuf, SlotDisplay> STREAM_CODEC = ByteBufCodecs.registry(Registries.SLOT_DISPLAY)
+-        .dispatch(SlotDisplay::type, SlotDisplay.Type::streamCodec);
++        .dispatch(SlotDisplay::type, SlotDisplay.Type::streamCodec).map(java.util.function.Function.identity(), spout.clientview.packetmapping.itemstack.apply.slotdisplay.ItemSlotDisplayCodec::mapItemDisplayToItemStackDisplay); // Spout - Item mapping - Implementation part - Always serialize item slot displays and item stack slot displays so that they can be mapped properly
+ 
+     <T> Stream<T> resolve(ContextMap context, DisplayContentsFactory<T> builder);
+ 
