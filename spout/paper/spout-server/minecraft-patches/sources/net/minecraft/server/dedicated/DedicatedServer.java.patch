@@ -4,7 +4,7 @@
          this.paperConfigurations.initializeGlobalConfiguration(this.registryAccess());
          this.paperConfigurations.initializeWorldDefaultsConfiguration(this.registryAccess());
          // Paper end - initialize global and world-defaults configuration
-+        SpoutConfigurations.get(this.options).initializeWorldDefaultsConfiguration(this.registryAccess()); // Spout - Configuration - Initialize world-defaults configuration
++        spout.configuration.SpoutConfigurations.get(this.options).initializeWorldDefaultsConfiguration(this.registryAccess()); // Spout - Configuration - Initialize world-defaults configuration
          this.server.spark.enableEarlyIfRequested(); // Paper - spark
          // Paper start - fix converting txt to json file; convert old users earlier after PlayerList creation but before file load/save
          if (this.convertOldUsers()) {

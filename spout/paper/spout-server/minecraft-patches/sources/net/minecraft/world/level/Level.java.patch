@@ -5,8 +5,8 @@
      }
      // Paper end - add paper world config
 +    // Spout start - Configuration - World configuration
-+    private final SpoutWorldConfiguration spoutConfig;
-+    public SpoutWorldConfiguration spoutConfig() {
++    private final spout.configuration.SpoutWorldConfiguration spoutConfig;
++    public spout.configuration.SpoutWorldConfiguration spoutConfig() {
 +        return this.spoutConfig;
 +    }
 +    // Spout end - Configuration - World configuration
@@ -17,7 +17,7 @@
          org.bukkit.World.Environment environment, // Paper
          java.util.function.Function<org.spigotmc.SpigotWorldConfig, // Spigot - create per world config
          io.papermc.paper.configuration.WorldConfiguration> paperWorldConfigCreator, // Paper - create paper world config
-+        java.util.function.Function<org.spigotmc.SpigotWorldConfig, spout.server.paper.impl.configuration.SpoutWorldConfiguration> spoutWorldConfigCreator, // Spout - Configuration - Create world configuration
++        java.util.function.Function<org.spigotmc.SpigotWorldConfig, spout.configuration.SpoutWorldConfiguration> spoutWorldConfigCreator, // Spout - Configuration - Create world configuration
          java.util.concurrent.Executor executor // Paper - Anti-Xray
      ) {
          // Paper start - getblock optimisations - cache world height/sections
