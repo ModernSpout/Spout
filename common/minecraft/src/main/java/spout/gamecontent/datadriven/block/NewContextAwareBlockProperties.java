@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import org.jspecify.annotations.Nullable;
@@ -49,39 +50,47 @@ public final class NewContextAwareBlockProperties {
         if (initializers == null) {
             initializers = new HashMap<>();
             addInitializer("base_pressure_plate", properties -> {
-                properties.noCollision()
+                properties
+                    .noCollision()
                     .strength(0.5f)
                     .forceSolidOn()
                     .pushReaction(PushReaction.POPPED);
             });
             addInitializer("button", properties -> {
-                properties.noCollision()
+                properties
+                    .noCollision()
                     .strength(0.5f)
                     .pushReaction(PushReaction.POPPED);
             });
             addInitializer("door", properties -> {
-                properties.noOcclusion()
+                properties
+                    .noOcclusion()
                     .pushReaction(PushReaction.POPPED);
             });
             addInitializer("fence", properties -> {
-                properties.forceSolidOn();
+                properties
+                    .forceSolidOn();
             });
             addInitializer("fence_gate", properties -> {
-                properties.forceSolidOn();
+                properties
+                    .forceSolidOn();
             });
             addInitializer("flower_pot", properties -> {
-                properties.instabreak()
+                properties
+                    .instabreak()
                     .noOcclusion()
                     .pushReaction(PushReaction.POPPED);
             });
             addInitializer("ladder", properties -> {
-                properties.sound(SoundType.LADDER)
+                properties
+                    .sound(SoundType.LADDER)
                     .strength(0.4f)
                     .noOcclusion()
                     .forceSolidOff();
             });
             addInitializer("leaves", properties -> {
-                properties.mapColor(MapColor.PLANT)
+                properties
+                    .mapColor(MapColor.PLANT)
                     .sound(SoundType.GRASS)
                     .strength(0.2f)
                     .randomTicks()
@@ -98,21 +107,28 @@ public final class NewContextAwareBlockProperties {
             });
             addInitializer("mangrove_propagule", properties -> {
                 getInitializer("leaves").accept(properties);
-                properties.offsetType(BlockBehaviour.OffsetType.XZ);
+                properties
+                    .offsetType(BlockBehaviour.OffsetType.XZ);
             });
             addInitializer("pressure_plate", properties -> {
                 getInitializer("base_pressure_plate").accept(properties);
             });
             addInitializer("sapling", properties -> {
-                properties.mapColor(MapColor.PLANT)
+                properties
+                    .mapColor(MapColor.PLANT)
                     .noCollision()
                     .sound(SoundType.GRASS)
                     .instabreak()
                     .randomTicks()
                     .pushReaction(PushReaction.POPPED);
             });
+            addInitializer("slab", properties -> {
+                properties
+                    .isViewBlocking(KnownStateAABBPredicate.NEAR_PLANE_INTERSECTS_OUTLINE);
+            });
             addInitializer("soul_fire", properties -> {
-                properties.mapColor(MapColor.COLOR_LIGHT_BLUE)
+                properties
+                    .mapColor(MapColor.COLOR_LIGHT_BLUE)
                     .replaceable()
                     .noCollision()
                     .sound(SoundType.WOOL)
@@ -120,27 +136,36 @@ public final class NewContextAwareBlockProperties {
                     .instabreak()
                     .pushReaction(PushReaction.POPPED);
             });
+            addInitializer("stair", properties -> {
+                properties
+                    .isViewBlocking(KnownStateAABBPredicate.NEAR_PLANE_INTERSECTS_OUTLINE);
+            });
             addInitializer("tinted_particle_leaves", properties -> {
                 getInitializer("leaves").accept(properties);
             });
             addInitializer("trapdoor", properties -> {
-                properties.noOcclusion()
+                properties
+                    .noOcclusion()
                     .isValidSpawn(Blocks::never);
             });
             addInitializer("untinted_particle_leaves", properties -> {
                 getInitializer("leaves").accept(properties);
             });
             addInitializer("wall", properties -> {
-                properties.forceSolidOn();
+                properties
+                    .forceSolidOn();
             });
             addInitializer("weathering_copper_door", properties -> {
                 getInitializer("door").accept(properties);
-                properties.mapColor(MapColor.COLOR_ORANGE)
+                properties
+                    .mapColor(MapColor.COLOR_ORANGE)
                     .strength(3.0f, 6.0f)
-                    .requiresCorrectToolForDrops();
+                    .requiresCorrectToolForDrops()
+                    .instrument(NoteBlockInstrument.TRUMPET);
             });
             addInitializer("weathering_copper_grate", properties -> { // TODO document on wiki
-                properties.strength(3.0F, 6.0F)
+                properties
+                    .strength(3.0F, 6.0F)
                     .sound(SoundType.COPPER_GRATE)
                     .mapColor(MapColor.COLOR_ORANGE)
                     .noOcclusion()
@@ -148,13 +173,24 @@ public final class NewContextAwareBlockProperties {
                     .isValidSpawn(Blocks::never)
                     .isRedstoneConductor(Blocks::never)
                     .isSuffocating(Blocks::never)
+                    .instrument(NoteBlockInstrument.TRUMPET)
                     .isViewBlocking(new KnownStateAABBPredicate.Via(KnownStatePredicate.NEVER));
+            });
+            addInitializer("weathering_copper_stair", properties -> {
+                getInitializer("stair").accept(properties);
+                properties
+                    .sound(SoundType.COPPER)
+                    .mapColor(MapColor.COLOR_ORANGE)
+                    .strength(3.0f, 6.0f)
+                    .instrument(NoteBlockInstrument.TRUMPET);
             });
             addInitializer("weathering_copper_trap_door", properties -> {
                 getInitializer("trapdoor").accept(properties);
-                properties.mapColor(MapColor.COLOR_ORANGE)
+                properties
+                    .mapColor(MapColor.COLOR_ORANGE)
                     .strength(3.0f, 6.0f)
-                    .requiresCorrectToolForDrops();
+                    .requiresCorrectToolForDrops()
+                    .instrument(NoteBlockInstrument.TRUMPET);
             });
             addInitializer("weighted_pressure_plate", properties -> {
                 getInitializer("base_pressure_plate").accept(properties);
@@ -165,7 +201,7 @@ public final class NewContextAwareBlockProperties {
 
     /**
      * @return A new {@link BlockBehaviour.Properties} instance,
-     * potentially with defaults applied.
+     *     potentially with defaults applied.
      */
     public static BlockBehaviour.Properties create(@Nullable SpoutBlockType type, @Nullable ResourceKey<Block> key) {
         BlockBehaviour.Properties properties = BlockBehaviour.Properties.of();

@@ -43,7 +43,7 @@
   </tr>
 </table>
 
-# Server
+# Server (for Paper)
 
 ## Introduction
 
@@ -97,9 +97,9 @@ See the step-by-step guide on the
 
 ## Current known issues
 
-* Vanilla clients show stonecutter recipes in the wrong order.
+None.
 
-# Client
+# Client (for Fabric / NeoForge / Quilt)
 
 ## Introduction
 

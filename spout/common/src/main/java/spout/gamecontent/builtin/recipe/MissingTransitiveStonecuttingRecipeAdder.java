@@ -1,4 +1,4 @@
-package spout.gamecontent.datadriven.recipe;
+package spout.gamecontent.builtin.recipe;
 
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;

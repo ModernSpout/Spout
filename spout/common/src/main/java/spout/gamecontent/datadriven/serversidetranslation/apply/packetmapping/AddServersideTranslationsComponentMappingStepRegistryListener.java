@@ -18,7 +18,7 @@ public final class AddServersideTranslationsComponentMappingStepRegistryListener
 
     @Override
     public Iterable<Pair<ResourceKey<Registry<ComponentMapping>>, SpoutRegistryHookEvents.EventType>> getRegistryHookEventsToListenFor() {
-        return List.of(Pair.of(ComponentMappingRegistryKey.COMPONENT_MAPPING, SpoutRegistryHookEvents.EventType.PRE_POPULATE_STATIC_REGISTRY));
+        return List.of(Pair.of(ComponentMappingRegistryKey.COMPONENT_MAPPING, SpoutRegistryHookEvents.EventType.POST_POPULATE_STATIC_REGISTRY)); // Should be PRE_POPULATE_STATIC_REGISTRY to allow plugins to observe it but we currently do want it to be scheduled last
     }
 
     @Override
