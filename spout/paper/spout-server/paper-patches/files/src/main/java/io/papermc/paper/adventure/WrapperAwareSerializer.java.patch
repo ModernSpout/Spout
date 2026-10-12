@@ -1,0 +1,13 @@
+--- a/src/main/java/io/papermc/paper/adventure/WrapperAwareSerializer.java
++++ b/src/main/java/io/papermc/paper/adventure/WrapperAwareSerializer.java
+@@ -24,8 +_,10 @@
+             return ((AdventureComponent) input).adventure;
+         }
+         final RegistryOps<Object> ops = this.javaOps.get();
++        spout.clientview.packetmapping.component.PaperComponentInPacketMapper.isAdventureSerializing.set(true); // Spout - Component mapping - Implementation part - Apply at Component encoding - Don't apply encoding during conversion
+         final Object obj = ComponentSerialization.CODEC.encodeStart(ops, input)
+             .getOrThrow(s -> new RuntimeException("Failed to encode Minecraft Component: " + input + "; " + s));
++        spout.clientview.packetmapping.component.PaperComponentInPacketMapper.isAdventureSerializing.set(false); // Spout - Component mapping - Implementation part - Apply at Component encoding - Don't apply encoding during conversion
+         final Pair<Component, Object> converted = AdventureCodecs.COMPONENT_CODEC.decode(ops, obj)
+             .getOrThrow(s -> new RuntimeException("Failed to decode to adventure Component: " + obj + "; " + s));
+         return converted.getFirst();
