@@ -5,7 +5,7 @@
                          if (event.getResult() != org.bukkit.event.Event.Result.DENY) { // if denied, synchronizing is fully handled by broadcastChanges at the end
                              this.player.containerMenu.clicked(slotIndex, packet.buttonNum(), packet.containerInput(), this.player);
 +                            // Spout start - Client view / Packet mapping / Item stacks / Apply / Send only applicable stonecutter recipes - Re-send recipes
-+                            if (this.player.containerMenu.getType() == net.minecraft.world.inventory.MenuType.STONECUTTER) {
++                            if (this.player.containerMenu.menuType == net.minecraft.world.inventory.MenuType.STONECUTTER) {
 +                                spout.clientview.packetmapping.itemstack.apply.onlyapplicablestonecuttingrecipes.UpdateRecipesPacketFilter.resendRecipes(this.player, click != org.bukkit.event.inventory.ClickType.SHIFT_LEFT);
 +                            }
 +                            // Spout end - Client view / Packet mapping / Item stacks / Apply / Send only applicable stonecutter recipes - Re-send recipes
