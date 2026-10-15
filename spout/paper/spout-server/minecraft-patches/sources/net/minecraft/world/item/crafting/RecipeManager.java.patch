@@ -1,0 +1,37 @@
+--- a/net/minecraft/world/item/crafting/RecipeManager.java
++++ b/net/minecraft/world/item/crafting/RecipeManager.java
+@@ -56,6 +_,7 @@
+     public RecipeManager(final HolderLookup.Provider registries) {
+         HolderLookup.RegistryLookup<Recipe<?>> recipeRegistries = registries.lookupOrThrow(Registries.RECIPE);
+         this.recipes = RecipeMap.create(recipeRegistries);
++        spout.gamecontent.builtin.recipe.MissingTransitiveStonecuttingRecipeAdder.run(this.recipes, null); // Spout - Game content / Built-in / Recipes / Add missing transitive stonecutting recipes - Run
+         this.learnableRecipes = this.recipes.values().stream().filter(r -> !r.value().isSpecial()).collect(Collectors.toUnmodifiableList());
+     }
+ 
+@@ -63,6 +_,7 @@
+     public void addRecipe(RecipeHolder<?> holder) {
+         org.spigotmc.AsyncCatcher.catchOp("Recipe Add"); // Spigot
+         this.recipes.addRecipe(holder);
++        if (holder.value().getType() == RecipeType.STONECUTTING && holder.value() instanceof StonecutterRecipe) spout.gamecontent.builtin.recipe.MissingTransitiveStonecuttingRecipeAdder.run(this.recipes, List.of((RecipeHolder<StonecutterRecipe>) holder)); // Spout - Game content / Built-in / Recipes / Add missing transitive stonecutting recipes - Run
+         this.finalizeRecipeLoading();
+     }
+ 
+@@ -190,8 +_,10 @@
+ 
+     // CraftBukkit start
+     public boolean removeRecipe(ResourceKey<Recipe<?>> id) {
++        RecipeHolder<?> removedRecipe = this.recipes.byKey(id); // Spout - Game content / Built-in / Recipes / Add missing transitive stonecutting recipes - Run
+         boolean removed = this.recipes.removeRecipe(id);
+         if (removed) {
++            if (removedRecipe != null && removedRecipe.value().getType() == RecipeType.STONECUTTING && removedRecipe.value() instanceof StonecutterRecipe) spout.gamecontent.builtin.recipe.MissingTransitiveStonecuttingRecipeAdder.run(this.recipes, null); // Spout - Game content / Built-in / Recipes / Add missing transitive stonecutting recipes - Run
+             this.finalizeRecipeLoading();
+         }
+ 
+@@ -200,6 +_,7 @@
+ 
+     public void clearRecipes() {
+         this.recipes = RecipeMap.createEmpty();
++        spout.gamecontent.builtin.recipe.MissingTransitiveStonecuttingRecipeAdder.run(this.recipes, null); // Spout - Game content / Built-in / Recipes / Add missing transitive stonecutting recipes - Run
+         this.finalizeRecipeLoading();
+     }
+     // CraftBukkit end
