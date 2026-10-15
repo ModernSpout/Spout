@@ -1,12 +1,17 @@
 --- a/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-@@ -3413,6 +_,11 @@
+@@ -3412,7 +_,16 @@
+                         }
  
                          if (event.getResult() != org.bukkit.event.Event.Result.DENY) { // if denied, synchronizing is fully handled by broadcastChanges at the end
++                            ItemStack inputSlotBefore = this.player.containerMenu.menuType == net.minecraft.world.inventory.MenuType.STONECUTTER ? player.containerMenu.getSlot(net.minecraft.world.inventory.StonecutterMenu.INPUT_SLOT).getItem().copyWithCount(1) : null; // Spout - Client view / Packet mapping / Item stacks / Apply / Send only applicable stonecutter recipes - Re-send recipes
                              this.player.containerMenu.clicked(slotIndex, packet.buttonNum(), packet.containerInput(), this.player);
 +                            // Spout start - Client view / Packet mapping / Item stacks / Apply / Send only applicable stonecutter recipes - Re-send recipes
 +                            if (this.player.containerMenu.menuType == net.minecraft.world.inventory.MenuType.STONECUTTER) {
-+                                spout.clientview.packetmapping.itemstack.apply.onlyapplicablestonecuttingrecipes.UpdateRecipesPacketFilter.resendRecipes(this.player, click != org.bukkit.event.inventory.ClickType.SHIFT_LEFT);
++                                ItemStack inputSlotAfter = player.containerMenu.getSlot(net.minecraft.world.inventory.StonecutterMenu.INPUT_SLOT).getItem().copyWithCount(1);
++                                if (!ItemStack.matches(inputSlotBefore, inputSlotAfter)) {
++                                    spout.clientview.packetmapping.itemstack.apply.onlyapplicablestonecuttingrecipes.UpdateRecipesPacketFilter.resendRecipes(this.player, click != org.bukkit.event.inventory.ClickType.SHIFT_LEFT && (slotIndex != net.minecraft.world.inventory.StonecutterMenu.RESULT_SLOT || (!inputSlotBefore.isEmpty() && inputSlotAfter.isEmpty())));
++                                }
 +                            }
 +                            // Spout end - Client view / Packet mapping / Item stacks / Apply / Send only applicable stonecutter recipes - Re-send recipes
                          }
