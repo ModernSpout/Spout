@@ -1,13 +1,15 @@
 --- a/net/minecraft/network/protocol/game/ClientboundLevelChunkPacketData.java
 +++ b/net/minecraft/network/protocol/game/ClientboundLevelChunkPacketData.java
-@@ -32,14 +_,15 @@
+@@ -32,14 +_,17 @@
      public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundLevelChunkPacketData> STREAM_CODEC = StreamCodec.composite(
          HEIGHTMAPS_STREAM_CODEC,
          p -> p.heightmaps,
 -        ByteBufCodecs.byteArray(TWO_MEGABYTES),
 -        p -> p.buffer,
++        // Spout start - Client view / Packet mapping / Block states / Apply / Chunk packets - Make buffer length explicit
 +        spout.util.mojang.codec.ExplicitLengthByteArrayStreamCodec.INSTANCE,
 +        p -> it.unimi.dsi.fastutil.Pair.of(p.buffer, p.bufferLength),
++        // Spout end - Client view / Packet mapping / Block states / Apply / Chunk packets - Make buffer length explicit
          ClientboundLevelChunkPacketData.BlockEntityInfo.STREAM_CODEC.apply(ByteBufCodecs.list()),
          p -> p.blockEntitiesData,
          ClientboundLevelChunkPacketData::new
@@ -19,7 +21,7 @@
      private final List<ClientboundLevelChunkPacketData.BlockEntityInfo> blockEntitiesData;
      // Paper start - Handle oversized block entities in chunks
      private final java.util.List<net.minecraft.network.protocol.Packet<?>> extraPackets = new java.util.ArrayList<>();
-@@ -49,15 +_,39 @@
+@@ -49,15 +_,43 @@
          return this.extraPackets;
      }
      // Paper end - Handle oversized block entities in chunks
@@ -51,11 +53,15 @@
  
      public void setReady(final boolean ready) {
 -        this.ready = ready;
-+        if (!this.ready) {
-+            this.ready = ready;
-+            if (!org.bukkit.Bukkit.isPrimaryThread()) {
-+                this.startMappingBlocksIfNecessary();
++        if (ready) {
++            if (!this.ready) {
++                this.ready = true;
++                if (!org.bukkit.Bukkit.isPrimaryThread()) {
++                    this.startMappingBlocksIfNecessary();
++                }
 +            }
++        } else {
++            this.ready = false;
 +        }
 +        // Spout end - Client view / Packet mapping / Block states / Apply / Chunk packets - Call after x-ray
      }
