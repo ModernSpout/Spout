@@ -41,7 +41,7 @@ public final class SortDependentDataDrivenResources {
     }
 
     public static <T extends DependentNonBuiltInResource> Stream<Pair<ResourceKey<T>, T>> sortedRegistry(Registry<T> registry) {
-        return sorted(registry.entrySet().stream().map(entry -> Pair.of(entry.getKey(), entry.getValue())));
+        return sorted(registry.entrySet().stream().map(entry -> Pair.of(entry.getKey(), registry.getValueForCopying(entry.getKey()).get())));
     }
 
     public static <K, T extends DependentNonBuiltInResource> Stream<Pair<ResourceKey<K>, T>> sortedKeyedResources(Registry<K> registry, Stream<KeyedValue<T>> resources) {
