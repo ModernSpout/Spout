@@ -18,7 +18,7 @@ import java.util.stream.Stream;
  */
 public abstract class BlockStateMappingMacroType {
 
-    public static final MapCodec<BlockStateMappingMacro> MACRO_CODEC = IdentifierUtil.byNameWithSpoutNamespaceAsDefaultCodec(BuiltInBlockStateMappingMacroTypeRegistry.BLOCK_STATE_MAPPING_MACRO_TYPE).dispatchMap(macro -> macro.type, t -> new MapCodec<BlockStateMappingMacro>() {
+    public static final MapCodec<BlockStateMappingMacro> MACRO_CODEC = IdentifierUtil.byNameWithSpoutNamespaceAsDefaultCodec(BuiltInBlockStateMappingMacroTypeRegistry.BLOCK_STATE_MAPPING_MACRO_TYPE).dispatchMap(macro -> macro.type, t -> new MapCodec<>() {
         @Override
         public <T> Stream<T> keys(final DynamicOps<T> dynamicOps) {
             return t.getCodec().keys(dynamicOps);

@@ -1,6 +1,7 @@
 package spout.gamecontent.datadriven.item.registry;
 
 import java.util.List;
+import it.unimi.dsi.fastutil.objects.ObjectBooleanImmutablePair;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -9,8 +10,8 @@ import spout.gamecontent.datadriven.common.registry.delayedfrozen.DelayedRegistr
 public final class ItemRegistryDelayedFreezingProvider implements DelayedRegistryFreezing.Provider {
 
     @Override
-    public Iterable<ResourceKey<? extends Registry<?>>> getDelayedFrozenRegistries() {
-        return List.of(Registries.ITEM);
+    public Iterable<ObjectBooleanImmutablePair<ResourceKey<? extends Registry<?>>>> getDelayedFrozenRegistries() {
+        return List.of(ObjectBooleanImmutablePair.of(Registries.ITEM, true));
     }
 
 }

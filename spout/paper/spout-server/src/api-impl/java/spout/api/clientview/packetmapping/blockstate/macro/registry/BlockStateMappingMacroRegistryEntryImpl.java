@@ -2,36 +2,46 @@ package spout.api.clientview.packetmapping.blockstate.macro.registry;
 
 import io.papermc.paper.registry.PaperRegistryBuilder;
 import io.papermc.paper.registry.data.util.Conversions;
-import spout.api.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
+import org.jspecify.annotations.Nullable;
+import spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro;
+import java.util.Objects;
 
 /**
  * The implementation for {@link BlockStateMappingMacroRegistryEntry}.
  */
 public class BlockStateMappingMacroRegistryEntryImpl implements BlockStateMappingMacroRegistryEntry {
 
+    protected @Nullable BlockStateMappingMacro direct;
+
     public BlockStateMappingMacroRegistryEntryImpl(
         final Conversions ignoredConversions,
-        final spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro internal
+        final BlockStateMappingMacro internal
     ) {
         if (internal == null) return;
+        this.direct = internal;
     }
 
     /**
      * The implementation for {@link BlockStateMappingMacroRegistryEntry.Builder}.
      */
-    public static final class Builder extends BlockStateMappingMacroRegistryEntryImpl implements BlockStateMappingMacroRegistryEntry.Builder,
-        PaperRegistryBuilder<spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro, BlockStateMappingMacro> {
+    public static final class Builder extends BlockStateMappingMacroRegistryEntryImpl implements BlockStateMappingMacroRegistryEntryBuilderNMS,
+        PaperRegistryBuilder<BlockStateMappingMacro, spout.api.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro> {
 
         public Builder(
             final Conversions conversions,
-            final spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro internal
+            final BlockStateMappingMacro internal
         ) {
             super(conversions, internal);
         }
 
         @Override
-        public spout.clientview.packetmapping.blockstate.macro.BlockStateMappingMacro build() {
-            throw new UnsupportedOperationException("Not implemented yet"); // TODO implement
+        public void set(final BlockStateMappingMacro macro) {
+            this.direct = macro;
+        }
+
+        @Override
+        public BlockStateMappingMacro build() {
+            return Objects.requireNonNull(this.direct, "No block state mapping macro defined");
         }
 
     }
