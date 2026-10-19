@@ -29,7 +29,7 @@
                  int count = input.readVarInt();
                  if (count <= 0) {
                      return ItemStack.EMPTY;
-@@ -182,16 +_,59 @@
+@@ -182,16 +_,63 @@
  
                  Holder<Item> item = Item.STREAM_CODEC.decode(input);
                  DataComponentPatch patch = patchCodec.decode(input);
@@ -49,6 +49,10 @@
              @Override
              public void encode(final RegistryFriendlyByteBuf output, final ItemStack itemStack) {
 +                // Spout start - Item mapping - Implementation part - Apply at ItemStack encoding
++                if (itemStack.isEmpty()) {
++                    this.encodeUnmapped(output, ItemStack.EMPTY);
++                    return;
++                }
 +                spout.clientview.packetmapping.itemstack.apply.ItemStackMappingsApplicationContext itemMappingContext = new spout.clientview.packetmapping.itemstack.apply.ItemStackMappingsApplicationContext(output.getClientViewOrFallback(), output.isEncodingItemFrameItem, output.isEncodingStonecutterRecipeResult);
 +                spout.clientview.packetmapping.itemstack.apply.reverse.@Nullable ItemStackMappingReverser itemStackMappingReverser = ((ClientViewImpl) output.getClientViewOrFallback()).getItemMappingReverser();
 +                ItemStack mappedValue = spout.clientview.packetmapping.itemstack.apply.ItemInPacketMappers.ITEM_STACK.apply(itemStack, itemMappingContext);

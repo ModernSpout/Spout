@@ -25,11 +25,11 @@
          this(
              chunkPos.x(),
              chunkPos.z(),
-@@ -67,6 +_,7 @@
+@@ -66,6 +_,7 @@
+             chunkPacketInfo.setChunkPacket(this);
              this.setReady(false);
          }
++        this.chunkData.spoutBlockStateInChunkPacketMapper = new spout.clientview.packetmapping.blockstate.apply.chunk.BlockStateInChunkPacketMapper(this, levelChunk, player, chunkPacketInfo); // Spout start - Client view / Packet mapping / Block states / Apply / Chunk packets - Create mapper
          levelChunk.getLevel().chunkPacketBlockController.modifyBlocks(this, chunkPacketInfo);
-+        this.chunkData.spoutBlockStateInChunkPacketMapper = new spout.clientview.packetmapping.blockstate.apply.chunk.BlockStateInChunkPacketMapper(this, levelChunk, player, chunkPacketInfo);
          // Paper end - Anti-Xray - Modify blocks
      }
- 

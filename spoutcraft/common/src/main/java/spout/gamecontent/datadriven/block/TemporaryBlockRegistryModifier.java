@@ -31,6 +31,7 @@ public final class TemporaryBlockRegistryModifier extends TemporaryRegistryModif
 
     @Override
     public void remove() {
+        // Clear alternatively valid block entities
         BlockEntityAlternativeValidation.clear();
         super.remove();
     }
