@@ -26,7 +26,7 @@ public abstract class BlockStateBaseMixin {
     )
     private void isSuffocating(BlockGetter level, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         BlockBehaviour.BlockStateBase base = (BlockBehaviour.BlockStateBase) (Object) this;
-        if (!base.getVisualShape(level, pos, CollisionContext.empty()).equals(Shapes.block()) && OverrideSuffocationCheckWhilePlayerMoving.isMoving && !base.getBlock().builtInRegistryHolder().key().identifier().getNamespace().equals(Identifier.DEFAULT_NAMESPACE)) {
+        if (/*!base.getVisualShape(level, pos, CollisionContext.empty()).equals(Shapes.block()) && */OverrideSuffocationCheckWhilePlayerMoving.isMoving && !base.getBlock().builtInRegistryHolder().key().identifier().getNamespace().equals(Identifier.DEFAULT_NAMESPACE)) {
             cir.setReturnValue(false);
         }
     }
@@ -38,7 +38,7 @@ public abstract class BlockStateBaseMixin {
     )
     private void isViewBlocking(BlockGetter level, BlockPos blockPos, AABB nearPlaneBox, CallbackInfoReturnable<Boolean> cir) {
         BlockBehaviour.BlockStateBase base = (BlockBehaviour.BlockStateBase) (Object) this;
-        if (!base.getVisualShape(level, blockPos, CollisionContext.empty()).equals(Shapes.block()) && !base.getBlock().builtInRegistryHolder().key().identifier().getNamespace().equals(Identifier.DEFAULT_NAMESPACE)) {
+        if (/*!base.getVisualShape(level, blockPos, CollisionContext.empty()).equals(Shapes.block()) && */!base.getBlock().builtInRegistryHolder().key().identifier().getNamespace().equals(Identifier.DEFAULT_NAMESPACE)) {
             cir.setReturnValue(false);
         }
     }
