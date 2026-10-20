@@ -62,14 +62,14 @@ Please let us know on [Discord](https://discord.gg/EduvcVmKS7) if you are intere
 
 ## Downloads
 
-[![Download from GitHub](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/2.6/spout-26.3-R2.6.jar)
+[![Download from GitHub](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/2.7/spout-26.3-R2.7.jar)
 
 ## Installation
 
 The `.jar` file is a drop-in replacement for the Paper JAR, and you can run it the same:
 
 ```sh
-java -jar spout-26.3-R2.6.jar
+java -jar spout-26.3-R2.7.jar
 ```
 
 Please report any issues you encounter.
@@ -123,7 +123,7 @@ All custom content is automatically removed the moment you leave a server.
 
 ## Downloads
 
-[![Download from GitHub](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/2.6/spoutcraft-2.6.jar)
+[![Download from GitHub](https://img.shields.io/badge/⬇-GitHub-878787?style=for-the-badge)](https://github.com/ModernSpout/Spout/releases/download/2.7/spoutcraft-2.7.jar)
 [![Download from Modrinth](https://img.shields.io/badge/⬇-modrinth-2c9448?style=for-the-badge)](https://modrinth.com/mod/spout-client)
 [![Download from CurseForge](https://img.shields.io/badge/⬇-curseforge-ba5c3d?style=for-the-badge)](https://www.curseforge.com/minecraft/mc-mods/spout)
 
