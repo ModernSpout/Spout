@@ -25,6 +25,15 @@
      public boolean hasDelayedDestroy;
      private BlockPos delayedDestroyPos = BlockPos.ZERO;
      private int delayedTickStart;
+@@ -261,7 +_,7 @@
+                         item -> this.player.onEquippedItemBroken(item, EquipmentSlot.MAINHAND)
+                     );
+                     blockState.attack(this.level, pos, this.player);
+-                    progress = blockState.getDestroyProgress(this.player, this.player.level(), pos);
++                    progress = blockState.getDestroyProgress(this.player, this.player.level(), pos, this.player.getMainHandItem());
+                 }
+ 
+                 // CraftBukkit start
 @@ -305,6 +_,7 @@
                      BlockState state = this.level.getBlockState(pos);
                      if (!state.isAir()) {

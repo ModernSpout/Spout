@@ -1,6 +1,7 @@
 package spout.clientview.packetmapping.blockstate.apply.chunk;
 
 import ca.spottedleaf.common.util.IntegerUtil;
+import ca.spottedleaf.moonrise.patches.fast_palette.FastHashMapPalette;
 import io.papermc.paper.antixray.ChunkPacketInfo;
 import net.minecraft.network.protocol.game.ClientboundLevelChunkPacketData;
 import net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.chunk.PalettedContainer;
 import net.minecraft.world.level.chunk.SingleValuePalette;
 import spout.clientview.model.ClientView;
 import spout.clientview.model.awarenesslevel.AwarenessLevel;
+import spout.clientview.model.awarenesslevel.AwarenessLevels;
 import spout.clientview.packetmapping.blockstate.apply.BlockStateInPacketMapper;
 import spout.clientview.packetmapping.blockstate.apply.BlockStateMappingStep;
 import spout.clientview.packetmapping.blockstate.apply.BlockStateMappingsApplicationContext;
@@ -124,26 +126,34 @@ public final class BlockStateInChunkPacketMapper {
         this.applyMappingsToSection(0, this.packet.chunkData());
     }
 
-    private static boolean requiresMapping(ChunkPacketInfo<BlockState> chunkPacketInfo, BlockStateInPacketMapper pipeline, int clientViewAwarenessLevelI, ChunkPacketBlockMapperReader reader) {
+    private static boolean requiresMapping(ChunkPacketInfo<BlockState> chunkPacketInfo, BlockStateInPacketMapper pipeline, int clientViewAwarenessLevelId, ChunkPacketBlockMapperReader reader) {
         int chunkSectionsCount = chunkPacketInfo.palettes.length;
         for (int i = 0; i < chunkSectionsCount; i++) {
             Palette<BlockState> palette = (Palette<BlockState>) chunkPacketInfo.palettes[i];
             switch (palette) {
                 case SingleValuePalette<BlockState> singleValuePalette -> {
-                    if (pipeline.hasAnyMapping(clientViewAwarenessLevelI, singleValuePalette.valueFor(0))) {
+                    if (pipeline.hasAnyMapping(clientViewAwarenessLevelId, singleValuePalette.valueFor(0))) {
                         return true;
                     }
                 }
                 case LinearPalette<BlockState> linearPalette -> {
                     for (int j = 0; j < linearPalette.getSize(); j++) {
-                        if (pipeline.hasAnyMapping(clientViewAwarenessLevelI, linearPalette.valueFor(j))) {
+                        if (pipeline.hasAnyMapping(clientViewAwarenessLevelId, linearPalette.valueFor(j))) {
                             return true;
                         }
                     }
                 }
                 case HashMapPalette<BlockState> hashMapPalette -> {
                     for (BlockState value : hashMapPalette.getEntries()) {
-                        if (pipeline.hasAnyMapping(clientViewAwarenessLevelI, value)) {
+                        if (pipeline.hasAnyMapping(clientViewAwarenessLevelId, value)) {
+                            return true;
+                        }
+                    }
+                }
+                case FastHashMapPalette<BlockState> fastHashMapPalette -> {
+                    for (int j = 0; j < fastHashMapPalette.getSize(); j++) {
+                        BlockState value = fastHashMapPalette.valueFor(j);
+                        if (pipeline.hasAnyMapping(clientViewAwarenessLevelId, value)) {
                             return true;
                         }
                     }
@@ -152,10 +162,11 @@ public final class BlockStateInChunkPacketMapper {
                     reader.startReadingBitStorage(chunkPacketInfo.getIndex(i), (byte) chunkPacketInfo.getBits(i));
                     for (int j = 0; j < 4096; j++) {
                         int value = reader.readFromBitStorage();
-                        if (pipeline.hasAnyMapping(clientViewAwarenessLevelI, value)) {
+                        if (pipeline.hasAnyMapping(clientViewAwarenessLevelId, value)) {
                             return true;
                         }
                     }
+                    reader.stopReadingBitStorage();
                 }
             }
         }

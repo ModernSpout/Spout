@@ -1,6 +1,6 @@
 --- a/src/main/java/io/papermc/paper/configuration/PaperConfigurations.java
 +++ b/src/main/java/io/papermc/paper/configuration/PaperConfigurations.java
-@@ -88,16 +_,52 @@
+@@ -89,16 +_,52 @@
  import static io.leangen.geantyref.GenericTypeReflector.erase;
  
  @SuppressWarnings("Convert2Diamond")
@@ -58,7 +58,7 @@
              This is the global configuration file for Paper.
              As you can see, there's a lot to configure. Some options may impact gameplay, so use
              with caution, and make sure you know what each option does before configuring.
-@@ -111,9 +_,10 @@
+@@ -112,9 +_,10 @@
              File Reference: https://docs.papermc.io/paper/reference/global-configuration/
              Docs: https://docs.papermc.io/
              Discord: https://discord.gg/papermc
@@ -71,7 +71,7 @@
              This is the world defaults configuration file for Paper.
              As you can see, there's a lot to configure. Some options may impact gameplay, so use
              with caution, and make sure you know what each option does before configuring.
-@@ -128,8 +_,10 @@
+@@ -129,8 +_,10 @@
              Docs: https://docs.papermc.io/
              Discord: https://discord.gg/papermc
              Website: https://papermc.io/""";
@@ -83,7 +83,7 @@
          This is a world configuration file for Paper.
          This file may start empty but can be filled with settings to override ones in the %s/%s
  
-@@ -137,9 +_,17 @@
+@@ -138,9 +_,17 @@
  
          World: %s""",
          PaperConfigurations.CONFIG_DIR,
@@ -102,7 +102,7 @@
  
      private static final String MOVED_NOTICE = """
          The global and world default configuration files have moved to %s
-@@ -158,10 +_,46 @@
+@@ -159,10 +_,46 @@
      });
      public static final ContextKey<Supplier<SpigotWorldConfig>> SPIGOT_WORLD_CONFIG_CONTEXT_KEY = new ContextKey<>(new TypeToken<Supplier<SpigotWorldConfig>>() {}, "spigot world config");
  
@@ -153,7 +153,7 @@
  
      @Override
      protected int globalConfigVersion() {
-@@ -213,7 +_,7 @@
+@@ -215,7 +_,7 @@
  
      private static ConfigurationOptions defaultGlobalOptions(RegistryAccess registryAccess, ConfigurationOptions options) {
          return options
@@ -162,7 +162,7 @@
              .serializers(builder -> builder
                  .register(new ServerboundPacketClassSerializer())
                  .register(new RegistryValueSerializer<>(new TypeToken<DataComponentType<?>>() {}, registryAccess, Registries.DATA_COMPONENT_TYPE, false))
-@@ -221,11 +_,13 @@
+@@ -223,11 +_,13 @@
      }
  
      @Override
@@ -179,7 +179,7 @@
  
      @Override
      protected ContextMap.Builder createDefaultContextMap(final RegistryAccess registryAccess) {
-@@ -238,22 +_,17 @@
+@@ -240,22 +_,17 @@
          return super.createWorldObjectMapperFactoryBuilder(contextMap)
              .addNodeResolver(new RequiresSpigotInitialization.Factory(contextMap.require(SPIGOT_WORLD_CONFIG_CONTEXT_KEY).get()))
              .addNodeResolver(new NestedSetting.Factory())
@@ -205,7 +205,7 @@
                  .serializers(serializers -> serializers
                      .register(new TypeToken<Reference2IntMap<?>>() {}, new FastutilMapSerializer.SomethingToPrimitive<Reference2IntMap<?>>(Reference2IntOpenHashMap::new, Integer.TYPE))
                      .register(new TypeToken<Reference2LongMap<?>>() {}, new FastutilMapSerializer.SomethingToPrimitive<Reference2LongMap<?>>(Reference2LongOpenHashMap::new, Long.TYPE))
-@@ -315,12 +_,12 @@
+@@ -317,12 +_,12 @@
      }
  
      @Override
@@ -220,7 +220,7 @@
          }
      }
  
-@@ -331,23 +_,23 @@
+@@ -333,23 +_,23 @@
  
      public void reloadConfigs(MinecraftServer server) {
          try {
@@ -249,7 +249,7 @@
          return createWorldContextMap(level.getServer().storageSource.getDimensionPath(level.dimension()), level.dimension().identifier(), level.spigotConfig, level.registryAccess(), level.getGameRules());
      }
  
-@@ -361,7 +_,7 @@
+@@ -363,7 +_,7 @@
              .build();
      }
  
@@ -258,7 +258,7 @@
          final Path legacy = Files.isSymbolicLink(legacyConfig) ? Files.readSymbolicLink(legacyConfig) : legacyConfig;
          if (needsConverting(legacyConfig)) {
              final String legacyFileName = legacyConfig.getFileName().toString();
-@@ -395,7 +_,7 @@
+@@ -397,7 +_,7 @@
          }
          try {
              createDirectoriesSymlinkAware(configDir);
@@ -267,7 +267,7 @@
          } catch (final IOException ex) {
              throw new RuntimeException("Could not setup PaperConfigurations", ex);
          }
-@@ -405,8 +_,8 @@
+@@ -407,8 +_,8 @@
          createDirectoriesSymlinkAware(configDir);
  
          final YamlConfigurationLoader legacyLoader = ConfigurationLoaders.naturallySortedWithoutHeader(legacyConfig);
@@ -278,7 +278,7 @@
  
          final ConfigurationNode legacy = legacyLoader.load();
          checkState(!legacy.virtual(), "can't be virtual");
-@@ -438,7 +_,7 @@
+@@ -440,7 +_,7 @@
                  legacyWorldNode.node(Configuration.LEGACY_CONFIG_VERSION_FIELD).raw(version);
                  LegacyPaperWorldConfig.transformation().apply(legacyWorldNode);
                  LegacyPaperWorldConfig.toNewFormat().apply(legacyWorldNode);
@@ -287,7 +287,7 @@
              } catch (final ConfigurateException ex) {
                  ex.printStackTrace();
              }
-@@ -482,7 +_,7 @@
+@@ -484,7 +_,7 @@
      }
  
      // Symlinks are not correctly checked in createDirectories

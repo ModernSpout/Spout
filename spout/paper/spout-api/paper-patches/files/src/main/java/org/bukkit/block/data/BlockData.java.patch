@@ -1,6 +1,6 @@
 --- a/src/main/java/org/bukkit/block/data/BlockData.java
 +++ b/src/main/java/org/bukkit/block/data/BlockData.java
-@@ -323,4 +_,17 @@
+@@ -322,4 +_,17 @@
       * @return true if block is replaceable
       */
      boolean isReplaceable();

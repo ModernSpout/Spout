@@ -16,7 +16,7 @@
          this.finalizeRecipeLoading();
      }
  
-@@ -190,8 +_,10 @@
+@@ -188,8 +_,10 @@
  
      // CraftBukkit start
      public boolean removeRecipe(ResourceKey<Recipe<?>> id) {
@@ -27,7 +27,7 @@
              this.finalizeRecipeLoading();
          }
  
-@@ -200,6 +_,7 @@
+@@ -198,6 +_,7 @@
  
      public void clearRecipes() {
          this.recipes = RecipeMap.createEmpty();

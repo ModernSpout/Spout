@@ -1,9 +1,9 @@
 --- a/src/main/java/org/bukkit/craftbukkit/block/CraftBlockType.java
 +++ b/src/main/java/org/bukkit/craftbukkit/block/CraftBlockType.java
-@@ -252,4 +_,11 @@
-         return this.getHandle().hasCollision;
+@@ -260,4 +_,11 @@
+         NoteBlockInstrument instrument = this.getHandle().defaultBlockState().instrument();
+         return CraftBlockData.fromVanilla(instrument, Instrument.class);
      }
-     // Paper end - hasCollision API
 +
 +    // Spout start - More data-driven - Vanilla flag - Implementation part
 +    @Override

@@ -45,7 +45,7 @@
          private final boolean requiresCorrectToolForDrops;
          private final boolean canOcclude;
          private final BlockBehaviour.StatePredicate isRedstoneConductor;
-@@ -783,7 +_,13 @@
+@@ -836,7 +_,13 @@
          }
  
          public float getDestroyProgress(final Player player, final BlockGetter level, final BlockPos pos) {
@@ -60,7 +60,7 @@
          }
  
          public int getDirectSignal(final BlockGetter level, final BlockPos pos, final Direction direction) {
-@@ -1140,49 +_,49 @@
+@@ -1193,49 +_,49 @@
      }
  
      public static class Properties {
@@ -145,7 +145,7 @@
  
          private Properties() {
          }
-@@ -1476,7 +_,7 @@
+@@ -1529,7 +_,7 @@
      }
  
      @FunctionalInterface

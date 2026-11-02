@@ -1,9 +1,9 @@
 --- a/src/main/java/org/bukkit/block/BlockType.java
 +++ b/src/main/java/org/bukkit/block/BlockType.java
-@@ -2986,4 +_,17 @@
-      * @return false if this block never has collision, true if it <b>might</b> have collision
+@@ -2995,4 +_,17 @@
+      * @return the associated instrument
       */
-     boolean hasCollision();
+     Instrument getInstrument();
 +
 +    // Spout start - More data-driven - Vanilla flag - API part
 +    /**

@@ -39,7 +39,7 @@
              );
          }
          // Paper end - Send empty chunk
-@@ -751,6 +_,7 @@
+@@ -752,6 +_,7 @@
              // CraftBukkit end
              this.sendAllPlayerInfoIn = 0;
          }
@@ -47,7 +47,7 @@
      }
  
      // CraftBukkit start - add a world/entity limited version
-@@ -1028,7 +_,7 @@
+@@ -1029,7 +_,7 @@
          // needs to be done because the ServerPlayer instance is being reused on respawn instead of getting replaced like on vanilla
          java.util.Collection<net.minecraft.world.entity.ai.attributes.AttributeInstance> syncableAttributes = player.getAttributes().getSyncableAttributes();
          player.getBukkitEntity().injectScaledMaxHealth(syncableAttributes, true);

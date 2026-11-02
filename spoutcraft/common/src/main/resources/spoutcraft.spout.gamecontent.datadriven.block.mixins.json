@@ -4,10 +4,13 @@
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "BlockStateBaseMixin",
-    "MapBlockStateRegistryIdsIdMapperMixin",
-    "LocalPlayerMixin"
+    "LocalPlayerMixin",
+    "MapBlockStateRegistryIdsIdMapperMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "client": [
+    "AlwaysShowMarkersWhenItemIsHeldMixin"
+  ]
 }

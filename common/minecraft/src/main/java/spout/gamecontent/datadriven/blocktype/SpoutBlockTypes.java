@@ -285,6 +285,7 @@ import net.minecraft.world.level.block.piston.PistonHeadBlock;
 import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
 import net.minecraft.world.level.material.FlowingFluid;
 import spout.branding.SpoutNamespace;
+import spout.gamecontent.builtin.block.DirectionalBlock;
 import spout.gamecontent.builtin.block.HalfTransparentSlabBlock;
 import spout.gamecontent.builtin.block.HalfTransparentStairBlock;
 import spout.gamecontent.builtin.block.QuadBlock;
@@ -741,6 +742,7 @@ public final class SpoutBlockTypes {
     public static final SpoutBlockType TRANSPARENT_STAIR = registerSpout("transparent_stair", BlockCodecs.stairCodec(TransparentStairBlock::new), TransparentStairBlock.class);
     public static final SpoutBlockType QUAD = registerSpout("quad", BlockCodecs.simpleCodec(QuadBlock::new), QuadBlock.class);
     public static final SpoutBlockType VERTICAL_SLAB = registerSpout("vertical_slab", BlockCodecs.simpleCodec(VerticalSlabBlock::new), VerticalSlabBlock.class);
+    public static final SpoutBlockType DIRECTIONAL = registerSpout("directional", BlockCodecs.simpleCodec(DirectionalBlock::new), DirectionalBlock.class);
 
     private static SpoutBlockType register(String id, MapCodec<? extends Block> codec, Class<? extends Block> baseClass) {
         return register(Identifier.parse(id), codec, baseClass);
