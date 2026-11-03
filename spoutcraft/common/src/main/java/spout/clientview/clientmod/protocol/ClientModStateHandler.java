@@ -48,8 +48,8 @@ public final class ClientModStateHandler {
         throw new UnsupportedOperationException();
     }
 
-    private static final int MIN_PROTOCOL_VERSION = 7;
-    private static final int MAX_PROTOCOL_VERSION = 7;
+    private static final int MIN_PROTOCOL_VERSION = 8;
+    private static final int MAX_PROTOCOL_VERSION = 8;
 
     private static final ReentrantLock lock = new ReentrantLock();
 

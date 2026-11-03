@@ -33,9 +33,10 @@ public final class ClientViewSetter {
     5 - Send registry entry id lists and block state registry entry id lists
     6 - 26.2 - Add emissive_rendering to BlockPropertiesCodec
     7 - 26.3 - Type of BlockBehaviour.Properties.isViewBlocking changed, PushReaction names changed, add fall_distance_reduction to BlockPropertiesCodec
+    8 - 26.3 - Add spout:directional, spout:falling_slab and spout:falling_stairs
      */
-    private static final int MIN_CLIENT_MOD_PROTOCOL_VERSION = 7;
-    private static final int MAX_CLIENT_MOD_PROTOCOL_VERSION = 7;
+    private static final int MIN_CLIENT_MOD_PROTOCOL_VERSION = 8;
+    private static final int MAX_CLIENT_MOD_PROTOCOL_VERSION = 8;
 
     private static final ClientboundCustomQueryPacket CLIENT_MOD_DETECTION_PACKET = new ClientboundCustomQueryPacket(CLIENT_MOD_DETECTION_PACKET_TRANSACTION_ID, new CustomQueryPayload() {
 
