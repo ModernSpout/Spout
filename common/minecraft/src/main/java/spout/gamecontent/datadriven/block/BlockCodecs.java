@@ -44,6 +44,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import spout.gamecontent.builtin.block.ColoredFallingSlabBlock;
+import spout.gamecontent.builtin.block.ColoredFallingStairBlock;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -158,8 +160,20 @@ public final class BlockCodecs {
         return BuiltInRegistries.SOUND_EVENT.byNameCodec().fieldOf("close_sound").forGetter(ChestBlock::getOpenChestSound);
     }
 
+    public static MapCodec<ColorRGBA> fallingDustColorMapCodec() {
+        return ColorRGBA.CODEC.fieldOf("falling_dust_color");
+    }
+
     public static <B extends ColoredFallingBlock> App<RecordCodecBuilder.Mu<B>, ColorRGBA> coloredFallingDustColorApp() {
-        return ColorRGBA.CODEC.fieldOf("falling_dust_color").forGetter(b -> b.dustColor);
+        return fallingDustColorMapCodec().forGetter(b -> b.dustColor);
+    }
+
+    public static <B extends ColoredFallingSlabBlock> App<RecordCodecBuilder.Mu<B>, ColorRGBA> coloredFallingSlabDustColorApp() {
+        return fallingDustColorMapCodec().forGetter(b -> b.dustColor);
+    }
+
+    public static <B extends ColoredFallingStairBlock> App<RecordCodecBuilder.Mu<B>, ColorRGBA> coloredFallingStairDustColorApp() {
+        return fallingDustColorMapCodec().forGetter(b -> b.dustColor);
     }
 
     public static MapCodec<Block> coralDeadMapCodec() {
@@ -289,6 +303,25 @@ public final class BlockCodecs {
     ) {
         return simpleCodec(
             coloredFallingDustColorApp(),
+            factory
+        );
+    }
+
+    public static <B extends ColoredFallingSlabBlock> MapCodec<B> coloredFallingSlabCodec(
+        BiFunction<ColorRGBA, BlockBehaviour.Properties, B> factory
+    ) {
+        return simpleCodec(
+            coloredFallingSlabDustColorApp(),
+            factory
+        );
+    }
+
+    public static <B extends ColoredFallingStairBlock> MapCodec<B> coloredFallingStairCodec(
+        Function3<BlockState, ColorRGBA, BlockBehaviour.Properties, B> factory
+    ) {
+        return simpleCodec(
+            stairBaseStateApp(),
+            coloredFallingStairDustColorApp(),
             factory
         );
     }

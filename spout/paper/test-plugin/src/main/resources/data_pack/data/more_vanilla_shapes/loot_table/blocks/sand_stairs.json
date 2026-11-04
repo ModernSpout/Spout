@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "more_vanilla_shapes:sand_stairs"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "more_vanilla_shapes:blocks/sand_stairs"
+}

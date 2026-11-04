@@ -1,0 +1,12 @@
+--- a/net/minecraft/world/level/block/FallingBlock.java
++++ b/net/minecraft/world/level/block/FallingBlock.java
+@@ -44,7 +_,9 @@
+     @Override
+     protected void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
+         if (isFree(level.getBlockState(pos.below())) && pos.getY() >= level.getMinY()) {
++            System.out.println("Falling " + spout.util.minecraft.blockstate.BlockStateStringConversion.blockStateToString(state));
+             FallingBlockEntity entity = FallingBlockEntity.fall(level, pos, state);
++            System.out.println("Entity is: " + entity.valid + " = " + spout.util.minecraft.blockstate.BlockStateStringConversion.blockStateToString(entity.blockState));
+             this.falling(entity);
+         }
+     }

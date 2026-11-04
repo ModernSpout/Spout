@@ -1,0 +1,18 @@
+{
+  "type": "spout:sand_slab",
+  "falling_dust_color": 14406560,
+  "properties": {
+    "map_color": "minecraft:sand",
+    "sound_type": "minecraft:sand",
+    "explosion_resistance": 0.5,
+    "destroy_time": 0.5,
+    "instrument": "minecraft:snare"
+  },
+  "mappings": [
+    {
+      "type": "slab",
+      "fallback": "minecraft:sandstone_slab",
+      "full_block_fallback": "minecraft:sand"
+    }
+  ]
+}

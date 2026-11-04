@@ -285,10 +285,14 @@ import net.minecraft.world.level.block.piston.PistonHeadBlock;
 import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
 import net.minecraft.world.level.material.FlowingFluid;
 import spout.branding.SpoutNamespace;
+import spout.gamecontent.builtin.block.ColoredFallingSlabBlock;
+import spout.gamecontent.builtin.block.ColoredFallingStairBlock;
 import spout.gamecontent.builtin.block.DirectionalBlock;
 import spout.gamecontent.builtin.block.HalfTransparentSlabBlock;
 import spout.gamecontent.builtin.block.HalfTransparentStairBlock;
 import spout.gamecontent.builtin.block.QuadBlock;
+import spout.gamecontent.builtin.block.SandSlabBlock;
+import spout.gamecontent.builtin.block.SandStairBlock;
 import spout.gamecontent.builtin.block.TransparentSlabBlock;
 import spout.gamecontent.builtin.block.TransparentStairBlock;
 import spout.gamecontent.builtin.block.VerticalSlabBlock;
@@ -743,6 +747,10 @@ public final class SpoutBlockTypes {
     public static final SpoutBlockType QUAD = registerSpout("quad", BlockCodecs.simpleCodec(QuadBlock::new), QuadBlock.class);
     public static final SpoutBlockType VERTICAL_SLAB = registerSpout("vertical_slab", BlockCodecs.simpleCodec(VerticalSlabBlock::new), VerticalSlabBlock.class);
     public static final SpoutBlockType DIRECTIONAL = registerSpout("directional", BlockCodecs.simpleCodec(DirectionalBlock::new), DirectionalBlock.class);
+    public static final SpoutBlockType COLORED_FALLING_SLAB = registerSpout("colored_falling_slab", BlockCodecs.coloredFallingSlabCodec(ColoredFallingSlabBlock::new), ColoredFallingSlabBlock.class);
+    public static final SpoutBlockType COLORED_FALLING_STAIR = registerSpout("colored_falling_stair", BlockCodecs.coloredFallingStairCodec(ColoredFallingStairBlock::new), ColoredFallingStairBlock.class);
+    public static final SpoutBlockType SAND_SLAB = registerSpout("sand_slab", BlockCodecs.coloredFallingSlabCodec(SandSlabBlock::new), SandSlabBlock.class);
+    public static final SpoutBlockType SAND_STAIR = registerSpout("sand_stair", BlockCodecs.coloredFallingStairCodec(SandStairBlock::new), SandStairBlock.class);
 
     private static SpoutBlockType register(String id, MapCodec<? extends Block> codec, Class<? extends Block> baseClass) {
         return register(Identifier.parse(id), codec, baseClass);

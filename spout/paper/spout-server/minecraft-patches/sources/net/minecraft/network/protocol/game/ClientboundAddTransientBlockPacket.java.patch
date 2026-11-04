@@ -1,0 +1,11 @@
+--- a/net/minecraft/network/protocol/game/ClientboundAddTransientBlockPacket.java
++++ b/net/minecraft/network/protocol/game/ClientboundAddTransientBlockPacket.java
+@@ -28,7 +_,7 @@
+ 
+     private void write(final RegistryFriendlyByteBuf output) {
+         output.writeBlockPos(this.pos);
+-        ByteBufCodecs.idMapper(Block.BLOCK_STATE_REGISTRY).encode(output, this.blockState);
++        ByteBufCodecs.idMapper(spout.clientview.packetmapping.blockstate.apply.MappedBlockStateRegistry.get()).encode(output, this.blockState); // Spout - Block mapping - Implementation part - Apply to transient blocks
+     }
+ 
+     @Override
