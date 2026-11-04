@@ -119,6 +119,8 @@ accessible method net/minecraft/world/level/block/CartographyTableBlock <init> (
 accessible method net/minecraft/world/level/block/ChestBlock <init> (Ljava/util/function/Supplier;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/ChorusFlowerBlock <init> (Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/ChorusPlantBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
+accessible method net/minecraft/world/level/block/ConcretePowderBlock shouldSolidify (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z
+accessible method net/minecraft/world/level/block/ConcretePowderBlock touchesLiquid (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
 accessible method net/minecraft/world/level/block/CoralFanBlock <init> (Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/CoralPlantBlock <init> (Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/CoralWallFanBlock <init> (Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
@@ -204,4 +206,3 @@ accessible method net/minecraft/world/level/block/WetSpongeBlock <init> (Lnet/mi
 accessible method net/minecraft/world/level/block/WitherSkullBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/WitherWallSkullBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/WoolCarpetBlock <init> (Lnet/minecraft/world/item/DyeColor;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
-accessible method net/minecraft/world/level/block/state/BlockBehaviour propertiesCodec ()Lcom/mojang/serialization/codecs/RecordCodecBuilder;

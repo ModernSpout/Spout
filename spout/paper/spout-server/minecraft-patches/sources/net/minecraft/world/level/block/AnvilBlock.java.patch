@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/AnvilBlock.java
++++ b/net/minecraft/world/level/block/AnvilBlock.java
+@@ -73,7 +_,7 @@
+     }
+ 
+     @Override
+-    protected void falling(final FallingBlockEntity entity) {
++    public void falling(final FallingBlockEntity entity) { // Spout - Game content / Built-in / Blocks / Falling block shapes - Make public
+         entity.setHurtsEntities(2.0F, 40);
+     }
+ 

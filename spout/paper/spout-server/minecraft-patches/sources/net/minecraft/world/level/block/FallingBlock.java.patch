@@ -1,12 +1,65 @@
 --- a/net/minecraft/world/level/block/FallingBlock.java
 +++ b/net/minecraft/world/level/block/FallingBlock.java
-@@ -44,7 +_,9 @@
+@@ -16,14 +_,14 @@
+ import net.minecraft.world.level.block.state.BlockBehaviour;
+ import net.minecraft.world.level.block.state.BlockState;
+ 
+-public abstract class FallingBlock extends Block implements Fallable {
++public abstract class FallingBlock extends Block implements spout.gamecontent.builtin.block.AbstractFallingBlock { // Spout - Game content / Built-in / Blocks / Falling block shapes - Use abstract base
+     public FallingBlock(final BlockBehaviour.Properties properties) {
+         super(properties);
+     }
+ 
+     @Override
+     protected void onPlace(final BlockState state, final Level level, final BlockPos pos, final BlockState oldState, final boolean movedByPiston) {
+-        level.scheduleTick(pos, this, this.getDelayAfterPlace());
++        this.onPlaceFalling(state, level, pos, oldState, movedByPiston); // Spout - Game content / Built-in / Blocks / Falling block shapes - Use abstract base
+     }
+ 
+     @Override
+@@ -43,18 +_,17 @@
+ 
      @Override
      protected void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
-         if (isFree(level.getBlockState(pos.below())) && pos.getY() >= level.getMinY()) {
-+            System.out.println("Falling " + spout.util.minecraft.blockstate.BlockStateStringConversion.blockStateToString(state));
-             FallingBlockEntity entity = FallingBlockEntity.fall(level, pos, state);
-+            System.out.println("Entity is: " + entity.valid + " = " + spout.util.minecraft.blockstate.BlockStateStringConversion.blockStateToString(entity.blockState));
-             this.falling(entity);
-         }
+-        if (isFree(level.getBlockState(pos.below())) && pos.getY() >= level.getMinY()) {
+-            FallingBlockEntity entity = FallingBlockEntity.fall(level, pos, state);
+-            this.falling(entity);
+-        }
+-    }
+-
+-    protected void falling(final FallingBlockEntity entity) {
+-    }
+-
+-    protected int getDelayAfterPlace() {
+-        return 2;
+-    }
++        this.tickFalling(state, level, pos, random); // Spout - Game content / Built-in / Blocks / Falling block shapes - Use abstract base
++    }
++
++    // Spout start - Game content / Built-in / Blocks / Falling block shapes - Use abstract base
++    // protected void falling(final FallingBlockEntity entity) {
++    // }
++    //
++    // protected int getDelayAfterPlace() {
++    //     return 2;
++    // }
++    // Spout end - Game content / Built-in / Blocks / Falling block shapes - Use abstract base
+ 
+     public static boolean isFree(final BlockState state) {
+         return state.isAir() || state.is(BlockTags.FIRE) || state.liquid() || state.canBeReplaced();
+@@ -62,13 +_,8 @@
+ 
+     @Override
+     public void animateTick(final BlockState state, final Level level, final BlockPos pos, final RandomSource random) {
+-        if (random.nextInt(16) == 0) {
+-            BlockPos below = pos.below();
+-            if (isFree(level.getBlockState(below))) {
+-                ParticleUtils.spawnParticleBelow(level, pos, random, new BlockParticleOption(ParticleTypes.FALLING_DUST, state));
+-            }
+-        }
++        this.animateTickFalling(state, level, pos, random); // Spout - Game content / Built-in / Blocks / Falling block shapes - Use abstract base
      }
+ 
+-    public abstract int getDustColor(BlockState blockState, BlockGetter level, BlockPos pos);
++    // public abstract int getDustColor(BlockState blockState, BlockGetter level, BlockPos pos); // Spout - Game content / Built-in / Blocks / Falling block shapes - Use abstract base
+ }

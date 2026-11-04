@@ -287,6 +287,8 @@ import net.minecraft.world.level.material.FlowingFluid;
 import spout.branding.SpoutNamespace;
 import spout.gamecontent.builtin.block.ColoredFallingSlabBlock;
 import spout.gamecontent.builtin.block.ColoredFallingStairBlock;
+import spout.gamecontent.builtin.block.ConcretePowderSlabBlock;
+import spout.gamecontent.builtin.block.ConcretePowderStairBlock;
 import spout.gamecontent.builtin.block.DirectionalBlock;
 import spout.gamecontent.builtin.block.HalfTransparentSlabBlock;
 import spout.gamecontent.builtin.block.HalfTransparentStairBlock;
@@ -406,7 +408,7 @@ public final class SpoutBlockTypes {
     public static final SpoutBlockType COMPARATOR = register("comparator", BlockCodecs.simpleCodec(ComparatorBlock::new), ComparatorBlock.class);
     public static final SpoutBlockType COMPOSTER = register("composter", BlockCodecs.simpleCodec(ComposterBlock::new), ComposterBlock.class);
     public static final SpoutBlockType CONCRETE_POWDER = register("concrete_powder", BlockCodecs.simpleCodec(
-        BuiltInRegistries.BLOCK.byNameCodec().fieldOf("concrete").forGetter(b -> b.concrete),
+        BlockCodecs.concretePowderConcreteCodec().forGetter(b -> b.concrete),
         ConcretePowderBlock::new
     ), ConcretePowderBlock.class);
     public static final SpoutBlockType CONDUIT = register("conduit", BlockCodecs.simpleCodec(ConduitBlock::new), ConduitBlock.class);
@@ -751,6 +753,15 @@ public final class SpoutBlockTypes {
     public static final SpoutBlockType COLORED_FALLING_STAIR = registerSpout("colored_falling_stair", BlockCodecs.coloredFallingStairCodec(ColoredFallingStairBlock::new), ColoredFallingStairBlock.class);
     public static final SpoutBlockType SAND_SLAB = registerSpout("sand_slab", BlockCodecs.coloredFallingSlabCodec(SandSlabBlock::new), SandSlabBlock.class);
     public static final SpoutBlockType SAND_STAIR = registerSpout("sand_stair", BlockCodecs.coloredFallingStairCodec(SandStairBlock::new), SandStairBlock.class);
+    public static final SpoutBlockType CONCRETE_POWDER_SLAB = registerSpout("concrete_powder_slab", BlockCodecs.simpleCodec(
+        BlockCodecs.concretePowderConcreteCodec().forGetter(b -> b.concrete),
+        ConcretePowderSlabBlock::new
+    ), ConcretePowderSlabBlock.class);
+    public static final SpoutBlockType CONCRETE_POWDER_STAIR = registerSpout("concrete_powder_stair", BlockCodecs.simpleCodec(
+        BlockCodecs.stairBaseStateApp(),
+        BlockCodecs.concretePowderConcreteCodec().forGetter(b -> b.concrete),
+        ConcretePowderStairBlock::new
+    ), ConcretePowderStairBlock.class);
 
     private static SpoutBlockType register(String id, MapCodec<? extends Block> codec, Class<? extends Block> baseClass) {
         return register(Identifier.parse(id), codec, baseClass);

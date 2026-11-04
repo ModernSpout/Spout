@@ -1,11 +1,96 @@
 --- a/net/minecraft/world/level/block/ConcretePowderBlock.java
 +++ b/net/minecraft/world/level/block/ConcretePowderBlock.java
-@@ -14,7 +_,7 @@
+@@ -13,8 +_,8 @@
+ import net.minecraft.world.level.block.state.BlockBehaviour;
  import net.minecraft.world.level.block.state.BlockState;
  
- public class ConcretePowderBlock extends FallingBlock {
+-public class ConcretePowderBlock extends FallingBlock {
 -    private final Block concrete;
++public class ConcretePowderBlock extends FallingBlock implements spout.gamecontent.builtin.block.AbstractConcretePowderBlock { // Spout - Game content / Built-in / Blocks / Concrete powder shapes - Use abstract base
 +    public final Block concrete; // Spout - Common class tweakers - Make accessible
  
      public ConcretePowderBlock(final Block concrete, final BlockBehaviour.Properties properties) {
          super(properties);
+@@ -23,38 +_,19 @@
+ 
+     @Override
+     public void onLand(final Level level, final BlockPos pos, final BlockState state, final BlockState replacedBlock, final FallingBlockEntity entity) {
+-        if (shouldSolidify(level, pos, replacedBlock)) {
+-            org.bukkit.craftbukkit.event.CraftEventFactory.handleBlockFormEvent(level, pos, this.concrete.defaultBlockState(), Block.UPDATE_ALL); // CraftBukkit
+-        }
++        this.onLandConcretePowder(level, pos, state, replacedBlock, entity); // Spout - Game content / Built-in / Blocks / Concrete powder shapes - Use abstract base
+     }
+ 
+     @Override
+     public BlockState getStateForPlacement(final BlockPlaceContext context) {
+-        Level level = context.getLevel(); // Paper
+-        BlockPos pos = context.getClickedPos();
+-        BlockState replacedBlock = level.getBlockState(pos);
+-        // CraftBukkit start
+-        if (shouldSolidify(level, pos, replacedBlock)) {
+-            // TODO: An event factory call for methods like this
+-            org.bukkit.craftbukkit.block.CraftBlockState snapshot = org.bukkit.craftbukkit.block.CraftBlockStates.getBlockState(level, pos);
+-            snapshot.setBlock(this.concrete.defaultBlockState());
+-
+-            org.bukkit.event.block.BlockFormEvent event = new org.bukkit.event.block.BlockFormEvent(snapshot.getBlock(), snapshot);
+-            event.callEvent();
+-
+-            if (!event.isCancelled()) {
+-                return snapshot.getHandle();
+-            }
+-        }
+-        // CraftBukkit end
+-        return super.getStateForPlacement(context);
++        return this.getStateForPlacementConcretePowder(context, super::getStateForPlacement); // Spout - Game content / Built-in / Blocks / Concrete powder shapes - Use abstract base
+     }
+ 
+-    private static boolean shouldSolidify(final BlockGetter level, final BlockPos pos, final BlockState replacedBlock) {
++    public static boolean shouldSolidify(final BlockGetter level, final BlockPos pos, final BlockState replacedBlock) { // Spout - Common class tweakers - Make accessible
+         return canSolidify(replacedBlock) || touchesLiquid(level, pos);
+     }
+ 
+-    private static boolean touchesLiquid(final BlockGetter level, final BlockPos pos) {
++    public static boolean touchesLiquid(final BlockGetter level, final BlockPos pos) { // Spout - Common class tweakers - Make accessible
+         boolean touchesLiquid = false;
+         BlockPos.MutableBlockPos testPos = pos.mutable();
+ 
+@@ -88,29 +_,18 @@
+         final BlockState neighbourState,
+         final RandomSource random
+     ) {
+-        // CraftBukkit start
+-        if (touchesLiquid(level, pos)) {
+-            // Suppress during worldgen
+-            if (!(level instanceof Level world1)) {
+-                return this.concrete.defaultBlockState();
+-            }
+-            org.bukkit.craftbukkit.block.CraftBlockState snapshot = org.bukkit.craftbukkit.block.CraftBlockStates.getBlockState(world1, pos);
+-            snapshot.setBlock(this.concrete.defaultBlockState());
+-
+-            org.bukkit.event.block.BlockFormEvent event = new org.bukkit.event.block.BlockFormEvent(snapshot.getBlock(), snapshot);
+-            world1.getCraftServer().getPluginManager().callEvent(event);
+-
+-            if (!event.isCancelled()) {
+-                return snapshot.getHandle();
+-            }
+-        }
+-
+-        return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
+-        // CraftBukkit end
++        return this.updateShapeConcretePowder(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random, super::updateShape); // Spout - Game content / Built-in / Blocks / Concrete powder shapes - Use abstract base
+     }
++
++    // Spout start - Game content / Built-in / Blocks / Concrete powder shapes - Use abstract base
++    // @Override
++    // public int getDustColor(final BlockState blockState, final BlockGetter level, final BlockPos pos) {
++    //     return blockState.getMapColor(level, pos).col;
++    // }
+ 
+     @Override
+-    public int getDustColor(final BlockState blockState, final BlockGetter level, final BlockPos pos) {
+-        return blockState.getMapColor(level, pos).col;
++    public Block getConcrete() {
++        return this.concrete;
+     }
++    // Spout end - Game content / Built-in / Blocks / Concrete powder shapes - Use abstract base
+ }

@@ -8,68 +8,6 @@
  
  public class FallingBlockEntity extends Entity {
      private static final Logger LOGGER = LogUtils.getLogger();
-@@ -151,6 +_,7 @@
-     @Override
-     public void tick() {
-         if (this.blockState.isAir()) {
-+            System.out.println("Air: " + spout.util.minecraft.blockstate.BlockStateStringConversion.blockStateToString(this.blockState));
-             this.discard(org.bukkit.event.entity.EntityRemoveEvent.Cause.DESPAWN); // CraftBukkit - add Bukkit remove cause
-         } else {
-             Block block = this.blockState.getBlock();
-@@ -160,6 +_,7 @@
-             this.applyEffectsFromBlocks();
-             // Paper start - Configurable falling blocks height nerf
-             if (this.level().paperConfig().fixes.fallingBlockHeightNerf.test(v -> this.getY() > v)) {
-+                System.out.println("Nerfed: " + spout.util.minecraft.blockstate.BlockStateStringConversion.blockStateToString(this.blockState));
-                 if (this.dropItem && this.level() instanceof final ServerLevel serverLevel && serverLevel.getGameRules().get(GameRules.ENTITY_DROPS)) {
-                     this.spawnAtLocation(serverLevel, block);
-                 }
-@@ -188,6 +_,7 @@
- 
-                 if (!this.onGround() && !isStuckInWater) {
-                     if ((this.time > 100 && this.autoExpire) && (pos.getY() <= this.level().getMinY() || pos.getY() > this.level().getMaxY()) || (this.time > 600 && this.autoExpire)) { // Paper - Expand FallingBlock API
-+                        System.out.println("Expired: " + spout.util.minecraft.blockstate.BlockStateStringConversion.blockStateToString(this.blockState));
-                         if (this.dropItem && serverLevel.getGameRules().get(GameRules.ENTITY_DROPS)) {
-                             this.spawnAtLocation(serverLevel, block);
-                         }
-@@ -211,6 +_,7 @@
- 
-                                 // CraftBukkit start
-                                 if (!org.bukkit.craftbukkit.event.CraftEventFactory.callEntityChangeBlockEvent(this, pos, this.blockState)) {
-+                                    System.out.println("Entity change not allowed: " + spout.util.minecraft.blockstate.BlockStateStringConversion.blockStateToString(this.blockState));
-                                     this.discard(org.bukkit.event.entity.EntityRemoveEvent.Cause.DESPAWN); // SPIGOT-6586 called before the event in previous versions
-                                     return;
-                                 }
-@@ -222,6 +_,7 @@
-                                     serverLevel.getChunkSource()
-                                         .chunkMap
-                                         .sendToTrackingPlayers(this, new ClientboundAddTransientBlockPacket(pos, this.level().getBlockState(pos)));
-+                                    System.out.println("Set block: " + spout.util.minecraft.blockstate.BlockStateStringConversion.blockStateToString(this.blockState));
-                                     this.discard(org.bukkit.event.entity.EntityRemoveEvent.Cause.DESPAWN); // CraftBukkit - add Bukkit remove cause
-                                     if (block instanceof Fallable fallable) {
-                                         fallable.onLand(this.level(), pos, this.blockState, currentState, this);
-@@ -247,6 +_,7 @@
-                                         }
-                                     }
-                                 } else if (this.dropItem && serverLevel.getGameRules().get(GameRules.ENTITY_DROPS)) {
-+                                    System.out.println("Failed to set block: " + spout.util.minecraft.blockstate.BlockStateStringConversion.blockStateToString(this.blockState));
-                                     this.discard(org.bukkit.event.entity.EntityRemoveEvent.Cause.DROP); // CraftBukkit - add Bukkit remove cause
-                                     this.callOnBrokenAfterFall(block, pos);
-                                     this.spawnAtLocation(serverLevel, block);
-@@ -254,11 +_,13 @@
-                             } else {
-                                 this.discard(org.bukkit.event.entity.EntityRemoveEvent.Cause.DROP); // CraftBukkit - add Bukkit remove cause
-                                 if (this.dropItem && serverLevel.getGameRules().get(GameRules.ENTITY_DROPS)) {
-+                                    System.out.println("Broke after fall: " + spout.util.minecraft.blockstate.BlockStateStringConversion.blockStateToString(this.blockState));
-                                     this.callOnBrokenAfterFall(block, pos);
-                                     this.spawnAtLocation(serverLevel, block);
-                                 }
-                             }
-                         } else {
-+                            System.out.println("Drop cancelled: " + spout.util.minecraft.blockstate.BlockStateStringConversion.blockStateToString(this.blockState));
-                             this.discard(org.bukkit.event.entity.EntityRemoveEvent.Cause.DESPAWN); // CraftBukkit - add Bukkit remove cause
-                             this.callOnBrokenAfterFall(block, pos);
-                         }
 @@ -368,8 +_,10 @@
      }
  

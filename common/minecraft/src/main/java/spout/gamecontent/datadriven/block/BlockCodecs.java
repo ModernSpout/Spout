@@ -160,6 +160,10 @@ public final class BlockCodecs {
         return BuiltInRegistries.SOUND_EVENT.byNameCodec().fieldOf("close_sound").forGetter(ChestBlock::getOpenChestSound);
     }
 
+    public static MapCodec<Block> concretePowderConcreteCodec() {
+        return BuiltInRegistries.BLOCK.byNameCodec().fieldOf("concrete");
+    }
+
     public static MapCodec<ColorRGBA> fallingDustColorMapCodec() {
         return ColorRGBA.CODEC.fieldOf("falling_dust_color");
     }

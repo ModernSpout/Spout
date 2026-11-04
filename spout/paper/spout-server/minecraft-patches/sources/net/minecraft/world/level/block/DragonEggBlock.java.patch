@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/DragonEggBlock.java
++++ b/net/minecraft/world/level/block/DragonEggBlock.java
+@@ -77,7 +_,7 @@
+     }
+ 
+     @Override
+-    protected int getDelayAfterPlace() {
++    public int getDelayAfterPlace() { // Spout - Game content / Built-in / Blocks / Falling block shapes - Make public
+         return 5;
+     }
+ 
