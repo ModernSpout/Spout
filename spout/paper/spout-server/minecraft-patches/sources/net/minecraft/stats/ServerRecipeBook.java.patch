@@ -1,0 +1,20 @@
+--- a/net/minecraft/stats/ServerRecipeBook.java
++++ b/net/minecraft/stats/ServerRecipeBook.java
+@@ -79,7 +_,7 @@
+         }
+ 
+         if (!recipesToAdd.isEmpty() && player.connection != null) { // SPIGOT-4478 during PlayerLoginEvent
+-            player.connection.send(new ClientboundRecipeBookAddPacket(recipesToAdd, false));
++            spout.clientview.packetmapping.recipe.SplitClientboundRecipePackets.send(player.connection, recipesToAdd, false); // Spout - Client view / Packet mapping / Recipes - Split add recipe packets
+         }
+ 
+         return recipesToAdd.size();
+@@ -125,7 +_,7 @@
+             this.displayResolver.displaysForRecipe(id, r -> recipesToSend.add(new ClientboundRecipeBookAddPacket.Entry(r, false, this.highlight.contains(id))));
+         }
+ 
+-        player.connection.send(new ClientboundRecipeBookAddPacket(recipesToSend, true));
++        spout.clientview.packetmapping.recipe.SplitClientboundRecipePackets.send(player.connection, recipesToSend, true); // Spout - Client view / Packet mapping / Recipes - Split add recipe packets
+     }
+ 
+     public void copyOverData(final ServerRecipeBook bookToCopy) {
