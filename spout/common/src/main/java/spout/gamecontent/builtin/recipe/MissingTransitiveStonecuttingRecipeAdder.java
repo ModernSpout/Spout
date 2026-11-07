@@ -9,6 +9,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
@@ -137,19 +138,22 @@ public final class MissingTransitiveStonecuttingRecipeAdder {
         }
 
         // Add the new recipes
-        for (ImmutableTriple<Item, Item, Integer> newRecipe : newRecipes) {
-            Item input = newRecipe.getLeft();
-            Item output = newRecipe.getMiddle();
-            ResourceKey<Recipe<?>> key = ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(spout.branding.SpoutNamespace.SPOUT, input.keyInItemRegistry.getNamespace() + "_" + input.keyInItemRegistry.getPath() + "_to_" + output.keyInItemRegistry.getNamespace() + "_" + output.keyInItemRegistry.getPath() + "_transitive_stonecutting"));
-            transitiveRecipes.add(key);
-            recipeMap.addRecipe(new RecipeHolder<>(
-                key,
-                new StonecutterRecipe(
-                    new net.minecraft.world.item.crafting.Recipe.CommonInfo(true),
-                    Ingredient.of(input),
-                    new ItemStackTemplate(BuiltInRegistries.ITEM.wrapAsHolder(output), newRecipe.getRight(), DataComponentPatch.EMPTY)
-                )
-            ));
+        if (!newRecipes.isEmpty()) {
+            for (ImmutableTriple<Item, Item, Integer> newRecipe : newRecipes) {
+                Item input = newRecipe.getLeft();
+                Item output = newRecipe.getMiddle();
+                ResourceKey<Recipe<?>> key = ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(spout.branding.SpoutNamespace.SPOUT, input.keyInItemRegistry.getNamespace() + "_" + input.keyInItemRegistry.getPath() + "_to_" + output.keyInItemRegistry.getNamespace() + "_" + output.keyInItemRegistry.getPath() + "_transitive_stonecutting"));
+                transitiveRecipes.add(key);
+                recipeMap.addRecipe(new RecipeHolder<>(
+                    key,
+                    new StonecutterRecipe(
+                        new net.minecraft.world.item.crafting.Recipe.CommonInfo(true),
+                        Ingredient.of(input),
+                        new ItemStackTemplate(BuiltInRegistries.ITEM.wrapAsHolder(output), newRecipe.getRight(), DataComponentPatch.EMPTY)
+                    )
+                ));
+            }
+            MinecraftServer.getServer().getRecipeManager().finalizeRecipeLoading();
         }
 
     }
