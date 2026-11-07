@@ -1,7 +1,13 @@
 package spout.clientview.packetmapping.blockstate.apply;
 
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.DynamicOps;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
+import spout.clientview.model.ClientView;
 import spout.clientview.packetmapping.FallbackContextValueInPacketMapper;
 import spout.clientview.packetmapping.clientviewlookup.ThreadLocalClientViewLookup;
 import spout.util.mapping.handle.MappingStep;
@@ -24,6 +30,15 @@ public final class BlockStateInPacketMapper implements FallbackContextValueInPac
     @Override
     public BlockStateMappingsApplicationContext getFallbackContext() {
         return new BlockStateMappingsApplicationContext(ThreadLocalClientViewLookup.getThreadLocalClientViewOrFallback());
+    }
+
+    @Override
+    public @Nullable BlockStateMappingsApplicationContext getDefaultActiveContext() {
+        @Nullable ClientView clientView = ThreadLocalClientViewLookup.getThreadLocalClientView();
+        if (clientView == null) {
+            return null;
+        }
+        return new BlockStateMappingsApplicationContext(clientView);
     }
 
     @Override
@@ -50,6 +65,36 @@ public final class BlockStateInPacketMapper implements FallbackContextValueInPac
 
     public boolean hasAnyMapping(int awarenessLevelId, BlockState state) {
         return this.hasAnyMapping(awarenessLevelId, state.indexInBlockStateRegistry);
+    }
+
+    /**
+     * Analogous to {@link #applyWithDefaultActiveContext} but for {@link Block}s.
+     */
+    public Block applyToBlockWithDefaultActiveContext(Block value) {
+        @Nullable BlockStateMappingsApplicationContext activeContext = this.getDefaultActiveContext();
+        if (activeContext == null) {
+            return value;
+        }
+        return apply(value.defaultBlockState(), activeContext).getBlock();
+    }
+
+    /**
+     * Analogous to {@link #wrapBlockCodecWithDefaultActiveContextMapping} but for {@link Block}s.
+     */
+    public Codec<Block> wrapBlockCodecWithDefaultActiveContextMapping(Codec<Block> codec) {
+        return new Codec<>() {
+
+            @Override
+            public <T> DataResult<T> encode(final Block i, final DynamicOps<T> dynamicOps, final T t) {
+                return codec.encode(BlockStateInPacketMapper.this.applyToBlockWithDefaultActiveContext(i), dynamicOps, t);
+            }
+
+            @Override
+            public <T> DataResult<Pair<Block, T>> decode(final DynamicOps<T> dynamicOps, final T t) {
+                return codec.decode(dynamicOps, t);
+            }
+
+        };
     }
 
 }

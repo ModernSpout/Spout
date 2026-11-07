@@ -44,3 +44,13 @@
      }
  
      @Override
+@@ -183,7 +_,9 @@
+             throw new IllegalStateException("Unexpected response from client: received pack selection, but no negotiation ongoing");
+         }
+ 
++        spout.clientview.packetmapping.clientviewlookup.ThreadLocalClientViewLookup.set(this); // Spout - Client view - Packet mapping - Client view lookup - Netty channel - Copy the connection to the thread-local variable before packing synchronized registries
+         this.synchronizeRegistriesTask.handleResponse(packet.knownPacks(), this::send);
++        spout.clientview.packetmapping.clientviewlookup.ThreadLocalClientViewLookup.remove(); // Spout - Client view - Packet mapping - Client view lookup - Netty channel - Copy the connection to the thread-local variable before packing synchronized registries
+         this.finishCurrentTask(SynchronizeRegistriesTask.TYPE);
+     }
+ 

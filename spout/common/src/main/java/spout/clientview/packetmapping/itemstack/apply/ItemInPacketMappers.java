@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import org.jspecify.annotations.Nullable;
+import spout.clientview.model.ClientView;
 import spout.clientview.packetmapping.FallbackContextValueInPacketMapper;
 import spout.clientview.packetmapping.clientviewlookup.ThreadLocalClientViewLookup;
 import spout.util.mapping.handle.MappingStep;
@@ -29,6 +30,15 @@ public final class ItemInPacketMappers {
         @Override
         public ItemStackMappingsApplicationContext getFallbackContext() {
             return new ItemStackMappingsApplicationContext(ThreadLocalClientViewLookup.getThreadLocalClientViewOrFallback());
+        }
+
+        @Override
+        public @Nullable ItemStackMappingsApplicationContext getDefaultActiveContext() {
+            @Nullable ClientView clientView = ThreadLocalClientViewLookup.getThreadLocalClientView();
+            if (clientView == null) {
+                return null;
+            }
+            return new ItemStackMappingsApplicationContext(clientView);
         }
 
     }

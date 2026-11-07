@@ -2,6 +2,7 @@ package spout.clientview.packetmapping.component;
 
 import net.minecraft.network.chat.Component;
 import org.jspecify.annotations.Nullable;
+import spout.clientview.model.ClientView;
 import spout.clientview.packetmapping.clientviewlookup.ThreadLocalClientViewLookup;
 import spout.clientview.packetmapping.component.apply.ComponentMappingHandle;
 import spout.clientview.packetmapping.component.apply.ComponentMappingsApplicationContext;
@@ -14,6 +15,15 @@ public class NMSComponentInPacketMapper extends ComponentInPacketMapper {
     @Override
     public ComponentMappingsApplicationContext getFallbackContext() {
         return new ComponentMappingsApplicationContext(ThreadLocalClientViewLookup.getThreadLocalClientViewOrFallback());
+    }
+
+    @Override
+    public @Nullable ComponentMappingsApplicationContext getDefaultActiveContext() {
+        @Nullable ClientView clientView = ThreadLocalClientViewLookup.getThreadLocalClientView();
+        if (clientView == null) {
+            return null;
+        }
+        return new ComponentMappingsApplicationContext(clientView);
     }
 
     @Override

@@ -1,9 +1,22 @@
 --- a/net/minecraft/world/level/block/state/BlockState.java
 +++ b/net/minecraft/world/level/block/state/BlockState.java
-@@ -30,6 +_,60 @@
+@@ -7,9 +_,9 @@
+ import net.minecraft.world.level.block.state.properties.Property;
+ 
+ public class BlockState extends BlockBehaviour.BlockStateBase {
+-    public static final Codec<BlockState> FULL_CODEC = codec(BuiltInRegistries.BLOCK.byNameCodec(), Block::defaultBlockState, Block::getStateDefinition)
++    public static final Codec<BlockState> FULL_CODEC = spout.clientview.packetmapping.blockstate.apply.BlockStateInPacketMapper.get().wrapCodecWithDefaultActiveContextMapping(codec(BuiltInRegistries.BLOCK.byNameCodec(), Block::defaultBlockState, Block::getStateDefinition)) // Spout end - Block mapping - Implementation part - Apply to block states
+         .stable();
+-    private static final Codec<Either<Block, BlockState>> CONSTANT_OR_DISPATCH_CODEC = Codec.either(BuiltInRegistries.BLOCK.byNameCodec(), FULL_CODEC);
++    private static final Codec<Either<Block, BlockState>> CONSTANT_OR_DISPATCH_CODEC = Codec.either(spout.clientview.packetmapping.blockstate.apply.BlockStateInPacketMapper.get().wrapBlockCodecWithDefaultActiveContextMapping(BuiltInRegistries.BLOCK.byNameCodec()), FULL_CODEC); // Spout end - Block mapping - Implementation part - Apply to block states
+     public static final Codec<BlockState> CODEC = CONSTANT_OR_DISPATCH_CODEC.xmap(
+         either -> either.map(Block::defaultBlockState, f -> (BlockState)f),
+         state -> state == state.getBlock().defaultBlockState() ? Either.left(state.getBlock()) : Either.right(state)
+@@ -29,6 +_,60 @@
+     public BlockState(final Block owner, final Property<?>[] propertyKeys, final Comparable<?>[] propertyValues) {
          super(owner, propertyKeys, propertyValues);
      }
- 
++
 +    // Spout start - More data-driven - Minecraft registries - Cache block and item values
 +    /**
 +     * The {@linkplain net.minecraft.core.Registry#getId index} at which this block state is registered in
@@ -57,7 +70,6 @@
 +        this.isVanilla = true;
 +    }
 +    // Spout end - More data-driven - Vanilla flag - Implementation part
-+
+ 
      @Override
      protected BlockState asState() {
-         return this;

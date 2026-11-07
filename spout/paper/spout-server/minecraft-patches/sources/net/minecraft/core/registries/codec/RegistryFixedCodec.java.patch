@@ -1,0 +1,15 @@
+--- a/net/minecraft/core/registries/codec/RegistryFixedCodec.java
++++ b/net/minecraft/core/registries/codec/RegistryFixedCodec.java
+@@ -34,6 +_,12 @@
+                     return DataResult.error(() -> "Element " + input + " is not valid in current registry set");
+                 }
+ 
++                // Spout start - Block mapping - Implementation part - Apply to blocks in holders
++                if (maybeOwner.get() instanceof spout.gamecontent.datadriven.block.registry.BlockRegistry) {
++                    return Identifier.CODEC.encode(spout.clientview.packetmapping.blockstate.apply.BlockStateInPacketMapper.get().applyToBlockWithDefaultActiveContext((net.minecraft.world.level.block.Block) input.value()).keyInBlockRegistry, ops, prefix);
++                }
++                // Spout end - Block mapping - Implementation part - Apply to blocks in holders
++
+                 return input.unwrap()
+                     .map(
+                         id -> Identifier.CODEC.encode(id.identifier(), ops, prefix),
