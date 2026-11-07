@@ -16,7 +16,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeMap;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.StonecutterRecipe;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
@@ -37,7 +37,38 @@ public final class MissingTransitiveStonecuttingRecipeAdder {
 
     private static final List<ResourceKey<Recipe<?>>> transitiveRecipes = new ArrayList<>(0);
 
-    public static void run(RecipeMap recipeMap, @Nullable List<RecipeHolder<StonecutterRecipe>> recipesToProcess) {
+    public static boolean isAdding = false;
+
+    private static boolean queueActive;
+    private static @Nullable List<RecipeHolder<StonecutterRecipe>> queue;
+
+    public static void startQueue() {
+        queueActive = true;
+        queue = new ArrayList<>(1);
+    }
+
+    public static void flushQueue() {
+        queueActive = false;
+        run(MinecraftServer.getServer().getRecipeManager(), queue.stream().distinct().toList());
+        queue = null;
+    }
+
+    public static void run(RecipeManager recipeManager, @Nullable List<RecipeHolder<StonecutterRecipe>> recipesToProcess) {
+
+        if (isAdding) {
+            return;
+        }
+
+        if (queueActive) {
+            if (queue != null) {
+                if (recipesToProcess == null) {
+                    queue = null;
+                } else {
+                    queue.addAll(recipesToProcess);
+                }
+            }
+            return;
+        }
 
         // Skip if not needed
         if (!SpoutGlobalConfiguration.get().recipes.stonecutting.addMissingTransitiveRecipes) return;
@@ -45,10 +76,10 @@ public final class MissingTransitiveStonecuttingRecipeAdder {
         // If no new recipes were given, process all of them
         if (recipesToProcess == null) {
             // Remove the existing transitive recipes
-            transitiveRecipes.forEach(recipeMap::removeRecipe);
+            transitiveRecipes.forEach(recipeManager.recipes::removeRecipe);
             transitiveRecipes.clear();
             // Assume all remaining recipes must be processed
-            recipesToProcess = recipeMap.values().stream()
+            recipesToProcess = recipeManager.recipes.values().stream()
                 .filter(holder -> holder.value().getType() == RecipeType.STONECUTTING && holder.value() instanceof StonecutterRecipe)
                 .map(holder -> (RecipeHolder<StonecutterRecipe>) holder).toList();
         }
@@ -62,7 +93,7 @@ public final class MissingTransitiveStonecuttingRecipeAdder {
         Deque<ObjectObjectImmutablePair<Item, Item>> inputOutputTodo = new ArrayDeque<>();
 
         // Populate the data structures
-        recipeMap.values().forEach(holder -> {
+        recipeManager.recipes.values().forEach(holder -> {
             Recipe<?> recipe = holder.value();
             if (recipe instanceof StonecutterRecipe stonecutterRecipe) {
                 Ingredient inputIngredient = stonecutterRecipe.input();
@@ -139,12 +170,13 @@ public final class MissingTransitiveStonecuttingRecipeAdder {
 
         // Add the new recipes
         if (!newRecipes.isEmpty()) {
+            isAdding = true;
             for (ImmutableTriple<Item, Item, Integer> newRecipe : newRecipes) {
                 Item input = newRecipe.getLeft();
                 Item output = newRecipe.getMiddle();
                 ResourceKey<Recipe<?>> key = ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(spout.branding.SpoutNamespace.SPOUT, input.keyInItemRegistry.getNamespace() + "_" + input.keyInItemRegistry.getPath() + "_to_" + output.keyInItemRegistry.getNamespace() + "_" + output.keyInItemRegistry.getPath() + "_transitive_stonecutting"));
                 transitiveRecipes.add(key);
-                recipeMap.addRecipe(new RecipeHolder<>(
+                recipeManager.recipes.addRecipe(new RecipeHolder<>(
                     key,
                     new StonecutterRecipe(
                         new net.minecraft.world.item.crafting.Recipe.CommonInfo(true),
@@ -153,7 +185,8 @@ public final class MissingTransitiveStonecuttingRecipeAdder {
                     )
                 ));
             }
-            MinecraftServer.getServer().getRecipeManager().finalizeRecipeLoading();
+            recipeManager.finalizeRecipeLoading();
+            isAdding = false;
         }
 
     }
