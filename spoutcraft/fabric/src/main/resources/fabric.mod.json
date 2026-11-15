@@ -63,6 +63,10 @@
     {
       "config": "spoutcraft.spout.gamecontent.datadriven.mixins.json",
       "environment": "client"
+    },
+    {
+      "config": "spoutcraft.spout.gamecontent.datadriven.worldgen.tree.mixins.json",
+      "environment": "client"
     }
   ],
   "depends": {

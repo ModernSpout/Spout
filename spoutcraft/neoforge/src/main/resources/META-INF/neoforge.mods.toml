@@ -60,3 +60,6 @@ config = "spoutcraft.spout.gamecontent.datadriven.item.mixins.json"
 
 [[mixins]]
 config = "spoutcraft.spout.gamecontent.datadriven.mixins.json"
+
+[[mixins]]
+config = "spoutcraft.spout.gamecontent.datadriven.worldgen.tree.mixins.json"
