@@ -50,6 +50,7 @@ accessible field net/minecraft/world/level/block/StemBlock fruit Lnet/minecraft/
 accessible field net/minecraft/world/level/block/StemBlock fruitSupportBlocks Lnet/minecraft/tags/TagKey;
 accessible field net/minecraft/world/level/block/StemBlock seed Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/world/level/block/StemBlock stemSupportBlocks Lnet/minecraft/tags/TagKey;
+accessible field net/minecraft/world/level/block/TallGrassBlock SHAPE Lnet/minecraft/world/phys/shapes/VoxelShape;
 accessible field net/minecraft/world/level/block/WeightedPressurePlateBlock maxWeight I
 accessible field net/minecraft/world/level/block/ColoredFallingBlock dustColor Lnet/minecraft/util/ColorRGBA;
 accessible field net/minecraft/world/level/block/FallingParticlesLeavesBlock leafParticleChance F
