@@ -285,6 +285,7 @@ import net.minecraft.world.level.block.piston.PistonHeadBlock;
 import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
 import net.minecraft.world.level.material.FlowingFluid;
 import spout.branding.SpoutNamespace;
+import spout.gamecontent.builtin.block.BroadFlowerBlock;
 import spout.gamecontent.builtin.block.ColoredFallingSlabBlock;
 import spout.gamecontent.builtin.block.ColoredFallingStairBlock;
 import spout.gamecontent.builtin.block.ConcretePowderSlabBlock;
@@ -762,6 +763,7 @@ public final class SpoutBlockTypes {
         BlockCodecs.concretePowderConcreteCodec().forGetter(b -> b.concrete),
         ConcretePowderStairBlock::new
     ), ConcretePowderStairBlock.class);
+    public static final SpoutBlockType BROAD_FLOWER = registerSpout("broad_flower", BlockCodecs.flowerCodec(BroadFlowerBlock::new), BroadFlowerBlock.class);
 
     private static SpoutBlockType register(String id, MapCodec<? extends Block> codec, Class<? extends Block> baseClass) {
         return register(Identifier.parse(id), codec, baseClass);

@@ -69,7 +69,7 @@ public final class SubtypeCodecs {
                     return Triple.of(
                         type,
                         properties.offsetFunction,
-                        testInputs().stream().map(test -> properties.offsetFunction.evaluate(test.getFirst(), test.getSecond())).toList()
+                        testInputs().stream().map(test -> properties.offsetFunction == null ? Vec3.ZERO : properties.offsetFunction.evaluate(test.getFirst(), test.getSecond())).toList()
                     );
                 }).toList();
             }
