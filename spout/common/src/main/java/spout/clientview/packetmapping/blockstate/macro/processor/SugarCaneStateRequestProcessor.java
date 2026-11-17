@@ -2,6 +2,7 @@ package spout.clientview.packetmapping.blockstate.macro.processor;
 
 import java.util.List;
 import net.minecraft.core.Registry;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import spout.clientview.packetmapping.blockstate.BlockStateMapping;
@@ -12,7 +13,7 @@ import spout.clientview.packetmapping.blockstate.macro.processor.claimablestates
 import spout.clientview.packetmapping.blockstate.macro.type.BlockStateMappingMacroTypes;
 
 /**
- * A {@link BlockStateMappingMacroProcessor} for {@link BlockStateMappingMacroTypes#SOUL_FIRE}.
+ * A {@link BlockStateMappingMacroProcessor} for {@link BlockStateMappingMacroTypes#SUGAR_CANE_STATE}.
  */
 public class SugarCaneStateRequestProcessor extends StandardBlockStateRequestProcessor {
 
@@ -37,11 +38,12 @@ public class SugarCaneStateRequestProcessor extends StandardBlockStateRequestPro
      * A new {@link DynamicClaimableStates} instance,
      * for {@link BlockState}s that can be attempted to be claimed as soul fire proxies.
      */
-    public static final DynamicClaimableStates SUGAR_CANE_PROXY_STATES = SingletonBlockStateDynamicClaimableStates.forProxy(() -> {
-        return Blocks.SUGAR_CANE.getStateDefinition().getPossibleStates();
-    });
+    public static final DynamicClaimableStates SUGAR_CANE_PROXY_STATES = SingletonBlockStateDynamicClaimableStates.forProxy(
+        () -> Blocks.SUGAR_CANE.getStateDefinition().getPossibleStates()
+    );
 
-    public static final List<BlockState> SAFE_FALLBACK_STATES = List.of(Blocks.SUGAR_CANE.defaultBlockState());
+    public static final List<BlockState> SAFE_FALLBACK_STATES = SugarCaneRequestProcessor.SAFE_FALLBACK_BLOCKS
+        .stream().map(Block::defaultBlockState).toList();
 
     public static final FillPromiseGetter<FromToBlockStateMacro, RequestBasedResult> CLAIM_FALLBACK_PROMISE_GETTER = claimFallbackStatesForAllStatesAtOnceByBlockState(
         SAFE_FALLBACK_STATES

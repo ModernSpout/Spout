@@ -29,6 +29,7 @@ import spout.clientview.packetmapping.blockstate.macro.processor.SlabRequestProc
 import spout.clientview.packetmapping.blockstate.macro.processor.SoulFireRequestProcessor;
 import spout.clientview.packetmapping.blockstate.macro.processor.StairsRequestProcessor;
 import spout.clientview.packetmapping.blockstate.macro.processor.StandardBlockRequestProcessor;
+import spout.clientview.packetmapping.blockstate.macro.processor.SugarCaneRequestProcessor;
 import spout.clientview.packetmapping.blockstate.macro.processor.SugarCaneStateRequestProcessor;
 import spout.clientview.packetmapping.blockstate.macro.processor.TransparentFullBlockRequestProcessor;
 import spout.clientview.packetmapping.blockstate.macro.processor.TransparentFullBlockStateRequestProcessor;
@@ -70,6 +71,7 @@ public final class BlockStateMappingMacroTypes {
     public static final BlockStateMappingMacroType SLAB = register("slab", new TypedConstructorBlockStateMappingMacroType(SlabRequestProcessor::new, SlabMacro.codecConstructor(Blocks.STONE_SLAB)));
     public static final BlockStateMappingMacroType SOUL_FIRE = register("soul_fire", new TypedConstructorBlockStateMappingMacroType(SoulFireRequestProcessor::new, FromToBlockStateMacro.codecConstructor(Blocks.SOUL_FIRE.defaultBlockState())));
     public static final BlockStateMappingMacroType STAIRS = register("stairs", new TypedConstructorBlockStateMappingMacroType(StairsRequestProcessor::new, FromToBlockMacro.codecConstructor(Blocks.STONE_STAIRS)));
+    public static final BlockStateMappingMacroType SUGAR_CANE = register("sugar_cane", new TypedConstructorBlockStateMappingMacroType(SugarCaneRequestProcessor::new, FromToBlockMacro.codecConstructor(Blocks.SUGAR_CANE)));
     public static final BlockStateMappingMacroType SUGAR_CANE_STATE = register("sugar_cane_state", new TypedConstructorBlockStateMappingMacroType(SugarCaneStateRequestProcessor::new, FromToBlockStateMacro.codecConstructor(Blocks.SUGAR_CANE.defaultBlockState())));
     public static final BlockStateMappingMacroType TRANSPARENT_FULL_BLOCK = register("transparent_full_block", new TypedConstructorBlockStateMappingMacroType(TransparentFullBlockRequestProcessor::new, FromToBlockMacro.codecConstructor(Blocks.COPPER_GRATE.waxed().pick(WeatheringCopper.WeatherState.UNAFFECTED))));
     public static final BlockStateMappingMacroType TRANSPARENT_FULL_BLOCK_STATE = register("transparent_full_block_state", new TypedConstructorBlockStateMappingMacroType(TransparentFullBlockStateRequestProcessor::new, FromToBlockStateMacro.codecConstructor(Blocks.COPPER_GRATE.waxed().pick(WeatheringCopper.WeatherState.UNAFFECTED).defaultBlockState())));
