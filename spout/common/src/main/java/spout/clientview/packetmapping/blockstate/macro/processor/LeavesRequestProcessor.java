@@ -2,7 +2,11 @@ package spout.clientview.packetmapping.blockstate.macro.processor;
 
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import net.minecraft.core.Registry;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TintedParticleLeavesBlock;
 import net.minecraft.world.level.block.UntintedParticleLeavesBlock;
@@ -26,27 +30,47 @@ public class LeavesRequestProcessor extends FilledArrayResultProcessor<LeavesMac
     @Override
     protected FilledArrayResultProcessor<LeavesMacro, RequestBasedResult>.FillPromise constructFillPromise(FilledArrayResultProcessor<LeavesMacro, RequestBasedResult>.FillPromise kickoff) {
         return kickoff
-            .then(this.macro.getTinted() ? TINTED_CLAIM_PROXY_PROMISE_GETTER.get(this) : UNTINTED_CLAIM_PROXY_PROMISE_GETTER.get(this))
+            .then(this.macro.getTinted() ? TINTED_CLAIM_PROXY_PROMISE_GETTER.getUnchecked(this.macro.fallbackBlock).get(this) : UNTINTED_CLAIM_PROXY_PROMISE_GETTER.getUnchecked(this.macro.fallbackBlock).get(this))
             .then(this.macro.getTinted() ? TINTED_CLAIM_FALLBACK_PROMISE_GETTER.get(this) : UNTINTED_CLAIM_FALLBACK_PROMISE_GETTER.get(this))
             .then(new BlockFallbackFillPromise(this.macro.fallbackBlock));
     }
 
     /**
      * A new {@link FillPromiseGetter} instance,
-     * for {@link BlockState}s that can be attempted to be claimed as tinted leaves proxies.
+     * for {@link BlockState}s that can be attempted to be claimed as tinted leaves proxies,
+     * putting the macro's {@link LeavesMacro#fallbackBlock} first.
      */
-    public static final FillPromiseGetter<LeavesMacro, RequestBasedResult> TINTED_CLAIM_PROXY_PROMISE_GETTER = claimProxyStatesForAllStatesAtOnceForBlockStatesByDynamicProperties(
-        StreamSupport.stream(VanillaOnlyBlockRegistry.get().spliterator(), false).filter(block -> block instanceof TintedParticleLeavesBlock).toList(),
-        BlockStateProperties.WATERLOGGED
+    public static final LoadingCache<Block, FillPromiseGetter<LeavesMacro, RequestBasedResult>> TINTED_CLAIM_PROXY_PROMISE_GETTER = CacheBuilder.newBuilder().build(
+        new CacheLoader<>() {
+
+            @Override
+            public FilledArrayResultProcessor.FillPromiseGetter<LeavesMacro, ArrayResultProcessor.RequestBasedResult> load(Block fallback) {
+                return claimProxyStatesForAllStatesAtOnceForBlockStatesByDynamicProperties(
+                    Stream.concat(Stream.of(fallback), StreamSupport.stream(VanillaOnlyBlockRegistry.get().spliterator(), false)).filter(block -> block instanceof TintedParticleLeavesBlock).distinct().toList(),
+                    BlockStateProperties.WATERLOGGED
+                );
+            }
+
+        }
     );
 
     /**
      * A new {@link FillPromiseGetter} instance,
-     * for {@link BlockState}s that can be attempted to be claimed as untinted leaves proxies.
+     * for {@link BlockState}s that can be attempted to be claimed as untinted leaves proxies,
+     * putting the macro's {@link LeavesMacro#fallbackBlock} first.
      */
-    public static final FillPromiseGetter<LeavesMacro, RequestBasedResult> UNTINTED_CLAIM_PROXY_PROMISE_GETTER = claimProxyStatesForAllStatesAtOnceForBlockStatesByDynamicProperties(
-        StreamSupport.stream(VanillaOnlyBlockRegistry.get().spliterator(), false).filter(block -> block instanceof UntintedParticleLeavesBlock).toList(),
-        BlockStateProperties.WATERLOGGED
+    public static final LoadingCache<Block, FilledArrayResultProcessor.FillPromiseGetter<LeavesMacro, ArrayResultProcessor.RequestBasedResult>> UNTINTED_CLAIM_PROXY_PROMISE_GETTER = CacheBuilder.newBuilder().build(
+        new CacheLoader<>() {
+
+            @Override
+            public FilledArrayResultProcessor.FillPromiseGetter<LeavesMacro, ArrayResultProcessor.RequestBasedResult> load(Block fallback) {
+                return claimProxyStatesForAllStatesAtOnceForBlockStatesByDynamicProperties(
+                    Stream.concat(Stream.of(fallback), StreamSupport.stream(VanillaOnlyBlockRegistry.get().spliterator(), false)).filter(block -> block instanceof UntintedParticleLeavesBlock).distinct().toList(),
+                    BlockStateProperties.WATERLOGGED
+                );
+            }
+
+        }
     );
 
     public static final FillPromiseGetter<LeavesMacro, RequestBasedResult> TINTED_CLAIM_FALLBACK_PROMISE_GETTER = claimFallbackStatesForAllStatesAtOnceByBlock(
