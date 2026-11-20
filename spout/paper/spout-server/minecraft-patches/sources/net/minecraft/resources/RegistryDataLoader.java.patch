@@ -16,3 +16,33 @@
      );
      public static final List<RegistryDataLoader.RegistryData<?>> DIMENSION_REGISTRIES = List.of(
          new RegistryDataLoader.RegistryData<>(Registries.LEVEL_STEM, LevelStem.CODEC)
+@@ -242,12 +_,25 @@
+                     RegistryOps.RegistryInfoLookup contextAndNewRegistries = createContext(contextRegistries, loadTasks);
+                     int taskCount = loadTasks.size();
+                     CompletableFuture<?>[] loadCompletions = new CompletableFuture[taskCount];
+-
+-                    for (int i = 0; i < taskCount; i++) {
++                    // Spout start - Client view / Packet mapping / Block states / Macros - Order loading registries
++                    boolean[] loadLater = new boolean[taskCount];
++                    for (int i = 0; i < taskCount; i++) {
++                        RegistryLoadTask<?> task = loadTasks.get(i);
++                        loadLater[i] = task.data.key().equals(spout.clientview.packetmapping.blockstate.registry.BlockStateMappingRegistryKey.BLOCK_STATE_MAPPING);
++                    }
++                    for (int i = 0; i < taskCount; i++) {
++                        if (!loadLater[i])
++                        // Spout end - Client view / Packet mapping / Block states / Macros - Order loading registries
+                         loadCompletions[i] = loadTasks.get(i).load(contextAndNewRegistries, executor);
+                     }
+-
+-                    return CompletableFuture.allOf(loadCompletions)
++                    // Spout start - Client view / Packet mapping / Block states / Macros - Order loading registries
++                    CompletableFuture.allOf(java.util.Arrays.stream(loadCompletions).filter(java.util.Objects::nonNull).toArray(CompletableFuture[]::new)).thenRunAsync(() -> {
++                        for (int i = 0; i < taskCount; i++) {
++                            loadCompletions[i] = loadLater[i] ? loadTasks.get(i).load(contextAndNewRegistries, executor) : null;
++                        }
++                    });
++                    return CompletableFuture.allOf(java.util.Arrays.stream(loadCompletions).filter(java.util.Objects::nonNull).toArray(CompletableFuture[]::new))
++                        // Spout end - Client view / Packet mapping / Block states / Macros - Order loading registries
+                         .thenApplyAsync(
+                             ignored -> {
+                                 List<RegistryLoadTask<?>> frozenRegistries = loadTasks.stream().filter(task -> task.freezeRegistry(loadingErrors)).toList();
