@@ -4,7 +4,6 @@ import io.papermc.paper.registry.RegistryBuilder;
 import org.bukkit.block.BlockType;
 import org.bukkit.block.data.BlockData;
 import org.jetbrains.annotations.ApiStatus;
-import org.jspecify.annotations.Nullable;
 import spout.api.clientview.packetmapping.blockstate.BlockStateMapping;
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingContext;
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandle;
@@ -12,7 +11,6 @@ import spout.api.clientview.packetmapping.common.builder.AwarenessLevelsMappingR
 import spout.api.clientview.packetmapping.common.builder.AwarenessLevelsMappingRegistryEntryBuilder;
 import spout.api.util.mapping.builder.FromRegistryEntry;
 import spout.api.util.mapping.builder.FromRegistryEntryBuilder;
-import spout.api.util.mapping.builder.FunctionRegistryEntry;
 import spout.api.util.mapping.builder.FunctionRegistryEntryBuilder;
 import spout.api.util.mapping.builder.ToRegistryEntry;
 import spout.api.util.mapping.builder.ToRegistryEntryBuilder;

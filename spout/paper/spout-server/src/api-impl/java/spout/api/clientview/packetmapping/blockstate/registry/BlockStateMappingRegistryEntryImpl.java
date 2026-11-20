@@ -3,6 +3,7 @@ package spout.api.clientview.packetmapping.blockstate.registry;
 import io.papermc.paper.registry.PaperRegistryBuilder;
 import io.papermc.paper.registry.data.util.Conversions;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.craftbukkit.block.data.CraftBlockData;
 import org.jspecify.annotations.Nullable;
@@ -31,8 +32,8 @@ import java.util.function.Consumer;
 public class BlockStateMappingRegistryEntryImpl implements BlockStateMappingRegistryEntryNMS, BlockStateMappingRegistryEntryNMS.Builder {
 
     protected @Nullable ArrayList<AwarenessLevel> awarenessLevels;
-    protected @Nullable ArrayList<BlockData> from;
-    protected @Nullable BlockData to;
+    protected @Nullable ArrayList<BlockState> from;
+    protected @Nullable BlockState to;
     protected @Nullable Consumer<BlockStateMappingHandle> toFunction;
     protected @Nullable Consumer<BlockStateMappingHandleNMS> toFunctionNMS;
     protected boolean toFunctionRequiresCoordinates;
@@ -44,7 +45,7 @@ public class BlockStateMappingRegistryEntryImpl implements BlockStateMappingRegi
         if (internal == null) return;
 
         this.awarenessLevels = new ArrayList<>(internal.awarenessLevels().stream().map(CraftAwarenessLevel::toBukkit).toList());
-        this.from = new ArrayList<>(internal.targets().stream().map(BlockBehaviour.BlockStateBase::asBlockData).toList());
+        this.from = new ArrayList<>(internal.targets());
     }
 
     @Override
@@ -67,16 +68,26 @@ public class BlockStateMappingRegistryEntryImpl implements BlockStateMappingRegi
 
     @Override
     public @Nullable List<BlockData> getFrom() {
-        return this.from == null ? null : Collections.unmodifiableList(this.from);
+        return this.from != null ? this.from.stream().map(BlockBehaviour.BlockStateBase::asBlockData).map(it -> (BlockData) it).toList() : null;
     }
 
     @Override
     public void setFrom(Collection<? extends BlockData> from) {
+        this.setFromNMS(from.stream().map(it -> ((CraftBlockData) it).getState()).toList());
+    }
+
+    @Override
+    public void setFromNMS(Collection<? extends BlockState> from) {
         this.from = new ArrayList<>(from);
     }
 
     @Override
     public void addFrom(BlockData from) {
+        this.addFromNMS(((CraftBlockData) from).getState());
+    }
+
+    @Override
+    public void addFromNMS(BlockState from) {
         if (this.from == null) {
             this.from = new ArrayList<>(1);
         }
@@ -85,11 +96,16 @@ public class BlockStateMappingRegistryEntryImpl implements BlockStateMappingRegi
 
     @Override
     public @Nullable BlockData getTo() {
-        return this.to;
+        return this.to.asBlockData();
     }
 
     @Override
     public void setTo(BlockData to) {
+        this.setToNMS(((CraftBlockData) to).getState());
+    }
+
+    @Override
+    public void setToNMS(BlockState to) {
         this.to = to;
         this.toFunction = null;
         this.toFunctionNMS = null;
@@ -137,13 +153,13 @@ public class BlockStateMappingRegistryEntryImpl implements BlockStateMappingRegi
             } else if (this.toFunctionNMS != null) {
                 operation = new FunctionBlockStateMappingStep(nmsFunctionToInternalFunction(this.toFunctionNMS), this.toFunctionRequiresCoordinates);
             } else if (this.to != null) {
-                operation = new DirectBlockStateMappingStep(((CraftBlockData) this.to).getState());
+                operation = new DirectBlockStateMappingStep(this.to);
             } else {
                 throw new IllegalStateException("No to given");
             }
             return new spout.clientview.packetmapping.blockstate.BlockStateMapping(
                 awarenessLevels,
-                this.from.stream().map(state -> ((CraftBlockData) state).getState()).toList(),
+                new ArrayList<>(this.from),
                 operation
             );
         }

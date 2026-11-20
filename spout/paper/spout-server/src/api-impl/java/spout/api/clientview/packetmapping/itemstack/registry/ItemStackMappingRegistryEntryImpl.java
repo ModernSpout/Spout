@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
 import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.inventory.CraftItemType;
 import org.bukkit.craftbukkit.util.CraftNamespacedKey;
@@ -33,8 +34,8 @@ import spout.util.mapping.handle.MappingStep;
 public class ItemStackMappingRegistryEntryImpl implements ItemStackMappingRegistryEntryNMS, ItemStackMappingRegistryEntryNMS.Builder {
 
     protected @Nullable ArrayList<AwarenessLevel> awarenessLevels;
-    protected @Nullable ArrayList<ItemType> from;
-    protected @Nullable ItemType to;
+    protected @Nullable ArrayList<Item> from;
+    protected @Nullable Item to;
     protected @Nullable Consumer<ItemStackMappingHandle> toFunction;
     protected @Nullable Consumer<ItemStackMappingHandleNMS> toFunctionNMS;
     protected @Nullable Boolean overrideItemModel;
@@ -47,7 +48,7 @@ public class ItemStackMappingRegistryEntryImpl implements ItemStackMappingRegist
         if (internal == null) return;
 
         this.awarenessLevels = new ArrayList<>(internal.awarenessLevels().stream().map(CraftAwarenessLevel::toBukkit).toList());
-        this.from = new ArrayList<>(internal.targets().stream().map(CraftItemType::minecraftToBukkitNew).toList());
+        this.from = new ArrayList<>(internal.targets());
     }
 
     @Override
@@ -70,16 +71,26 @@ public class ItemStackMappingRegistryEntryImpl implements ItemStackMappingRegist
 
     @Override
     public @Nullable List<ItemType> getFrom() {
-        return this.from == null ? null : Collections.unmodifiableList(this.from);
+        return this.from != null ? this.from.stream().map(CraftItemType::minecraftToBukkitNew).toList() : null;
     }
 
     @Override
     public void setFrom(Collection<? extends ItemType> from) {
+        this.setFromNMS(from.stream().map(CraftItemType::bukkitToMinecraftNew).toList());
+    }
+
+    @Override
+    public void setFromNMS(Collection<? extends Item> from) {
         this.from = new ArrayList<>(from);
     }
 
     @Override
     public void addFrom(ItemType from) {
+        this.addFromNMS(CraftItemType.bukkitToMinecraftNew(from));
+    }
+
+    @Override
+    public void addFromNMS(Item from) {
         if (this.from == null) {
             this.from = new ArrayList<>(1);
         }
@@ -88,11 +99,16 @@ public class ItemStackMappingRegistryEntryImpl implements ItemStackMappingRegist
 
     @Override
     public @Nullable ItemType getTo() {
-        return this.to;
+        return this.to != null ? CraftItemType.minecraftToBukkitNew(this.to) : null;
     }
 
     @Override
     public void setTo(ItemType to) {
+        this.setToNMS(CraftItemType.bukkitToMinecraftNew(to));
+    }
+
+    @Override
+    public void setToNMS(Item to) {
         this.to = to;
         this.toFunction = null;
         this.toFunctionNMS = null;
@@ -168,13 +184,13 @@ public class ItemStackMappingRegistryEntryImpl implements ItemStackMappingRegist
             } else if (this.toFunctionNMS != null) {
                 operation = new FunctionMappingStep<>(nmsFunctionToInternalFunction(this.toFunctionNMS));
             } else if (this.to != null) {
-                operation = new ChangeOnlyItemItemStackMappingStep(CraftItemType.bukkitToMinecraftNew(this.to));
+                operation = new ChangeOnlyItemItemStackMappingStep(this.to);
             } else {
                 throw new IllegalStateException("No to given");
             }
             return new spout.clientview.packetmapping.itemstack.ItemStackMapping(
                 awarenessLevels,
-                this.from.stream().map(CraftItemType::bukkitToMinecraftNew).toList(),
+                new ArrayList<>(this.from),
                 operation,
                 this.overrideItemModel,
                 this.itemModel
