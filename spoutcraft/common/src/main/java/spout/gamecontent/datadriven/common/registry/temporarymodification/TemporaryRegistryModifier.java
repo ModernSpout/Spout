@@ -31,7 +31,7 @@ public abstract class TemporaryRegistryModifier<T, R extends MappedRegistry<T>> 
     public final R registry;
 
     private @Nullable Map<TagKey<T>, HolderSet.Named<T>> originalFrozenTags = null;
-    private @Nullable ArrayList<Pair<ResourceKey<T>, T>> resourcesAdded = null;
+    protected @Nullable ArrayList<Pair<ResourceKey<T>, T>> resourcesAdded = null;
 
     public TemporaryRegistryModifier(R registry) {
         this.registry = registry;

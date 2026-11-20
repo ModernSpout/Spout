@@ -1,10 +1,13 @@
 package spout.gamecontent.datadriven.block;
 
 import it.unimi.dsi.fastutil.Pair;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.block.BlockTintSources;
 import net.minecraft.core.DefaultedMappedRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.TintedParticleLeavesBlock;
 import spout.gamecontent.datadriven.blockentity.BlockEntityAlternativeValidation;
 import spout.gamecontent.datadriven.common.registry.temporarymodification.TemporaryRegistryModifier;
 
@@ -26,6 +29,14 @@ public final class TemporaryBlockRegistryModifier extends TemporaryRegistryModif
         if (!resources.isEmpty()) {
             // Update alternatively valid block entities
             BlockEntityAlternativeValidation.update();
+            // Add block colors for tinted leaves
+            if (this.resourcesAdded != null) {
+                this.resourcesAdded.forEach(pair -> {
+                    if (pair.right() instanceof TintedParticleLeavesBlock tintedLeaves) {
+                        Minecraft.getInstance().getBlockColors().register(List.of(BlockTintSources.foliage()), tintedLeaves);
+                    }
+                });
+            }
         }
     }
 
@@ -33,6 +44,12 @@ public final class TemporaryBlockRegistryModifier extends TemporaryRegistryModif
     public void remove() {
         // Clear alternatively valid block entities
         BlockEntityAlternativeValidation.clear();
+        // Remove block colors
+        if (this.resourcesAdded != null) {
+            this.resourcesAdded.forEach(pair ->
+                ((AllowUnregisteringBlockColorsDecorator) Minecraft.getInstance().getBlockColors()).unregister(pair.right())
+            );
+        }
         super.remove();
     }
 
