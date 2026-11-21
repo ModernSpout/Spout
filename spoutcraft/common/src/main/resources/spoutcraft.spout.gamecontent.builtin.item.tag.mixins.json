@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "spout.gamecontent.builtin.item.tag.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "PlacedOnWaterBlockBlockItemMixin",
+    "PlacedOnWaterBlockItemMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

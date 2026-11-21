@@ -1,0 +1,31 @@
+--- a/net/minecraft/world/item/BlockItem.java
++++ b/net/minecraft/world/item/BlockItem.java
+@@ -39,6 +_,11 @@
+ 
+     @Override
+     public InteractionResult useOn(final UseOnContext context) {
++        // Spout start - Game content / Built-in / Item tags / Allow any block to be placed on water
++        if (this.builtInRegistryHolder().is(spout.gamecontent.builtin.item.tag.SpoutItemTags.PLACED_ON_WATER_BLOCK)) {
++            return InteractionResult.PASS;
++        }
++        // Spout end - Game content / Built-in / Item tags / Allow any block to be placed on water
+         InteractionResult placeResult = this.place(new BlockPlaceContext(context));
+         if (placeResult.consumesAction()) {
+             return placeResult;
+@@ -253,4 +_,16 @@
+             stack.set(DataComponents.BLOCK_ENTITY_DATA, TypedEntityData.of(type, output.buildResult()));
+         }
+     }
++
++    // Spout start - Game content / Built-in / Item tags / Allow any block to be placed on water
++    @Override
++    public InteractionResult use(final Level level, final Player player, final net.minecraft.world.InteractionHand hand) {
++        if (this.builtInRegistryHolder().is(spout.gamecontent.builtin.item.tag.SpoutItemTags.PLACED_ON_WATER_BLOCK)) {
++            net.minecraft.world.phys.BlockHitResult hitResult = getPlayerPOVHitResult(level, player, net.minecraft.world.level.ClipContext.Fluid.SOURCE_ONLY);
++            net.minecraft.world.phys.BlockHitResult blockAboveResult = hitResult.withPosition(hitResult.getBlockPos().above());
++            return this.useOn(new UseOnContext(player, hand, blockAboveResult));
++        }
++        return super.use(level, player, hand);
++    }
++    // Spout end - Game content / Built-in / Item tags / Allow any block to be placed on water
+ }

@@ -37,6 +37,10 @@
       "environment": "client"
     },
     {
+      "config": "spoutcraft.spout.gamecontent.builtin.item.tag.mixins.json",
+      "environment": "client"
+    },
+    {
       "config": "spoutcraft.spout.gamecontent.datadriven.block.mixins.json",
       "environment": "client"
     },
