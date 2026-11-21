@@ -1,8 +1,8 @@
-package spout.gamecontent.builtin.item.tag;
+package spout.gamecontent.builtin.item.placeonwater;
 
-public final class PlaceOnWaterBlockCallsToUseOnAreSuperCalls {
+public final class PlaceOnWaterBlockCallsToUseAreSuperCalls {
 
-    private PlaceOnWaterBlockCallsToUseOnAreSuperCalls() {
+    private PlaceOnWaterBlockCallsToUseAreSuperCalls() {
         throw new UnsupportedOperationException();
     }
 

@@ -41,7 +41,7 @@ config = "spoutcraft.spout.clientview.clientmod.protocol.mixins.json"
 config = "spoutcraft.spout.clientview.clientmod.registryidmapping.mixins.json"
 
 [[mixins]]
-config = "spoutcraft.spout.gamecontent.builtin.item.tag.mixins.json"
+config = "spoutcraft.spout.gamecontent.builtin.item.placeonwater.mixins.json"
 
 [[mixins]]
 config = "spoutcraft.spout.gamecontent.datadriven.block.mixins.json"

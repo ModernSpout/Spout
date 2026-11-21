@@ -1,4 +1,4 @@
-package spout.gamecontent.builtin.item.tag.mixin;
+package spout.gamecontent.builtin.item.placeonwater.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -10,8 +10,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
-import spout.gamecontent.builtin.item.tag.PlaceOnWaterBlockCallsToUseOnAreSuperCalls;
-import spout.gamecontent.builtin.item.tag.PlaceOnWaterBlockCallsToUseAreSuperCalls;
+import spout.gamecontent.builtin.item.placeonwater.PlaceOnWaterBlockCallsToUseOnAreSuperCalls;
+import spout.gamecontent.builtin.item.placeonwater.PlaceOnWaterBlockCallsToUseAreSuperCalls;
 
 @Mixin(Item.class)
 public abstract class PlacedOnWaterBlockItemMixin {
@@ -23,6 +23,9 @@ public abstract class PlacedOnWaterBlockItemMixin {
         InteractionHand hand,
         Operation<InteractionResult> original
     ) {
+        if (true) {
+            return original.call(level, player, hand);
+        }
         PlaceOnWaterBlockCallsToUseOnAreSuperCalls.set();
         try {
             if (PlaceOnWaterBlockCallsToUseAreSuperCalls.get()) {

@@ -13,6 +13,14 @@ loom {
         }
     }
 
+    runs {
+        named("client") {
+            client()
+            configName = "Minecraft Client"
+            vmArg("-Dminecraft.username=Dev")
+        }
+    }
+
     accessWidenerPath = file("src/main/resources/spoutcraft.classtweaker")
 }
 

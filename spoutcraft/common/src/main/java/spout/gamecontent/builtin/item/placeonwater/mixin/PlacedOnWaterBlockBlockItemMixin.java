@@ -1,4 +1,4 @@
-package spout.gamecontent.builtin.item.tag.mixin;
+package spout.gamecontent.builtin.item.placeonwater.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -6,14 +6,17 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.context.UseOnContext;
 import org.spongepowered.asm.mixin.Mixin;
-import spout.gamecontent.builtin.item.tag.PlaceOnWaterBlockCallsToUseOnAreSuperCalls;
-import spout.gamecontent.builtin.item.tag.PlaceOnWaterBlockCallsToUseAreSuperCalls;
+import spout.gamecontent.builtin.item.placeonwater.PlaceOnWaterBlockCallsToUseOnAreSuperCalls;
+import spout.gamecontent.builtin.item.placeonwater.PlaceOnWaterBlockCallsToUseAreSuperCalls;
 
 @Mixin(BlockItem.class)
 public abstract class PlacedOnWaterBlockBlockItemMixin {
 
     @WrapMethod(method = "useOn")
     private InteractionResult modifyUseOn(UseOnContext context, Operation<InteractionResult> original) {
+        if (true) {
+            return original.call(context);
+        }
         if (PlaceOnWaterBlockCallsToUseOnAreSuperCalls.get()) {
             return original.call(context);
         }
