@@ -16,7 +16,7 @@
      );
      public static final List<RegistryDataLoader.RegistryData<?>> DIMENSION_REGISTRIES = List.of(
          new RegistryDataLoader.RegistryData<>(Registries.LEVEL_STEM, LevelStem.CODEC)
-@@ -242,12 +_,25 @@
+@@ -242,12 +_,30 @@
                      RegistryOps.RegistryInfoLookup contextAndNewRegistries = createContext(contextRegistries, loadTasks);
                      int taskCount = loadTasks.size();
                      CompletableFuture<?>[] loadCompletions = new CompletableFuture[taskCount];
@@ -36,12 +36,17 @@
 -
 -                    return CompletableFuture.allOf(loadCompletions)
 +                    // Spout start - Client view / Packet mapping / Block states / Macros - Order loading registries
++                    CompletableFuture<Void> allLateLoadCompletions = new CompletableFuture<>();
 +                    CompletableFuture.allOf(java.util.Arrays.stream(loadCompletions).filter(java.util.Objects::nonNull).toArray(CompletableFuture[]::new)).thenRunAsync(() -> {
++                        CompletableFuture<?>[] lateLoadCompletions = new CompletableFuture[taskCount];
 +                        for (int i = 0; i < taskCount; i++) {
-+                            loadCompletions[i] = loadLater[i] ? loadTasks.get(i).load(contextAndNewRegistries, executor) : null;
++                            if (loadLater[i]) lateLoadCompletions[i] = loadTasks.get(i).load(contextAndNewRegistries, executor);
 +                        }
++                        CompletableFuture.allOf(java.util.Arrays.stream(lateLoadCompletions).filter(java.util.Objects::nonNull).toArray(CompletableFuture[]::new)).thenRunAsync(() -> {
++                            allLateLoadCompletions.complete(null);
++                        });
 +                    });
-+                    return CompletableFuture.allOf(java.util.Arrays.stream(loadCompletions).filter(java.util.Objects::nonNull).toArray(CompletableFuture[]::new))
++                    return allLateLoadCompletions
 +                        // Spout end - Client view / Packet mapping / Block states / Macros - Order loading registries
                          .thenApplyAsync(
                              ignored -> {
