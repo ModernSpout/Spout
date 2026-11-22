@@ -23,9 +23,6 @@ public abstract class PlacedOnWaterBlockItemMixin {
         InteractionHand hand,
         Operation<InteractionResult> original
     ) {
-        if (true) {
-            return original.call(level, player, hand);
-        }
         PlaceOnWaterBlockCallsToUseOnAreSuperCalls.set();
         try {
             if (PlaceOnWaterBlockCallsToUseAreSuperCalls.get()) {

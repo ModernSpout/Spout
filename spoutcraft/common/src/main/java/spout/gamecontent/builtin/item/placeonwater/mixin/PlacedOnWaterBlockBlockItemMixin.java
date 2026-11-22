@@ -14,9 +14,6 @@ public abstract class PlacedOnWaterBlockBlockItemMixin {
 
     @WrapMethod(method = "useOn")
     private InteractionResult modifyUseOn(UseOnContext context, Operation<InteractionResult> original) {
-        if (true) {
-            return original.call(context);
-        }
         if (PlaceOnWaterBlockCallsToUseOnAreSuperCalls.get()) {
             return original.call(context);
         }
