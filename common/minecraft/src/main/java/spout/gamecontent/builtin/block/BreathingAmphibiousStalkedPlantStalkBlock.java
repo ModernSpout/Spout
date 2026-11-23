@@ -95,7 +95,7 @@ public abstract class BreathingAmphibiousStalkedPlantStalkBlock extends BushBloc
     }
 
     public void placeBottomAt(final LevelAccessor level, final BlockPos pos, BlockState intendedState) {
-        BlockState bottomState = intendedState.setValue(WATERLOGGED, level.getBlockState(pos).is(Blocks.WATER));
+        BlockState bottomState = intendedState.setValue(BOTTOM, true).setValue(WATERLOGGED, level.getBlockState(pos).is(Blocks.WATER));
         level.setBlock(pos, bottomState, Block.UPDATE_CLIENTS);
         this.placeMatchingBlocksAbove(level, pos, bottomState);
     }
