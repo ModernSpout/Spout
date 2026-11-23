@@ -9,7 +9,7 @@
 +            if (!amphibiousBlock.canBottomBePlacedAt(level, origin)) {
 +                return false;
 +            }
-+            amphibiousBlock.placeBottomAt(level, origin);
++            amphibiousBlock.placeBottomAt(level, origin, stateToPlace);
 +        } else {
 +        // Spout end- Game content / Built-in / Blocks / Amphibious plants - Feature placement
 +
