@@ -8,6 +8,8 @@ import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.EggItem;
 import net.minecraft.world.item.Item;
 import spout.branding.SpoutNamespace;
+import spout.gamecontent.builtin.block.BreathingAmphibiousStalkedPlantStalkBlock;
+import spout.gamecontent.builtin.item.BreathingAmphibiousStalkedPlantItem;
 import spout.gamecontent.datadriven.item.ItemCodecs;
 
 /**
@@ -24,6 +26,7 @@ public class SpoutItemTypes {
     public static final SpoutItemType DOUBLE_HIGH_BLOCK = register("double_high_block", ItemCodecs.blockCodec(DoubleHighBlockItem::new), DoubleHighBlockItem.class);
     public static final SpoutItemType EGG = register("egg", ItemCodecs.simpleCodec(EggItem::new), EggItem.class);
     // TODO others
+    public static final SpoutItemType BREATHING_AMPHIBIOUS_STALKED_PLANT_BLOCK = registerSpout("breathing_amphibious_stalked_plant_block", ItemCodecs.blockCodec(BreathingAmphibiousStalkedPlantItem::new), BreathingAmphibiousStalkedPlantItem.class);
 
     private static SpoutItemType register(String id, MapCodec<? extends Item> codec, Class<? extends Item> baseClass) {
         return register(Identifier.parse(id), codec, baseClass);

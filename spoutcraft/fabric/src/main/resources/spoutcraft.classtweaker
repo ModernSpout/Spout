@@ -95,6 +95,7 @@ accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties soundType Lnet/minecraft/world/level/block/SoundType;
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties spawnTerrainParticles Z
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties speedFactor F
+accessible field net/minecraft/world/level/block/state/properties/IntegerProperty max I
 accessible method net/minecraft/core/registries/BuiltInRegistries internalRegister (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/WritableRegistry;Lnet/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap;)Lnet/minecraft/core/WritableRegistry;
 accessible method net/minecraft/core/registries/BuiltInRegistries registerSimple (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap;)Lnet/minecraft/core/Registry;
 accessible method net/minecraft/world/item/Item getPlayerPOVHitResult (Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/ClipContext$Fluid;)Lnet/minecraft/world/phys/BlockHitResult;

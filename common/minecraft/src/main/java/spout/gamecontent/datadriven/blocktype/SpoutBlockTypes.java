@@ -286,6 +286,8 @@ import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
 import net.minecraft.world.level.material.FlowingFluid;
 import spout.branding.SpoutNamespace;
 import spout.gamecontent.builtin.block.BroadFlowerBlock;
+import spout.gamecontent.builtin.block.CattailStalkBlock;
+import spout.gamecontent.builtin.block.CattailTopBlock;
 import spout.gamecontent.builtin.block.ColoredFallingSlabBlock;
 import spout.gamecontent.builtin.block.ColoredFallingStairBlock;
 import spout.gamecontent.builtin.block.ConcretePowderSlabBlock;
@@ -764,6 +766,14 @@ public final class SpoutBlockTypes {
         ConcretePowderStairBlock::new
     ), ConcretePowderStairBlock.class);
     public static final SpoutBlockType BROAD_FLOWER = registerSpout("broad_flower", BlockCodecs.flowerCodec(BroadFlowerBlock::new), BroadFlowerBlock.class);
+    public static final SpoutBlockType CATTAIL_STALK = registerSpout("cattail_stalk", BlockCodecs.simpleCodec(
+        ResourceKey.codec(Registries.BLOCK).fieldOf("top").forGetter(b -> b.top),
+        CattailStalkBlock::new
+    ), CattailStalkBlock.class);
+    public static final SpoutBlockType CATTAIL_TOP = registerSpout("cattail_top", BlockCodecs.simpleCodec(
+        ResourceKey.codec(Registries.BLOCK).fieldOf("stalk").forGetter(b -> b.stalk),
+        CattailTopBlock::new
+    ), CattailTopBlock.class);
 
     private static SpoutBlockType register(String id, MapCodec<? extends Block> codec, Class<? extends Block> baseClass) {
         return register(Identifier.parse(id), codec, baseClass);

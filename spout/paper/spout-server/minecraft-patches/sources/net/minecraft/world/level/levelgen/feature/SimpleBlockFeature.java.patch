@@ -1,0 +1,26 @@
+--- a/net/minecraft/world/level/levelgen/feature/SimpleBlockFeature.java
++++ b/net/minecraft/world/level/levelgen/feature/SimpleBlockFeature.java
+@@ -44,6 +_,15 @@
+             return false;
+         }
+ 
++        // Spout start - Game content / Built-in / Blocks / Amphibious plants - Feature placement
++        if (stateToPlace.getBlock() instanceof spout.gamecontent.builtin.block.BreathingAmphibiousStalkedPlantStalkBlock amphibiousBlock) {
++            if (!amphibiousBlock.canBottomBePlacedAt(level, origin)) {
++                return false;
++            }
++            amphibiousBlock.placeBottomAt(level, origin);
++        } else {
++        // Spout end- Game content / Built-in / Blocks / Amphibious plants - Feature placement
++
+         if (!stateToPlace.canSurvive(level, origin)) {
+             return false;
+         }
+@@ -60,6 +_,7 @@
+         } else {
+             level.setBlock(origin, stateToPlace, Block.UPDATE_CLIENTS);
+         }
++        } // Spout - Game content / Built-in / Blocks / Amphibious plants - Feature placement
+ 
+         if (this.scheduleTick) {
+             level.scheduleTick(origin, level.getBlockState(origin).getBlock(), 1);
