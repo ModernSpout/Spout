@@ -16,20 +16,16 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealSource;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.Nullable;
 
-public abstract class BreathingAmphibiousStalkedPlantTopBlock extends BushBlock implements BonemealableBlock {
+public class BreathingAmphibiousStalkedPlantTopBlock extends BreathingAmphibiousStalkedPlantBlock {
 
     public final ResourceKey<Block> stalk;
     private @Nullable BreathingAmphibiousStalkedPlantStalkBlock cachedStalk;
 
-    public BreathingAmphibiousStalkedPlantTopBlock(final ResourceKey<Block> stalk, final Properties properties) {
-        super(properties);
+    public BreathingAmphibiousStalkedPlantTopBlock(final ResourceKey<Block> stalk, final double shapeMinX, final double shapeMinY, final double shapeMinZ, final double shapeMaxX, final double shapeMaxY, final double shapeMaxZ, final Properties properties) {
+        super(shapeMinX, shapeMinY, shapeMinZ, shapeMaxX, shapeMaxY, shapeMaxZ, properties);
         this.stalk = stalk;
     }
 
@@ -38,13 +34,6 @@ public abstract class BreathingAmphibiousStalkedPlantTopBlock extends BushBlock 
             this.cachedStalk = (BreathingAmphibiousStalkedPlantStalkBlock) BuiltInRegistries.BLOCK.getValue(this.stalk);
         }
         return this.cachedStalk;
-    }
-
-    public abstract VoxelShape getShape();
-
-    @Override
-    public VoxelShape getShape(final BlockState state, final BlockGetter level, final BlockPos pos, final CollisionContext context) {
-        return this.getShape().move(state.getOffset(pos));
     }
 
     @Override

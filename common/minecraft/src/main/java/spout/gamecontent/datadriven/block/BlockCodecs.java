@@ -5,9 +5,14 @@ import com.mojang.datafixers.util.Function3;
 import com.mojang.datafixers.util.Function4;
 import com.mojang.datafixers.util.Function5;
 import com.mojang.datafixers.util.Function6;
+import com.mojang.datafixers.util.Function7;
+import com.mojang.datafixers.util.Function8;
+import com.mojang.datafixers.util.Function9;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -44,6 +49,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import spout.gamecontent.builtin.block.BreathingAmphibiousStalkedPlantBlock;
+import spout.gamecontent.builtin.block.BreathingAmphibiousStalkedPlantStalkBlock;
+import spout.gamecontent.builtin.block.BreathingAmphibiousStalkedPlantTopBlock;
 import spout.gamecontent.builtin.block.ColoredFallingSlabBlock;
 import spout.gamecontent.builtin.block.ColoredFallingStairBlock;
 import java.util.function.BiFunction;
@@ -136,6 +144,72 @@ public final class BlockCodecs {
         ).apply(instance, factory));
     }
 
+    public static <B extends Block, T1, T2, T3, T4, T5, T6> MapCodec<B> simpleCodec(
+        App<RecordCodecBuilder.Mu<B>, T1> t1,
+        App<RecordCodecBuilder.Mu<B>, T2> t2,
+        App<RecordCodecBuilder.Mu<B>, T3> t3,
+        App<RecordCodecBuilder.Mu<B>, T4> t4,
+        App<RecordCodecBuilder.Mu<B>, T5> t5,
+        App<RecordCodecBuilder.Mu<B>, T6> t6,
+        Function7<T1, T2, T3, T4, T5, T6, BlockBehaviour.Properties, B> factory
+    ) {
+        return RecordCodecBuilder.mapCodec(instance -> instance.group(
+            t1,
+            t2,
+            t3,
+            t4,
+            t5,
+            t6,
+            BlockPropertiesCodec.getBuilder()
+        ).apply(instance, factory));
+    }
+
+    public static <B extends Block, T1, T2, T3, T4, T5, T6, T7> MapCodec<B> simpleCodec(
+        App<RecordCodecBuilder.Mu<B>, T1> t1,
+        App<RecordCodecBuilder.Mu<B>, T2> t2,
+        App<RecordCodecBuilder.Mu<B>, T3> t3,
+        App<RecordCodecBuilder.Mu<B>, T4> t4,
+        App<RecordCodecBuilder.Mu<B>, T5> t5,
+        App<RecordCodecBuilder.Mu<B>, T6> t6,
+        App<RecordCodecBuilder.Mu<B>, T7> t7,
+        Function8<T1, T2, T3, T4, T5, T6, T7, BlockBehaviour.Properties, B> factory
+    ) {
+        return RecordCodecBuilder.mapCodec(instance -> instance.group(
+            t1,
+            t2,
+            t3,
+            t4,
+            t5,
+            t6,
+            t7,
+            BlockPropertiesCodec.getBuilder()
+        ).apply(instance, factory));
+    }
+
+    public static <B extends Block, T1, T2, T3, T4, T5, T6, T7, T8> MapCodec<B> simpleCodec(
+        App<RecordCodecBuilder.Mu<B>, T1> t1,
+        App<RecordCodecBuilder.Mu<B>, T2> t2,
+        App<RecordCodecBuilder.Mu<B>, T3> t3,
+        App<RecordCodecBuilder.Mu<B>, T4> t4,
+        App<RecordCodecBuilder.Mu<B>, T5> t5,
+        App<RecordCodecBuilder.Mu<B>, T6> t6,
+        App<RecordCodecBuilder.Mu<B>, T7> t7,
+        App<RecordCodecBuilder.Mu<B>, T8> t8,
+        Function9<T1, T2, T3, T4, T5, T6, T7, T8, BlockBehaviour.Properties, B> factory
+    ) {
+        return RecordCodecBuilder.mapCodec(instance -> instance.group(
+            t1,
+            t2,
+            t3,
+            t4,
+            t5,
+            t6,
+            t7,
+            t8,
+            BlockPropertiesCodec.getBuilder()
+        ).apply(instance, factory));
+    }
+
     public static MapCodec<Block> baseBlockMapCodec() {
         return BuiltInRegistries.BLOCK.byNameCodec().fieldOf("base_block");
     }
@@ -150,6 +224,38 @@ public final class BlockCodecs {
 
     public static <B extends Block> App<RecordCodecBuilder.Mu<B>, BlockSetType> blockSetTypeApp(Function<B, BlockSetType> getter) {
         return blockSetTypeMapCodec().forGetter(getter);
+    }
+
+    public static <B extends BreathingAmphibiousStalkedPlantStalkBlock> App<RecordCodecBuilder.Mu<B>, ResourceKey<Block>> breathingAmphibiousStalkedPlantStalkTopApp() {
+        return ResourceKey.codec(Registries.BLOCK).fieldOf("top").forGetter(b -> b.top);
+    }
+
+    public static <B extends BreathingAmphibiousStalkedPlantTopBlock> App<RecordCodecBuilder.Mu<B>, ResourceKey<Block>> breathingAmphibiousStalkedPlantTopStalkApp() {
+        return ResourceKey.codec(Registries.BLOCK).fieldOf("stalk").forGetter(b -> b.stalk);
+    }
+
+    public static <B extends BreathingAmphibiousStalkedPlantBlock> App<RecordCodecBuilder.Mu<B>, Double> breathingAmphibiousStalkedPlantShapeMinXApp() {
+        return Codec.DOUBLE.fieldOf("shape_min_x").forGetter(b -> b.shape.min(Direction.Axis.X));
+    }
+
+    public static <B extends BreathingAmphibiousStalkedPlantBlock> App<RecordCodecBuilder.Mu<B>, Double> breathingAmphibiousStalkedPlantShapeMinYApp() {
+        return Codec.DOUBLE.fieldOf("shape_min_y").forGetter(b -> b.shape.min(Direction.Axis.Y));
+    }
+
+    public static <B extends BreathingAmphibiousStalkedPlantBlock> App<RecordCodecBuilder.Mu<B>, Double> breathingAmphibiousStalkedPlantShapeMinZApp() {
+        return Codec.DOUBLE.fieldOf("shape_min_z").forGetter(b -> b.shape.min(Direction.Axis.Z));
+    }
+
+    public static <B extends BreathingAmphibiousStalkedPlantBlock> App<RecordCodecBuilder.Mu<B>, Double> breathingAmphibiousStalkedPlantShapeMaxXApp() {
+        return Codec.DOUBLE.fieldOf("shape_min_x").forGetter(b -> b.shape.max(Direction.Axis.X));
+    }
+
+    public static <B extends BreathingAmphibiousStalkedPlantBlock> App<RecordCodecBuilder.Mu<B>, Double> breathingAmphibiousStalkedPlantShapeMaxYApp() {
+        return Codec.DOUBLE.fieldOf("shape_max_y").forGetter(b -> b.shape.max(Direction.Axis.Y));
+    }
+
+    public static <B extends BreathingAmphibiousStalkedPlantBlock> App<RecordCodecBuilder.Mu<B>, Double> breathingAmphibiousStalkedPlantShapeMaxZApp() {
+        return Codec.DOUBLE.fieldOf("shape_max_z").forGetter(b -> b.shape.max(Direction.Axis.Z));
     }
 
     public static <B extends ChestBlock> App<RecordCodecBuilder.Mu<B>, SoundEvent> chestOpenSoundApp() {

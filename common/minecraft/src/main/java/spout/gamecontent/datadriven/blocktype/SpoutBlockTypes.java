@@ -285,6 +285,8 @@ import net.minecraft.world.level.block.piston.PistonHeadBlock;
 import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
 import net.minecraft.world.level.material.FlowingFluid;
 import spout.branding.SpoutNamespace;
+import spout.gamecontent.builtin.block.BreathingAmphibiousStalkedPlantStalkBlock;
+import spout.gamecontent.builtin.block.BreathingAmphibiousStalkedPlantTopBlock;
 import spout.gamecontent.builtin.block.BroadFlowerBlock;
 import spout.gamecontent.builtin.block.CattailStalkBlock;
 import spout.gamecontent.builtin.block.CattailTopBlock;
@@ -766,12 +768,32 @@ public final class SpoutBlockTypes {
         ConcretePowderStairBlock::new
     ), ConcretePowderStairBlock.class);
     public static final SpoutBlockType BROAD_FLOWER = registerSpout("broad_flower", BlockCodecs.flowerCodec(BroadFlowerBlock::new), BroadFlowerBlock.class);
+    public static final SpoutBlockType BREATHING_AMPHIBIOUS_STALKED_PLANT_STALK = registerSpout("breathing_amphibious_stalked_plant_stalk", BlockCodecs.simpleCodec(
+        BlockCodecs.breathingAmphibiousStalkedPlantStalkTopApp(),
+        BlockCodecs.breathingAmphibiousStalkedPlantShapeMinXApp(),
+        BlockCodecs.breathingAmphibiousStalkedPlantShapeMinYApp(),
+        BlockCodecs.breathingAmphibiousStalkedPlantShapeMinZApp(),
+        BlockCodecs.breathingAmphibiousStalkedPlantShapeMaxXApp(),
+        BlockCodecs.breathingAmphibiousStalkedPlantShapeMaxYApp(),
+        BlockCodecs.breathingAmphibiousStalkedPlantShapeMaxZApp(),
+        BreathingAmphibiousStalkedPlantStalkBlock::new
+    ), BreathingAmphibiousStalkedPlantStalkBlock.class);
+    public static final SpoutBlockType BREATHING_AMPHIBIOUS_STALKED_PLANT_TOP = registerSpout("breathing_amphibious_stalked_plant_top", BlockCodecs.simpleCodec(
+        BlockCodecs.breathingAmphibiousStalkedPlantTopStalkApp(),
+        BlockCodecs.breathingAmphibiousStalkedPlantShapeMinXApp(),
+        BlockCodecs.breathingAmphibiousStalkedPlantShapeMinYApp(),
+        BlockCodecs.breathingAmphibiousStalkedPlantShapeMinZApp(),
+        BlockCodecs.breathingAmphibiousStalkedPlantShapeMaxXApp(),
+        BlockCodecs.breathingAmphibiousStalkedPlantShapeMaxYApp(),
+        BlockCodecs.breathingAmphibiousStalkedPlantShapeMaxZApp(),
+        BreathingAmphibiousStalkedPlantTopBlock::new
+    ), BreathingAmphibiousStalkedPlantTopBlock.class);
     public static final SpoutBlockType CATTAIL_STALK = registerSpout("cattail_stalk", BlockCodecs.simpleCodec(
-        ResourceKey.codec(Registries.BLOCK).fieldOf("top").forGetter(b -> b.top),
+        BlockCodecs.breathingAmphibiousStalkedPlantStalkTopApp(),
         CattailStalkBlock::new
     ), CattailStalkBlock.class);
     public static final SpoutBlockType CATTAIL_TOP = registerSpout("cattail_top", BlockCodecs.simpleCodec(
-        ResourceKey.codec(Registries.BLOCK).fieldOf("stalk").forGetter(b -> b.stalk),
+        BlockCodecs.breathingAmphibiousStalkedPlantTopStalkApp(),
         CattailTopBlock::new
     ), CattailTopBlock.class);
 

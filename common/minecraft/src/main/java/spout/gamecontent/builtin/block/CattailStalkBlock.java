@@ -11,23 +11,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.Nullable;
 
 public class CattailStalkBlock extends BreathingAmphibiousStalkedPlantStalkBlock {
 
-    public static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D);
-
     public static final IntegerProperty COUNT = SpoutBlockStateProperties.CATTAIL_COUNT;
 
     public CattailStalkBlock(final ResourceKey<Block> top, final Properties properties) {
-        super(top, properties);
+        super(top, 2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D, properties);
         this.registerDefaultState(this.defaultBlockState().setValue(BOTTOM, true).setValue(WATERLOGGED, false).setValue(COUNT, 1));
-    }
-
-    @Override
-    public VoxelShape getShape() {
-        return SHAPE;
     }
 
     @Override

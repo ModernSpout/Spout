@@ -17,8 +17,6 @@ import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealSource;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -26,22 +24,19 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.Nullable;
 import spout.gamecontent.builtin.block.tag.SpoutBlockTags;
 
-public abstract class BreathingAmphibiousStalkedPlantStalkBlock extends BushBlock implements SimpleWaterloggedBlock, BonemealableBlock {
+public class BreathingAmphibiousStalkedPlantStalkBlock extends BreathingAmphibiousStalkedPlantBlock implements SimpleWaterloggedBlock {
 
-    public static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
     public static final BooleanProperty BOTTOM = SpoutBlockStateProperties.PLANT_BOTTOM;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public final ResourceKey<Block> top;
     private @Nullable BreathingAmphibiousStalkedPlantTopBlock cachedTop;
 
-    public BreathingAmphibiousStalkedPlantStalkBlock(final ResourceKey<Block> top, final Properties properties) {
-        super(properties);
+    public BreathingAmphibiousStalkedPlantStalkBlock(final ResourceKey<Block> top, final double shapeMinX, final double shapeMinY, final double shapeMinZ, final double shapeMaxX, final double shapeMaxY, final double shapeMaxZ, final Properties properties) {
+        super(shapeMinX, shapeMinY, shapeMinZ, shapeMaxX, shapeMaxY, shapeMaxZ, properties);
         this.top = top;
         this.registerDefaultState(this.defaultBlockState().setValue(BOTTOM, true).setValue(WATERLOGGED, false));
     }
@@ -51,13 +46,6 @@ public abstract class BreathingAmphibiousStalkedPlantStalkBlock extends BushBloc
             this.cachedTop = (BreathingAmphibiousStalkedPlantTopBlock) BuiltInRegistries.BLOCK.getValue(this.top);
         }
         return this.cachedTop;
-    }
-
-    public abstract VoxelShape getShape();
-
-    @Override
-    public VoxelShape getShape(final BlockState state, final BlockGetter level, final BlockPos pos, final CollisionContext context) {
-        return SHAPE.move(state.getOffset(pos));
     }
 
     @Override
