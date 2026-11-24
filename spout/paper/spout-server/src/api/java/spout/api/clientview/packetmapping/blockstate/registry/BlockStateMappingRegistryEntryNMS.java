@@ -3,7 +3,6 @@ package spout.api.clientview.packetmapping.blockstate.registry;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.bukkit.block.BlockType;
-import org.bukkit.block.data.BlockData;
 import org.jetbrains.annotations.ApiStatus;
 import spout.api.clientview.packetmapping.blockstate.handle.BlockStateMappingHandleNMS;
 import java.util.Arrays;
@@ -102,7 +101,7 @@ public interface BlockStateMappingRegistryEntryNMS extends BlockStateMappingRegi
          * NMS extension for {@link #setFromEveryStateOf(Collection)}.
          */
         default void setFromEveryStateOfNMS(Collection<Block> from) {
-            this.setFrom(from.stream().flatMap(value -> value.getStateDefinition().getPossibleStates().stream().map(state -> (BlockData) state)).toList());
+            this.setFromNMS(from.stream().flatMap(value -> value.getStateDefinition().getPossibleStates().stream()).toList());
         }
 
         /**
