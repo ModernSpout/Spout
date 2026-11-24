@@ -62,6 +62,27 @@ public abstract class BreathingAmphibiousStalkedPlantStalkBlock extends BushBloc
 
     @Override
     public boolean canSurvive(final BlockState state, final LevelReader level, final BlockPos pos) {
+        if (!state.getValue(BOTTOM)) {
+            if (state.getFluidState().is(Fluids.WATER)) {
+                if (!this.canMiddleBeWater()) {
+                    return false;
+                }
+            } else {
+                if (!this.canMiddleBeAir()) {
+                    return false;
+                }
+            }
+        } else {
+            if (state.getFluidState().is(Fluids.WATER)) {
+                if (!this.canBottomBeWater()) {
+                    return false;
+                }
+            } else {
+                if (!this.canBottomBeAir()) {
+                    return false;
+                }
+            }
+        }
         return this.mayPlaceOn(level.getBlockState(pos.below()), level, pos);
     }
 
@@ -73,25 +94,60 @@ public abstract class BreathingAmphibiousStalkedPlantStalkBlock extends BushBloc
     public boolean canBottomBePlacedAt(final BlockGetter level, final BlockPos pos) {
         // Verify that the block itself is air or regular water
         BlockState state = level.getBlockState(pos);
-        if (!(state.isAir() || state.is(Blocks.WATER))) {
+        if (!((this.canBottomBeAir() && state.isAir()) || (this.canBottomBeWater() && state.is(Blocks.WATER)))) {
             return false;
         }
-        // Verify that there is eventually air above, with only water in between
+        // Verify that there is eventually enough air above, with only air or water in between
         BlockPos above = pos.above();
+        int height = 1;
         while (true) {
+            height++;
+            if (height > this.getMaxHeight()) {
+                return false;
+            }
             if (above.getY() > level.getMaxY()) {
                 return false;
             }
             BlockState aboveState = level.getBlockState(above);
             if (aboveState.isAir()) {
-                return true;
+                if (height >= this.getMinHeight()) {
+                    return true;
+                }
+                if (!this.canMiddleBeAir()) {
+                    return false;
+                }
+            } else if (!aboveState.is(Blocks.WATER)) {
+                return false;
             }
-            if (aboveState.is(Blocks.WATER)) {
-                above = above.above();
-                continue;
+            if (!this.canMiddleBeWater()) {
+                return false;
             }
-            return false;
+            above = above.above();
         }
+    }
+
+    public boolean canBottomBeAir() {
+        return true;
+    }
+
+    public boolean canBottomBeWater() {
+        return true;
+    }
+
+    public boolean canMiddleBeAir() {
+        return true;
+    }
+
+    public boolean canMiddleBeWater() {
+        return true;
+    }
+
+    public int getMinHeight() {
+        return 2;
+    }
+
+    public int getMaxHeight() {
+        return 4096;
     }
 
     public void placeBottomAt(final LevelAccessor level, final BlockPos pos, BlockState intendedState) {
@@ -128,6 +184,9 @@ public abstract class BreathingAmphibiousStalkedPlantStalkBlock extends BushBloc
     public @Nullable BlockPos getTopPos(final LevelReader level, final BlockPos pos) {
         BlockPos.MutableBlockPos checked = new BlockPos.MutableBlockPos(pos.getX(), pos.getY() + 1, pos.getZ());
         while (true) {
+            if (checked.getY() - pos.getY() >= this.getMaxHeight()) {
+                return null;
+            }
             if (checked.getY() > level.getMaxY()) {
                 return null;
             }
@@ -224,7 +283,7 @@ public abstract class BreathingAmphibiousStalkedPlantStalkBlock extends BushBloc
         return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
     }
 
-    public void spreadCountUpAndDown(final LevelAccessor level, final BlockPos pos, final BlockState state) {
+    public void spreadMatchingPropertiesUpAndDown(final LevelAccessor level, final BlockPos pos, final BlockState state) {
         BlockPos.MutableBlockPos changingPos = new BlockPos.MutableBlockPos(pos.getX(), pos.getY() + 1, pos.getZ());
         while (true) {
             if (changingPos.getY() > level.getMaxY()) {
@@ -259,28 +318,35 @@ public abstract class BreathingAmphibiousStalkedPlantStalkBlock extends BushBloc
 
     public void placeMatchingBlocksAbove(final LevelAccessor level, final BlockPos pos, final BlockState state) {
         BlockPos.MutableBlockPos changingPos = new BlockPos.MutableBlockPos(pos.getX(), pos.getY() + 1, pos.getZ());
+        int height = 1;
         while (true) {
+            height++;
+            if (height > this.getMaxHeight()) {
+                break;
+            }
             if (changingPos.getY() > level.getMaxY()) {
                 break;
             }
             BlockState oldChangingState = level.getBlockState(changingPos);
             if (oldChangingState.isAir()) {
-                level.setBlockAndUpdate(changingPos, this.getMatchingTopState(state, this.getTop().defaultBlockState()));
+                if (height >= this.getMinHeight()) {
+                    level.setBlockAndUpdate(changingPos, this.getMatchingTopState(state, this.getTop().defaultBlockState()));
+                    break;
+                }
+                level.setBlockAndUpdate(changingPos, state.setValue(BOTTOM, false).setValue(WATERLOGGED, false));
+            } else if (oldChangingState.is(Blocks.WATER)) {
+                level.setBlockAndUpdate(changingPos, state.setValue(BOTTOM, false).setValue(WATERLOGGED, true));
+            } else {
                 break;
             }
-            if (oldChangingState.is(Blocks.WATER)) {
-                level.setBlockAndUpdate(changingPos, state.setValue(BOTTOM, false).setValue(WATERLOGGED, true));
-                changingPos.move(0, 1, 0);
-                continue;
-            }
-            break;
+            changingPos.move(0, 1, 0);
         }
     }
 
     @Override
     public void setPlacedBy(final Level level, final BlockPos pos, final BlockState state, final @Nullable LivingEntity by, final ItemStack itemStack) {
         if (!this.isNewlyPlaced(state)) {
-            this.spreadCountUpAndDown(level, pos, state);
+            this.spreadMatchingPropertiesUpAndDown(level, pos, state);
             return;
         }
         this.placeMatchingBlocksAbove(level, pos, state);
