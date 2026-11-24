@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
@@ -73,6 +74,10 @@ public abstract class BreathingAmphibiousStalkedPlantTopBlock extends BushBlock 
 
     @Override
     public boolean isValidBonemealTarget(final LevelReader level, final BlockPos pos, final BlockState state, final BonemealSource source) {
+        return this.isValidBonemealTarget(level, pos);
+    }
+
+    public boolean isValidBonemealTarget(final LevelReader level, final BlockPos pos) {
         return pos.getY() < level.getMaxY() && level.getBlockState(pos.above()).isAir();
     }
 
@@ -83,12 +88,16 @@ public abstract class BreathingAmphibiousStalkedPlantTopBlock extends BushBlock 
 
     @Override
     public void performBonemeal(final ServerLevel level, final RandomSource random, final BlockPos pos, final BlockState state, final BonemealSource source) {
-        this.growUp(level, pos, state, source);
+        this.performBonemeal(level, pos);
     }
 
-    public boolean growUp(final ServerLevel level, final BlockPos pos, final BlockState state, final BonemealSource source) {
-        if (this.isValidBonemealTarget(level, pos, state, source)) {
-            level.setBlockAndUpdate(pos.above(), state);
+    public void performBonemeal(final LevelAccessor level, final BlockPos pos) {
+        this.growUp(level, pos);
+    }
+
+    public boolean growUp(final LevelAccessor level, final BlockPos pos) {
+        if (this.isValidBonemealTarget(level, pos)) {
+            level.setBlockAndUpdate(pos.above(), level.getBlockState(pos));
             return true;
         }
         return false;

@@ -160,8 +160,12 @@ public abstract class BreathingAmphibiousStalkedPlantStalkBlock extends BushBloc
 
     @Override
     public boolean isValidBonemealTarget(final LevelReader level, final BlockPos pos, final BlockState state, final BonemealSource source) {
+        return this.isValidBonemealTarget(level, pos);
+    }
+
+    public boolean isValidBonemealTarget(final LevelReader level, final BlockPos pos) {
         BlockPos topPos = this.getTopPos(level, pos);
-        return topPos != null && this.getTop().isValidBonemealTarget(level, topPos, level.getBlockState(topPos), source);
+        return topPos != null && this.getTop().isValidBonemealTarget(level, topPos);
     }
 
     @Override
@@ -177,10 +181,10 @@ public abstract class BreathingAmphibiousStalkedPlantStalkBlock extends BushBloc
         }
     }
 
-    public boolean growUp(final ServerLevel level, final BlockPos pos, final BlockState state, final BonemealSource source) {
+    public boolean growUp(final LevelAccessor level, final BlockPos pos) {
         BlockPos topPos = this.getTopPos(level, pos);
         if (topPos != null) {
-            return this.getTop().growUp(level, topPos, level.getBlockState(topPos), source);
+            return this.getTop().growUp(level, topPos);
         }
         return false;
     }
