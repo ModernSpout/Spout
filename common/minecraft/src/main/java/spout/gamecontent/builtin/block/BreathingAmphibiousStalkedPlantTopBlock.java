@@ -83,9 +83,15 @@ public abstract class BreathingAmphibiousStalkedPlantTopBlock extends BushBlock 
 
     @Override
     public void performBonemeal(final ServerLevel level, final RandomSource random, final BlockPos pos, final BlockState state, final BonemealSource source) {
+        this.growUp(level, pos, state, source);
+    }
+
+    public boolean growUp(final ServerLevel level, final BlockPos pos, final BlockState state, final BonemealSource source) {
         if (this.isValidBonemealTarget(level, pos, state, source)) {
             level.setBlockAndUpdate(pos.above(), state);
+            return true;
         }
+        return false;
     }
 
     @Override

@@ -177,6 +177,14 @@ public abstract class BreathingAmphibiousStalkedPlantStalkBlock extends BushBloc
         }
     }
 
+    public boolean growUp(final ServerLevel level, final BlockPos pos, final BlockState state, final BonemealSource source) {
+        BlockPos topPos = this.getTopPos(level, pos);
+        if (topPos != null) {
+            return this.getTop().growUp(level, topPos, level.getBlockState(topPos), source);
+        }
+        return false;
+    }
+
     @Override
     public void tick(final BlockState state, final ServerLevel level, final BlockPos pos, final RandomSource random) {
         if (!state.canSurvive(level, pos)) {
