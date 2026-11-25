@@ -83,7 +83,7 @@ public class BreathingAmphibiousStalkedPlantStalkBlock extends BreathingAmphibio
     public boolean canBottomBePlacedAt(final BlockGetter level, final BlockPos pos) {
         // Verify that the block itself is air or regular water
         BlockState state = level.getBlockState(pos);
-        if (!((this.canBottomBeAir() && state.isAir()) || (this.canBottomBeWater() && state.is(Blocks.WATER)))) {
+        if ((!this.canBottomBeAir() && state.isAir()) || (!this.canBottomBeWater() && state.is(Blocks.WATER))) {
             return false;
         }
         // Verify that there is eventually enough air above, with only air or water in between
@@ -107,8 +107,7 @@ public class BreathingAmphibiousStalkedPlantStalkBlock extends BreathingAmphibio
                 }
             } else if (!aboveState.is(Blocks.WATER)) {
                 return false;
-            }
-            if (!this.canMiddleBeWater()) {
+            } else if (!this.canMiddleBeWater()) {
                 return false;
             }
             above = above.above();
