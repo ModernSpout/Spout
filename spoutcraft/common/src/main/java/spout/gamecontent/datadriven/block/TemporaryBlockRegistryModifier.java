@@ -2,11 +2,13 @@ package spout.gamecontent.datadriven.block;
 
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.block.BlockTintSources;
 import net.minecraft.core.DefaultedMappedRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LilyPadBlock;
 import net.minecraft.world.level.block.TintedParticleLeavesBlock;
 import spout.gamecontent.datadriven.blockentity.BlockEntityAlternativeValidation;
 import spout.gamecontent.datadriven.common.registry.temporarymodification.TemporaryRegistryModifier;
@@ -34,6 +36,8 @@ public final class TemporaryBlockRegistryModifier extends TemporaryRegistryModif
                 this.resourcesAdded.forEach(pair -> {
                     if (pair.right() instanceof TintedParticleLeavesBlock tintedLeaves) {
                         Minecraft.getInstance().getBlockColors().register(List.of(BlockTintSources.foliage()), tintedLeaves);
+                    } else if (pair.right() instanceof LilyPadBlock lilyPad) {
+                        Minecraft.getInstance().getBlockColors().register(List.of(BlockTintSources.constant(BlockColors.LILY_PAD_DEFAULT, BlockColors.LILY_PAD_IN_WORLD)), lilyPad);
                     }
                 });
             }
