@@ -6,16 +6,19 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public abstract class BreathingAmphibiousStalkedPlantBlock extends BushBlock implements BonemealableBlock {
 
+    public final net.minecraft.world.phys.AABB shapeBox;
     public final VoxelShape shape;
 
-    public BreathingAmphibiousStalkedPlantBlock(final double shapeMinX, final double shapeMinY, final double shapeMinZ, final double shapeMaxX, final double shapeMaxY, final double shapeMaxZ, final Properties properties) {
+    public BreathingAmphibiousStalkedPlantBlock(final AABB shapeBox, final Properties properties) {
         super(properties);
-        this.shape = Block.box(shapeMinX, shapeMinY, shapeMinZ, shapeMaxX, shapeMaxY, shapeMaxZ);
+        this.shapeBox = shapeBox;
+        this.shape = Block.box(shapeBox.minX, shapeBox.minY, shapeBox.minZ, shapeBox.maxX, shapeBox.maxY, shapeBox.maxZ);
     }
 
     @Override

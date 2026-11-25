@@ -770,22 +770,12 @@ public final class SpoutBlockTypes {
     public static final SpoutBlockType BROAD_FLOWER = registerSpout("broad_flower", BlockCodecs.flowerCodec(BroadFlowerBlock::new), BroadFlowerBlock.class);
     public static final SpoutBlockType BREATHING_AMPHIBIOUS_STALKED_PLANT_STALK = registerSpout("breathing_amphibious_stalked_plant_stalk", BlockCodecs.simpleCodec(
         BlockCodecs.breathingAmphibiousStalkedPlantStalkTopApp(),
-        BlockCodecs.breathingAmphibiousStalkedPlantShapeMinXApp(),
-        BlockCodecs.breathingAmphibiousStalkedPlantShapeMinYApp(),
-        BlockCodecs.breathingAmphibiousStalkedPlantShapeMinZApp(),
-        BlockCodecs.breathingAmphibiousStalkedPlantShapeMaxXApp(),
-        BlockCodecs.breathingAmphibiousStalkedPlantShapeMaxYApp(),
-        BlockCodecs.breathingAmphibiousStalkedPlantShapeMaxZApp(),
+        BlockCodecs.breathingAmphibiousStalkedPlantShapeBoxApp(),
         BreathingAmphibiousStalkedPlantStalkBlock::new
     ), BreathingAmphibiousStalkedPlantStalkBlock.class);
     public static final SpoutBlockType BREATHING_AMPHIBIOUS_STALKED_PLANT_TOP = registerSpout("breathing_amphibious_stalked_plant_top", BlockCodecs.simpleCodec(
         BlockCodecs.breathingAmphibiousStalkedPlantTopStalkApp(),
-        BlockCodecs.breathingAmphibiousStalkedPlantShapeMinXApp(),
-        BlockCodecs.breathingAmphibiousStalkedPlantShapeMinYApp(),
-        BlockCodecs.breathingAmphibiousStalkedPlantShapeMinZApp(),
-        BlockCodecs.breathingAmphibiousStalkedPlantShapeMaxXApp(),
-        BlockCodecs.breathingAmphibiousStalkedPlantShapeMaxYApp(),
-        BlockCodecs.breathingAmphibiousStalkedPlantShapeMaxZApp(),
+        BlockCodecs.breathingAmphibiousStalkedPlantShapeBoxApp(),
         BreathingAmphibiousStalkedPlantTopBlock::new
     ), BreathingAmphibiousStalkedPlantTopBlock.class);
     public static final SpoutBlockType CATTAIL_STALK = registerSpout("cattail_stalk", BlockCodecs.simpleCodec(

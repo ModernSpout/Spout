@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.Nullable;
 import spout.gamecontent.builtin.block.tag.SpoutBlockTags;
 
@@ -35,8 +36,8 @@ public class BreathingAmphibiousStalkedPlantStalkBlock extends BreathingAmphibio
     public final ResourceKey<Block> top;
     private @Nullable BreathingAmphibiousStalkedPlantTopBlock cachedTop;
 
-    public BreathingAmphibiousStalkedPlantStalkBlock(final ResourceKey<Block> top, final double shapeMinX, final double shapeMinY, final double shapeMinZ, final double shapeMaxX, final double shapeMaxY, final double shapeMaxZ, final Properties properties) {
-        super(shapeMinX, shapeMinY, shapeMinZ, shapeMaxX, shapeMaxY, shapeMaxZ, properties);
+    public BreathingAmphibiousStalkedPlantStalkBlock(final ResourceKey<Block> top, final AABB shapeBox, final Properties properties) {
+        super(shapeBox, properties);
         this.top = top;
         this.registerDefaultState(this.defaultBlockState().setValue(BOTTOM, true).setValue(WATERLOGGED, false));
     }

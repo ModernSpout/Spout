@@ -8,11 +8,9 @@ import com.mojang.datafixers.util.Function6;
 import com.mojang.datafixers.util.Function7;
 import com.mojang.datafixers.util.Function8;
 import com.mojang.datafixers.util.Function9;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -49,11 +47,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.phys.AABB;
 import spout.gamecontent.builtin.block.BreathingAmphibiousStalkedPlantBlock;
 import spout.gamecontent.builtin.block.BreathingAmphibiousStalkedPlantStalkBlock;
 import spout.gamecontent.builtin.block.BreathingAmphibiousStalkedPlantTopBlock;
 import spout.gamecontent.builtin.block.ColoredFallingSlabBlock;
 import spout.gamecontent.builtin.block.ColoredFallingStairBlock;
+import spout.util.mojang.codec.AABBCodec;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -234,28 +234,8 @@ public final class BlockCodecs {
         return ResourceKey.codec(Registries.BLOCK).fieldOf("stalk").forGetter(b -> b.stalk);
     }
 
-    public static <B extends BreathingAmphibiousStalkedPlantBlock> App<RecordCodecBuilder.Mu<B>, Double> breathingAmphibiousStalkedPlantShapeMinXApp() {
-        return Codec.DOUBLE.fieldOf("shape_min_x").forGetter(b -> b.shape.min(Direction.Axis.X));
-    }
-
-    public static <B extends BreathingAmphibiousStalkedPlantBlock> App<RecordCodecBuilder.Mu<B>, Double> breathingAmphibiousStalkedPlantShapeMinYApp() {
-        return Codec.DOUBLE.fieldOf("shape_min_y").forGetter(b -> b.shape.min(Direction.Axis.Y));
-    }
-
-    public static <B extends BreathingAmphibiousStalkedPlantBlock> App<RecordCodecBuilder.Mu<B>, Double> breathingAmphibiousStalkedPlantShapeMinZApp() {
-        return Codec.DOUBLE.fieldOf("shape_min_z").forGetter(b -> b.shape.min(Direction.Axis.Z));
-    }
-
-    public static <B extends BreathingAmphibiousStalkedPlantBlock> App<RecordCodecBuilder.Mu<B>, Double> breathingAmphibiousStalkedPlantShapeMaxXApp() {
-        return Codec.DOUBLE.fieldOf("shape_min_x").forGetter(b -> b.shape.max(Direction.Axis.X));
-    }
-
-    public static <B extends BreathingAmphibiousStalkedPlantBlock> App<RecordCodecBuilder.Mu<B>, Double> breathingAmphibiousStalkedPlantShapeMaxYApp() {
-        return Codec.DOUBLE.fieldOf("shape_max_y").forGetter(b -> b.shape.max(Direction.Axis.Y));
-    }
-
-    public static <B extends BreathingAmphibiousStalkedPlantBlock> App<RecordCodecBuilder.Mu<B>, Double> breathingAmphibiousStalkedPlantShapeMaxZApp() {
-        return Codec.DOUBLE.fieldOf("shape_max_z").forGetter(b -> b.shape.max(Direction.Axis.Z));
+    public static <B extends BreathingAmphibiousStalkedPlantBlock> App<RecordCodecBuilder.Mu<B>, AABB> breathingAmphibiousStalkedPlantShapeBoxApp() {
+        return AABBCodec.CODEC.fieldOf("shape_box").forGetter(b -> b.shapeBox);
     }
 
     public static <B extends ChestBlock> App<RecordCodecBuilder.Mu<B>, SoundEvent> chestOpenSoundApp() {

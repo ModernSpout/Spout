@@ -17,6 +17,7 @@ import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.Nullable;
 
 public class BreathingAmphibiousStalkedPlantTopBlock extends BreathingAmphibiousStalkedPlantBlock {
@@ -24,8 +25,8 @@ public class BreathingAmphibiousStalkedPlantTopBlock extends BreathingAmphibious
     public final ResourceKey<Block> stalk;
     private @Nullable BreathingAmphibiousStalkedPlantStalkBlock cachedStalk;
 
-    public BreathingAmphibiousStalkedPlantTopBlock(final ResourceKey<Block> stalk, final double shapeMinX, final double shapeMinY, final double shapeMinZ, final double shapeMaxX, final double shapeMaxY, final double shapeMaxZ, final Properties properties) {
-        super(shapeMinX, shapeMinY, shapeMinZ, shapeMaxX, shapeMaxY, shapeMaxZ, properties);
+    public BreathingAmphibiousStalkedPlantTopBlock(final ResourceKey<Block> stalk, final AABB shapeBox, final Properties properties) {
+        super(shapeBox, properties);
         this.stalk = stalk;
     }
 
