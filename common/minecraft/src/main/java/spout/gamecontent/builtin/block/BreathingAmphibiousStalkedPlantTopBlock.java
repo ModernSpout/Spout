@@ -19,14 +19,15 @@ import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.Nullable;
+import spout.gamecontent.datadriven.block.subtypes.BlockStateFunction;
 
 public class BreathingAmphibiousStalkedPlantTopBlock extends BreathingAmphibiousStalkedPlantBlock {
 
     public final ResourceKey<Block> stalk;
     private @Nullable BreathingAmphibiousStalkedPlantStalkBlock cachedStalk;
 
-    public BreathingAmphibiousStalkedPlantTopBlock(final ResourceKey<Block> stalk, final AABB shapeBox, final Properties properties) {
-        super(shapeBox, properties);
+    public BreathingAmphibiousStalkedPlantTopBlock(final ResourceKey<Block> stalk, final BlockStateFunction<AABB> shape, final Properties properties) {
+        super(shape, properties);
         this.stalk = stalk;
     }
 

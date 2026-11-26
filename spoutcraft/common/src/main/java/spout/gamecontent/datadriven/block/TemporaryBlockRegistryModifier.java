@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LilyPadBlock;
 import net.minecraft.world.level.block.TintedParticleLeavesBlock;
+import spout.gamecontent.builtin.block.LongHangingPlantBlock;
 import spout.gamecontent.datadriven.blockentity.BlockEntityAlternativeValidation;
 import spout.gamecontent.datadriven.common.registry.temporarymodification.TemporaryRegistryModifier;
 
@@ -38,6 +39,8 @@ public final class TemporaryBlockRegistryModifier extends TemporaryRegistryModif
                         Minecraft.getInstance().getBlockColors().register(List.of(BlockTintSources.foliage()), tintedLeaves);
                     } else if (pair.right() instanceof LilyPadBlock lilyPad) {
                         Minecraft.getInstance().getBlockColors().register(List.of(BlockTintSources.constant(BlockColors.LILY_PAD_DEFAULT, BlockColors.LILY_PAD_IN_WORLD)), lilyPad);
+                    } else if (pair.right() instanceof LongHangingPlantBlock longHangingPlant && longHangingPlant.requiresTint) {
+                        Minecraft.getInstance().getBlockColors().register(List.of(BlockTintSources.foliage()), longHangingPlant);
                     }
                 });
             }

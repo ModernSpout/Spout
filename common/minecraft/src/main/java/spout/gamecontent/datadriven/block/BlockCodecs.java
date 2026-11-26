@@ -48,11 +48,12 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.phys.AABB;
-import spout.gamecontent.builtin.block.BreathingAmphibiousStalkedPlantBlock;
 import spout.gamecontent.builtin.block.BreathingAmphibiousStalkedPlantStalkBlock;
 import spout.gamecontent.builtin.block.BreathingAmphibiousStalkedPlantTopBlock;
 import spout.gamecontent.builtin.block.ColoredFallingSlabBlock;
 import spout.gamecontent.builtin.block.ColoredFallingStairBlock;
+import spout.gamecontent.builtin.block.DataDrivenShapeBlock;
+import spout.gamecontent.datadriven.block.subtypes.BlockStateFunction;
 import spout.util.mojang.codec.AABBCodec;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -234,10 +235,6 @@ public final class BlockCodecs {
         return ResourceKey.codec(Registries.BLOCK).fieldOf("stalk").forGetter(b -> b.stalk);
     }
 
-    public static <B extends BreathingAmphibiousStalkedPlantBlock> App<RecordCodecBuilder.Mu<B>, AABB> breathingAmphibiousStalkedPlantShapeBoxApp() {
-        return AABBCodec.CODEC.fieldOf("shape_box").forGetter(b -> b.shapeBox);
-    }
-
     public static <B extends ChestBlock> App<RecordCodecBuilder.Mu<B>, SoundEvent> chestOpenSoundApp() {
         return BuiltInRegistries.SOUND_EVENT.byNameCodec().fieldOf("open_sound").forGetter(ChestBlock::getOpenChestSound);
     }
@@ -248,6 +245,10 @@ public final class BlockCodecs {
 
     public static MapCodec<Block> concretePowderConcreteCodec() {
         return BuiltInRegistries.BLOCK.byNameCodec().fieldOf("concrete");
+    }
+
+    public static <B extends DataDrivenShapeBlock> App<RecordCodecBuilder.Mu<B>, BlockStateFunction<AABB>> dataDrivenShapeApp() {
+        return BlockStateFunction.codec(AABBCodec.CODEC.codec()).fieldOf("shape").forGetter(DataDrivenShapeBlock::getShape);
     }
 
     public static MapCodec<ColorRGBA> fallingDustColorMapCodec() {

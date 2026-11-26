@@ -27,6 +27,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.Nullable;
 import spout.gamecontent.builtin.block.tag.SpoutBlockTags;
+import spout.gamecontent.datadriven.block.subtypes.BlockStateFunction;
 
 public class BreathingAmphibiousStalkedPlantStalkBlock extends BreathingAmphibiousStalkedPlantBlock implements SimpleWaterloggedBlock {
 
@@ -36,8 +37,8 @@ public class BreathingAmphibiousStalkedPlantStalkBlock extends BreathingAmphibio
     public final ResourceKey<Block> top;
     private @Nullable BreathingAmphibiousStalkedPlantTopBlock cachedTop;
 
-    public BreathingAmphibiousStalkedPlantStalkBlock(final ResourceKey<Block> top, final AABB shapeBox, final Properties properties) {
-        super(shapeBox, properties);
+    public BreathingAmphibiousStalkedPlantStalkBlock(final ResourceKey<Block> top, final BlockStateFunction<AABB> shape, final Properties properties) {
+        super(shape, properties);
         this.top = top;
         this.registerDefaultState(this.defaultBlockState().setValue(BOTTOM, true).setValue(WATERLOGGED, false));
     }

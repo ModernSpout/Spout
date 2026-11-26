@@ -31,18 +31,25 @@ import java.util.stream.Stream;
  * but calling {@link #test} is only valid if {@link T} is a boolean.
  * </p>
  */
-public sealed interface BlockStateFunction<T> extends Function<BlockState, T>, Predicate<BlockState> permits BlockStateFunction.Single, BlockStateFunction.ByProperties {
+public sealed interface BlockStateFunction<T> extends Function<BlockState, T>, Predicate<BlockState> permits BlockStateFunction.Single, BlockStateFunction.ByProperties, BlockStateFunction.Wrapped {
 
     @Override
     default boolean test(BlockState state) {
         return (boolean) this.apply(state);
     }
 
+    <U> BlockStateFunction<U> map(Function<T, U> mapping);
+
     record Single<T>(T value) implements BlockStateFunction<T> {
 
         @Override
         public T apply(BlockState blockState) {
             return this.value;
+        }
+
+        @Override
+        public <U> BlockStateFunction<U> map(final Function<T, U> mapping) {
+            return new Single<>(mapping.apply(this.value));
         }
 
     }
@@ -74,6 +81,16 @@ public sealed interface BlockStateFunction<T> extends Function<BlockState, T>, P
                 List<String> values = properties.map(property -> ((Property) property).getName(key.getValue(property))).toList();
                 return this.precomputedValues.get(values);
             });
+        }
+
+        @Override
+        public <U> BlockStateFunction<U> map(final Function<T, U> mapping) {
+            return new ByProperties<>(
+                this.propertyNames,
+                this.precomputedValues.entrySet().stream()
+                    .map(entry -> Pair.of(entry.getKey(), mapping.apply(entry.getValue())))
+                    .collect(Collectors.toMap(Pair::left, Pair::right))
+            );
         }
 
         public List<Pair<List<Pair<String, String>>, T>> listAllCombinations() {
@@ -155,6 +172,68 @@ public sealed interface BlockStateFunction<T> extends Function<BlockState, T>, P
 
     }
 
+    final class Wrapped<T> implements BlockStateFunction<T> {
+
+        private @Nullable Block block;
+        private @Nullable Function<BlockState, T> function;
+        private @Nullable BlockStateFunction<T> delegate;
+
+        Wrapped(Block block, Function<BlockState, T> function) {
+            this.block = block;
+            this.function = function;
+        }
+
+        private void createDelegate() {
+            Block block = this.block;
+            this.block = null;
+            Function<BlockState, T> function = this.function;
+            this.function = null;
+            List<BlockState> possibleStates = block.getStateDefinition().getPossibleStates();
+            T firstValue = function.apply(possibleStates.get(0));
+            @Nullable Map<BlockState, T> values = null;
+            for (int i = 1; i < possibleStates.size(); i++) {
+                BlockState state = possibleStates.get(i);
+                T value = function.apply(state);
+                if (values == null && !value.equals(firstValue)) {
+                    values = new HashMap<>(possibleStates.size());
+                    for (int j = 0; j < i; j++) {
+                        values.put(possibleStates.get(j), firstValue);
+                    }
+                }
+                if (values != null) {
+                    values.put(state, value);
+                }
+            }
+            if (values == null) {
+                this.delegate = new Single<>(firstValue);
+                return;
+            }
+            Map<BlockState, T> finalValues = values;
+            this.delegate = new ByProperties<>(List.copyOf(block.getStateDefinition().getProperties()), state -> finalValues.get(state.asState(block)));
+        }
+
+        public BlockStateFunction<T> getOrCreateDelegate() {
+            if (this.delegate == null) {
+                this.createDelegate();
+            }
+            return this.delegate;
+        }
+
+        @Override
+        public T apply(final BlockState blockState) {
+            return this.getOrCreateDelegate().apply(blockState);
+        }
+
+        @Override
+        public <U> BlockStateFunction<U> map(final Function<T, U> mapping) {
+            if (this.delegate != null) {
+                return this.delegate.map(mapping);
+            }
+            return new Wrapped<>(this.block, this.function.andThen(mapping));
+        }
+
+    }
+
     static <A> Codec<BlockStateFunction<A>> codec(Codec<A> valueCodec) {
         Codec<BlockStateFunction.Single<A>> singleCodec = valueCodec.xmap(BlockStateFunction.Single::new, BlockStateFunction.Single::value);
         Codec<BlockStateFunction.ByProperties<A>> byPropertiesCodec = new Codec<>() {
@@ -193,14 +272,15 @@ public sealed interface BlockStateFunction<T> extends Function<BlockState, T>, P
                     case BlockStateFunction.Single single -> singleCodec.encode(single, ops, prefix);
                     case BlockStateFunction.ByProperties byProperties ->
                         byPropertiesCodec.encode(byProperties, ops, prefix);
+                    case BlockStateFunction.Wrapped wrapped -> this.encode(wrapped.getOrCreateDelegate(), ops, prefix);
                 };
             }
 
             @Override
             public <T> DataResult<com.mojang.datafixers.util.Pair<BlockStateFunction<A>, T>> decode(DynamicOps<T> ops, T input) {
-                boolean isSingleValue = ops.getStringValue(input).isSuccess() || ops.getNumberValue(input).isSuccess() || ops.getBooleanValue(input).isSuccess();
-                if (isSingleValue) {
-                    return (DataResult) singleCodec.decode(ops, input);
+                DataResult<com.mojang.datafixers.util.Pair<BlockStateFunction.Single<A>, T>> singleResult = singleCodec.decode(ops, input);
+                if (singleResult.isSuccess()) {
+                    return (DataResult) singleResult;
                 }
                 return (DataResult) byPropertiesCodec.decode(ops, input);
             }
@@ -227,27 +307,7 @@ public sealed interface BlockStateFunction<T> extends Function<BlockState, T>, P
             return new Single<>(value);
         } catch (Exception ignored) {
         }
-        List<BlockState> possibleStates = block.getStateDefinition().getPossibleStates();
-        T firstValue = function.apply(possibleStates.get(0));
-        @Nullable Map<BlockState, T> values = null;
-        for (int i = 1; i < possibleStates.size(); i++) {
-            BlockState state = possibleStates.get(i);
-            T value = function.apply(state);
-            if (values == null && !value.equals(firstValue)) {
-                values = new HashMap<>(possibleStates.size());
-                for (int j = 0; j < i; j++) {
-                    values.put(possibleStates.get(j), firstValue);
-                }
-            }
-            if (values != null) {
-                values.put(state, value);
-            }
-        }
-        if (values == null) {
-            return new Single<>(firstValue);
-        }
-        Map<BlockState, T> finalValues = values;
-        return new ByProperties<>(List.copyOf(block.getStateDefinition().getProperties()), state -> finalValues.get(state.asState(block)));
+        return new Wrapped<>(block, function);
     }
 
     static BlockStateFunction<Integer> wrap(Block block, ToIntFunction<BlockState> function) {

@@ -297,6 +297,7 @@ import spout.gamecontent.builtin.block.ConcretePowderStairBlock;
 import spout.gamecontent.builtin.block.DirectionalBlock;
 import spout.gamecontent.builtin.block.HalfTransparentSlabBlock;
 import spout.gamecontent.builtin.block.HalfTransparentStairBlock;
+import spout.gamecontent.builtin.block.LongHangingPlantBlock;
 import spout.gamecontent.builtin.block.QuadBlock;
 import spout.gamecontent.builtin.block.SandSlabBlock;
 import spout.gamecontent.builtin.block.SandStairBlock;
@@ -770,12 +771,12 @@ public final class SpoutBlockTypes {
     public static final SpoutBlockType BROAD_FLOWER = registerSpout("broad_flower", BlockCodecs.flowerCodec(BroadFlowerBlock::new), BroadFlowerBlock.class);
     public static final SpoutBlockType BREATHING_AMPHIBIOUS_STALKED_PLANT_STALK = registerSpout("breathing_amphibious_stalked_plant_stalk", BlockCodecs.simpleCodec(
         BlockCodecs.breathingAmphibiousStalkedPlantStalkTopApp(),
-        BlockCodecs.breathingAmphibiousStalkedPlantShapeBoxApp(),
+        BlockCodecs.dataDrivenShapeApp(),
         BreathingAmphibiousStalkedPlantStalkBlock::new
     ), BreathingAmphibiousStalkedPlantStalkBlock.class);
     public static final SpoutBlockType BREATHING_AMPHIBIOUS_STALKED_PLANT_TOP = registerSpout("breathing_amphibious_stalked_plant_top", BlockCodecs.simpleCodec(
         BlockCodecs.breathingAmphibiousStalkedPlantTopStalkApp(),
-        BlockCodecs.breathingAmphibiousStalkedPlantShapeBoxApp(),
+        BlockCodecs.dataDrivenShapeApp(),
         BreathingAmphibiousStalkedPlantTopBlock::new
     ), BreathingAmphibiousStalkedPlantTopBlock.class);
     public static final SpoutBlockType CATTAIL_STALK = registerSpout("cattail_stalk", BlockCodecs.simpleCodec(
@@ -786,6 +787,11 @@ public final class SpoutBlockTypes {
         BlockCodecs.breathingAmphibiousStalkedPlantTopStalkApp(),
         CattailTopBlock::new
     ), CattailTopBlock.class);
+    public static final SpoutBlockType LONG_HANGING_PLANT = registerSpout("long_hanging_plant", BlockCodecs.simpleCodec(
+        BlockCodecs.dataDrivenShapeApp(),
+        Codec.BOOL.fieldOf("requires_tint").forGetter(b -> b.requiresTint),
+        LongHangingPlantBlock::new
+    ), LongHangingPlantBlock.class);
 
     private static SpoutBlockType register(String id, MapCodec<? extends Block> codec, Class<? extends Block> baseClass) {
         return register(Identifier.parse(id), codec, baseClass);

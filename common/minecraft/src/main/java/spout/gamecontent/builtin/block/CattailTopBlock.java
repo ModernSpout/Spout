@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.Nullable;
+import spout.gamecontent.datadriven.block.subtypes.BlockStateFunction;
 
 public class CattailTopBlock extends BreathingAmphibiousStalkedPlantTopBlock {
 
@@ -21,7 +22,7 @@ public class CattailTopBlock extends BreathingAmphibiousStalkedPlantTopBlock {
     public static final BooleanProperty FLUFFY = SpoutBlockStateProperties.CATTAIL_FLUFFY;
 
     public CattailTopBlock(final ResourceKey<Block> stalk, final Properties properties) {
-        super(stalk, new AABB(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D), properties);
+        super(stalk, new BlockStateFunction.Single<>(new AABB(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D)), properties);
         this.registerDefaultState(this.defaultBlockState().setValue(COUNT, 1).setValue(FLUFFY, false));
     }
 

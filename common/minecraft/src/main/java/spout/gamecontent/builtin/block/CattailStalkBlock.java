@@ -13,13 +13,14 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.Nullable;
+import spout.gamecontent.datadriven.block.subtypes.BlockStateFunction;
 
 public class CattailStalkBlock extends BreathingAmphibiousStalkedPlantStalkBlock {
 
     public static final IntegerProperty COUNT = SpoutBlockStateProperties.CATTAIL_COUNT;
 
     public CattailStalkBlock(final ResourceKey<Block> top, final Properties properties) {
-        super(top, new AABB(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D), properties);
+        super(top, new BlockStateFunction.Single<>(new AABB(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D)), properties);
         this.registerDefaultState(this.defaultBlockState().setValue(BOTTOM, true).setValue(WATERLOGGED, false).setValue(COUNT, 1));
     }
 

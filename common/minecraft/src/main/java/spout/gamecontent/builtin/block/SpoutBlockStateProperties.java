@@ -26,5 +26,6 @@ public final class SpoutBlockStateProperties {
     public static final BooleanProperty PLANT_BOTTOM = BooleanProperty.create("bottom");
     public static final IntegerProperty CATTAIL_COUNT = IntegerProperty.create("count", 1, 3);
     public static final BooleanProperty CATTAIL_FLUFFY = BooleanProperty.create("fluffy");
+    public static final EnumProperty<LongPlantPart> LONG_PLANT_PART = EnumProperty.create("part", LongPlantPart.class);
 
 }
