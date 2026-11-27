@@ -143,15 +143,15 @@ public final class Blockstates {
         return variants != null && !variants.isEmpty();
     }
 
-    private @Nullable JsonObject getVariantJsonOrNull(String variantKey) {
+    private @Nullable JsonElement getVariantJsonOrNull(String variantKey) {
         @Nullable JsonObject variants = this.getVariantsJsonOrNull();
         if (variants == null) return null;
-        return variants.getAsJsonObject(variantKey);
+        return variants.get(variantKey);
     }
 
-    private JsonObject getOrCreateVariantJson(String variantKey) {
+    private JsonElement getOrCreateVariantJson(String variantKey) {
         JsonObject variants = this.getOrCreateVariantsJson();
-        @Nullable JsonObject variantJson = variants.getAsJsonObject(variantKey);
+        @Nullable JsonElement variantJson = variants.get(variantKey);
         if (variantJson == null) {
             variantJson = new JsonObject();
             variants.add(variantKey, variantJson);
@@ -159,26 +159,22 @@ public final class Blockstates {
         return variantJson;
     }
 
-    public Map<String, JsonObject> getVariants() {
+    public Map<String, JsonElement> getVariants() {
         @Nullable JsonObject variants = this.getVariantsJsonOrNull();
         if (variants == null) {
             return Collections.emptyMap();
         }
         Map<String, JsonElement> variantsMap = variants.asMap();
-        Map<String, JsonObject> resultMap = new HashMap<>(variantsMap.size());
-        for (Map.Entry<String, JsonElement> entry : variantsMap.entrySet()) {
-            resultMap.put(entry.getKey(), entry.getValue().getAsJsonObject());
-        }
-        return resultMap;
+        return new HashMap<>(variantsMap);
     }
 
-    public @Nullable JsonObject getVariant(String variantKey) {
+    public @Nullable JsonElement getVariant(String variantKey) {
         return this.getVariantJsonOrNull(variantKey);
     }
 
-    public @Nullable JsonObject getVariant(BlockData state) {
+    public @Nullable JsonElement getVariant(BlockData state) {
         String variantKey = getVariantKey(state);
-        @Nullable JsonObject direct = this.getVariant(variantKey);
+        @Nullable JsonElement direct = this.getVariant(variantKey);
         if (direct != null) return direct;
         // Try less-complete variant keys
         @Nullable JsonObject variants = this.getVariantsJsonOrNull();
@@ -186,7 +182,7 @@ public final class Blockstates {
         Set<String> variantKeyElements = Set.of(variantKey.split(","));
         for (Map.Entry<String, JsonElement> entry : variants.asMap().entrySet()) {
             if (entry.getKey().isBlank()) {
-                return entry.getValue().getAsJsonObject();
+                return entry.getValue();
             }
             String[] elements = entry.getKey().split(",");
             boolean containsAllElements = true;
@@ -197,18 +193,18 @@ public final class Blockstates {
                 }
             }
             if (containsAllElements) {
-                return entry.getValue().getAsJsonObject();
+                return entry.getValue();
             }
         }
         return null;
     }
 
-    public void setVariant(String variantKey, JsonObject variantJson) {
+    public void setVariant(String variantKey, JsonElement variantJson) {
         JsonObject variants = this.getOrCreateVariantsJson();
         variants.add(variantKey, variantJson);
     }
 
-    public void setVariant(BlockData state, JsonObject variantJson) {
+    public void setVariant(BlockData state, JsonElement variantJson) {
         this.setVariant(getVariantKey(state), variantJson);
     }
 
