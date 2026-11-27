@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -174,17 +175,17 @@ public sealed interface BlockStateFunction<T> extends Function<BlockState, T>, P
 
     final class Wrapped<T> implements BlockStateFunction<T> {
 
-        private @Nullable Block block;
+        private @Nullable Supplier<Block> block;
         private @Nullable Function<BlockState, T> function;
         private @Nullable BlockStateFunction<T> delegate;
 
-        Wrapped(Block block, Function<BlockState, T> function) {
+        Wrapped(Supplier<Block> block, Function<BlockState, T> function) {
             this.block = block;
             this.function = function;
         }
 
         private void createDelegate() {
-            Block block = this.block;
+            Block block = this.block.get();
             this.block = null;
             Function<BlockState, T> function = this.function;
             this.function = null;
@@ -296,7 +297,7 @@ public sealed interface BlockStateFunction<T> extends Function<BlockState, T>, P
         return function::apply;
     }
 
-    static <T> BlockStateFunction<T> wrap(Block block, Function<BlockState, T> function) {
+    static <T> BlockStateFunction<T> wrap(Supplier<Block> block, Function<BlockState, T> function) {
         // Return the function itself if it is already a BlockStateFunction
         if (function instanceof BlockStateFunction<T> blockStateFunction) {
             return blockStateFunction;
@@ -310,12 +311,24 @@ public sealed interface BlockStateFunction<T> extends Function<BlockState, T>, P
         return new Wrapped<>(block, function);
     }
 
-    static BlockStateFunction<Integer> wrap(Block block, ToIntFunction<BlockState> function) {
+    static BlockStateFunction<Integer> wrap(Supplier<Block> block, ToIntFunction<BlockState> function) {
         return wrap(block, (Function<BlockState, Integer>) function::applyAsInt);
     }
 
-    static BlockStateFunction<Boolean> wrap(Block block, Predicate<BlockState> function) {
+    static BlockStateFunction<Boolean> wrap(Supplier<Block> block, Predicate<BlockState> function) {
         return wrap(block, (Function<BlockState, Boolean>) function::test);
+    }
+
+    static <T> BlockStateFunction<T> wrap(Block block, Function<BlockState, T> function) {
+        return wrap(() -> block, function);
+    }
+
+    static BlockStateFunction<Integer> wrap(Block block, ToIntFunction<BlockState> function) {
+        return wrap(() -> block, function);
+    }
+
+    static BlockStateFunction<Boolean> wrap(Block block, Predicate<BlockState> function) {
+        return wrap(() -> block, function);
     }
 
 }
